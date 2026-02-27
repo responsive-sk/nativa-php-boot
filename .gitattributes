@@ -1,0 +1,35 @@
+# Text files
+*.php text
+*.md text
+*.txt text
+*.json text
+*.yml text
+*.yaml text
+*.xml text
+*.sql text
+*.sh text
+*.html text
+*.css text
+*.js text
+*.twig text
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+
+# Database
+*.db binary
+*.sqlite binary
+
+# Lock files
+composer.lock text
+skills-lock.json text
