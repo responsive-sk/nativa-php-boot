@@ -9,12 +9,20 @@ namespace Domain\ValueObjects;
  */
 class Email
 {
-    public function __construct(
+    private function __construct(
         private readonly string $value
     ) {
+    }
+
+    /**
+     * Create from string with validation
+     */
+    public static function fromString(string $value): self
+    {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('Invalid email address');
+            throw new \InvalidArgumentException('Invalid email address: ' . $value);
         }
+        return new self($value);
     }
 
     public function value(): string

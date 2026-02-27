@@ -7,20 +7,10 @@ namespace Domain\Repository;
 use Domain\Model\User;
 
 /**
- * User Repository Interface
+ * UserRepository Interface
  */
 interface UserRepositoryInterface
 {
-    /**
-     * Save user
-     */
-    public function save(User $user): void;
-
-    /**
-     * Delete user by ID
-     */
-    public function delete(string $id): void;
-
     /**
      * Find user by ID
      */
@@ -34,19 +24,36 @@ interface UserRepositoryInterface
     /**
      * Find all users
      *
-     * @return array<User>
+     * @return User[]
      */
     public function findAll(): array;
 
     /**
      * Find users by role
      *
-     * @return array<User>
+     * @return User[]
      */
     public function findByRole(string $role): array;
 
     /**
-     * Count all users
+     * Find active users
+     *
+     * @return User[]
      */
-    public function count(): int;
+    public function findActive(): array;
+
+    /**
+     * Save user
+     */
+    public function save(User $user): void;
+
+    /**
+     * Delete user
+     */
+    public function delete(User $user): void;
+
+    /**
+     * Check if email exists
+     */
+    public function emailExists(string $email, ?string $excludeId = null): bool;
 }

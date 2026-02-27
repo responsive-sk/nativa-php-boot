@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Infrastructure\Container;
 
 use Infrastructure\Container\Providers\ArticleServiceProvider;
+use Infrastructure\Container\Providers\AuthServiceProvider;
 use Infrastructure\Container\Providers\ContactServiceProvider;
 use Infrastructure\Container\Providers\CQRSServiceProvider;
 use Infrastructure\Container\Providers\FormServiceProvider;
@@ -12,6 +13,8 @@ use Infrastructure\Container\Providers\MediaServiceProvider;
 use Infrastructure\Container\Providers\PageServiceProvider;
 use Infrastructure\Container\Providers\UserServiceProvider;
 use Infrastructure\Container\Providers\ViewServiceProvider;
+use Infrastructure\Events\EventDispatcher;
+use Domain\Events\EventDispatcherInterface;
 
 /**
  * Container Factory - Bootstrap the DI Container
@@ -25,9 +28,15 @@ class ContainerFactory
     {
         $container = new Container();
 
+        // Register Event Dispatcher first (needed by other services)
+        $container->singleton(EventDispatcherInterface::class, function () {
+            return new EventDispatcher();
+        });
+
         // Register service providers
         $providers = [
             new ArticleServiceProvider(),
+            new AuthServiceProvider(),
             new UserServiceProvider(),
             new ViewServiceProvider(),
             new CQRSServiceProvider(),

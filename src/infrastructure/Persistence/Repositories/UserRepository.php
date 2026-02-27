@@ -91,6 +91,39 @@ class UserRepository implements UserRepositoryInterface
         }, $stmt->fetchAll());
     }
 
+    public function findActive(): array
+    {
+        $stmt = $this->uow->getConnection()->query(
+            'SELECT * FROM users WHERE is_active = 1 ORDER BY created_at DESC'
+        );
+
+        return array_map(function ($row) {
+            return User::fromArray($row);
+        }, $stmt->fetchAll());
+    }
+
+    public function emailExists(string $email, ?string $excludeId = null): bool
+    {
+        $sql = 'SELECT COUNT(*) FROM users WHERE email = ?';
+        $params = [$email];
+
+        if ($excludeId !== null) {
+            $sql .= ' AND id != ?';
+            $params[] = $excludeId;
+        }
+
+        $stmt = $this->uow->getConnection()->prepare($sql);
+        $stmt->execute($params);
+
+        return (int) $stmt->fetchColumn() > 0;
+    }
+
+    public function delete(User $user): void
+    {
+        $stmt = $this->uow->getConnection()->prepare('DELETE FROM users WHERE id = ?');
+        $stmt->execute([$user->id()]);
+    }
+
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM users');

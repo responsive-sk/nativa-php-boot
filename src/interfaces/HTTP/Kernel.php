@@ -23,6 +23,8 @@ use Interfaces\HTTP\Actions\Admin\PagesAction;
 use Interfaces\HTTP\Actions\Admin\CreatePageAction;
 use Interfaces\HTTP\Actions\Admin\EditPageAction;
 use Interfaces\HTTP\Actions\Admin\DeletePageAction;
+use Interfaces\HTTP\Actions\Auth\LoginAction;
+use Interfaces\HTTP\Actions\Auth\LogoutAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -150,6 +152,11 @@ class Kernel
         // Form Builder - Frontend
         $this->router->get('/form/{slug}', DisplayFormAction::class);
         $this->router->post('/form/{slug}', DisplayFormAction::class);
+
+        // Auth Routes
+        $this->router->get('/login', [LoginAction::class, 'show']);
+        $this->router->post('/login', [LoginAction::class, 'post']);
+        $this->router->get('/logout', [LogoutAction::class, 'handle']);
 
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
         $this->router->get('/admin', DashboardAction::class);
