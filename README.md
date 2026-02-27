@@ -1,154 +1,164 @@
-# PHP CMS / Blog Platform
+# Nativa PHP Boot
 
-Moderný PHP 8.4+ CMS a blog systém s admin panelom.
+Moderný PHP CMS a blog platform s **DDD architektúrou**.
 
-## Rýchly štart
+## 🚀 Rýchly Štart
 
 ```bash
-# Inštalácia dependencies
+# Klonovanie
+git clone https://github.com/responsive-sk/nativa-php-boot.git
+cd nativa-php-boot
+
+# Inštalácia
 composer install
 
-# Vytvorenie .env súboru
+# Vytvorenie .env
 cp .env.example .env
 
-# Vytvorenie databázy
-php bin/cms migrate
+# Databáza
+php src/bin/cms migrate
+php src/bin/cms seed
 
-# Vytvorenie testovacích dát
-php bin/cms seed
-
-# Spustenie development servera
-php bin/cms serve
-# Alebo priamo:
+# Dev server
 php -S localhost:8000 -t public
 ```
 
 Otvoriť: http://localhost:8000
-Admin: http://localhost:8000/admin
 
-## Features
+**Admin:**
+- URL: http://localhost:8000/admin
+- Email: admin@phpcms.local
+- Password: admin123
 
-### Frontend
-- ✅ Homepage s najnovšími článkami
-- ✅ Zoznam článkov (Articles)
-- ✅ Detail článku
-- ✅ Contact form
-- ✅ Statické stránky
-- 🔄 Kategórie a tagy
-- 🔄 Vyhľadávanie
-
-### Admin Panel
-- ✅ Dashboard s štatistikami
-- ✅ CRUD článkov
-- 🔄 CRUD stránok
-- 🔄 Form Builder
-- 🔄 Správa formulárov
-- 🔄 Media library
-- 🔄 Settings
-
-## Štruktúra projektu
+## 🏗 Architektúra
 
 ```
-php-cms/
-├── domain/                 # Domain Layer (biznis logika)
-│   ├── Model/             # Entities (Article, Page, Form)
-│   ├── ValueObjects/      # Value Objects (Slug, Email, Status)
-│   └── Repository/        # Repository interfaces
-│
-├── application/           # Application Layer
-│   ├── Services/         # Application Services
-│   └── DTOs/            # Data Transfer Objects
-│
-├── infrastructure/       # Infrastructure Layer
-│   ├── Persistence/     # Database, UnitOfWork, Repositories
-│   └── Storage/         # File storage
-│
-├── interfaces/          # Interfaces Layer
-│   ├── HTTP/
-│   │   ├── Frontend/   # Public controllers
-│   │   └── Admin/      # Admin controllers
-│   └── Templates/      # View templates
-│
-├── public/             # Web root
-│   └── index.php       # Entry point
-│
-├── bin/                # CLI scripts
-│   └── cms             # Console entry point
-│
-└── data/               # SQLite database
+src/
+├── domain/                 # Domain Layer (entities, value objects, events)
+├── application/           # Application Layer (services, DTOs, CQRS, Sagas)
+├── infrastructure/        # Infrastructure Layer (DB, Queue, Paths, Container)
+└── interfaces/           # Interfaces Layer (HTTP Actions, Templates)
 ```
 
-## Architecture
+### Implementované Patterny
 
-DDD (Domain-Driven Design) architektúra inšpirovaná Python task-managerom:
+- ✅ **Domain-Driven Design** (DDD)
+- ✅ **Domain Events**
+- ✅ **Repository Pattern**
+- ✅ **CQRS** (Command/Query Bus)
+- ✅ **Outbox Pattern**
+- ✅ **Saga Pattern** (s rollbackom)
+- ✅ **Actions Pattern** (nie Controllers)
+- ✅ **Dependency Injection** (auto-wiring)
+- ✅ **Input Validation** (DTOs + Validator)
 
-1. **Domain Layer** - Čistá biznis logika bez závislostí
-2. **Application Layer** - Use case-y a aplikačná logika
-3. **Infrastructure Layer** - DB, external services
-4. **Interfaces Layer** - HTTP, CLI
+## 📚 Dokumentácia
 
-## Príkazy
+- [Architecture Journey](docs/ARCHITECTURE_JOURNEY.md) - Kompletý príbeh refactorovania
+- [Quick Reference](docs/QUICK_REFERENCE.md) - Rýchla referenčná príručka
 
-```bash
-php bin/cms migrate     # Vytvoriť databázové tabuľky
-php bin/cms seed        # Vytvoriť testovacie dáta
-php bin/cms serve       # Spustiť dev server (port 8000)
-```
-
-## Defaultné prihlasovacie údaje
-
-- **Email:** admin@phpcms.local
-- **Password:** admin123
-
-## Tech Stack
+## 🛠 Tech Stack
 
 - **PHP:** 8.4+
 - **Database:** SQLite (PDO)
-- **Template Engine:** Twig
-- **HTTP Foundation:** Symfony
+- **Templates:** Native PHP (TemplateRenderer)
+- **HTTP:** Symfony HttpFoundation
 - **Console:** Symfony Console
-- **Router:** Yiisoft Router + FastRoute
-- **Frontend:** TailwindCSS + Alpine.js
+- **Router:** Custom (Yiisoft Router available)
+- **Queue:** SQLite-based
+- **Testing:** PHPUnit + Codeception
 
-## Development
+## 📦 Príkazy
 
 ```bash
-# Run tests
-composer test
+# Databáza
+php src/bin/cms migrate     # Vytvoriť tabuľky
+php src/bin/cms seed        # Seed testovacích dát
 
-# Run tests with coverage (requires Xdebug)
+# Queue Worker
+php src/bin/queue-worker.php default --tries=5
+
+# Testing
+composer test
 composer test-coverage
 
-# Run C3 server coverage
-composer test-c3
-
-# Static analysis
+# Code Quality
 composer phpstan
-
-# Code style fix
 composer cs-fix
-
-# Rector (PHP upgrade)
 composer rector
 ```
 
-## Testing & Coverage
+## 🔧 Konfigurácia
 
-See [docs/COVERAGE.md](docs/COVERAGE.md) for detailed coverage setup.
+### Environment Variables
 
-```bash
-# Run all tests
-composer test
+```env
+APP_ENV=development
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-# Run with coverage report
-composer test-coverage
-open tests/_output/coverage/index.html
+DB_CMS=data/cms.db
+DB_JOBS=data/jobs.db
 
-# C3 server-side coverage
-composer serve  # Start server in one terminal
-composer test-c3  # Run tests in another
+ADMIN_EMAIL=admin@phpcms.local
+ADMIN_PASSWORD=admin123
 ```
 
-## License
+## 📁 Štruktúra
+
+```
+nativa-php-boot/
+├── src/                   # Všetok kód
+│   ├── domain/           # Domain layer
+│   ├── application/      # Application layer
+│   ├── infrastructure/   # Infrastructure layer
+│   ├── interfaces/       # Interfaces layer
+│   └── bin/             # CLI scripts
+├── public/               # Web root
+├── data/                 # SQLite databases
+├── storage/             # Logs, cache, uploads
+├── docs/                # Documentation
+└── tests/               # Tests
+```
+
+## 🎯 Features
+
+### Frontend
+- ✅ Homepage s najnovšími článkami
+- ✅ Article listing
+- ✅ Article detail
+- ✅ Tag filtering
+- ✅ Search
+- 🔄 Contact form
+- 🔄 Custom forms
+
+### Admin Panel
+- ✅ Dashboard
+- ✅ Articles CRUD
+- 🔄 Pages CRUD
+- 🔄 Form Builder
+- 🔄 Media Library
+- 🔄 Settings
+
+## 🧪 Testing
+
+```bash
+# Unit tests
+vendor/bin/phpunit tests/Domain
+
+# Integration tests
+vendor/bin/phpunit tests/Integration
+
+# Coverage
+composer test-coverage
+```
+
+## 📄 License
 
 MIT
+
+---
+
+**Pozri aj:**
+- [Architecture Journey](docs/ARCHITECTURE_JOURNEY.md) - Ako sme refactorovali appku
+- [Quick Reference](docs/QUICK_REFERENCE.md) - Rýchla referenčná príručka
