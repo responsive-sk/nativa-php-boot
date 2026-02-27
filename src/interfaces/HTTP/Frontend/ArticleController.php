@@ -8,6 +8,7 @@ use Application\Services\ArticleManager;
 use Infrastructure\Persistence\DatabaseConnection;
 use Infrastructure\Persistence\UnitOfWork;
 use Infrastructure\Persistence\Repositories\ArticleRepository;
+use Infrastructure\Paths\AppPaths;
 use Interfaces\HTTP\View\TemplateRenderer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,8 @@ class ArticleController
 
     public function __construct()
     {
-        $basePath = dirname(__DIR__, 3);
-
+        $paths = AppPaths::instance();
+        
         $db = new DatabaseConnection();
         $uow = new UnitOfWork($db);
         $articleRepo = new ArticleRepository($uow);
@@ -31,8 +32,8 @@ class ArticleController
         $this->articleManager = new ArticleManager($articleRepo, $eventDispatcher);
 
         $this->renderer = new TemplateRenderer(
-            $basePath . '/interfaces/Templates/frontend',
-            $basePath . '/storage/cache/templates',
+            $paths->templates('frontend'),
+            $paths->cache('templates'),
             ($_ENV['APP_DEBUG'] ?? 'false') === 'true'
         );
     }

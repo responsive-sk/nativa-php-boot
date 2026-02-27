@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Infrastructure\Container;
 
 use Infrastructure\Container\Providers\ArticleServiceProvider;
+use Infrastructure\Container\Providers\ContactServiceProvider;
 use Infrastructure\Container\Providers\CQRSServiceProvider;
+use Infrastructure\Container\Providers\FormServiceProvider;
+use Infrastructure\Container\Providers\MediaServiceProvider;
+use Infrastructure\Container\Providers\PageServiceProvider;
 use Infrastructure\Container\Providers\UserServiceProvider;
 use Infrastructure\Container\Providers\ViewServiceProvider;
 
@@ -27,6 +31,10 @@ class ContainerFactory
             new UserServiceProvider(),
             new ViewServiceProvider(),
             new CQRSServiceProvider(),
+            new ContactServiceProvider(),
+            new FormServiceProvider(),
+            new MediaServiceProvider(),
+            new PageServiceProvider(),
         ];
 
         // Register all providers

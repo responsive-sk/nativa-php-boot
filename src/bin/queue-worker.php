@@ -56,6 +56,18 @@ $registry = new JobHandlerRegistry();
 $outboxProcessor = new OutboxProcessor($dbManager);
 $registry->register('process-outbox', fn($job) => $outboxProcessor->process());
 
+// Register Contact Form handler
+$registry->register('send-contact-notification', function($job) {
+    $handler = new \Infrastructure\Queue\Handlers\SendContactNotificationHandler();
+    $handler($job);
+});
+
+// Register Form Submission handler
+$registry->register('send-form-submission-notification', function($job) {
+    $handler = new \Infrastructure\Queue\Handlers\SendFormSubmissionNotificationHandler();
+    $handler($job);
+});
+
 // Register custom handlers here
 // $registry->register('send-email', fn($job) => ...);
 // $registry->register('reindex-article', fn($job) => ...);

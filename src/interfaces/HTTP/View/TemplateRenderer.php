@@ -25,6 +25,7 @@ class TemplateRenderer
 
     private ?string $currentLayout = null;
     private string $currentContent = '';
+    private bool $isAdminTemplate = false;
 
     public function __construct(
         string $templatesPath,
@@ -53,6 +54,7 @@ class TemplateRenderer
     {
         $this->currentData = array_merge($this->sharedData, $data);
         $this->currentLayout = $layout;
+        $this->isAdminTemplate = str_starts_with($template, 'admin/');
 
         if ($this->currentLayout) {
             // Render content first, then layout
@@ -139,7 +141,17 @@ class TemplateRenderer
      */
     private function renderTemplate(string $template, array $data = []): string
     {
-        $templatePath = $this->templatesPath . '/' . $template . '.php';
+        // Determine template type (admin or frontend)
+        $templatePath = $this->templatesPath;
+        
+        if (str_starts_with($template, 'admin/')) {
+            $templatePath .= '/admin';
+            $template = substr($template, 6); // Remove 'admin/' prefix
+        } else {
+            $templatePath .= '/frontend';
+        }
+        
+        $templatePath .= '/' . $template . '.php';
 
         if (!file_exists($templatePath)) {
             throw new \RuntimeException("Template not found: {$templatePath}");
@@ -175,7 +187,15 @@ class TemplateRenderer
      */
     private function renderLayout(string $layout): string
     {
-        $layoutPath = $this->templatesPath . '/' . $layout . '.php';
+        // Determine layout path based on template type
+        $layoutPath = $this->templatesPath;
+        
+        // Layout already includes path (e.g., 'admin/layouts/base' or 'layouts/base')
+        if (str_starts_with($layout, 'admin/')) {
+            $layoutPath .= '/' . $layout . '.php';
+        } else {
+            $layoutPath .= '/frontend/' . $layout . '.php';
+        }
 
         if (!file_exists($layoutPath)) {
             throw new \RuntimeException("Layout not found: {$layoutPath}");

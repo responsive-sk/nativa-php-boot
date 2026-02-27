@@ -75,7 +75,15 @@ class AppPaths extends Paths
 
     public function templates(string $path = ''): string
     {
-        $base = $this->basePath . '/src/interfaces/Templates';
+        // Check if it's an admin template (with or without 'admin/' prefix)
+        if (str_starts_with($path, 'admin/') || str_starts_with($path, 'admin\\')) {
+            $base = $this->basePath . '/src/interfaces/Templates/admin';
+            $subPath = substr($path, 6); // Remove 'admin/' prefix
+            return $subPath ? $base . '/' . ltrim($subPath, '/') : $base;
+        }
+        
+        // Frontend templates (default)
+        $base = $this->basePath . '/src/interfaces/Templates/frontend';
         return $path ? $base . '/' . ltrim($path, '/') : $base;
     }
 

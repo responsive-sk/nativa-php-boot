@@ -12,8 +12,7 @@
         "symfony/console": "^8.0",
         "symfony/http-foundation": "^8.0",
         "vlucas/phpdotenv": "^5.6",
-        "yiisoft/router": "^4.0.2",
-        "yiisoft/router-fastroute": "^4.0.3"
+      "ext-fileinfo": "*"
     },
     "require-dev": {
         "codeception/c3": "^2.9",

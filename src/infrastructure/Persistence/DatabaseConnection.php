@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Persistence;
 
+use Infrastructure\Paths\AppPaths;
 use PDO;
 use PDOException;
 
@@ -21,18 +22,20 @@ class DatabaseConnection
     {
         $this->dbPath = $dbPath;
         $this->manager = new DatabaseConnectionManager();
-        
+
         if ($dbPath !== null) {
             $this->connectionName = 'custom';
-            $basePath = dirname(__DIR__, 3);
-            $fullPath = str_starts_with($dbPath, '/') ? $dbPath : $basePath . '/' . $dbPath;
             
+            // Use AppPaths for consistent path resolution
+            $paths = AppPaths::instance();
+            $fullPath = str_starts_with($dbPath, '/') ? $dbPath : $paths->getBasePath() . '/' . $dbPath;
+
             // Ensure directory exists
             $dir = dirname($fullPath);
             if (!is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
-            
+
             // Create custom connection
             $dsn = 'sqlite:' . $fullPath;
             $pdo = new PDO($dsn);
@@ -40,7 +43,7 @@ class DatabaseConnection
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->exec('PRAGMA foreign_keys = ON');
             $pdo->exec('PRAGMA journal_mode = WAL');
-            
+
             // Register via reflection
             $reflection = new \ReflectionClass($this->manager);
             $property = $reflection->getProperty('connections');

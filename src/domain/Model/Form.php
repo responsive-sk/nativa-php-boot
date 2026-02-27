@@ -24,6 +24,7 @@ class Form
 
     public static function create(
         string $name,
+        string $slug,
         array $schema,
         ?string $emailNotification = null,
         string $successMessage = 'Thank you for your submission!',
@@ -31,7 +32,7 @@ class Form
         $form = new self();
         $form->id = self::generateId();
         $form->name = $name;
-        $form->slug = self::generateSlug($name);
+        $form->slug = $slug;
         $form->schema = $schema;
         $form->emailNotification = $emailNotification;
         $form->successMessage = $successMessage;

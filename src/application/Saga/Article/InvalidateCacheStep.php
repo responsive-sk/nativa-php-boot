@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Saga\Article;
 
 use Application\Saga\SagaStep;
+use Infrastructure\Paths\AppPaths;
 
 /**
  * Invalidate Cache Step
@@ -14,11 +15,12 @@ use Application\Saga\SagaStep;
  */
 class InvalidateCacheStep extends SagaStep
 {
-    private bool $cacheCleared = false;
-
+    private AppPaths $paths;
+    
     public function __construct(
         private readonly string $articleId,
     ) {
+        $this->paths = AppPaths::instance();
     }
 
     public function execute(): bool
@@ -31,15 +33,15 @@ class InvalidateCacheStep extends SagaStep
             'article_list_latest',
         ];
 
+        $cacheDir = $this->paths->cache('templates');
+        
         foreach ($keys as $key) {
-            // Simple file-based cache deletion
-            $cacheFile = __DIR__ . '/../../../../storage/cache/templates/' . md5($key) . '.php';
+            $cacheFile = $cacheDir . '/' . md5($key) . '.php';
             if (file_exists($cacheFile)) {
                 unlink($cacheFile);
             }
         }
 
-        $this->cacheCleared = true;
         return true;
     }
 

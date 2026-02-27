@@ -1,157 +1,188 @@
-# Nativa PHP Boot
+# PHP CMS - Nativa PHP Boot
 
-Moderný PHP CMS a blog platform s **DDD architektúrou**.
+Moderný PHP 8.4+ CMS a blog systém s **DDD architektúrou** a **Actions pattern**.
 
 ## 🚀 Rýchly Štart
 
 ```bash
-# Klonovanie
-git clone https://github.com/responsive-sk/nativa-php-boot.git
-cd nativa-php-boot
-
 # Inštalácia
 composer install
-
-# Vytvorenie .env
 cp .env.example .env
 
 # Databáza
 php src/bin/cms migrate
 php src/bin/cms seed
 
-# Dev server
-php -S localhost:8000 -t public
+# Server
+php -S localhost:8000 router.php
 ```
 
-Otvoriť: http://localhost:8000
+**Admin:** http://localhost:8000/admin  
+**Login:** admin@phpcms.local / admin123
 
-**Admin:**
-- URL: http://localhost:8000/admin
-- Email: admin@phpcms.local
-- Password: admin123
+---
+
+## ✨ Features
+
+### Frontend
+- ✅ Homepage s najnovšími článkami
+- ✅ Articles/Blog s kategóriami a tagmi
+- ✅ **Static Pages** s content blocks
+- ✅ Contact form
+- ✅ Custom Form Builder
+- ✅ **Direct URLs** (`/about-us` nie `/page/about-us`)
+
+### Admin Panel
+- ✅ Dashboard s štatistikami
+- ✅ Articles CRUD
+- ✅ **Pages CRUD** s blocks/media/forms
+- ✅ Form Builder
+- ✅ Media Library
+- ✅ Settings
+
+### Architecture
+- ✅ **Domain-Driven Design**
+- ✅ **Actions Pattern** (nie Controllers)
+- ✅ **CQRS** (Command/Query Bus)
+- ✅ **Domain Events**
+- ✅ **Outbox Pattern**
+- ✅ **Saga Pattern**
+- ✅ **Native PHP Templates**
+
+---
+
+## 📚 Dokumentácia
+
+- **[Full Documentation](docs/README.md)** - Kompletaná dokumentácia
+- **[Quick Start](docs/QUICK_START.md)** - Rýchly sprievodca
+- **[AppPaths Usage](docs/APPPATHS_USAGE.md)** - Path management
+- **[Actions Pattern](docs/ACTIONS_PATTERN.md)** - Actions vs Controllers
+- **[Pages CRUD](docs/PAGES_CRUD_COMPLETE.md)** - Pages návod
+
+---
 
 ## 🏗 Architektúra
 
 ```
 src/
-├── domain/                 # Domain Layer (entities, value objects, events)
-├── application/           # Application Layer (services, DTOs, CQRS, Sagas)
-├── infrastructure/        # Infrastructure Layer (DB, Queue, Paths, Container)
-└── interfaces/           # Interfaces Layer (HTTP Actions, Templates)
+├── domain/                 # Domain Layer (biznis logika)
+│   ├── Model/             # Entities (Article, Page, Form)
+│   ├── ValueObjects/      # Value Objects (Slug, Email)
+│   ├── Repository/        # Repository interfaces
+│   └── Events/            # Domain Events
+│
+├── application/           # Application Layer
+│   ├── Services/         # Application Services
+│   ├── DTOs/            # Data Transfer Objects
+│   ├── CQRS/            # Commands & Queries
+│   └── Saga/            # Saga orchestrators
+│
+├── infrastructure/       # Infrastructure Layer
+│   ├── Persistence/     # Database, Repositories
+│   ├── Paths/          # AppPaths (path management)
+│   ├── Queue/          # Job queue (SQLite)
+│   └── Storage/        # File storage (local/cloudinary)
+│
+└── interfaces/          # Interfaces Layer
+    ├── HTTP/
+    │   └── Actions/    # Request handlers
+    └── Templates/      # Native PHP templates
 ```
 
-### Implementované Patterny
-
-- ✅ **Domain-Driven Design** (DDD)
-- ✅ **Domain Events**
-- ✅ **Repository Pattern**
-- ✅ **CQRS** (Command/Query Bus)
-- ✅ **Outbox Pattern**
-- ✅ **Saga Pattern** (s rollbackom)
-- ✅ **Actions Pattern** (nie Controllers)
-- ✅ **Dependency Injection** (auto-wiring)
-- ✅ **Input Validation** (DTOs + Validator)
-
-## 📚 Dokumentácia
-
-- [Architecture Journey](docs/ARCHITECTURE_JOURNEY.md) - Kompletý príbeh refactorovania
-- [Quick Reference](docs/QUICK_REFERENCE.md) - Rýchla referenčná príručka
+---
 
 ## 🛠 Tech Stack
 
 - **PHP:** 8.4+
 - **Database:** SQLite (PDO)
-- **Templates:** Native PHP (TemplateRenderer)
+- **Templates:** Native PHP (nie Twig)
+- **CSS:** TailwindCSS
+- **JS:** Alpine.js
 - **HTTP:** Symfony HttpFoundation
 - **Console:** Symfony Console
-- **Router:** Custom (Yiisoft Router available)
-- **Queue:** SQLite-based
 - **Testing:** PHPUnit + Codeception
 
-## 📦 Príkazy
+---
+
+## 📋 Príkazy
 
 ```bash
 # Databáza
 php src/bin/cms migrate     # Vytvoriť tabuľky
 php src/bin/cms seed        # Seed testovacích dát
 
-# Queue Worker
-php src/bin/queue-worker.php default --tries=5
+# Server
+php -S localhost:8000 router.php
 
 # Testing
-composer test
-composer test-coverage
+composer test              # Spustiť testy
+composer test-coverage     # Coverage report
 
 # Code Quality
-composer phpstan
-composer cs-fix
-composer rector
+composer phpstan           # Static analysis
+composer cs-fix            # Code style
 ```
 
-## 🔧 Konfigurácia
+---
 
-### Environment Variables
-
-```env
-APP_ENV=development
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-
-DB_CMS=data/cms.db
-DB_JOBS=data/jobs.db
-
-ADMIN_EMAIL=admin@phpcms.local
-ADMIN_PASSWORD=admin123
-```
-
-## 📁 Štruktúra
+## 🎯 URL Štruktúra
 
 ```
-nativa-php-boot/
-├── src/                   # Všetok kód
-│   ├── domain/           # Domain layer
-│   ├── application/      # Application layer
-│   ├── infrastructure/   # Infrastructure layer
-│   ├── interfaces/       # Interfaces layer
-│   └── bin/             # CLI scripts
-├── public/               # Web root
-├── data/                 # SQLite databases
-├── storage/             # Logs, cache, uploads
-├── docs/                # Documentation
-└── tests/               # Tests
+/                           → Homepage
+/articles                   → Article list
+/articles/{slug}           → Article detail
+/contact                   → Contact form
+/form/{slug}              → Custom form
+/{slug}                   → Static page (NEW!)
+  ├── /about
+  ├── /services
+  └── /pricing
+
+/admin                      → Admin dashboard
+/admin/articles            → Articles management
+/admin/pages               → Pages management
+/admin/forms               → Form builder
+/admin/media               → Media library
 ```
 
-## 🎯 Features
+---
 
-### Frontend
-- ✅ Homepage s najnovšími článkami
-- ✅ Article listing
-- ✅ Article detail
-- ✅ Tag filtering
-- ✅ Search
-- 🔄 Contact form
-- 🔄 Custom forms
+## 📖 Príklady
 
-### Admin Panel
-- ✅ Dashboard
-- ✅ Articles CRUD
-- 🔄 Pages CRUD
-- 🔄 Form Builder
-- 🔄 Media Library
-- 🔄 Settings
+### Vytvoriť Landing Page
 
-## 🧪 Testing
+1. Otvoriť `/admin/pages/create`
+2. Vyplniť title, content
+3. Pridať SEO settings
+4. Publikovať
+5. View na `/{slug}`
 
-```bash
-# Unit tests
-vendor/bin/phpunit tests/Domain
+### Pridať Content Block
 
-# Integration tests
-vendor/bin/phpunit tests/Integration
+1. Edit page `/admin/pages/{id}/edit`
+2. Kliknúť "+ Add Block"
+3. Vybrať typ (hero, features, cta)
+4. Vyplniť obsah
+5. Uložiť
 
-# Coverage
-composer test-coverage
-```
+### Embednúť Form
+
+1. Edit page
+2. Kliknúť "+ Embed Form"
+3. Vybrať form
+4. Nastaviť pozíciu (sidebar, content, bottom)
+5. Uložiť
+
+---
+
+## 🔐 Bezpečnosť
+
+- ✅ Prepared statements (SQL injection)
+- ✅ XSS prevention (auto-escaping)
+- ✅ File upload validation
+- ✅ Reserved slugs protection
+
+---
 
 ## 📄 License
 
@@ -159,6 +190,4 @@ MIT
 
 ---
 
-**Pozri aj:**
-- [Architecture Journey](docs/ARCHITECTURE_JOURNEY.md) - Ako sme refactorovali appku
-- [Quick Reference](docs/QUICK_REFERENCE.md) - Rýchla referenčná príručka
+**Vytvorené s ❤️ pre PHP komunitu**

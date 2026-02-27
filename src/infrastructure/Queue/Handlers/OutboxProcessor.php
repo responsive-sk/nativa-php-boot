@@ -128,7 +128,8 @@ class OutboxProcessor
             'ArticlePublished' => 'reindex-article',
             'ArticleUpdated' => 'reindex-article',
             'ArticleDeleted' => 'remove-article-index',
-            'FormSubmitted' => 'send-form-notification',
+            'FormSubmitted' => 'send-form-submission-notification',
+            'ContactSubmitted' => 'send-contact-notification',
         ];
 
         $jobName = $jobMap[$eventType] ?? null;

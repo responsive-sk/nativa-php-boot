@@ -7,7 +7,7 @@ declare(strict_types=1);
  * CMS CLI Entry Point
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -110,6 +110,52 @@ class MigrateCommand extends Command
             )
         SQL);
 
+        // Create page_blocks table (reusable content sections)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_blocks (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                type VARCHAR(50) NOT NULL,
+                title VARCHAR(255),
+                content TEXT,
+                data JSON,
+                sort_order INTEGER DEFAULT 0,
+                is_active BOOLEAN DEFAULT TRUE,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_blocks_page ON page_blocks(page_id)');
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_blocks_type ON page_blocks(type)');
+
+        // Create page_media table (page attachments/gallery)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_media (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                media_id VARCHAR(36) REFERENCES media(id) ON DELETE CASCADE,
+                caption VARCHAR(255),
+                sort_order INTEGER DEFAULT 0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_media_page ON page_media(page_id)');
+
+        // Create page_forms table (embedded forms)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_forms (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                form_id VARCHAR(36) REFERENCES forms(id) ON DELETE CASCADE,
+                title VARCHAR(255),
+                position VARCHAR(50) DEFAULT 'sidebar',
+                sort_order INTEGER DEFAULT 0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_forms_page ON page_forms(page_id)');
+
+        $output->writeln('<info>✓ Pages tables created</info>');
+
         // Create forms table
         $conn->exec(<<<SQL
             CREATE TABLE IF NOT EXISTS forms (
@@ -159,9 +205,52 @@ class MigrateCommand extends Command
                 mime_type VARCHAR(100),
                 size INTEGER,
                 path VARCHAR(255) NOT NULL,
+                url VARCHAR(512) NOT NULL,
+                provider VARCHAR(50) DEFAULT 'local',
+                hash VARCHAR(64),
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         SQL);
+
+        // Add url column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN url VARCHAR(512)
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Add provider column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN provider VARCHAR(50) DEFAULT 'local'
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Add hash column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN hash VARCHAR(64)
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Create index on hash for faster lookups
+        try {
+            $conn->exec(<<<SQL
+                CREATE INDEX IF NOT EXISTS idx_media_hash ON media(hash)
+            SQL);
+        } catch (\PDOException $e) {
+            // Index already exists, ignore
+        }
+
+        $output->writeln('<info>✓ Media table ready</info>');
+
+        $output->writeln('<info>✓ All tables created successfully!</info>');
 
         // Create settings table
         $conn->exec(<<<SQL

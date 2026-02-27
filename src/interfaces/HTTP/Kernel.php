@@ -4,12 +4,25 @@ declare(strict_types=1);
 
 namespace Interfaces\HTTP;
 
-use Infrastructure\Container\ContainerFactory;
-use Interfaces\HTTP\Actions\Frontend\Article\ByTagAction;
-use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesAction;
-use Interfaces\HTTP\Actions\Frontend\Article\SearchArticlesAction;
-use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
 use Interfaces\HTTP\Actions\Frontend\HomeAction;
+use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesAction;
+use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
+use Interfaces\HTTP\Actions\Frontend\Article\ByTagAction;
+use Interfaces\HTTP\Actions\Frontend\Article\SearchArticlesAction;
+use Interfaces\HTTP\Actions\Frontend\ContactAction;
+use Interfaces\HTTP\Actions\Frontend\DisplayFormAction;
+use Interfaces\HTTP\Actions\Frontend\DisplayPageAction;
+use Interfaces\HTTP\Actions\Admin\DashboardAction;
+use Interfaces\HTTP\Actions\Admin\FormsAction;
+use Interfaces\HTTP\Actions\Admin\CreateFormAction;
+use Interfaces\HTTP\Actions\Admin\EditFormAction;
+use Interfaces\HTTP\Actions\Admin\ArticlesAction;
+use Interfaces\HTTP\Actions\Admin\FormSubmissionsAction;
+use Interfaces\HTTP\Actions\Admin\MediaAction;
+use Interfaces\HTTP\Actions\Admin\PagesAction;
+use Interfaces\HTTP\Actions\Admin\CreatePageAction;
+use Interfaces\HTTP\Actions\Admin\EditPageAction;
+use Interfaces\HTTP\Actions\Admin\DeletePageAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,9 +32,11 @@ use Symfony\Component\HttpFoundation\Response;
 class Kernel
 {
     private Router $router;
+    private \Infrastructure\Container\Container $container;
 
     public function __construct()
     {
+        $this->container = \Infrastructure\Container\ContainerFactory::create();
         $this->router = new Router();
         $this->registerRoutes();
     }
@@ -56,47 +71,43 @@ class Kernel
             $callback = $route['callback'];
             $params = $route['params'];
 
-            // Handle Action classes
-            if (is_string($callback) && class_exists($callback)) {
+            // Handle Action classes (string or Class@method format)
+            if (is_string($callback)) {
                 // Add route params to request attributes
                 foreach ($params as $key => $value) {
                     $request->attributes->set($key, $value);
                 }
                 
-                $action = $callback::create();
-                return $action->handle($request);
+                // Also check for _route_id from router.php (for direct URL access)
+                if (!$request->attributes->has('id') && $request->query->has('_route_id')) {
+                    $request->attributes->set('id', $request->query->get('_route_id'));
+                }
+
+                // Handle Class@method format
+                if (str_contains($callback, '@')) {
+                    [$className, $methodName] = explode('@', $callback);
+                    if (class_exists($className)) {
+                        $action = $className::create();
+                        return $action->$methodName($request);
+                    }
+                }
+
+                // Handle Action class directly
+                if (class_exists($callback)) {
+                    $action = $callback::create();
+                    return $action->handle($request);
+                }
             }
 
-            // Convert array-style controller [Class::class, 'method'] to callable
+            // Handle array-style controller callbacks [Class::class, 'method']
             if (is_array($callback) && count($callback) === 2) {
                 $controller = $this->container->get($callback[0]);
                 $method = $callback[1];
-
-                // Convert associative array to positional arguments
-                // If controller method expects Request, inject it
-                $positionalParams = array_values($params);
-                
-                // Check if method expects Request as additional parameter
-                try {
-                    $reflection = new \ReflectionMethod($controller, $method);
-                    $methodParams = $reflection->getParameters();
-                    
-                    if (count($methodParams) > count($positionalParams)) {
-                        foreach ($methodParams as $index => $param) {
-                            $typeName = $param->getType()?->getName();
-                            if (!isset($positionalParams[$index]) && str_ends_with($typeName, 'Request')) {
-                                array_splice($positionalParams, $index, 0, [$request]);
-                            }
-                        }
-                    }
-                } catch (\Throwable $e) {
-                    // Ignore reflection errors, use original params
-                }
-                
-                $response = $controller->$method(...$positionalParams);
-            } else {
-                $response = call_user_func_array($callback, $params);
+                return $controller->$method($request, ...array_values($params));
             }
+
+            // Fallback for any other callbacks
+            $response = call_user_func_array($callback, $params);
 
             if ($response instanceof Response) {
                 return $response;
@@ -131,50 +142,56 @@ class Kernel
         $this->router->get('/articles/{slug}', ShowArticleAction::class);
         $this->router->get('/tag/{slug}', ByTagAction::class);
         $this->router->get('/search', SearchArticlesAction::class);
-        
-        // Legacy routes - keep controllers for not-yet-refactored
-        $this->router->get('/page/{slug}', [Frontend\PageController::class, 'show']);
-        $this->router->get('/contact', [Frontend\ContactController::class, 'show']);
-        $this->router->post('/contact', [Frontend\ContactController::class, 'submit']);
-        $this->router->get('/form/{slug}', [Frontend\FormController::class, 'show']);
-        $this->router->post('/form/{slug}', [Frontend\FormController::class, 'submit']);
 
-        // Admin Routes
-        $this->router->get('/admin', [Admin\DashboardController::class, 'index']);
+        // Contact Form - Action pattern
+        $this->router->get('/contact', ContactAction::class);
+        $this->router->post('/contact', ContactAction::class);
 
-        // Admin Articles
-        $this->router->get('/admin/articles', [Admin\ArticleController::class, 'index']);
-        $this->router->get('/admin/articles/create', [Admin\ArticleController::class, 'create']);
-        $this->router->post('/admin/articles', [Admin\ArticleController::class, 'store']);
-        $this->router->get('/admin/articles/{id}/edit', [Admin\ArticleController::class, 'edit']);
-        $this->router->put('/admin/articles/{id}', [Admin\ArticleController::class, 'update']);
-        $this->router->delete('/admin/articles/{id}', [Admin\ArticleController::class, 'destroy']);
-        $this->router->post('/admin/articles/{id}/publish', [Admin\ArticleController::class, 'publish']);
+        // Form Builder - Frontend
+        $this->router->get('/form/{slug}', DisplayFormAction::class);
+        $this->router->post('/form/{slug}', DisplayFormAction::class);
 
-        // Admin Pages
-        $this->router->get('/admin/pages', [Admin\PageController::class, 'index']);
-        $this->router->get('/admin/pages/create', [Admin\PageController::class, 'create']);
-        $this->router->post('/admin/pages', [Admin\PageController::class, 'store']);
-        $this->router->get('/admin/pages/{id}/edit', [Admin\PageController::class, 'edit']);
-        $this->router->put('/admin/pages/{id}', [Admin\PageController::class, 'update']);
-        $this->router->delete('/admin/pages/{id}', [Admin\PageController::class, 'destroy']);
+        // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
+        $this->router->get('/admin', DashboardAction::class);
 
         // Admin Forms
-        $this->router->get('/admin/forms', [Admin\FormController::class, 'index']);
-        $this->router->get('/admin/forms/create', [Admin\FormController::class, 'create']);
-        $this->router->post('/admin/forms', [Admin\FormController::class, 'store']);
-        $this->router->get('/admin/forms/{id}/edit', [Admin\FormController::class, 'edit']);
-        $this->router->put('/admin/forms/{id}', [Admin\FormController::class, 'update']);
-        $this->router->delete('/admin/forms/{id}', [Admin\FormController::class, 'destroy']);
-        $this->router->get('/admin/forms/{id}/submissions', [Admin\FormController::class, 'submissions']);
-        
-        // Admin Media
-        $this->router->get('/admin/media', [Admin\MediaController::class, 'index']);
-        $this->router->post('/admin/media/upload', [Admin\MediaController::class, 'upload']);
-        $this->router->delete('/admin/media/{id}', [Admin\MediaController::class, 'destroy']);
-        
-        // Admin Settings
-        $this->router->get('/admin/settings', [Admin\SettingsController::class, 'index']);
-        $this->router->put('/admin/settings', [Admin\SettingsController::class, 'update']);
+        $this->router->get('/admin/forms', FormsAction::class);
+        $this->router->get('/admin/forms/create', CreateFormAction::class);
+        $this->router->post('/admin/forms/create', CreateFormAction::class);
+        $this->router->get('/admin/forms/{id}/edit', EditFormAction::class);
+        $this->router->post('/admin/forms/{id}/edit', EditFormAction::class);
+        $this->router->get('/admin/forms/{id}/submissions', FormSubmissionsAction::class);
+
+        // Admin Articles - Actions
+        $this->router->get('/admin/articles', ArticlesAction::class);
+
+        // TODO: Convert to Actions
+        // $this->router->get('/admin/articles/create', [ArticleController::class, 'create']);
+        // $this->router->post('/admin/articles', [ArticleController::class, 'store']);
+        // $this->router->get('/admin/articles/{id}/edit', [ArticleController::class, 'edit']);
+        // $this->router->put('/admin/articles/{id}', [ArticleController::class, 'update']);
+        // $this->router->delete('/admin/articles/{id}', [ArticleController::class, 'destroy']);
+        // $this->router->post('/admin/articles/{id}/publish', [ArticleController::class, 'publish']);
+
+        // Admin Pages - Actions (CRUD Complete!)
+        $this->router->get('/admin/pages', PagesAction::class);
+        $this->router->get('/admin/pages/create', CreatePageAction::class);
+        $this->router->post('/admin/pages', CreatePageAction::class);
+        $this->router->get('/admin/pages/{id}/edit', EditPageAction::class);
+        $this->router->post('/admin/pages/{id}/edit', EditPageAction::class);
+        $this->router->delete('/admin/pages/{id}', DeletePageAction::class);
+
+        // Admin Media - Action
+        $this->router->get('/admin/media', MediaAction::class);
+        $this->router->post('/admin/media', MediaAction::class);
+        // TODO: Delete action
+        // $this->router->delete('/admin/media/{id}', [MediaController::class, 'destroy']);
+
+        // Admin Settings - TODO: Convert to Action
+        // $this->router->get('/admin/settings', [SettingsController::class, 'index']);
+        // $this->router->put('/admin/settings', [SettingsController::class, 'update']);
+
+        // Static Pages - MUST BE LAST (catch-all for /slug)
+        $this->router->get('/{slug}', DisplayPageAction::class);
     }
 }
