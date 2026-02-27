@@ -1,0 +1,269 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * CMS CLI Entry Point
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Infrastructure\Persistence\DatabaseConnection;
+
+// Migrate Command
+class MigrateCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('migrate')
+             ->setDescription('Run database migrations');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('<info>Running migrations...</info>');
+
+        $db = new DatabaseConnection();
+        $conn = $db->getConnection();
+
+        // Create users table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS users (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                role VARCHAR(50) DEFAULT 'user',
+                avatar VARCHAR(255),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create categories table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS categories (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                description TEXT,
+                parent_id VARCHAR(36) REFERENCES categories(id),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create articles table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS articles (
+                id VARCHAR(36) PRIMARY KEY,
+                author_id VARCHAR(36) REFERENCES users(id),
+                category_id VARCHAR(36) REFERENCES categories(id),
+                title VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                excerpt TEXT,
+                content TEXT NOT NULL,
+                image VARCHAR(255),
+                status VARCHAR(50) DEFAULT 'draft',
+                views INTEGER DEFAULT 0,
+                published_at DATETIME,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create tags table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS tags (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL
+            )
+        SQL);
+
+        // Create article_tag pivot table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS article_tag (
+                article_id VARCHAR(36) REFERENCES articles(id) ON DELETE CASCADE,
+                tag_id VARCHAR(36) REFERENCES tags(id) ON DELETE CASCADE,
+                PRIMARY KEY (article_id, tag_id)
+            )
+        SQL);
+
+        // Create pages table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS pages (
+                id VARCHAR(36) PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                content TEXT NOT NULL,
+                template VARCHAR(100) DEFAULT 'default',
+                meta_title VARCHAR(255),
+                meta_description TEXT,
+                is_published BOOLEAN DEFAULT FALSE,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create forms table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS forms (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                schema JSON NOT NULL,
+                email_notification VARCHAR(255),
+                success_message TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create form_submissions table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS form_submissions (
+                id VARCHAR(36) PRIMARY KEY,
+                form_id VARCHAR(36) REFERENCES forms(id) ON DELETE CASCADE,
+                data JSON NOT NULL,
+                ip_address VARCHAR(45),
+                user_agent TEXT,
+                submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create contacts table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS contacts (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                subject VARCHAR(255),
+                message TEXT NOT NULL,
+                status VARCHAR(50) DEFAULT 'new',
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create media table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS media (
+                id VARCHAR(36) PRIMARY KEY,
+                user_id VARCHAR(36) REFERENCES users(id),
+                filename VARCHAR(255) NOT NULL,
+                original_name VARCHAR(255),
+                mime_type VARCHAR(100),
+                size INTEGER,
+                path VARCHAR(255) NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create settings table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS settings (
+                id VARCHAR(36) PRIMARY KEY,
+                key_name VARCHAR(255) UNIQUE NOT NULL,
+                value TEXT,
+                type VARCHAR(50) DEFAULT 'string',
+                group_name VARCHAR(100),
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        $output->writeln('<info>✓ All tables created successfully!</info>');
+
+        return Command::SUCCESS;
+    }
+}
+
+// Seed Command
+class SeedCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('seed')
+             ->setDescription('Seed database with test data');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('<info>Seeding database...</info>');
+
+        $db = new DatabaseConnection();
+        $conn = $db->getConnection();
+
+        // Check if admin already exists
+        $stmt = $conn->query('SELECT id FROM users WHERE email = "admin@phpcms.local" LIMIT 1');
+        $existingAdmin = $stmt->fetch();
+
+        if ($existingAdmin) {
+            $adminId = $existingAdmin['id'];
+            $output->writeln('<info>✓ Admin user already exists</info>');
+        } else {
+            // Create admin user
+            $adminId = bin2hex(random_bytes(16));
+            $password = password_hash('admin123', PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare(<<<SQL
+                INSERT INTO users (id, name, email, password, role)
+                VALUES (?, 'Admin', 'admin@phpcms.local', ?, 'admin')
+            SQL);
+            $stmt->execute([$adminId, $password]);
+            $output->writeln('<info>✓ Admin user created (admin@phpcms.local / admin123)</info>');
+        }
+
+        // Check if sample article already exists
+        $stmt = $conn->query('SELECT id FROM articles WHERE slug = "welcome-to-php-cms" LIMIT 1');
+        $existingArticle = $stmt->fetch();
+
+        if ($existingArticle) {
+            $output->writeln('<info>✓ Sample article already exists</info>');
+        } else {
+            // Create sample article
+            $articleId = bin2hex(random_bytes(16));
+            $stmt = $conn->prepare(<<<SQL
+                INSERT INTO articles (id, author_id, title, slug, excerpt, content, status, published_at)
+                VALUES (?, ?, 'Welcome to PHP CMS', 'welcome-to-php-cms', 'Your first article',
+                         'This is your first article. Start creating content!', 'published', datetime('now'))
+            SQL);
+            $stmt->execute([$articleId, $adminId]);
+            $output->writeln('<info>✓ Sample article created</info>');
+        }
+
+        $output->writeln('<info>Done!</info>');
+
+        return Command::SUCCESS;
+    }
+}
+
+// Serve Command
+class ServeCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('serve')
+             ->setDescription('Start development server')
+             ->addOption('port', 'p', null, 'Port number');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $port = $input->getOption('port') ?? 8000;
+        $output->writeln("<info>Starting development server on http://localhost:{$port}</info>");
+        $output->writeln("<info>Press Ctrl+C to stop</info>");
+
+        passthru("php -S localhost:{$port} -t public");
+
+        return Command::SUCCESS;
+    }
+}
+
+// Setup application
+$application = new Application('PHP CMS', '1.0.0');
+$application->addCommands([new MigrateCommand(), new SeedCommand(), new ServeCommand()]);
+$application->run();
