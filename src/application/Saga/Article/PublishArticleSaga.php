@@ -33,16 +33,17 @@ class PublishArticleSaga
 
     /**
      * Execute the publish article saga
-     * 
+     *
      * @param string $articleId ID of article to publish
      * @return Article Published article
      * @throws \Application\Saga\SagaExecutionFailedException If any step fails
+     * @throws \RuntimeException If article not found after saga execution
      */
     public function execute(string $articleId): Article
     {
         // Get article for title
         $article = $this->articleManager->findById($articleId);
-        
+
         if ($article === null) {
             throw new \RuntimeException("Article {$articleId} not found");
         }
@@ -57,13 +58,19 @@ class PublishArticleSaga
         $this->orchestrator->execute();
 
         // Return published article
-        return $this->articleManager->findById($articleId);
+        $publishedArticle = $this->articleManager->findById($articleId);
+        
+        if ($publishedArticle === null) {
+            throw new \RuntimeException("Article {$articleId} not found after saga execution");
+        }
+        
+        return $publishedArticle;
     }
 
     /**
      * Get saga status for debugging
      *
-     * @return array Status information
+     * @return array<string, mixed> Status information
      */
     public function getStatus(): array
     {

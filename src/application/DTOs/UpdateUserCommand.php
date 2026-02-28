@@ -22,17 +22,33 @@ class UpdateUserCommand
 
     /**
      * Create command from array
+     *
+     * @param array<string, mixed> $data
      */
     public static function fromArray(array $data, string $userId): self
     {
         return new self(
             userId: $userId,
-            name: $data['name'] ?? null,
-            email: $data['email'] ?? null,
-            avatar: $data['avatar'] ?? null,
-            role: $data['role'] ?? null,
+            name: self::getNullableString($data, 'name'),
+            email: self::getNullableString($data, 'email'),
+            avatar: self::getNullableString($data, 'avatar'),
+            role: self::getNullableString($data, 'role'),
             isActive: isset($data['is_active']) ? (bool) $data['is_active'] : null,
         );
+    }
+
+    /**
+     * Get nullable string value from array
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function getNullableString(array $data, string $key): ?string
+    {
+        if (!isset($data[$key])) {
+            return null;
+        }
+        $value = $data[$key];
+        return is_string($value) ? $value : null;
     }
 
     /**

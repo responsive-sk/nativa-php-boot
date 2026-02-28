@@ -31,12 +31,37 @@ class CreateUserCommand
     public static function fromArray(array $data): self
     {
         return new self(
-            name: $data['name'],
-            email: $data['email'],
-            password: $data['password'],
-            role: $data['role'] ?? 'user',
-            avatar: $data['avatar'] ?? null,
+            name: self::getString($data, 'name'),
+            email: self::getString($data, 'email'),
+            password: self::getString($data, 'password'),
+            role: self::getString($data, 'role', 'user'),
+            avatar: self::getNullableString($data, 'avatar'),
         );
+    }
+
+    /**
+     * Get string value from array
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function getString(array $data, string $key, string $default = ''): string
+    {
+        $value = $data[$key] ?? $default;
+        return is_string($value) ? $value : $default;
+    }
+
+    /**
+     * Get nullable string value from array
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function getNullableString(array $data, string $key): ?string
+    {
+        if (!isset($data[$key])) {
+            return null;
+        }
+        $value = $data[$key];
+        return is_string($value) ? $value : null;
     }
 
     /**

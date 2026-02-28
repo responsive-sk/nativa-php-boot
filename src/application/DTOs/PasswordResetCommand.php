@@ -24,9 +24,20 @@ class PasswordResetCommand
     public static function fromArray(array $data): self
     {
         return new self(
-            token: $data['token'] ?? '',
-            newPassword: $data['password'] ?? '',
+            token: self::getString($data, 'token'),
+            newPassword: self::getString($data, 'password'),
         );
+    }
+
+    /**
+     * Get string value from array
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function getString(array $data, string $key, string $default = ''): string
+    {
+        $value = $data[$key] ?? $default;
+        return is_string($value) ? $value : $default;
     }
 
     /**

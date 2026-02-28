@@ -19,88 +19,16 @@ parameters:
 			path: src/application/DTOs/CreateFormCommand.php
 
 		-
-			message: '#^Parameter \$avatar of class Application\\DTOs\\CreateUserCommand constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/CreateUserCommand.php
-
-		-
-			message: '#^Parameter \$email of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/CreateUserCommand.php
-
-		-
-			message: '#^Parameter \$name of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/CreateUserCommand.php
-
-		-
-			message: '#^Parameter \$password of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/CreateUserCommand.php
-
-		-
-			message: '#^Parameter \$role of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/CreateUserCommand.php
-
-		-
-			message: '#^Parameter \$email of class Application\\DTOs\\LoginCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/LoginCommand.php
-
-		-
-			message: '#^Parameter \$password of class Application\\DTOs\\LoginCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/LoginCommand.php
-
-		-
-			message: '#^Parameter \$newPassword of class Application\\DTOs\\PasswordResetCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/PasswordResetCommand.php
-
-		-
-			message: '#^Parameter \$token of class Application\\DTOs\\PasswordResetCommand constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/DTOs/PasswordResetCommand.php
-
-		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/application/DTOs/UpdateArticleCommand.php
 
 		-
-			message: '#^Method Application\\DTOs\\UpdateUserCommand\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/DTOs/UpdateUserCommand.php
-
-		-
 			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
 			path: src/application/Middleware/AuthMiddleware.php
-
-		-
-			message: '#^Method Application\\Saga\\Article\\PublishArticleSaga\:\:execute\(\) should return Domain\\Model\\Article but returns Domain\\Model\\Article\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/application/Saga/Article/PublishArticleSaga.php
-
-		-
-			message: '#^Method Application\\Saga\\Article\\PublishArticleSaga\:\:getStatus\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Saga/Article/PublishArticleSaga.php
 
 		-
 			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:compensateWithTracking\(\)\.$#'

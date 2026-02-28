@@ -25,10 +25,21 @@ class LoginCommand
     public static function fromArray(array $data): self
     {
         return new self(
-            email: $data['email'] ?? '',
-            password: $data['password'] ?? '',
+            email: self::getString($data, 'email'),
+            password: self::getString($data, 'password'),
             rememberMe: (bool) ($data['remember_me'] ?? false),
         );
+    }
+
+    /**
+     * Get string value from array
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function getString(array $data, string $key, string $default = ''): string
+    {
+        $value = $data[$key] ?? $default;
+        return is_string($value) ? $value : $default;
     }
 
     /**
