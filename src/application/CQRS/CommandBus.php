@@ -25,9 +25,10 @@ class CommandBus
     /**
      * Dispatch a command to its handler
      *
-     * @template T
-     * @param CommandInterface $command
+     * @template T of object
+     * @param CommandInterface&T $command
      * @return T
+     * @throws \RuntimeException If no handler is registered for the command
      */
     public function dispatch(CommandInterface $command): mixed
     {

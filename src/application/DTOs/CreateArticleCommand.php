@@ -8,9 +8,14 @@ use Application\Validation\Validator;
 
 /**
  * Create Article Command DTO
+ *
+ * @phpstan-consistent-constructor
  */
 class CreateArticleCommand
 {
+    /**
+     * @param array<string>|null $tags
+     */
     public function __construct(
         public readonly string $title,
         public readonly string $content,

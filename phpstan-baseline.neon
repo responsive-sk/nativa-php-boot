@@ -1,28 +1,106 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Template type T of method Application\\CQRS\\CommandBus\:\:dispatch\(\) is not referenced in a parameter\.$#'
-			identifier: method.templateTypeNotInParameter
+			message: '#^Method Application\\CQRS\\Article\\Commands\\CreateArticle\:\:__construct\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
-			path: src/application/CQRS/CommandBus.php
+			path: src/application/CQRS/Article/Commands/CreateArticle.php
 
 		-
-			message: '#^Template type T of method Application\\CQRS\\QueryBus\:\:dispatch\(\) is not referenced in a parameter\.$#'
-			identifier: method.templateTypeNotInParameter
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
-			path: src/application/CQRS/QueryBus.php
+			path: src/application/DTOs/CreateArticleCommand.php
 
 		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			message: '#^Call to function is_array\(\) with array\<int, array\<string, mixed\>\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/application/DTOs/CreateFormCommand.php
+
+		-
+			message: '#^Parameter \$avatar of class Application\\DTOs\\CreateUserCommand constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/CreateUserCommand.php
+
+		-
+			message: '#^Parameter \$email of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/CreateUserCommand.php
+
+		-
+			message: '#^Parameter \$name of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/CreateUserCommand.php
+
+		-
+			message: '#^Parameter \$password of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/CreateUserCommand.php
+
+		-
+			message: '#^Parameter \$role of class Application\\DTOs\\CreateUserCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/CreateUserCommand.php
+
+		-
+			message: '#^Parameter \$email of class Application\\DTOs\\LoginCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/LoginCommand.php
+
+		-
+			message: '#^Parameter \$password of class Application\\DTOs\\LoginCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/LoginCommand.php
+
+		-
+			message: '#^Parameter \$newPassword of class Application\\DTOs\\PasswordResetCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/PasswordResetCommand.php
+
+		-
+			message: '#^Parameter \$token of class Application\\DTOs\\PasswordResetCommand constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/DTOs/PasswordResetCommand.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/application/DTOs/UpdateArticleCommand.php
+
+		-
+			message: '#^Method Application\\DTOs\\UpdateUserCommand\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/DTOs/UpdateUserCommand.php
 
 		-
 			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
 			path: src/application/Middleware/AuthMiddleware.php
+
+		-
+			message: '#^Method Application\\Saga\\Article\\PublishArticleSaga\:\:execute\(\) should return Domain\\Model\\Article but returns Domain\\Model\\Article\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/application/Saga/Article/PublishArticleSaga.php
+
+		-
+			message: '#^Method Application\\Saga\\Article\\PublishArticleSaga\:\:getStatus\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Saga/Article/PublishArticleSaga.php
 
 		-
 			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:compensateWithTracking\(\)\.$#'
@@ -49,6 +127,60 @@ parameters:
 			path: src/application/Saga/SagaOrchestrator.php
 
 		-
+			message: '#^Method Application\\Saga\\SagaOrchestrator\:\:execute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Method Application\\Saga\\SagaOrchestrator\:\:getStatus\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Method Application\\Saga\\SagaStep\:\:getName\(\) should return string but returns string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/application/Saga/SagaStep.php
+
+		-
+			message: '#^Method Application\\Services\\ArticleManager\:\:create\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
+			message: '#^Method Application\\Services\\ArticleManager\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
+			message: '#^Method Application\\Services\\ArticleManager\:\:listLatest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
+			message: '#^Method Application\\Services\\ArticleManager\:\:listPublished\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
+			message: '#^Method Application\\Services\\ArticleManager\:\:search\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByTag\(\) invoked with 3 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/application/Services/ArticleManager.php
+
+		-
 			message: '#^Call to an undefined static method Domain\\Events\\PasswordChanged\:\:create\(\)\.$#'
 			identifier: staticMethod.notFound
 			count: 1
@@ -67,20 +199,98 @@ parameters:
 			path: src/application/Services/AuthService.php
 
 		-
-			message: '#^Parameter \#2 \$slug of static method Domain\\Model\\Form\:\:create\(\) expects string, array given\.$#'
+			message: '#^Parameter \#1 \$id of method Domain\\Repository\\UserRepositoryInterface\:\:findById\(\) expects string, mixed given\.$#'
 			identifier: argument.type
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Parameter \$email of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Email, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Parameter \$password of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Password, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Parameter \$role of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Role\|null, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Method Application\\Services\\FormAppService\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/FormAppService.php
 
 		-
-			message: '#^Parameter \#3 \$schema of static method Domain\\Model\\Form\:\:create\(\) expects array, string\|null given\.$#'
-			identifier: argument.type
+			message: '#^Method Application\\Services\\FormAppService\:\:listAll\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/FormAppService.php
+
+		-
+			message: '#^Method Application\\Services\\FormAppService\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/FormAppService.php
+
+		-
+			message: '#^Method Application\\Services\\FormManager\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/FormManager.php
+
+		-
+			message: '#^Method Application\\Services\\FormManager\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/FormManager.php
+
+		-
+			message: '#^Parameter \#5 \$successMessage of static method Domain\\Model\\Form\:\:create\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/FormManager.php
+
+		-
+			message: '#^Method Application\\Services\\MediaManager\:\:calculateFileHash\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/application/Services/MediaManager.php
+
+		-
+			message: '#^Method Application\\Services\\MediaManager\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/MediaManager.php
+
+		-
+			message: '#^Method Application\\Services\\MediaManager\:\:upload\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/MediaManager.php
 
 		-
 			message: '#^Call to static method fromString\(\) on an unknown class Application\\Services\\Slug\.$#'
 			identifier: class.notFound
+			count: 1
+			path: src/application/Services/PageManager.php
+
+		-
+			message: '#^Method Application\\Services\\PageManager\:\:addBlock\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/PageManager.php
+
+		-
+			message: '#^Method Application\\Services\\PageManager\:\:getPageWithRelations\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/PageManager.php
 
@@ -97,6 +307,48 @@ parameters:
 			path: src/application/Services/RoleService.php
 
 		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Method Application\\Services\\SessionManager\:\:all\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Method Application\\Services\\SessionManager\:\:getId\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Parameter \#1 \$name of function setcookie expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Parameter \#1 \$options of function session_set_cookie_params expects array\{lifetime\?\: int, path\?\: string\|null, domain\?\: string\|null, secure\?\: bool\|null, httponly\?\: bool\|null, samesite\?\: ''Lax''\|''lax''\|''None''\|''none''\|''Strict''\|''strict''\}, array\{lifetime\: 0, path\: ''/'', domain\: '''', secure\: bool, httponly\: true, samesite\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Parameter \#2 \$value of function ini_set expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
 			message: '#^Constant Application\\Services\\TokenManager\:\:REMEMBER_TOKEN_LENGTH is unused\.$#'
 			identifier: classConstant.unused
 			count: 1
@@ -109,8 +361,26 @@ parameters:
 			path: src/application/Services/TokenManager.php
 
 		-
+			message: '#^Method Application\\Services\\TokenManager\:\:getRememberCookie\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
 			message: '#^Method Application\\Services\\TokenManager\:\:validatePasswordResetToken\(\) never returns string so it can be removed from the return type\.$#'
 			identifier: return.unusedType
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Parameter \#2 \$expiresAt of method Application\\Services\\TokenManager\:\:setRememberCookie\(\) expects int, int\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Parameter \#3 \$options of function setcookie expects array\{expires\?\: int, path\?\: string, domain\?\: string, secure\?\: bool, httponly\?\: bool, samesite\?\: ''Lax''\|''lax''\|''None''\|''none''\|''Strict''\|''strict''\}, array\{expires\: int, path\: ''/'', domain\: '''', secure\: bool, httponly\: true, samesite\: mixed\} given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/application/Services/TokenManager.php
 
@@ -121,44 +391,32 @@ parameters:
 			path: src/application/Services/TokenManager.php
 
 		-
-			message: '#^Call to an undefined method Domain\\Repository\\UserRepositoryInterface\:\:count\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Cannot instantiate class Domain\\ValueObjects\\Email via private constructor Domain\\ValueObjects\\Email\:\:__construct\(\)\.$#'
+			identifier: new.privateConstructor
 			count: 1
 			path: src/application/Services/UserManager.php
 
 		-
-			message: '#^Parameter \#1 \$newPassword of method Domain\\Model\\User\:\:changePassword\(\) expects Domain\\ValueObjects\\Password, string given\.$#'
-			identifier: argument.type
+			message: '#^Cannot instantiate class Domain\\ValueObjects\\Password via private constructor Domain\\ValueObjects\\Password\:\:__construct\(\)\.$#'
+			identifier: new.privateConstructor
+			count: 2
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Cannot instantiate class Domain\\ValueObjects\\Role via private constructor Domain\\ValueObjects\\Role\:\:__construct\(\)\.$#'
+			identifier: new.privateConstructor
 			count: 1
 			path: src/application/Services/UserManager.php
 
 		-
-			message: '#^Parameter \#1 \$user of method Domain\\Repository\\UserRepositoryInterface\:\:delete\(\) expects Domain\\Model\\User, string given\.$#'
-			identifier: argument.type
+			message: '#^Method Application\\Services\\UserManager\:\:findAll\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/UserManager.php
 
 		-
-			message: '#^Parameter \#2 \$hash of function password_verify expects string, Domain\\ValueObjects\\Password given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/UserManager.php
-
-		-
-			message: '#^Parameter \$email of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Email, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/UserManager.php
-
-		-
-			message: '#^Parameter \$password of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Password, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/UserManager.php
-
-		-
-			message: '#^Parameter \$role of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Role\|null, string given\.$#'
-			identifier: argument.type
+			message: '#^Method Application\\Services\\UserManager\:\:findByRole\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/UserManager.php
 
@@ -169,10 +427,364 @@ parameters:
 			path: src/application/Services/UserManager.php
 
 		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/application/Validation/Validator.php
+
+		-
+			message: '#^Method Domain\\Events\\ArticleUpdated\:\:__construct\(\) has parameter \$changes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Events/ArticleUpdated.php
+
+		-
+			message: '#^Method Domain\\Events\\ArticleUpdated\:\:changes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Events/ArticleUpdated.php
+
+		-
+			message: '#^Method Domain\\Events\\FormSubmitted\:\:data\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Events/FormSubmitted.php
+
+		-
+			message: '#^Method Domain\\Model\\Article\:\:addTags\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Method Domain\\Model\\Article\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Method Domain\\Model\\Article\:\:setTags\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Method Domain\\Model\\Article\:\:tags\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Method Domain\\Model\\Article\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Method Domain\\Model\\Contact\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Contact.php
+
+		-
+			message: '#^Method Domain\\Model\\Contact\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Contact.php
+
+		-
+			message: '#^Method Domain\\Model\\Form\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Method Domain\\Model\\Form\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Method Domain\\Model\\Form\:\:schema\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Method Domain\\Model\\Form\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Method Domain\\Model\\Form\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Parameter \#1 \$string of function trim expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Property Domain\\Model\\Form\:\:\$schema \(array\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Property Domain\\Model\\Form\:\:\$schema type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Form.php
+
+		-
+			message: '#^Method Domain\\Model\\FormSubmission\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Method Domain\\Model\\FormSubmission\:\:data\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Method Domain\\Model\\FormSubmission\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Method Domain\\Model\\FormSubmission\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Property Domain\\Model\\FormSubmission\:\:\$data \(array\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Property Domain\\Model\\FormSubmission\:\:\$data type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/FormSubmission.php
+
+		-
+			message: '#^Method Domain\\Model\\Media\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Media.php
+
+		-
+			message: '#^Method Domain\\Model\\Media\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Media.php
+
+		-
+			message: '#^Method Domain\\Model\\Media\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Media.php
+
+		-
+			message: '#^Method Domain\\Model\\Page\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Page.php
+
+		-
+			message: '#^Method Domain\\Model\\Page\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Page.php
+
+		-
+			message: '#^Method Domain\\Model\\PageBlock\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Method Domain\\Model\\PageBlock\:\:data\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Method Domain\\Model\\PageBlock\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Method Domain\\Model\\PageBlock\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Method Domain\\Model\\PageBlock\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Property Domain\\Model\\PageBlock\:\:\$data \(array\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Property Domain\\Model\\PageBlock\:\:\$data type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Method Domain\\Model\\PageForm\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageForm.php
+
+		-
+			message: '#^Method Domain\\Model\\PageForm\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageForm.php
+
+		-
+			message: '#^Method Domain\\Model\\PageMedia\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageMedia.php
+
+		-
+			message: '#^Method Domain\\Model\\PageMedia\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/PageMedia.php
+
+		-
+			message: '#^Method Domain\\Model\\Permission\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Permission.php
+
+		-
+			message: '#^Method Domain\\Model\\Permission\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Permission.php
+
+		-
+			message: '#^Method Domain\\Model\\Role\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Role.php
+
+		-
+			message: '#^Method Domain\\Model\\Role\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/Role.php
+
+		-
 			message: '#^Call to an undefined method Domain\\ValueObjects\\PermissionName\:\:toString\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Model\\User\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Model\\User\:\:hasAllPermissions\(\) has parameter \$permissions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Model\\User\:\:hasAnyPermission\(\) has parameter \$permissions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Model\\User\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByAuthorId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByCategoryId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findLatest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findPublished\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:search\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/ArticleRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\FormRepositoryInterface\:\:findAll\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/FormRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\FormSubmissionRepositoryInterface\:\:saveSubmission\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/FormSubmissionRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\MediaRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/domain/Repository/MediaRepositoryInterface.php
 
 		-
 			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
@@ -193,6 +805,18 @@ parameters:
 			path: src/domain/Repository/PageRepositoryInterface.php
 
 		-
+			message: '#^Parameter \#1 \$string of function trim expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/domain/ValueObjects/Slug.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/domain/ValueObjects/Slug.php
+
+		-
 			message: '#^Call to an undefined method ReflectionType\:\:getName\(\)\.$#'
 			identifier: method.notFound
 			count: 3
@@ -205,9 +829,33 @@ parameters:
 			path: src/infrastructure/Container/Container.php
 
 		-
+			message: '#^Method Infrastructure\\Container\\Container\:\:build\(\) should return object but returns T\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
 			message: '#^PHPDoc tag @return with type T is not subtype of native type object\.$#'
 			identifier: return.phpDocType
 			count: 3
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Parameter \#1 \$class of method Infrastructure\\Container\\Container\:\:build\(\) expects class\-string\<mixed\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Parameter \#1 \$object of method ReflectionMethod\:\:invokeArgs\(\) expects object\|null, list\<object\|string\>\|object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, class\-string\<T\> given\.$#'
+			identifier: argument.type
+			count: 1
 			path: src/infrastructure/Container/Container.php
 
 		-
@@ -217,10 +865,370 @@ parameters:
 			path: src/infrastructure/Container/Container.php
 
 		-
+			message: '#^Parameter \#1 \$db of class Infrastructure\\Persistence\\UnitOfWork constructor expects Infrastructure\\Persistence\\DatabaseConnection, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ArticleServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\ArticleRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ArticleServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$userRepository of class Application\\Services\\AuthService constructor expects Domain\\Repository\\UserRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$userRepository of class Application\\Services\\TokenManager constructor expects Domain\\Repository\\UserRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$sessionManager of class Application\\Services\\AuthService constructor expects Application\\Services\\SessionManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Parameter \#3 \$tokenManager of class Application\\Services\\AuthService constructor expects Application\\Services\\TokenManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Parameter \#4 \$eventDispatcher of class Application\\Services\\AuthService constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\CreateArticleHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\GetArticleBySlugHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\ListArticlesHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\PublishArticleHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$contactRepository of class Application\\Services\\ContactManager constructor expects Domain\\Repository\\ContactRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\ContactRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$eventDispatcher of class Application\\Services\\ContactManager constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$formRepository of class Application\\Services\\FormManager constructor expects Domain\\Repository\\FormRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/FormServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\FormRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/FormServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$basePath of class Infrastructure\\Storage\\Providers\\LocalStorageProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$cloudName of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$provider of class Application\\Services\\MediaManager constructor expects Infrastructure\\Storage\\Providers\\MediaProviderInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\MediaRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$apiKey of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$baseUrl of class Infrastructure\\Storage\\Providers\\LocalStorageProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$mediaRepository of class Application\\Services\\MediaManager constructor expects Domain\\Repository\\MediaRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#3 \$apiSecret of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#4 \$uploadPreset of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$pageRepository of class Application\\Services\\PageManager constructor expects Domain\\Repository\\PageRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/PageServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\PageRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/PageServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\UserRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/UserServiceProvider.php
+
+		-
+			message: '#^Parameter \#4 \$version of class Interfaces\\HTTP\\View\\TemplateRenderer constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Providers/ViewServiceProvider.php
+
+		-
 			message: '#^Call to function is_subclass_of\(\) with class\-string\<Infrastructure\\Paths\\Presets\\PresetInterface\> and ''Infrastructure\\\\Paths\\\\Presets\\\\PresetInterface'' will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/infrastructure/Paths/Presets/PresetFactory.php
+
+		-
+			message: '#^Binary operation "\." between ''sqlite\:'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 3
+			path: src/infrastructure/Persistence/DatabaseConnectionManager.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function str_starts_with expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/infrastructure/Persistence/DatabaseConnectionManager.php
+
+		-
+			message: '#^Parameter \#1 \$path of method Infrastructure\\Paths\\AppPaths\:\:data\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/infrastructure/Persistence/DatabaseConnectionManager.php
+
+		-
+			message: '#^Property Infrastructure\\Persistence\\DatabaseConnectionManager\:\:\$connections \(array\<string, PDO\>\) does not accept array\<string, PDO\|null\>\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: src/infrastructure/Persistence/DatabaseConnectionManager.php
+
+		-
+			message: '#^Cannot access offset ''id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Cannot access offset ''tags'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByAuthorId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByCategoryId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findLatest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findPublished\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:getTags\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:saveTags\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:search\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Parameter \#1 \$articleId of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:getTags\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Article\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ContactRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Contact\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/ContactRepository.php
+
+		-
+			message: '#^Cannot call method fetchAll\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\FormRepository\:\:findAll\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Form\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/FormRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\FormSubmissionRepository\:\:saveSubmission\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\FormSubmission\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
+
+		-
+			message: '#^Parameter \#3 \$ipAddress of static method Domain\\Model\\FormSubmission\:\:create\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
+
+		-
+			message: '#^Parameter \#4 \$userAgent of static method Domain\\Model\\FormSubmission\:\:create\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/MediaRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\MediaRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/MediaRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Media\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/MediaRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
 
 		-
 			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
@@ -259,10 +1267,400 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/PageRepository.php
 
 		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Page\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Cannot call method fetchAll\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PermissionRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Permission\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/PermissionRepository.php
+
+		-
+			message: '#^Cannot call method fetchAll\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/RoleRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Role\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/RoleRepository.php
+
+		-
+			message: '#^Cannot call method fetchAll\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/UserRepository.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/UserRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\User\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Persistence/Repositories/UserRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:payload\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\FailedJob constructor expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Property Infrastructure\\Queue\\Entities\\FailedJob\:\:\$payload type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:payload\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\Job constructor expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
 			message: '#^Property Infrastructure\\Queue\\Entities\\Job\:\:\$availableAt \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
 			identifier: property.unusedType
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Property Infrastructure\\Queue\\Entities\\Job\:\:\$payload type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Cannot call method fetch\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Cannot call method fetchAll\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:add\(\) has parameter \$eventData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:dispatchEvent\(\) has parameter \$event with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:getCmsConnection\(\) should return PDO but returns PDO\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:getStats\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:getStats\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:pushToQueue\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Parameter \#2 \$data of method Infrastructure\\Queue\\Handlers\\OutboxProcessor\:\:pushToQueue\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
+
+		-
+			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/infrastructure/Queue/QueueRepository.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Infrastructure\\Queue\\Entities\\Job\:\:fromArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/infrastructure/Queue/QueueRepository.php
+
+		-
+			message: '#^Cannot access offset ''bytes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Cannot access offset ''format'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Cannot access offset ''public_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Cannot access offset ''result'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Cannot access offset ''secure_url'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:upload\(\) should return array\{path\: string, url\: string, size\: int, mime_type\: string\} but returns array\{path\: mixed, url\: mixed, size\: int, mime_type\: mixed, original_name\: mixed, cloudinary_id\: mixed\}\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:validateFile\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Property Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:\$apiKey \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Property Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:\$apiSecret \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Property Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:\$cloudName \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Property Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:\$uploadPreset \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\LocalStorageProvider\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/LocalStorageProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\LocalStorageProvider\:\:validateFile\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/LocalStorageProvider.php
+
+		-
+			message: '#^Method Infrastructure\\Storage\\Providers\\MediaProviderInterface\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/MediaProviderInterface.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/interfaces/HTTP/Actions/Action.php
+
+		-
+			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Action.php
+
+		-
+			message: '#^Parameter \#2 \$default of method Symfony\\Component\\HttpFoundation\\InputBag\<string\>\:\:get\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Action.php
+
+		-
+			message: '#^Unable to resolve the template type TDefault in call to method Symfony\\Component\\HttpFoundation\\InputBag\<string\>\:\:get\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/interfaces/HTTP/Actions/Action.php
+
+		-
+			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\CreateArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/CreateArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\DeleteArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/DeleteArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\DeleteArticleAction\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/interfaces/HTTP/Actions/Admin/Article/DeleteArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction\:\:show\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\PublishArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/PublishArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\PublishArticleAction\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/PublishArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\StoreArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\StoreArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
+
+		-
+			message: '#^Parameter \$content of method Application\\Services\\ArticleManager\:\:create\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
+
+		-
+			message: '#^Parameter \$excerpt of method Application\\Services\\ArticleManager\:\:create\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
+
+		-
+			message: '#^Parameter \$title of method Application\\Services\\ArticleManager\:\:create\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
 
 		-
 			message: '#^Variable \$data might not be defined\.$#'
@@ -271,10 +1669,490 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
 
 		-
-			message: '#^Call to an undefined method Application\\Services\\ArticleManager\:\:update\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\UpdateArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\UpdateArticleAction\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Parameter \$content of method Application\\Services\\ArticleManager\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Parameter \$excerpt of method Application\\Services\\ArticleManager\:\:update\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Parameter \$title of method Application\\Services\\ArticleManager\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\ArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/ArticlesAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\ArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/ArticlesAction.php
+
+		-
+			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\CreateFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\CreateFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
+
+		-
+			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:create\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\CreatePageAction constructor expects Application\\Services\\PageManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreatePageAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\CreatePageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/CreatePageAction.php
+
+		-
+			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\DashboardAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/DashboardAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:delete\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/DeletePageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\DeletePageAction constructor expects Application\\Services\\PageManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/DeletePageAction.php
+
+		-
+			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\EditFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Application\\Services\\FormManager\:\:findById\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\EditFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \$formId of method Application\\Services\\FormManager\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:update\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Application\\Services\\PageManager\:\:findById\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:addBlock\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:getPageWithRelations\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\EditPageAction constructor expects Application\\Services\\PageManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$action of method Interfaces\\HTTP\\Actions\\Admin\\EditPageAction\:\:handleAction\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$formId of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$mediaId of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\EditPageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$type of method Application\\Services\\PageManager\:\:addBlock\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#3 \$caption of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#3 \$title of method Application\\Services\\PageManager\:\:addBlock\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#3 \$title of method Application\\Services\\PageManager\:\:embedForm\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#4 \$content of method Application\\Services\\PageManager\:\:addBlock\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#4 \$position of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \$pageId of method Application\\Services\\PageManager\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$formId of method Domain\\Repository\\FormSubmissionRepositoryInterface\:\:countByFormId\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
+
+		-
+			message: '#^Parameter \#1 \$formId of method Domain\\Repository\\FormSubmissionRepositoryInterface\:\:findByFormId\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
+
+		-
+			message: '#^Parameter \#1 \$submissionRepository of class Interfaces\\HTTP\\Actions\\Admin\\FormSubmissionsAction constructor expects Domain\\Repository\\FormSubmissionRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\FormSubmissionsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
+
+		-
+			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\FormsAction constructor expects Application\\Services\\FormManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormsAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\FormsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/FormsAction.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Media\\DeleteMediaAction\:\:delete\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/interfaces/HTTP/Actions/Admin/Media/DeleteMediaAction.php
+
+		-
+			message: '#^Parameter \#1 \$mediaManager of class Interfaces\\HTTP\\Actions\\Admin\\Media\\DeleteMediaAction constructor expects Application\\Services\\MediaManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Media/DeleteMediaAction.php
+
+		-
+			message: '#^Cannot access offset ''error'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
+
+		-
+			message: '#^Parameter \#1 \$errorCode of method Interfaces\\HTTP\\Actions\\Admin\\MediaAction\:\:getUploadErrorMessage\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
+
+		-
+			message: '#^Parameter \#1 \$file of method Application\\Services\\MediaManager\:\:upload\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
+
+		-
+			message: '#^Parameter \#1 \$mediaManager of class Interfaces\\HTTP\\Actions\\Admin\\MediaAction constructor expects Application\\Services\\MediaManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\MediaAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\PagesAction constructor expects Application\\Services\\PageManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/PagesAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\PagesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/PagesAction.php
+
+		-
+			message: '#^Parameter \#1 \$name of method Application\\Services\\PermissionService\:\:createPermission\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\CreatePermissionAction constructor expects Application\\Services\\PermissionService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$description of method Application\\Services\\PermissionService\:\:createPermission\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\CreatePermissionAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#3 \$group of method Application\\Services\\PermissionService\:\:createPermission\(\) expects string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
+
+		-
+			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction constructor expects Application\\Services\\PermissionService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$description of method Application\\Services\\PermissionService\:\:updatePermissionDescription\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction\:\:destroy\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction\:\:show\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
+
+		-
+			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\ListPermissionsAction constructor expects Application\\Services\\PermissionService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/ListPermissionsAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\ListPermissionsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Permissions/ListPermissionsAction.php
+
+		-
+			message: '#^Parameter \#1 \$name of method Application\\Services\\RoleService\:\:createRole\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
+
+		-
+			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\CreateRoleAction constructor expects Application\\Services\\RoleService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$description of method Application\\Services\\RoleService\:\:createRole\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\CreateRoleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
+
+		-
+			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction constructor expects Application\\Services\\RoleService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$description of method Application\\Services\\RoleService\:\:updateRoleDescription\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction\:\:destroy\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction\:\:show\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction\:\:update\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
+
+		-
+			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\ListRolesAction constructor expects Application\\Services\\RoleService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/ListRolesAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\ListRolesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Roles/ListRolesAction.php
+
+		-
+			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Settings\\UpdateSettingsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Settings/UpdateSettingsAction.php
 
 		-
 			message: '#^Variable \$data might not be defined\.$#'
@@ -283,20 +2161,134 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Settings/UpdateSettingsAction.php
 
 		-
+			message: '#^Method Interfaces\\HTTP\\Actions\\Admin\\Settings\\ViewSettingsAction\:\:getSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Settings/ViewSettingsAction.php
+
+		-
+			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Settings\\ViewSettingsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Settings/ViewSettingsAction.php
+
+		-
+			message: '#^Parameter \#1 \$authService of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Application\\Services\\AuthService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
+
+		-
+			message: '#^Parameter \#1 \$url of method Interfaces\\HTTP\\Actions\\Action\:\:redirect\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
+
+		-
+			message: '#^Parameter \#2 \$sessionManager of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Application\\Services\\SessionManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
+
+		-
+			message: '#^Parameter \#3 \$renderer of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
+
+		-
 			message: '#^Variable \$error on left side of \?\? always exists and is not nullable\.$#'
 			identifier: nullCoalesce.variable
 			count: 1
 			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
 
 		-
-			message: '#^Call to an undefined method Application\\Services\\ArticleManager\:\:findByTag\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Parameter \#1 \$authService of class Interfaces\\HTTP\\Actions\\Auth\\LogoutAction constructor expects Application\\Services\\AuthService, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LogoutAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ByTagAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
 
 		-
+			message: '#^Parameter \#1 \$string of function htmlspecialchars expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
+
+		-
+			message: '#^Parameter \#1 \$tag of method Application\\Services\\ArticleManager\:\:findByTag\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ByTagAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ListArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ListArticlesAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ListArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ListArticlesAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\SearchArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/SearchArticlesAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\SearchArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/SearchArticlesAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ShowArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
+
+		-
+			message: '#^Parameter \#1 \$slug of method Application\\Services\\ArticleManager\:\:findBySlug\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ShowArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
+
+		-
 			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\:\:getFlashBag\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
+
+		-
+			message: '#^Parameter \#1 \$contactManager of class Interfaces\\HTTP\\Actions\\Frontend\\ContactAction constructor expects Application\\Services\\ContactManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\ContactAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
 
@@ -307,8 +2299,38 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
 
 		-
+			message: '#^Binary operation "\." between ''/form/'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
 			message: '#^Class Domain\\Events\\FormSubmitted constructor invoked with 3 parameters, 4\-5 required\.$#'
 			identifier: arguments.count
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$slug of method Application\\Services\\FormManager\:\:findBySlug\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#2 \$submissionRepository of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Domain\\Repository\\FormSubmissionRepositoryInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#3 \$eventDispatcher of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
 
@@ -319,241 +2341,181 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
 
 		-
-			message: '#^Property Interfaces\\HTTP\\View\\TemplateRenderer\:\:\$isAdminTemplate is never read, only written\.$#'
-			identifier: property.onlyWritten
+			message: '#^Parameter \#4 \$outboxProcessor of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Infrastructure\\Queue\\Handlers\\OutboxProcessor\|null, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#5 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayPageAction constructor expects Application\\Services\\PageManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$slug of method Application\\Services\\PageManager\:\:findBySlug\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayPageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
+
+		-
+			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\HomeAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/HomeAction.php
+
+		-
+			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\HomeAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/HomeAction.php
+
+		-
+			message: '#^Call to an undefined method object\:\:check\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Call to an undefined method object\:\:set\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Call to an undefined method object\:\:start\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Parameter \#1 \$abstract of method Infrastructure\\Container\\Container\:\:get\(\) expects class\-string\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strtoupper expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:addRoute\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:delete\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:get\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:getRoutes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:match\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:matchPattern\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:post\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Method Interfaces\\HTTP\\Router\:\:put\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Property Interfaces\\HTTP\\Router\:\:\$routes type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/interfaces/HTTP/Router.php
+
+		-
+			message: '#^Access to an undefined property Interfaces\\HTTP\\View\\TemplateRenderer\:\:\$isAdminTemplate\.$#'
+			identifier: property.notFound
 			count: 1
 			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/articles/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
 			count: 1
-			path: src/interfaces/Templates/admin/articles/create.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
+			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:renderLayout\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
 			count: 1
-			path: src/interfaces/Templates/admin/articles/edit.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/admin/articles/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
+			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:renderTemplate\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
 			count: 1
-			path: src/interfaces/Templates/admin/articles/edit.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
+			message: '#^Parameter \#1 \$string of function rtrim expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: src/interfaces/Templates/admin/layouts/base.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Ternary operator condition is always true\.$#'
-			identifier: ternary.alwaysTrue
-			count: 5
-			path: src/interfaces/Templates/admin/pages/forms/edit.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/permissions/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, int\|false given\.$#'
+			identifier: argument.type
 			count: 1
-			path: src/interfaces/Templates/admin/permissions/create.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 7
-			path: src/interfaces/Templates/admin/permissions/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
+			message: '#^Property Interfaces\\HTTP\\View\\TemplateRenderer\:\:\$cachePath \(string\) does not accept string\|null\.$#'
+			identifier: assign.propertyType
 			count: 1
-			path: src/interfaces/Templates/admin/permissions/edit.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 8
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 4
-			path: src/interfaces/Templates/admin/roles/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/create.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/admin/roles/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/edit.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/settings/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/settings/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method nl2br\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 4
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php

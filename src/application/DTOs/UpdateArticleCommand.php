@@ -18,6 +18,7 @@ class UpdateArticleCommand
         public readonly ?string $excerpt = null,
         public readonly ?string $categoryId = null,
         public readonly ?string $image = null,
+        /** @var array<string>|null */
         public readonly ?array $tags = null,
     ) {
         $this->validate();

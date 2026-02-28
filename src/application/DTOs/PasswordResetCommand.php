@@ -18,6 +18,8 @@ class PasswordResetCommand
 
     /**
      * Create command from array
+     *
+     * @param array<string, mixed> $data
      */
     public static function fromArray(array $data): self
     {

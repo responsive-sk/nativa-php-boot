@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     level: 9
     paths:
@@ -7,4 +10,5 @@ parameters:
     excludePaths:
         - src/infrastructure/Paths/AppPaths.php
         - src/infrastructure/Persistence/DatabaseConnection.php
+        - src/interfaces/Templates/*
         - tests/

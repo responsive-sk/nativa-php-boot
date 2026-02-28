@@ -25,9 +25,10 @@ class QueryBus
     /**
      * Dispatch a query to its handler
      *
-     * @template T
-     * @param QueryInterface $query
+     * @template T of object
+     * @param QueryInterface&T $query
      * @return T
+     * @throws \RuntimeException If no handler is registered for the query
      */
     public function dispatch(QueryInterface $query): mixed
     {

@@ -25,7 +25,6 @@ class TemplateRenderer
 
     private ?string $currentLayout = null;
     private string $currentContent = '';
-    private bool $isAdminTemplate = false;
 
     public function __construct(
         string $templatesPath,
@@ -49,6 +48,8 @@ class TemplateRenderer
 
     /**
      * Render a template with optional layout
+     *
+     * @param array<string, mixed> $data
      */
     public function render(string $template, array $data = [], ?string $layout = null): string
     {
@@ -67,6 +68,8 @@ class TemplateRenderer
 
     /**
      * Render a partial template
+     *
+     * @param array<string, mixed> $data
      */
     public function partial(string $partial, array $data = []): string
     {
@@ -115,7 +118,7 @@ class TemplateRenderer
     public function url(string $path): string
     {
         $baseUrl = $_ENV['APP_URL'] ?? '';
-        return rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
+        return rtrim($baseUrl, '/') . '/' . ltrim((string) $path, '/');
     }
 
     /**
@@ -138,6 +141,8 @@ class TemplateRenderer
 
     /**
      * Render a template file
+     *
+     * @param array<string, mixed> $data
      */
     private function renderTemplate(string $template, array $data = []): string
     {
@@ -165,7 +170,10 @@ class TemplateRenderer
             // Use compiled cache in production
             $cacheFile = $this->getCacheFile($template);
 
-            if (!file_exists($cacheFile) || filemtime($templatePath) > filemtime($cacheFile)) {
+            $templateMtime = filemtime($templatePath);
+            $cacheMtime = file_exists($cacheFile) ? filemtime($cacheFile) : false;
+            
+            if ($templateMtime === false || ($cacheMtime !== false && $templateMtime > $cacheMtime)) {
                 $this->compileTemplate($templatePath, $cacheFile);
             }
 
@@ -277,7 +285,8 @@ class TemplateRenderer
     {
         $versionFile = $this->cachePath . '/.cache-version';
         if (file_exists($versionFile)) {
-            return trim(file_get_contents($versionFile));
+            $content = file_get_contents($versionFile);
+            return $content !== false ? trim($content) : date('YmdHis');
         }
         return date('YmdHis');
     }

@@ -28,17 +28,19 @@ final class EditPageAction extends Action
         if ($request->getMethod() === 'POST') {
             // Check for special actions
             $action = $request->request->get('_action');
-            
+
             if ($action) {
-                return $this->handleAction($request, $action);
+                $this->handleAction($request, $action);
+                // handleAction() sends its own response, so we return here
+                return new Response('', 204);
             }
-            
+
             return $this->update($request);
         }
         return $this->edit($request);
     }
 
-    private function handleAction(Request $request, string $action): Response
+    private function handleAction(Request $request, string $action): void
     {
         try {
             match ($action) {
@@ -50,7 +52,7 @@ final class EditPageAction extends Action
                 default => $this->json(['error' => 'Unknown action'], 400),
             };
         } catch (\Throwable $e) {
-            return $this->json(['error' => $e->getMessage()], 500);
+            $this->json(['error' => $e->getMessage()], 500);
         }
     }
 

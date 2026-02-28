@@ -25,6 +25,8 @@ class CreateUserCommand
 
     /**
      * Create command from array
+     *
+     * @param array<string, mixed> $data
      */
     public static function fromArray(array $data): self
     {
@@ -39,6 +41,8 @@ class CreateUserCommand
 
     /**
      * Convert to value objects
+     *
+     * @return array<string, Email|Password|RoleVO>
      */
     public function toValueObjects(): array
     {

@@ -11,6 +11,9 @@ use Application\Validation\Validator;
  */
 class CreateFormCommand
 {
+    /**
+     * @param array<int, array<string, mixed>> $schema
+     */
     public function __construct(
         public readonly string $name,
         public readonly string $slug,
