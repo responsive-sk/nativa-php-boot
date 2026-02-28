@@ -34,13 +34,13 @@ class AuthMiddleware
         if (!$this->sessionManager->isActive(self::SESSION_TIMEOUT)) {
             // Session timed out - destroy and redirect to login
             $this->sessionManager->destroy();
-            $request->getSession()?->getFlashBag()->set('error', 'Your session has timed out. Please log in again.');
+            $request->getSession()->getFlashBag()->set('error', 'Your session has timed out. Please log in again.');
             return new Response('', 302, ['Location' => '/login']);
         }
 
         if (!$this->authService->check()) {
             // Store intended destination
-            $request->getSession()?->set('intended_url', $request->getPathInfo());
+            $request->getSession()->set('intended_url', $request->getPathInfo());
 
             return new Response('', 302, ['Location' => '/login']);
         }
