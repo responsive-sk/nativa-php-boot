@@ -29,7 +29,8 @@ class SagaOrchestrator
 
     /**
      * Execute all steps in order
-     * @return array Results from each step
+     *
+     * @return array<int, mixed> Results from each step
      * @throws SagaException If any step fails (with compensation already executed)
      */
     public function execute(): array
@@ -120,6 +121,8 @@ class SagaOrchestrator
 
     /**
      * Get saga status for logging/debugging
+     *
+     * @return array<string, mixed>
      */
     public function getStatus(): array
     {

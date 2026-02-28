@@ -55,18 +55,6 @@ parameters:
 			path: src/application/Saga/SagaOrchestrator.php
 
 		-
-			message: '#^Method Application\\Saga\\SagaOrchestrator\:\:execute\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
-
-		-
-			message: '#^Method Application\\Saga\\SagaOrchestrator\:\:getStatus\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
-
-		-
 			message: '#^Method Application\\Saga\\SagaStep\:\:getName\(\) should return string but returns string\|null\.$#'
 			identifier: return.type
 			count: 1
