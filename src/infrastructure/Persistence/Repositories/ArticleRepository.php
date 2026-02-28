@@ -177,7 +177,7 @@ use PDO;
             LIMIT $limit OFFSET $offset
         SQL;
 
-        $stmt = $this->executeQuery($sql);
+        $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute();
 
         $rows = $stmt->fetchAll();
