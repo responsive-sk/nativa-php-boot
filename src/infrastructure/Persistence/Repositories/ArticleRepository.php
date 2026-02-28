@@ -212,8 +212,8 @@ use PDO;
             ORDER BY published_at DESC
         SQL;
 
-        $stmt = $this->executeQuery($sql);
-        $stmt->bindValue(':query', $searchTerm);
+        $stmt = $this->getConnection()->prepare($sql);
+        $stmt->bindValue(':query', $searchTerm, PDO::PARAM_STR);
         $stmt->execute();
 
         $rows = $stmt->fetchAll();
@@ -258,7 +258,7 @@ use PDO;
         SQL;
 
         foreach ($tags as $tagSlug) {
-            $stmt = $this->executeQuery($sql);
+            $stmt = $this->getConnection()->prepare($sql);
             $stmt->execute([
                 ':article_id' => $articleId,
                 ':tag_slug' => $tagSlug,
