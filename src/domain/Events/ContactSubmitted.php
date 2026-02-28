@@ -44,6 +44,7 @@ final class ContactSubmitted extends DomainEvent
         return $this->message;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

@@ -16,6 +16,7 @@ use Infrastructure\Persistence\UnitOfWork;
  */
 class PageServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register PageRepository
@@ -37,6 +38,7 @@ class PageServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

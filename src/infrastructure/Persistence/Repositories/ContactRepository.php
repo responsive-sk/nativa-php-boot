@@ -19,6 +19,7 @@ use PDO;
     ) {
     }
 
+    #[\Override]
     public function save(Contact $contact): void
     {
         $data = $contact->toArray();
@@ -32,6 +33,7 @@ use PDO;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function findById(string $id): ?Contact
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM contacts WHERE id = ?');
@@ -45,6 +47,7 @@ use PDO;
         return Contact::fromArray($data);
     }
 
+    #[\Override]
     public function findAll(int $limit = 50, int $offset = 0): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -60,6 +63,7 @@ use PDO;
         return array_map(fn($row) => Contact::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findByStatus(string $status, int $limit = 50): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -76,6 +80,7 @@ use PDO;
         return array_map(fn($row) => Contact::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function countByStatus(string $status): int
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -85,6 +90,7 @@ use PDO;
         return (int) $stmt->fetchColumn();
     }
 
+    #[\Override]
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM contacts');

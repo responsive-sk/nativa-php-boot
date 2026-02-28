@@ -30,6 +30,7 @@ final class UserLoggedIn implements DomainEventInterface
         );
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [
@@ -40,6 +41,7 @@ final class UserLoggedIn implements DomainEventInterface
         ];
     }
 
+    #[\Override]
     public function occurredAt(): string
     {
         return $this->timestamp;

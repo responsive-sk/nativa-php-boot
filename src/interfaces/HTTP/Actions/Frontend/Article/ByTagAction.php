@@ -22,6 +22,7 @@ final class ByTagAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $slug = $this->param($request, 'slug');

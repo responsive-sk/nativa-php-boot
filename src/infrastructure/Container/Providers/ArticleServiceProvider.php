@@ -18,6 +18,7 @@ use Infrastructure\Container\ServiceProviderInterface;
  */
 class ArticleServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register DatabaseConnection as singleton
@@ -45,6 +46,7 @@ class ArticleServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

@@ -74,23 +74,26 @@ final class Article
         return $article;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $article = new self();
-        $article->id = $data['id'];
-        $article->authorId = $data['author_id'];
-        $article->categoryId = $data['category_id'] ?? null;
-        $article->title = $data['title'];
-        $article->slug = new Slug($data['slug']);
-        $article->content = $data['content'];
-        $article->excerpt = $data['excerpt'] ?? '';
-        $article->image = $data['image'] ?? null;
-        $article->status = new ArticleStatus($data['status']);
+        $article->id = (string) $data['id'];
+        $article->authorId = (string) $data['author_id'];
+        $article->categoryId = isset($data['category_id']) ? (string) $data['category_id'] : null;
+        $article->title = (string) $data['title'];
+        $article->slug = new Slug((string) $data['slug']);
+        $article->content = (string) $data['content'];
+        $article->excerpt = isset($data['excerpt']) ? (string) $data['excerpt'] : '';
+        $article->image = isset($data['image']) ? (string) $data['image'] : null;
+        $article->status = new ArticleStatus((string) $data['status']);
         $article->views = (int) ($data['views'] ?? 0);
-        $article->publishedAt = $data['published_at'] ?? null;
-        $article->createdAt = $data['created_at'];
-        $article->updatedAt = $data['updated_at'];
-        $article->tags = $data['tags'] ?? [];
+        $article->publishedAt = isset($data['published_at']) ? (string) $data['published_at'] : null;
+        $article->createdAt = (string) $data['created_at'];
+        $article->updatedAt = (string) $data['updated_at'];
+        $article->tags = (array) ($data['tags'] ?? []);
 
         return $article;
     }
@@ -133,6 +136,7 @@ final class Article
         ?string $categoryId = null,
         ?string $image = null,
     ): void {
+        /** @var array<string, mixed> $changes */
         $changes = [];
 
         if ($title !== null) {
@@ -169,11 +173,17 @@ final class Article
         }
     }
 
+    /**
+     * @param array<int, string> $tags
+     */
     public function addTags(array $tags): void
     {
         $this->tags = array_unique(array_merge($this->tags, $tags));
     }
 
+    /**
+     * @param array<int, string> $tags
+     */
     public function setTags(array $tags): void
     {
         $this->tags = $tags;
@@ -245,6 +255,9 @@ final class Article
         return $this->updatedAt;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function tags(): array
     {
         return $this->tags;
@@ -306,6 +319,9 @@ final class Article
         $this->recordEvent(new ArticleDeleted($this->id, $this->title));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

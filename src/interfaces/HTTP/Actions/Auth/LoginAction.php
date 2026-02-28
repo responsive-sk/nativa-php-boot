@@ -63,10 +63,13 @@ final class LoginAction extends Action
             $ipAddress = $request->getClientIp() ?? 'unknown';
 
             if ($this->authService->attempt($command, $ipAddress)) {
-                // Login successful - redirect to intended URL or default to /admin
+                // Login successful - regenerate session ID for security
+                $this->sessionManager->regenerate(true);
+                
+                // Redirect to intended URL or default to /admin
                 $intendedUrl = $this->sessionManager->get('intended_url', '/admin');
                 $this->sessionManager->remove('intended_url');
-                
+
                 return $this->redirect($intendedUrl);
             }
 
@@ -93,6 +96,7 @@ final class LoginAction extends Action
     /**
      * Handle request (required by ActionInterface)
      */
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'GET') {

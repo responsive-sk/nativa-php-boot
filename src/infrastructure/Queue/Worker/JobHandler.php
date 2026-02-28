@@ -17,6 +17,7 @@ class JobHandler implements JobHandlerInterface
     ) {
     }
 
+    #[\Override]
     public function handle(Job $job): void
     {
         $jobName = $job->payload()['job'] ?? null;

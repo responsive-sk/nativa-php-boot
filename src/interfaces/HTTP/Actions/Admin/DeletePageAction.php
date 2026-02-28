@@ -20,6 +20,7 @@ final class DeletePageAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         try {

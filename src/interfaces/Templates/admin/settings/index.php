@@ -17,6 +17,8 @@
         <?php endif; ?>
 
         <form method="POST" action="/admin/settings" class="bg-white rounded-lg shadow p-6 space-y-4">
+            <?= $this->partial('csrf_token') ?>
+            
             <div>
                 <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">Site Name</label>
                 <input type="text"

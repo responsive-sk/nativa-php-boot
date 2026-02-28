@@ -16,6 +16,7 @@ abstract class SagaStep implements SagaStepInterface
     /**
      * Get step name from class name
      */
+    #[\Override]
     public function getName(): string
     {
         // Convert "PublishArticleStep" to "Publish Article"
@@ -27,6 +28,7 @@ abstract class SagaStep implements SagaStepInterface
     /**
      * Check if step was executed
      */
+    #[\Override]
     public function isExecuted(): bool
     {
         return $this->executed;
@@ -35,6 +37,7 @@ abstract class SagaStep implements SagaStepInterface
     /**
      * Check if step was compensated
      */
+    #[\Override]
     public function isCompensated(): bool
     {
         return $this->compensated;
@@ -51,6 +54,7 @@ abstract class SagaStep implements SagaStepInterface
     /**
      * Execute with tracking
      */
+    #[\Override]
     final public function executeWithTracking(): mixed
     {
         $this->result = $this->execute();
@@ -61,6 +65,7 @@ abstract class SagaStep implements SagaStepInterface
     /**
      * Compensate with tracking
      */
+    #[\Override]
     final public function compensateWithTracking(): void
     {
         if (!$this->executed || $this->compensated) {

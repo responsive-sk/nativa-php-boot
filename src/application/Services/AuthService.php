@@ -6,7 +6,9 @@ namespace Application\Services;
 
 use Domain\Model\User;
 use Domain\Repository\UserRepositoryInterface;
+use Domain\ValueObjects\Email;
 use Domain\ValueObjects\Password;
+use Domain\ValueObjects\Role as RoleVO;
 use Domain\Events\UserLoggedIn;
 use Domain\Events\UserLoggedOut;
 use Domain\Events\UserRegistered;
@@ -185,12 +187,11 @@ final class AuthService
         }
 
         // Create user with value objects
-        $valueObjects = $command->toValueObjects();
         $user = User::create(
             name: $command->name,
-            email: $valueObjects['email'],
-            password: $valueObjects['password'],
-            role: $valueObjects['role'],
+            email: Email::fromString($command->email),
+            password: Password::fromPlain($command->password),
+            role: RoleVO::fromString($command->role),
             avatar: $command->avatar,
         );
 

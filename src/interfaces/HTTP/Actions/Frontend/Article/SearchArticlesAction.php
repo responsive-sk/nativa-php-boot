@@ -22,6 +22,7 @@ final class SearchArticlesAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $query = $request->query->get('q', '');

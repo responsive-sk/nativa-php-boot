@@ -26,6 +26,7 @@ final class PageCreated extends DomainEvent
         return $this->title;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

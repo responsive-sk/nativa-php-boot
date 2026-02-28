@@ -43,6 +43,7 @@ final class EditArticleAction extends Action
         return $this->html($content);
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $id = $request->attributes->get('id');

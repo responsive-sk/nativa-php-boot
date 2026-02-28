@@ -35,6 +35,11 @@ final class CloudinaryProvider implements MediaProviderInterface
         }
     }
 
+    /**
+     * @param array{name: string, type: string, size: int, tmp_name: string, error: int} $file
+     * @return array{path: string, url: string, size: int, mime_type: string, original_name: string, cloudinary_id: string}
+     */
+    #[\Override]
     public function upload(array $file): array
     {
         if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
@@ -46,7 +51,7 @@ final class CloudinaryProvider implements MediaProviderInterface
 
         // Upload to Cloudinary API
         $uploadUrl = "https://api.cloudinary.com/v1_1/{$this->cloudName}/auto/upload";
-        
+
         $postData = [
             'file' => new \CURLFile($file['tmp_name'], $file['type'], $file['name']),
             'upload_preset' => $this->uploadPreset,
@@ -69,6 +74,7 @@ final class CloudinaryProvider implements MediaProviderInterface
             throw new RuntimeException('Cloudinary upload failed');
         }
 
+        /** @var array{secure_url: string, public_id: string, bytes?: int}|null $result */
         $result = json_decode($response, true);
 
         if (!isset($result['secure_url']) || !isset($result['public_id'])) {
@@ -85,6 +91,7 @@ final class CloudinaryProvider implements MediaProviderInterface
         ];
     }
 
+    #[\Override]
     public function delete(string $path): bool
     {
         $deleteUrl = "https://api.cloudinary.com/v1_1/{$this->cloudName}/image/destroy";
@@ -114,11 +121,13 @@ final class CloudinaryProvider implements MediaProviderInterface
         return ($result['result'] ?? '') === 'ok';
     }
 
+    #[\Override]
     public function getUrl(string $path): string
     {
         return "https://res.cloudinary.com/{$this->cloudName}/image/upload/{$path}";
     }
 
+    #[\Override]
     public function getSize(string $path): int
     {
         // Cloudinary API call to get file info would go here
@@ -126,6 +135,7 @@ final class CloudinaryProvider implements MediaProviderInterface
         return 0;
     }
 
+    #[\Override]
     public function exists(string $path): bool
     {
         // Would need to make API call to check existence
@@ -133,6 +143,7 @@ final class CloudinaryProvider implements MediaProviderInterface
         return true;
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'cloudinary';

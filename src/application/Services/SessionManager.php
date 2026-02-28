@@ -28,27 +28,16 @@ final class SessionManager
             return;
         }
 
-        // Security settings
-        ini_set('session.use_strict_mode', '1');
-        ini_set('session.use_only_cookies', '1');
+        // Use secure session configuration
+        SessionSecurityConfig::configure();
 
-        // Cookie settings
-        $cookieParams = [
-            'lifetime' => 0,
-            'path' => '/',
-            'domain' => '',
-            'secure' => ($_ENV['SESSION_SECURE_COOKIE'] ?? 'false') === 'true',
-            'httponly' => true,
-            'samesite' => ($_ENV['SESSION_SAME_SITE'] ?? 'Lax'),
-        ];
-
-        session_set_cookie_params($cookieParams);
-
+        // Override with app-specific settings
         // Session name
         ini_set('session.name', $_ENV['SESSION_NAME'] ?? 'nativa_session');
 
-        // Garbage collection
-        ini_set('session.gc_maxlifetime', (string) ($_ENV['AUTH_SESSION_LIFETIME'] ?? '7200'));
+        // Garbage collection - 30 minutes default
+        $maxLifetime = (int) ($_ENV['AUTH_SESSION_LIFETIME'] ?? '1800');
+        ini_set('session.gc_maxlifetime', (string) $maxLifetime);
     }
 
     /**
@@ -64,15 +53,50 @@ final class SessionManager
         if ($status === PHP_SESSION_NONE) {
             session_start();
             $this->started = true;
+            SessionSecurityConfig::setLastActivity();
 
             $this->logDebug('[SessionManager] Session started: ' . session_id());
         }
     }
 
     /**
+     * Regenerate session ID (call after login for security)
+     *
+     * @param bool $deleteOldSession Delete old session data
+     */
+    public function regenerate(bool $deleteOldSession = true): void
+    {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_regenerate_id($deleteOldSession);
+            SessionSecurityConfig::setLastActivity();
+            
+            $this->logDebug('[SessionManager] Session ID regenerated');
+        }
+    }
+
+    /**
+     * Check if session has timed out
+     *
+     * @param int $timeoutSeconds Timeout in seconds (default: 30 minutes)
+     * @return bool True if session is still active
+     */
+    public function isActive(int $timeoutSeconds = 1800): bool
+    {
+        return SessionSecurityConfig::isSessionActive($timeoutSeconds);
+    }
+
+    /**
+     * Update last activity timestamp
+     */
+    public function touch(): void
+    {
+        SessionSecurityConfig::setLastActivity();
+    }
+
+    /**
      * Set session value
      */
-    public function set(string $key, mixed $value): void
+    public function set(string $key, string $value): void
     {
         $this->ensureStarted();
         $_SESSION[$key] = $value;
@@ -82,8 +106,12 @@ final class SessionManager
 
     /**
      * Get session value
+     *
+     * @param null|string $default
+     *
+     * @psalm-param '/admin'|null $default
      */
-    public function get(string $key, mixed $default = null): mixed
+    public function get(string $key, string|null $default = null): mixed
     {
         $this->ensureStarted();
         return $_SESSION[$key] ?? $default;
@@ -192,8 +220,10 @@ final class SessionManager
 
     /**
      * Get session ID
+     *
+     * @return false|string
      */
-    public function getId(): string
+    public function getId(): string|false
     {
         $this->ensureStarted();
         return session_id();

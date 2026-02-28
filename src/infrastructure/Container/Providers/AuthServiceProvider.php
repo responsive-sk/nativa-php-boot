@@ -19,6 +19,7 @@ use Infrastructure\Persistence\UnitOfWork;
  */
 class AuthServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Session Manager (singleton)
@@ -44,6 +45,7 @@ class AuthServiceProvider implements ServiceProviderInterface
         });
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping

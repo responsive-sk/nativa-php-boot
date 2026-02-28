@@ -17,6 +17,7 @@ class CreateArticle implements CommandInterface
         public readonly string $authorId,
         public readonly ?string $categoryId = null,
         public readonly ?string $excerpt = null,
+        /** @var array<int, string>|null */
         public readonly ?array $tags = null,
         public readonly ?string $image = null,
     ) {

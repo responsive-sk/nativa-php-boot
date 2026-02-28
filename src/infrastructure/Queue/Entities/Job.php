@@ -11,12 +11,16 @@ class Job
 {
     private ?string $id = null;
     private string $queue;
+    /** @var array<string, mixed> */
     private array $payload;
     private int $attempts;
     private ?string $reservedAt;
     private ?string $availableAt;
     private string $createdAt;
 
+    /**
+     * @param array<string, mixed> $payload
+     */
     public function __construct(
         string $queue,
         array $payload,
@@ -32,6 +36,9 @@ class Job
         $this->createdAt = date('Y-m-d H:i:s');
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $job = new self(
@@ -57,6 +64,9 @@ class Job
         return $this->queue;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function payload(): array
     {
         return $this->payload;
@@ -112,6 +122,9 @@ class Job
         return $this->reservedAt !== null;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

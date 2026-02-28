@@ -29,6 +29,7 @@ final class DisplayFormAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'POST') {
@@ -60,6 +61,18 @@ final class DisplayFormAction extends Action
 
     private function submit(Request $request): Response
     {
+        // Apply rate limiting
+        $rateLimitMiddleware = new \Application\Middleware\RateLimitMiddleware(
+            new \Application\Services\RateLimiter(
+                \Infrastructure\Persistence\DatabaseConnection::getInstance()->getConnection()
+            )
+        );
+
+        $rateLimitResponse = $rateLimitMiddleware->limitFormSubmission($request);
+        if ($rateLimitResponse !== null) {
+            return $rateLimitResponse;
+        }
+
         $slug = $this->param($request, 'slug');
         $form = $this->formManager->findBySlug($slug);
 
@@ -68,16 +81,27 @@ final class DisplayFormAction extends Action
         }
 
         try {
-            // Collect form data
+            // Validate form data
+            $validator = new \Application\Services\FormValidationService();
             $formData = $request->request->all();
-            
+
             // Remove CSRF token and submit button from data
             unset($formData['_token'], $formData['submit']);
+
+            if (!$validator->validate($formData, $form->schema())) {
+                // Redirect back with errors
+                $request->getSession()?->getFlashBag()->set('errors', $validator->getErrors());
+                $request->getSession()?->getFlashBag()->set('old', $formData);
+                return $this->redirect('/form/' . $slug);
+            }
+
+            // Use sanitized data
+            $sanitizedData = $validator->getSanitizedData();
 
             // Save submission
             $this->submissionRepository->saveSubmission(
                 formId: $form->id(),
-                data: $formData,
+                data: $sanitizedData,
                 ipAddress: $request->getClientIp(),
                 userAgent: $request->headers->get('User-Agent', '')
             );

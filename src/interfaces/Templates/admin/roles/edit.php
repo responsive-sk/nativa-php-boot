@@ -18,6 +18,8 @@ use Domain\Model\Role;
         <?php endif; ?>
 
         <form method="POST" action="/admin/roles/<?= $this->e($role->id()) ?>/edit" class="bg-white rounded-lg shadow p-6">
+            <?= $this->partial('csrf_token') ?>
+            
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Role Name</label>
                 <input type="text" 

@@ -15,6 +15,7 @@ use Infrastructure\Container\ServiceProviderInterface;
  */
 class UserServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register UserRepository
@@ -26,6 +27,7 @@ class UserServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

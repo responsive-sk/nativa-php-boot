@@ -16,11 +16,13 @@ abstract class DomainEvent implements DomainEventInterface
         $this->occurredAt = $this->now();
     }
 
+    #[\Override]
     public function occurredAt(): string
     {
         return $this->occurredAt;
     }
 
+    #[\Override]
     abstract public function payload(): array;
 
     private function now(): string

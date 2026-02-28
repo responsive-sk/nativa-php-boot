@@ -79,7 +79,11 @@ final class MediaManager
      */
     private function calculateFileHash(string $tmpPath): string
     {
-        return hash_file('sha256', $tmpPath);
+        $hash = hash_file('sha256', $tmpPath);
+        if ($hash === false) {
+            throw new \RuntimeException('Failed to calculate file hash');
+        }
+        return $hash;
     }
 
     /**

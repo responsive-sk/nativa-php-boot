@@ -23,6 +23,7 @@ class InvalidateCacheStep extends SagaStep
         $this->paths = AppPaths::instance();
     }
 
+    #[\Override]
     public function execute(): bool
     {
         // Clear article-related cache items
@@ -45,12 +46,14 @@ class InvalidateCacheStep extends SagaStep
         return true;
     }
 
+    #[\Override]
     public function compensate(): void
     {
         // Cache invalidation is idempotent - no need to rollback
         // Cache will naturally rebuild on next request
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'Invalidate Cache';

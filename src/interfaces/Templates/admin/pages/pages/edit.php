@@ -15,6 +15,8 @@ $page = $this->getCurrentData()['page'] ?? null;
     </div>
 
     <form id="edit-page-form" class="space-y-6">
+        <?= $this->partial('csrf_token') ?>
+        
         <!-- Page Details -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-xl font-semibold mb-4">Page Details</h2>

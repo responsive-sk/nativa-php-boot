@@ -32,6 +32,7 @@ final class ArticlePublished extends DomainEvent
         return $this->publishedAt;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

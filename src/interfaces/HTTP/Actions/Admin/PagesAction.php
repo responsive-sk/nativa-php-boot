@@ -22,6 +22,7 @@ final class PagesAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $pages = $this->pageManager->findAll(50, 0);

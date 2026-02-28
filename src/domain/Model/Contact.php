@@ -39,16 +39,19 @@ final class Contact
         return $contact;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $contact = new self();
-        $contact->id = $data['id'];
-        $contact->name = $data['name'];
-        $contact->email = $data['email'];
-        $contact->subject = $data['subject'] ?? null;
-        $contact->message = $data['message'];
-        $contact->status = $data['status'];
-        $contact->createdAt = $data['created_at'];
+        $contact->id = (string) $data['id'];
+        $contact->name = (string) $data['name'];
+        $contact->email = (string) $data['email'];
+        $contact->subject = isset($data['subject']) ? (string) $data['subject'] : null;
+        $contact->message = (string) $data['message'];
+        $contact->status = (string) $data['status'];
+        $contact->createdAt = (string) $data['created_at'];
 
         return $contact;
     }
@@ -109,6 +112,9 @@ final class Contact
         return $this->status === 'new';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

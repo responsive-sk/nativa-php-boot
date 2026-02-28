@@ -11,10 +11,14 @@ class FailedJob
 {
     private ?string $id = null;
     private string $queue;
+    /** @var array<string, mixed> */
     private array $payload;
     private string $exception;
     private string $failedAt;
 
+    /**
+     * @param array<string, mixed> $payload
+     */
     public function __construct(
         string $queue,
         array $payload,
@@ -26,6 +30,9 @@ class FailedJob
         $this->failedAt = date('Y-m-d H:i:s');
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $failedJob = new self(
@@ -49,6 +56,9 @@ class FailedJob
         return $this->queue;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function payload(): array
     {
         return $this->payload;
@@ -70,6 +80,9 @@ class FailedJob
         $this->id = $id;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

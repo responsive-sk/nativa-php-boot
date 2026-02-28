@@ -23,6 +23,7 @@ final class ListRolesAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $roles = $this->roleService->getAllRoles();

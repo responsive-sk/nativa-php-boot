@@ -20,6 +20,7 @@ use Infrastructure\Persistence\UnitOfWork;
     ) {
     }
 
+    #[\Override]
     public function save(User $user): void
     {
         $data = $user->toArray();
@@ -43,6 +44,7 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function findById(string $id): ?User
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM users WHERE id = ?');
@@ -61,6 +63,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $user;
     }
 
+    #[\Override]
     public function findByEmail(string $email): ?User
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM users WHERE email = ?');
@@ -79,6 +82,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $user;
     }
 
+    #[\Override]
     public function findAll(): array
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM users ORDER BY created_at DESC');
@@ -95,6 +99,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $users;
     }
 
+    #[\Override]
     public function findByRole(string $role): array
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -114,6 +119,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $users;
     }
 
+    #[\Override]
     public function findActive(): array
     {
         $stmt = $this->uow->getConnection()->query(
@@ -132,6 +138,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $users;
     }
 
+    #[\Override]
     public function emailExists(string $email, ?string $excludeId = null): bool
     {
         $sql = 'SELECT COUNT(*) FROM users WHERE email = ?';
@@ -148,12 +155,14 @@ use Infrastructure\Persistence\UnitOfWork;
         return (int) $stmt->fetchColumn() > 0;
     }
 
+    #[\Override]
     public function delete(User $user): void
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM users WHERE id = ?');
         $stmt->execute([$user->id()]);
     }
 
+    #[\Override]
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM users');

@@ -54,6 +54,7 @@ final class StoreArticleAction extends Action
         }
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'POST') {

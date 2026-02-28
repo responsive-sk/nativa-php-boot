@@ -19,6 +19,7 @@ use PDO;
     ) {
     }
 
+    #[\Override]
     public function create(array $data): Media
     {
         $media = Media::create($data);
@@ -50,6 +51,7 @@ use PDO;
         return $media;
     }
 
+    #[\Override]
     public function findById(string $id): ?Media
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM media WHERE id = ?');
@@ -63,6 +65,7 @@ use PDO;
         return Media::fromArray($data);
     }
 
+    #[\Override]
     public function findAll(int $limit = 20, int $offset = 0): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -78,6 +81,7 @@ use PDO;
         return array_map(fn($row) => Media::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findByUserId(string $userId, int $limit = 20): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -94,6 +98,7 @@ use PDO;
         return array_map(fn($row) => Media::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findByHash(string $hash): ?Media
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM media WHERE hash = ? LIMIT 1');
@@ -107,12 +112,14 @@ use PDO;
         return Media::fromArray($data);
     }
 
+    #[\Override]
     public function delete(string $id): bool
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM media WHERE id = ?');
         return $stmt->execute([$id]);
     }
 
+    #[\Override]
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM media');

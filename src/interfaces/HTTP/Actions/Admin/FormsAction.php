@@ -22,6 +22,7 @@ final class FormsAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $forms = $this->formManager->findAll();

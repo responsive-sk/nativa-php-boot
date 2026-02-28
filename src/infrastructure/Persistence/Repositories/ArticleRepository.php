@@ -6,6 +6,7 @@ namespace Infrastructure\Persistence\Repositories;
 
 use Domain\Model\Article;
 use Domain\Repository\ArticleRepositoryInterface;
+use Infrastructure\Persistence\StatementExecutor;
 use Infrastructure\Persistence\UnitOfWork;
 use PDO;
 
@@ -14,11 +15,19 @@ use PDO;
  */
  final class ArticleRepository implements ArticleRepositoryInterface
 {
+    use StatementExecutor;
+
     public function __construct(
         private readonly UnitOfWork $uow
     ) {
     }
 
+    protected function getConnection(): PDO
+    {
+        return $this->uow->getConnection();
+    }
+
+    #[\Override]
     public function save(Article $article): void
     {
         $data = $article->toArray();
@@ -48,72 +57,89 @@ use PDO;
         SQL;
 
         $stmt = $this->uow->getConnection()->prepare($sql);
+        assert($stmt !== false, 'Failed to prepare SQL statement');
         $stmt->execute($data);
 
         // Handle tags
         $this->saveTags($article->id(), $article->tags());
     }
 
+    #[\Override]
     public function delete(string $id): void
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM articles WHERE id = ?');
+        assert($stmt !== false, 'Failed to prepare SQL statement');
         $stmt->execute([$id]);
     }
 
+    #[\Override]
     public function findById(string $id): ?Article
     {
-        $stmt = $this->uow->getConnection()->prepare('SELECT * FROM articles WHERE id = ?');
-        $stmt->execute([$id]);
-        $data = $stmt->fetch();
-
-        if (!$data) {
+        $data = $this->fetchOne('SELECT * FROM articles WHERE id = ?', [$id]);
+        
+        if ($data === null) {
             return null;
         }
 
+        /** @var array<string, mixed> $data */
         $data['tags'] = $this->getTags($id);
         return Article::fromArray($data);
     }
 
+    #[\Override]
     public function findBySlug(string $slug): ?Article
     {
-        $stmt = $this->uow->getConnection()->prepare('SELECT * FROM articles WHERE slug = ?');
-        $stmt->execute([$slug]);
-        $data = $stmt->fetch();
-
-        if (!$data) {
+        $data = $this->fetchOne('SELECT * FROM articles WHERE slug = ?', [$slug]);
+        
+        if ($data === null) {
             return null;
         }
 
+        /** @var array<string, mixed> $data */
         $data['tags'] = $this->getTags($data['id']);
         return Article::fromArray($data);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function findByAuthorId(string $authorId): array
     {
-        $stmt = $this->uow->getConnection()->prepare(
-            'SELECT * FROM articles WHERE author_id = ? ORDER BY created_at DESC'
+        $rows = $this->fetchAll(
+            'SELECT * FROM articles WHERE author_id = ? ORDER BY created_at DESC',
+            [$authorId]
         );
-        $stmt->execute([$authorId]);
 
-        return array_map(function ($row) {
+        return array_map(function (array $row) {
+            /** @var array<string, mixed> $row */
             $row['tags'] = $this->getTags($row['id']);
             return Article::fromArray($row);
-        }, $stmt->fetchAll());
+        }, $rows);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function findByCategoryId(string $categoryId): array
     {
-        $stmt = $this->uow->getConnection()->prepare(
-            'SELECT * FROM articles WHERE category_id = ? ORDER BY created_at DESC'
+        $rows = $this->fetchAll(
+            'SELECT * FROM articles WHERE category_id = ? ORDER BY created_at DESC',
+            [$categoryId]
         );
-        $stmt->execute([$categoryId]);
 
-        return array_map(function ($row) {
+        return array_map(function (array $row) {
+            /** @var array<string, mixed> $row */
             $row['tags'] = $this->getTags($row['id']);
             return Article::fromArray($row);
-        }, $stmt->fetchAll());
+        }, $rows);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function findByTag(string $tag): array
     {
         $sql = <<<SQL
@@ -124,90 +150,112 @@ use PDO;
             ORDER BY a.created_at DESC
         SQL;
 
-        $stmt = $this->uow->getConnection()->prepare($sql);
-        $stmt->execute([$tag]);
+        $rows = $this->fetchAll($sql, [$tag]);
 
-        return array_map(function ($row) {
+        return array_map(function (array $row) {
+            /** @var array<string, mixed> $row */
             $row['tags'] = $this->getTags($row['id']);
             return Article::fromArray($row);
-        }, $stmt->fetchAll());
+        }, $rows);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function findPublished(int $limit = 10, int $offset = 0): array
     {
-        $stmt = $this->uow->getConnection()->prepare(<<<SQL
+        $sql = <<<SQL
             SELECT * FROM articles
             WHERE status = 'published'
             ORDER BY published_at DESC
             LIMIT :limit OFFSET :offset
-        SQL);
+        SQL;
 
+        $stmt = $this->executeQuery($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
-        return array_map(function ($row) {
+        $rows = $stmt->fetchAll();
+
+        return array_map(function (array $row) {
+            /** @var array<string, mixed> $row */
             $row['tags'] = $this->getTags($row['id']);
             return Article::fromArray($row);
-        }, $stmt->fetchAll());
+        }, $rows);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function findLatest(int $limit = 5): array
     {
         return array_slice($this->findPublished($limit), 0, $limit);
     }
 
+    /**
+     * @return array<int, Article>
+     */
+    #[\Override]
     public function search(string $query): array
     {
         $searchTerm = "%{$query}%";
-        $stmt = $this->uow->getConnection()->prepare(<<<SQL
+        $sql = <<<SQL
             SELECT * FROM articles
             WHERE status = 'published'
             AND (title LIKE :query OR content LIKE :query OR excerpt LIKE :query)
             ORDER BY published_at DESC
-        SQL);
+        SQL;
 
-        $stmt->execute([':query' => $searchTerm]);
+        $stmt = $this->executeQuery($sql);
+        $stmt->bindValue(':query', $searchTerm);
+        $stmt->execute();
 
-        return array_map(function ($row) {
+        $rows = $stmt->fetchAll();
+
+        return array_map(function (array $row) {
+            /** @var array<string, mixed> $row */
             $row['tags'] = $this->getTags($row['id']);
             return Article::fromArray($row);
-        }, $stmt->fetchAll());
+        }, $rows);
     }
 
+    #[\Override]
     public function count(): int
     {
-        $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM articles');
-        return (int) $stmt->fetchColumn();
+        return (int) $this->fetchColumn('SELECT COUNT(*) FROM articles');
     }
 
+    #[\Override]
     public function countPublished(): int
     {
-        $stmt = $this->uow->getConnection()->query(
+        return (int) $this->fetchColumn(
             "SELECT COUNT(*) FROM articles WHERE status = 'published'"
         );
-        return (int) $stmt->fetchColumn();
     }
 
     private function saveTags(string $articleId, array $tags): void
     {
         // Delete existing tags
-        $stmt = $this->uow->getConnection()->prepare(
-            'DELETE FROM article_tag WHERE article_id = ?'
+        $this->executeQuery(
+            'DELETE FROM article_tag WHERE article_id = ?',
+            [$articleId]
         );
-        $stmt->execute([$articleId]);
 
         if (empty($tags)) {
             return;
         }
 
         // Insert new tags
-        $stmt = $this->uow->getConnection()->prepare(<<<SQL
+        $sql = <<<SQL
             INSERT INTO article_tag (article_id, tag_id)
             VALUES (:article_id, (SELECT id FROM tags WHERE slug = :tag_slug))
-        SQL);
+        SQL;
 
         foreach ($tags as $tagSlug) {
+            $stmt = $this->executeQuery($sql);
             $stmt->execute([
                 ':article_id' => $articleId,
                 ':tag_slug' => $tagSlug,
@@ -215,15 +263,20 @@ use PDO;
         }
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getTags(string $articleId): array
     {
-        $stmt = $this->uow->getConnection()->prepare(<<<SQL
+        $sql = <<<SQL
             SELECT t.name FROM tags t
             INNER JOIN article_tag at ON t.id = at.tag_id
             WHERE at.article_id = ?
-        SQL);
+        SQL;
 
-        $stmt->execute([$articleId]);
-        return array_column($stmt->fetchAll(), 'name');
+        $rows = $this->fetchAll($sql, [$articleId]);
+        
+        /** @var array<int, array{name: string}> $rows */
+        return array_column($rows, 'name');
     }
 }

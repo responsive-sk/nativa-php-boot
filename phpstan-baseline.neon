@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Application\\CQRS\\Article\\Commands\\CreateArticle\:\:__construct\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/CQRS/Article/Commands/CreateArticle.php
-
-		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -29,30 +23,6 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: src/application/Middleware/AuthMiddleware.php
-
-		-
-			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:compensateWithTracking\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
-
-		-
-			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:executeWithTracking\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
-
-		-
-			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:isCompensated\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
-
-		-
-			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:isExecuted\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/application/Saga/SagaOrchestrator.php
 
 		-
 			message: '#^Method Application\\Saga\\SagaStep\:\:getName\(\) should return string but returns string\|null\.$#'
@@ -91,36 +61,6 @@ parameters:
 			path: src/application/Services/AuthService.php
 
 		-
-			message: '#^Parameter \$email of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Email, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/AuthService.php
-
-		-
-			message: '#^Parameter \$password of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Password, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/AuthService.php
-
-		-
-			message: '#^Parameter \$role of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Role\|null, Domain\\ValueObjects\\Email\|Domain\\ValueObjects\\Password\|Domain\\ValueObjects\\Role given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/AuthService.php
-
-		-
-			message: '#^Parameter \#5 \$successMessage of static method Domain\\Model\\Form\:\:create\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/application/Services/FormManager.php
-
-		-
-			message: '#^Method Application\\Services\\MediaManager\:\:calculateFileHash\(\) should return string but returns string\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/application/Services/MediaManager.php
-
-		-
 			message: '#^Parameter \#1 \$tmpPath of method Application\\Services\\MediaManager\:\:calculateFileHash\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -145,12 +85,6 @@ parameters:
 			path: src/application/Services/SessionManager.php
 
 		-
-			message: '#^Method Application\\Services\\SessionManager\:\:getId\(\) should return string but returns string\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/application/Services/SessionManager.php
-
-		-
 			message: '#^Parameter \#1 \$name of function setcookie expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -163,7 +97,19 @@ parameters:
 			path: src/application/Services/SessionManager.php
 
 		-
+			message: '#^Parameter \#2 \$default of method Application\\Services\\SessionManager\:\:get\(\) expects ''/admin''\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
 			message: '#^Parameter \#2 \$value of function ini_set expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/SessionManager.php
+
+		-
+			message: '#^Parameter \#2 \$value of method Application\\Services\\SessionManager\:\:set\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/application/Services/SessionManager.php
@@ -247,92 +193,38 @@ parameters:
 			path: src/application/Validation/Validator.php
 
 		-
-			message: '#^Method Domain\\Events\\ArticleUpdated\:\:__construct\(\) has parameter \$changes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Events/ArticleUpdated.php
-
-		-
-			message: '#^Method Domain\\Events\\ArticleUpdated\:\:changes\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Events/ArticleUpdated.php
-
-		-
-			message: '#^Method Domain\\Events\\FormSubmitted\:\:data\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Events/FormSubmitted.php
-
-		-
-			message: '#^Method Domain\\Model\\Article\:\:addTags\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: src/domain/Model/Article.php
 
 		-
-			message: '#^Method Domain\\Model\\Article\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 12
+			path: src/domain/Model/Article.php
+
+		-
+			message: '#^Property Domain\\Model\\Article\:\:\$tags \(array\<string\>\) does not accept array\<mixed, mixed\>\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/domain/Model/Article.php
 
 		-
-			message: '#^Method Domain\\Model\\Article\:\:setTags\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Article.php
-
-		-
-			message: '#^Method Domain\\Model\\Article\:\:tags\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Article.php
-
-		-
-			message: '#^Method Domain\\Model\\Article\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Article.php
-
-		-
-			message: '#^Method Domain\\Model\\Contact\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 7
 			path: src/domain/Model/Contact.php
 
 		-
-			message: '#^Method Domain\\Model\\Contact\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Contact.php
-
-		-
-			message: '#^Method Domain\\Model\\Form\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 7
 			path: src/domain/Model/Form.php
 
 		-
-			message: '#^Method Domain\\Model\\Form\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Form.php
-
-		-
-			message: '#^Method Domain\\Model\\Form\:\:schema\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Form.php
-
-		-
-			message: '#^Method Domain\\Model\\Form\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Form.php
-
-		-
-			message: '#^Method Domain\\Model\\Form\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/domain/Model/Form.php
 
@@ -349,50 +241,26 @@ parameters:
 			path: src/domain/Model/Form.php
 
 		-
-			message: '#^Property Domain\\Model\\Form\:\:\$schema \(array\) does not accept mixed\.$#'
+			message: '#^Property Domain\\Model\\Form\:\:\$schema \(array\<int, array\<string, mixed\>\>\) does not accept array\<mixed, mixed\>\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: src/domain/Model/Form.php
 
 		-
-			message: '#^Property Domain\\Model\\Form\:\:\$schema type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/Form.php
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 5
+			path: src/domain/Model/FormSubmission.php
 
 		-
-			message: '#^Method Domain\\Model\\FormSubmission\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/domain/Model/FormSubmission.php
 
 		-
-			message: '#^Method Domain\\Model\\FormSubmission\:\:data\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/FormSubmission.php
-
-		-
-			message: '#^Method Domain\\Model\\FormSubmission\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/FormSubmission.php
-
-		-
-			message: '#^Method Domain\\Model\\FormSubmission\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/FormSubmission.php
-
-		-
-			message: '#^Property Domain\\Model\\FormSubmission\:\:\$data \(array\) does not accept mixed\.$#'
+			message: '#^Property Domain\\Model\\FormSubmission\:\:\$data \(array\<string, mixed\>\) does not accept array\<mixed, mixed\>\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: src/domain/Model/FormSubmission.php
-
-		-
-			message: '#^Property Domain\\Model\\FormSubmission\:\:\$data type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/domain/Model/FormSubmission.php
 
@@ -427,44 +295,26 @@ parameters:
 			path: src/domain/Model/Page.php
 
 		-
-			message: '#^Method Domain\\Model\\PageBlock\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: src/domain/Model/PageBlock.php
 
 		-
-			message: '#^Method Domain\\Model\\PageBlock\:\:data\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 6
+			path: src/domain/Model/PageBlock.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/domain/Model/PageBlock.php
 
 		-
-			message: '#^Method Domain\\Model\\PageBlock\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/PageBlock.php
-
-		-
-			message: '#^Method Domain\\Model\\PageBlock\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/PageBlock.php
-
-		-
-			message: '#^Method Domain\\Model\\PageBlock\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Model/PageBlock.php
-
-		-
-			message: '#^Property Domain\\Model\\PageBlock\:\:\$data \(array\) does not accept mixed\.$#'
+			message: '#^Property Domain\\Model\\PageBlock\:\:\$data \(array\<string, mixed\>\) does not accept array\<mixed, mixed\>\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: src/domain/Model/PageBlock.php
-
-		-
-			message: '#^Property Domain\\Model\\PageBlock\:\:\$data type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/domain/Model/PageBlock.php
 
@@ -545,42 +395,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/domain/Model/User.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByAuthorId\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByCategoryId\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findLatest\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findPublished\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:search\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/domain/Repository/ArticleRepositoryInterface.php
 
 		-
 			message: '#^Method Domain\\Repository\\FormRepositoryInterface\:\:findAll\(\) return type has no value type specified in iterable type array\.$#'
@@ -673,39 +487,9 @@ parameters:
 			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Parameter \#1 \$basePath of class Infrastructure\\Storage\\Providers\\LocalStorageProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$cloudName of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#2 \$apiKey of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#2 \$baseUrl of class Infrastructure\\Storage\\Providers\\LocalStorageProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#3 \$apiSecret of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#4 \$uploadPreset of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 6
 			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
 
 		-
@@ -745,57 +529,9 @@ parameters:
 			path: src/infrastructure/Persistence/DatabaseConnectionManager.php
 
 		-
-			message: '#^Cannot access offset ''id'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Cannot access offset ''tags'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 2
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByAuthorId\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByCategoryId\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findLatest\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:findPublished\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:getTags\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
 			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
 
 		-
@@ -805,19 +541,25 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
 
 		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:search\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			message: '#^Parameter \#1 \$articleId of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:getTags\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 6
 			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
 
 		-
-			message: '#^Parameter \#1 \$articleId of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:getTags\(\) expects string, mixed given\.$#'
+			message: '#^Parameter \#2 \$params of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:executeQuery\(\) expects array\<string, mixed\>, array\<int, string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
 
 		-
-			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Article\:\:fromArray\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#2 \$params of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:fetchAll\(\) expects array\<string, mixed\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 4
+			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
+
+		-
+			message: '#^Parameter \#2 \$params of method Infrastructure\\Persistence\\Repositories\\ArticleRepository\:\:fetchOne\(\) expects array\<string, mixed\>, array\<int, string\> given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/infrastructure/Persistence/Repositories/ArticleRepository.php
@@ -829,7 +571,7 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/ContactRepository.php
 
 		-
-			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Contact\:\:fromArray\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Contact\:\:fromArray\(\) expects array\<string, mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Persistence/Repositories/ContactRepository.php
@@ -853,7 +595,7 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/FormRepository.php
 
 		-
-			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Form\:\:fromArray\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\Form\:\:fromArray\(\) expects array\<string, mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/infrastructure/Persistence/Repositories/FormRepository.php
@@ -865,7 +607,7 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
 
 		-
-			message: '#^Parameter \#1 \$data of static method Domain\\Model\\FormSubmission\:\:fromArray\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$data of static method Domain\\Model\\FormSubmission\:\:fromArray\(\) expects array\<string, mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Persistence/Repositories/FormSubmissionRepository.php
@@ -955,67 +697,79 @@ parameters:
 			path: src/infrastructure/Persistence/Repositories/UserRepository.php
 
 		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Queue/Entities/FailedJob.php
-
-		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Queue/Entities/FailedJob.php
-
-		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:payload\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Queue/Entities/FailedJob.php
-
-		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\FailedJob\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Queue/Entities/FailedJob.php
-
-		-
-			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\FailedJob constructor expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$id of method Infrastructure\\Queue\\Entities\\FailedJob\:\:setId\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/FailedJob.php
 
 		-
-			message: '#^Property Infrastructure\\Queue\\Entities\\FailedJob\:\:\$payload type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/FailedJob.php
 
 		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \$exception of class Infrastructure\\Queue\\Entities\\FailedJob constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\FailedJob constructor expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Parameter \$queue of class Infrastructure\\Queue\\Entities\\FailedJob constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Property Infrastructure\\Queue\\Entities\\FailedJob\:\:\$failedAt \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/infrastructure/Queue/Entities/FailedJob.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
 
 		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$id of method Infrastructure\\Queue\\Entities\\Job\:\:setId\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
 
 		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:payload\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
 
 		-
-			message: '#^Method Infrastructure\\Queue\\Entities\\Job\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \$availableAt of class Infrastructure\\Queue\\Entities\\Job constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
 
 		-
-			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\Job constructor expects array, mixed given\.$#'
+			message: '#^Parameter \$payload of class Infrastructure\\Queue\\Entities\\Job constructor expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Parameter \$queue of class Infrastructure\\Queue\\Entities\\Job constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Parameter \$reservedAt of class Infrastructure\\Queue\\Entities\\Job constructor expects string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
@@ -1027,8 +781,8 @@ parameters:
 			path: src/infrastructure/Queue/Entities/Job.php
 
 		-
-			message: '#^Property Infrastructure\\Queue\\Entities\\Job\:\:\$payload type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Property Infrastructure\\Queue\\Entities\\Job\:\:\$createdAt \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/infrastructure/Queue/Entities/Job.php
 
@@ -1087,34 +841,136 @@ parameters:
 			path: src/infrastructure/Queue/Handlers/OutboxProcessor.php
 
 		-
+			message: '#^Cannot access offset ''email'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''message'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''subject'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Parameter \#3 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Parameter \#4 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Parameter \#5 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendContactNotificationHandler.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''form_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''form_slug'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''submission'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Cannot access offset ''submitted_at'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Parameter \#1 \$string of function ucfirst expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Part \$formName \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 2
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
+			message: '#^Part \$submittedAt \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: src/infrastructure/Queue/Handlers/SendFormSubmissionNotificationHandler.php
+
+		-
 			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: src/infrastructure/Queue/QueueRepository.php
 
 		-
-			message: '#^Parameter \#1 \$data of static method Infrastructure\\Queue\\Entities\\Job\:\:fromArray\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$data of static method Infrastructure\\Queue\\Entities\\Job\:\:fromArray\(\) expects array\<string, mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/infrastructure/Queue/QueueRepository.php
 
 		-
-			message: '#^Cannot access offset ''bytes'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
+			message: '#^Parameter \#1 \$jobName of method Infrastructure\\Queue\\Handlers\\JobHandlerRegistry\:\:getHandler\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+			path: src/infrastructure/Queue/Worker/JobHandler.php
 
 		-
-			message: '#^Cannot access offset ''format'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
+			message: '#^Part \$jobName \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
 			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+			path: src/infrastructure/Queue/Worker/JobHandler.php
 
 		-
-			message: '#^Cannot access offset ''public_id'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+			message: '#^Part \$jobName \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 5
+			path: src/infrastructure/Queue/Worker/Worker.php
 
 		-
 			message: '#^Cannot access offset ''result'' on mixed\.$#'
@@ -1123,26 +979,26 @@ parameters:
 			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
 
 		-
-			message: '#^Cannot access offset ''secure_url'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
-
-		-
-			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
-
-		-
-			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:upload\(\) should return array\{path\: string, url\: string, size\: int, mime_type\: string\} but returns array\{path\: mixed, url\: mixed, size\: int, mime_type\: mixed, original_name\: mixed, cloudinary_id\: mixed\}\.$#'
-			identifier: return.type
-			count: 1
-			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
-
-		-
 			message: '#^Method Infrastructure\\Storage\\Providers\\CloudinaryProvider\:\:validateFile\(\) has parameter \$file with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Offset ''format'' on array\{secure_url\: string, public_id\: string, bytes\?\: int\} on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Offset ''public_id'' on array\{secure_url\: string, public_id\: string, bytes\?\: int\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
+
+		-
+			message: '#^Offset ''tmp_name'' on array\{name\: string, type\: string, size\: int, tmp_name\: string, error\: int\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
 			count: 1
 			path: src/infrastructure/Storage/Providers/CloudinaryProvider.php
 
@@ -1333,104 +1189,14 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
 
 		-
-			message: '#^Parameter \#1 \$id of method Application\\Services\\PageManager\:\:findById\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 5
 			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
 
 		-
-			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:addBlock\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:getPageWithRelations\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$action of method Interfaces\\HTTP\\Actions\\Admin\\EditPageAction\:\:handleAction\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$formId of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$mediaId of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$type of method Application\\Services\\PageManager\:\:addBlock\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#3 \$caption of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#3 \$title of method Application\\Services\\PageManager\:\:addBlock\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#3 \$title of method Application\\Services\\PageManager\:\:embedForm\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#4 \$content of method Application\\Services\\PageManager\:\:addBlock\(\) expects string\|null, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#4 \$position of method Application\\Services\\PageManager\:\:embedForm\(\) expects string, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \$pageId of method Application\\Services\\PageManager\:\:update\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#1 \$formId of method Domain\\Repository\\FormSubmissionRepositoryInterface\:\:countByFormId\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
-
-		-
-			message: '#^Parameter \#1 \$formId of method Domain\\Repository\\FormSubmissionRepositoryInterface\:\:findByFormId\(\) expects string, mixed given\.$#'
-			identifier: argument.type
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
 
@@ -1687,12 +1453,6 @@ parameters:
 			path: src/interfaces/HTTP/Router.php
 
 		-
-			message: '#^Method Interfaces\\HTTP\\Router\:\:matchPattern\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/HTTP/Router.php
-
-		-
 			message: '#^Method Interfaces\\HTTP\\Router\:\:post\(\) has parameter \$callback with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1723,15 +1483,15 @@ parameters:
 			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:renderLayout\(\) should return string but returns string\|false\.$#'
+			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:partial\(\) should return string but returns string\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:renderTemplate\(\) should return string but returns string\|false\.$#'
+			message: '#^Method Interfaces\\HTTP\\View\\TemplateRenderer\:\:render\(\) should return string but returns string\|false\.$#'
 			identifier: return.type
-			count: 1
+			count: 2
 			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
@@ -1753,361 +1513,7 @@ parameters:
 			path: src/interfaces/HTTP/View/TemplateRenderer.php
 
 		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/articles/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$old has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Property Interfaces\\HTTP\\View\\TemplateRenderer\:\:\$currentContent \(string\) does not accept string\|false\.$#'
+			identifier: assign.propertyType
 			count: 1
-			path: src/interfaces/Templates/admin/articles/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/articles/create.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/articles/edit.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/admin/articles/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/articles/edit.php
-
-		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: src/interfaces/Templates/admin/layouts/base.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$articles has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/pages/articles/index.php
-
-		-
-			message: '#^Ternary operator condition is always true\.$#'
-			identifier: ternary.alwaysTrue
-			count: 5
-			path: src/interfaces/Templates/admin/pages/forms/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$forms has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/pages/forms/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$submissions has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/pages/forms/submissions.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$media has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/pages/media/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$pages has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/pages/pages/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/permissions/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/create.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 7
-			path: src/interfaces/Templates/admin/permissions/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/edit.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 8
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/permissions/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 4
-			path: src/interfaces/Templates/admin/roles/create.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/create.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/admin/roles/edit.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/edit.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/roles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/admin/settings/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$settings has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/admin/settings/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/admin/settings/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$old has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/auth/login.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: src/interfaces/Templates/frontend/layouts/base.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 6
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$articles has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/index.php
-
-		-
-			message: '#^Call to an undefined method object\:\:content\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to an undefined method object\:\:image\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to an undefined method object\:\:publishedAt\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to an undefined method object\:\:tags\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to an undefined method object\:\:title\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 5
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^Call to method nl2br\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/articles/show.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$errors has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/contact.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$old has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/contact.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$blocks has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/default.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$forms has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/default.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$media has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/default.php
-
-		-
-			message: '#^Cannot access offset ''success'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/form.php
-
-		-
-			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 4
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$articles has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/interfaces/Templates/frontend/pages/home.php
+			path: src/interfaces/HTTP/View/TemplateRenderer.php

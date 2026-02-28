@@ -37,8 +37,10 @@ abstract class Action implements ActionInterface
 
     /**
      * Create JSON response
+     *
+     * @psalm-param array<string, mixed> $data
      */
-    protected function json(mixed $data, int $status = 200): Response
+    protected function json(array $data, int $status = 200): Response
     {
         return new Response(
             json_encode($data),

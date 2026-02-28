@@ -18,6 +18,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * Add event listener
      */
+    #[\Override]
     public function addListener(string $eventClass, callable $listener): void
     {
         $this->listeners[$eventClass][] = $listener;
@@ -27,6 +28,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * Dispatch event to all listeners
      */
+    #[\Override]
     public function dispatch(DomainEventInterface $event): void
     {
         $eventClass = get_class($event);
@@ -50,6 +52,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * Get all listeners for an event class
      */
+    #[\Override]
     public function getListeners(string $eventClass): array
     {
         return $this->listeners[$eventClass] ?? [];
@@ -58,6 +61,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * Check if has listeners for an event class
      */
+    #[\Override]
     public function hasListeners(string $eventClass): bool
     {
         return isset($this->listeners[$eventClass]) && count($this->listeners[$eventClass]) > 0;

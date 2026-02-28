@@ -22,9 +22,10 @@ final class FormSubmissionsAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
-        $formId = $this->param($request, 'id');
+        $formId = (string) $this->param($request, 'id');
         $page = max(1, (int) $request->query->get('page', 1));
         $limit = 20;
         $offset = ($page - 1) * $limit;

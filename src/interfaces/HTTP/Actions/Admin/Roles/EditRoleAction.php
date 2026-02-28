@@ -70,6 +70,7 @@ final class EditRoleAction extends Action
         }
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $id = $request->attributes->get('id');

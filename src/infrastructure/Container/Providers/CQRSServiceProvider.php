@@ -22,6 +22,7 @@ use Infrastructure\Container\ServiceProviderInterface;
  */
 class CQRSServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register CommandBus as singleton
@@ -59,6 +60,7 @@ class CQRSServiceProvider implements ServiceProviderInterface
         });
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

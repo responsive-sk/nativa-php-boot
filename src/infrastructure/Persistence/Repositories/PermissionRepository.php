@@ -19,6 +19,7 @@ use Infrastructure\Persistence\UnitOfWork;
     ) {
     }
 
+    #[\Override]
     public function findById(string $id): ?Permission
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM permissions WHERE id = ?');
@@ -32,11 +33,13 @@ use Infrastructure\Persistence\UnitOfWork;
         return Permission::fromArray($data);
     }
 
+    #[\Override]
     public function findByName(PermissionName $name): ?Permission
     {
         return $this->findByNameString($name->name());
     }
 
+    #[\Override]
     public function findByNameString(string $name): ?Permission
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM permissions WHERE name = ?');
@@ -50,6 +53,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return Permission::fromArray($data);
     }
 
+    #[\Override]
     public function findAll(): array
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM permissions ORDER BY group_name, name');
@@ -59,6 +63,7 @@ use Infrastructure\Persistence\UnitOfWork;
         }, $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findByGroup(string $group): array
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -71,6 +76,7 @@ use Infrastructure\Persistence\UnitOfWork;
         }, $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findByResourcePattern(string $pattern): array
     {
         // Convert pattern to SQL LIKE
@@ -87,6 +93,7 @@ use Infrastructure\Persistence\UnitOfWork;
         }, $stmt->fetchAll());
     }
 
+    #[\Override]
     public function save(Permission $permission): void
     {
         $data = $permission->toArray();
@@ -104,12 +111,14 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function delete(Permission $permission): void
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM permissions WHERE id = ?');
         $stmt->execute([$permission->id()]);
     }
 
+    #[\Override]
     public function getOrCreate(PermissionName $name, ?string $description = null, string $group = 'default'): Permission
     {
         $permission = $this->findByName($name);

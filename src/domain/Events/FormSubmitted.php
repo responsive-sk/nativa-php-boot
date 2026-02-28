@@ -37,6 +37,9 @@ final class FormSubmitted extends DomainEvent
         return $this->submissionId;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->data;
@@ -47,6 +50,7 @@ final class FormSubmitted extends DomainEvent
         return $this->ipAddress;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

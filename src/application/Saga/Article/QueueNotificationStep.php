@@ -23,6 +23,7 @@ class QueueNotificationStep extends SagaStep
     ) {
     }
 
+    #[\Override]
     public function execute(): void
     {
         // Create notification job
@@ -40,12 +41,14 @@ class QueueNotificationStep extends SagaStep
         $this->queue->push($job);
     }
 
+    #[\Override]
     public function compensate(): void
     {
         // Notification already queued - can't really undo
         // Could add a "cancel notification" job if needed
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'Queue Notification';

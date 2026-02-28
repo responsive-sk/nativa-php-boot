@@ -26,4 +26,25 @@ interface SagaStepInterface
      * Get step name for logging
      */
     public function getName(): string;
+
+    /**
+     * Execute with tracking (records execution state)
+     * @return mixed Result of the execution
+     */
+    public function executeWithTracking(): mixed;
+
+    /**
+     * Compensate with tracking (records compensation state)
+     */
+    public function compensateWithTracking(): void;
+
+    /**
+     * Check if step was executed
+     */
+    public function isExecuted(): bool;
+
+    /**
+     * Check if step was compensated
+     */
+    public function isCompensated(): bool;
 }

@@ -30,6 +30,7 @@ final class LocalStorageProvider implements MediaProviderInterface
         }
     }
 
+    #[\Override]
     public function upload(array $file): array
     {
         if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
@@ -68,6 +69,7 @@ final class LocalStorageProvider implements MediaProviderInterface
         ];
     }
 
+    #[\Override]
     public function delete(string $path): bool
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
@@ -79,23 +81,27 @@ final class LocalStorageProvider implements MediaProviderInterface
         return false;
     }
 
+    #[\Override]
     public function getUrl(string $path): string
     {
         return $this->baseUrl . '/' . ltrim($path, '/');
     }
 
+    #[\Override]
     public function getSize(string $path): int
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
         return file_exists($fullPath) ? (int) filesize($fullPath) : 0;
     }
 
+    #[\Override]
     public function exists(string $path): bool
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
         return file_exists($fullPath);
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'local';

@@ -20,6 +20,8 @@ $schema = $form ? json_encode($form->schema()) : '[]';
     </div>
 
     <form action="/admin/forms/<?= $this->e($form->id()) ?>/edit" method="POST" x-data="formBuilder(<?= $schema ?>)" class="space-y-6">
+        <?= $this->partial('csrf_token') ?>
+        
         <!-- Form Details -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-xl font-semibold mb-4">Form Details</h2>

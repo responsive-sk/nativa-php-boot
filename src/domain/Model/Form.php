@@ -12,6 +12,7 @@ final class Form
     private string $id;
     private string $name;
     private string $slug;
+    /** @var array<int, array<string, mixed>> */
     private array $schema;
     private ?string $emailNotification;
     private string $successMessage;
@@ -22,6 +23,9 @@ final class Form
     {
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $schema
+     */
     public static function create(
         string $name,
         string $slug,
@@ -42,21 +46,27 @@ final class Form
         return $form;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $form = new self();
-        $form->id = $data['id'];
-        $form->name = $data['name'];
-        $form->slug = $data['slug'];
-        $form->schema = json_decode($data['schema'], true) ?? [];
-        $form->emailNotification = $data['email_notification'] ?? null;
-        $form->successMessage = $data['success_message'] ?? 'Thank you for your submission!';
-        $form->createdAt = $data['created_at'];
-        $form->updatedAt = $data['updated_at'];
+        $form->id = (string) $data['id'];
+        $form->name = (string) $data['name'];
+        $form->slug = (string) $data['slug'];
+        $form->schema = (array) (json_decode($data['schema'], true) ?? []);
+        $form->emailNotification = isset($data['email_notification']) ? (string) $data['email_notification'] : null;
+        $form->successMessage = (string) ($data['success_message'] ?? 'Thank you for your submission!');
+        $form->createdAt = (string) $data['created_at'];
+        $form->updatedAt = (string) $data['updated_at'];
 
         return $form;
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $schema
+     */
     public function update(
         ?string $name = null,
         ?array $schema = null,
@@ -98,6 +108,9 @@ final class Form
         return $this->slug;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function schema(): array
     {
         return $this->schema;
@@ -123,6 +136,9 @@ final class Form
         return $this->updatedAt;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

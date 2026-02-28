@@ -22,6 +22,7 @@ final class HomeAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $articles = $this->articleManager->listLatest(10);

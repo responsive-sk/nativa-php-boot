@@ -22,6 +22,7 @@ final class ArticlesAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $articles = $this->articleManager->listPublished(100);

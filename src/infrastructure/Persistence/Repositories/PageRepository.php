@@ -22,6 +22,7 @@ use PDO;
     ) {
     }
 
+    #[\Override]
     public function save(Page $page): void
     {
         $data = $page->toArray();
@@ -49,6 +50,7 @@ use PDO;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function findById(string $id): ?Page
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM pages WHERE id = ?');
@@ -62,6 +64,7 @@ use PDO;
         return Page::fromArray($data);
     }
 
+    #[\Override]
     public function findBySlug(string $slug): ?Page
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM pages WHERE slug = ?');
@@ -75,6 +78,7 @@ use PDO;
         return Page::fromArray($data);
     }
 
+    #[\Override]
     public function findAll(int $limit = 50, int $offset = 0): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -90,6 +94,7 @@ use PDO;
         return array_map(fn($row) => Page::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function findPublished(int $limit = 50): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -105,12 +110,14 @@ use PDO;
         return array_map(fn($row) => Page::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function delete(string $id): bool
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM pages WHERE id = ?');
         return $stmt->execute([$id]);
     }
 
+    #[\Override]
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM pages');
@@ -120,6 +127,7 @@ use PDO;
     /**
      * @return array<\Domain\Model\PageBlock>
      */
+    #[\Override]
     public function getBlocks(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -134,6 +142,7 @@ use PDO;
     /**
      * @return array<\Domain\Model\PageMedia>
      */
+    #[\Override]
     public function getMedia(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -150,6 +159,7 @@ use PDO;
     /**
      * @return array<\Domain\Model\PageForm>
      */
+    #[\Override]
     public function getForms(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL

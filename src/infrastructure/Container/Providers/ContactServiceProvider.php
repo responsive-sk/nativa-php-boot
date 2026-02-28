@@ -16,6 +16,7 @@ use Infrastructure\Persistence\UnitOfWork;
  */
 class ContactServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register ContactRepository
@@ -38,6 +39,7 @@ class ContactServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

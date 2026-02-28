@@ -34,6 +34,8 @@
                 <?php endif; ?>
 
                 <form method="POST" action="/login" class="space-y-6">
+                    <?= $this->partial('csrf_token') ?>
+                    
                     <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">

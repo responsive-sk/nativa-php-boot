@@ -89,6 +89,7 @@ final class CreatePermissionAction extends Action
         }
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'GET') {

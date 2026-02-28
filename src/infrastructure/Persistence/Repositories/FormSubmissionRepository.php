@@ -18,6 +18,7 @@ use Infrastructure\Persistence\UnitOfWork;
     ) {
     }
 
+    #[\Override]
     public function save(FormSubmission $submission): void
     {
         $data = $submission->toArray();
@@ -34,6 +35,7 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function saveSubmission(
         string $formId,
         array $data,
@@ -44,6 +46,7 @@ use Infrastructure\Persistence\UnitOfWork;
         $this->save($submission);
     }
 
+    #[\Override]
     public function findById(string $id): ?FormSubmission
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -59,6 +62,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return FormSubmission::fromArray($data);
     }
 
+    #[\Override]
     public function findByFormId(string $formId, int $limit = 20, int $offset = 0): array
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -72,6 +76,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return array_map(fn($row) => FormSubmission::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function countByFormId(string $formId): int
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -81,6 +86,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return (int) $stmt->fetchColumn();
     }
 
+    #[\Override]
     public function delete(string $id): void
     {
         $stmt = $this->uow->getConnection()->prepare(
@@ -89,6 +95,7 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute([$id]);
     }
 
+    #[\Override]
     public function deleteByFormId(string $formId): void
     {
         $stmt = $this->uow->getConnection()->prepare(

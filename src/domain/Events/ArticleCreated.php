@@ -38,6 +38,7 @@ final class ArticleCreated extends DomainEvent
         return $this->categoryId;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

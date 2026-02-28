@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Middleware;
 
 use Application\Services\AuthService;
+use Application\Services\SessionManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,8 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AuthMiddleware
 {
+    private const SESSION_TIMEOUT = 1800; // 30 minutes
+
     public function __construct(
         private readonly AuthService $authService,
+        private readonly SessionManager $sessionManager,
     ) {
     }
 
@@ -26,12 +30,23 @@ class AuthMiddleware
      */
     public function handle(Request $request): ?Response
     {
+        // Check session timeout
+        if (!$this->sessionManager->isActive(self::SESSION_TIMEOUT)) {
+            // Session timed out - destroy and redirect to login
+            $this->sessionManager->destroy();
+            $request->getSession()?->getFlashBag()->set('error', 'Your session has timed out. Please log in again.');
+            return new Response('', 302, ['Location' => '/login']);
+        }
+
         if (!$this->authService->check()) {
             // Store intended destination
             $request->getSession()?->set('intended_url', $request->getPathInfo());
 
             return new Response('', 302, ['Location' => '/login']);
         }
+
+        // Update last activity time
+        $this->sessionManager->touch();
 
         return null;
     }

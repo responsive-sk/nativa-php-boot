@@ -19,6 +19,7 @@ class RbacServiceProvider implements ServiceProviderInterface
     /**
      * Register bindings
      */
+    #[\Override]
     public function register(Container $container): void
     {
         // Repositories
@@ -29,6 +30,7 @@ class RbacServiceProvider implements ServiceProviderInterface
     /**
      * Boot services
      */
+    #[\Override]
     public function boot(Container $container): void
     {
         // Services are auto-wired

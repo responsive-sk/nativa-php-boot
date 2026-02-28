@@ -24,6 +24,7 @@ class PublishArticleStep extends SagaStep
     ) {
     }
 
+    #[\Override]
     public function execute(): Article
     {
         // Store original state for compensation
@@ -33,6 +34,7 @@ class PublishArticleStep extends SagaStep
         return $this->articleManager->publish($this->articleId);
     }
 
+    #[\Override]
     public function compensate(): void
     {
         // Rollback: Unpublish the article
@@ -49,6 +51,7 @@ class PublishArticleStep extends SagaStep
         }
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'Publish Article';

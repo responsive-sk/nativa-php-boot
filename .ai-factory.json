@@ -1,0 +1,43 @@
+{
+  "version": "2.2.2",
+  "agents": [
+    {
+      "id": "qwen",
+      "skillsDir": ".qwen/skills",
+      "installedSkills": [
+        "aif",
+        "aif-architecture",
+        "aif-best-practices",
+        "aif-build-automation",
+        "aif-ci",
+        "aif-commit",
+        "aif-dockerize",
+        "aif-docs",
+        "aif-evolve",
+        "aif-fix",
+        "aif-grounded",
+        "aif-implement",
+        "aif-improve",
+        "aif-loop",
+        "aif-plan",
+        "aif-review",
+        "aif-roadmap",
+        "aif-rules",
+        "aif-security-checklist",
+        "aif-skill-generator",
+        "aif-verify",
+        "sqlite-database-expert",
+        "task-manager"
+      ],
+      "mcp": {
+        "github": true,
+        "filesystem": true,
+        "postgres": false,
+        "chromeDevtools": true,
+        "playwright": true,
+        "task-manager": true
+      }
+    }
+  ],
+  "extensions": []
+}

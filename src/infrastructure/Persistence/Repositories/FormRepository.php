@@ -18,6 +18,7 @@ use Infrastructure\Persistence\UnitOfWork;
     ) {
     }
 
+    #[\Override]
     public function save(Form $form): void
     {
         $data = $form->toArray();
@@ -43,12 +44,14 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function delete(string $id): void
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM forms WHERE id = ?');
         $stmt->execute([$id]);
     }
 
+    #[\Override]
     public function findById(string $id): ?Form
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM forms WHERE id = ?');
@@ -58,6 +61,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return $data ? Form::fromArray($data) : null;
     }
 
+    #[\Override]
     public function findBySlug(string $slug): ?Form
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM forms WHERE slug = ?');
@@ -67,12 +71,14 @@ use Infrastructure\Persistence\UnitOfWork;
         return $data ? Form::fromArray($data) : null;
     }
 
+    #[\Override]
     public function findAll(): array
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM forms ORDER BY created_at DESC');
         return array_map(fn($row) => Form::fromArray($row), $stmt->fetchAll());
     }
 
+    #[\Override]
     public function count(): int
     {
         $stmt = $this->uow->getConnection()->query('SELECT COUNT(*) FROM forms');

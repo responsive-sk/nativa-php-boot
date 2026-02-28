@@ -31,6 +31,7 @@ final class CreateArticleAction extends Action
         return $this->html($content);
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'GET') {

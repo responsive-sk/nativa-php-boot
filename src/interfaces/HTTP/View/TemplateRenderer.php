@@ -25,6 +25,7 @@ class TemplateRenderer
 
     private ?string $currentLayout = null;
     private string $currentContent = '';
+    private bool $isAdminTemplate = false;
 
     public function __construct(
         string $templatesPath,
@@ -143,8 +144,10 @@ class TemplateRenderer
      * Render a template file
      *
      * @param array<string, mixed> $data
+     *
+     * @return false|string
      */
-    private function renderTemplate(string $template, array $data = []): string
+    private function renderTemplate(string $template, array $data = []): string|false
     {
         // Determine template type (admin or frontend)
         $templatePath = $this->templatesPath;
@@ -192,8 +195,10 @@ class TemplateRenderer
 
     /**
      * Render layout with yielded content
+     *
+     * @return false|string
      */
-    private function renderLayout(string $layout): string
+    private function renderLayout(string $layout): string|false
     {
         // Determine layout path based on template type
         $layoutPath = $this->templatesPath;

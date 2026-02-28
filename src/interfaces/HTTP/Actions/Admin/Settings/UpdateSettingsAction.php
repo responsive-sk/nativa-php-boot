@@ -20,6 +20,7 @@ final class UpdateSettingsAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         try {

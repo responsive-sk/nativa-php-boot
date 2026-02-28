@@ -17,11 +17,13 @@ final class PasswordResetRequested implements DomainEventInterface
     ) {
     }
 
+    #[\Override]
     public function occurredAt(): string
     {
         return $this->timestamp;
     }
 
+    #[\Override]
     public function payload(): array
     {
         return [

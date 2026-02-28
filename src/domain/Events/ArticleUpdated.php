@@ -9,6 +9,9 @@ namespace Domain\Events;
  */
 final class ArticleUpdated extends DomainEvent
 {
+    /**
+     * @param array<string, mixed> $changes
+     */
     public function __construct(
         private readonly string $articleId,
         private readonly string $title,
@@ -27,11 +30,18 @@ final class ArticleUpdated extends DomainEvent
         return $this->title;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function changes(): array
     {
         return $this->changes;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    #[\Override]
     public function payload(): array
     {
         return [

@@ -22,6 +22,7 @@ final class ListPermissionsAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $group = $request->query->get('group', '');

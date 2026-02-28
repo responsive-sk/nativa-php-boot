@@ -19,6 +19,7 @@ use Infrastructure\Persistence\UnitOfWork;
     ) {
     }
 
+    #[\Override]
     public function findById(string $id): ?Role
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM roles WHERE id = ?');
@@ -32,11 +33,13 @@ use Infrastructure\Persistence\UnitOfWork;
         return Role::fromArray($data);
     }
 
+    #[\Override]
     public function findByName(RoleVO $name): ?Role
     {
         return $this->findByNameString($name->name());
     }
 
+    #[\Override]
     public function findByNameString(string $name): ?Role
     {
         $stmt = $this->uow->getConnection()->prepare('SELECT * FROM roles WHERE name = ?');
@@ -50,6 +53,7 @@ use Infrastructure\Persistence\UnitOfWork;
         return Role::fromArray($data);
     }
 
+    #[\Override]
     public function findAll(): array
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM roles ORDER BY name');
@@ -59,6 +63,7 @@ use Infrastructure\Persistence\UnitOfWork;
         }, $stmt->fetchAll());
     }
 
+    #[\Override]
     public function save(Role $role): void
     {
         $data = $role->toArray();
@@ -75,12 +80,14 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->execute($data);
     }
 
+    #[\Override]
     public function delete(Role $role): void
     {
         $stmt = $this->uow->getConnection()->prepare('DELETE FROM roles WHERE id = ?');
         $stmt->execute([$role->id()]);
     }
 
+    #[\Override]
     public function getOrCreate(RoleVO $name, ?string $description = null): Role
     {
         $role = $this->findByName($name);

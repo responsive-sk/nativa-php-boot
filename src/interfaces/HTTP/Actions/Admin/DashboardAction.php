@@ -20,6 +20,7 @@ final class DashboardAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         $content = $this->renderer->render(

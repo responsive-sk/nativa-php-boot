@@ -14,6 +14,7 @@ final class PageBlock
     private string $type; // hero, features, cta, text_image, testimonials
     private ?string $title;
     private ?string $content;
+    /** @var array<string, mixed> */
     private array $data; // JSON data for block-specific settings
     private int $sortOrder;
     private bool $isActive;
@@ -23,6 +24,9 @@ final class PageBlock
     {
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function create(
         string $pageId,
         string $type,
@@ -45,22 +49,28 @@ final class PageBlock
         return $block;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $block = new self();
-        $block->id = $data['id'];
-        $block->pageId = $data['page_id'];
-        $block->type = $data['type'];
-        $block->title = $data['title'] ?? null;
-        $block->content = $data['content'] ?? null;
-        $block->data = json_decode($data['data'] ?? '[]', true) ?? [];
+        $block->id = (string) $data['id'];
+        $block->pageId = (string) $data['page_id'];
+        $block->type = (string) $data['type'];
+        $block->title = isset($data['title']) ? (string) $data['title'] : null;
+        $block->content = isset($data['content']) ? (string) $data['content'] : null;
+        $block->data = (array) (json_decode($data['data'] ?? '[]', true) ?? []);
         $block->sortOrder = (int) ($data['sort_order'] ?? 0);
         $block->isActive = (bool) ($data['is_active'] ?? true);
-        $block->createdAt = $data['created_at'];
+        $block->createdAt = (string) $data['created_at'];
 
         return $block;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(
         ?string $title = null,
         ?string $content = null,
@@ -111,6 +121,9 @@ final class PageBlock
         return $this->content;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->data;
@@ -131,6 +144,9 @@ final class PageBlock
         return $this->createdAt;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

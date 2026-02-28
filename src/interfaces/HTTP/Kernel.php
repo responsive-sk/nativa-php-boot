@@ -40,6 +40,11 @@ use Interfaces\HTTP\Actions\Admin\Roles\EditRoleAction;
 use Interfaces\HTTP\Actions\Admin\Permissions\ListPermissionsAction;
 use Interfaces\HTTP\Actions\Admin\Permissions\CreatePermissionAction;
 use Interfaces\HTTP\Actions\Admin\Permissions\EditPermissionAction;
+use Application\Middleware\SecurityHeadersMiddleware;
+use Application\Middleware\CsrfMiddleware;
+use Application\Middleware\CsrfException;
+use Application\Middleware\RateLimitMiddleware;
+use Application\Services\RateLimiter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,17 +55,55 @@ class Kernel
 {
     private Router $router;
     private \Infrastructure\Container\Container $container;
+    private SecurityHeadersMiddleware $securityHeadersMiddleware;
+    private CsrfMiddleware $csrfMiddleware;
+    private RateLimitMiddleware $rateLimitMiddleware;
 
     public function __construct()
     {
         $this->container = \Infrastructure\Container\ContainerFactory::create();
         $this->router = new Router();
+        $this->securityHeadersMiddleware = new SecurityHeadersMiddleware();
+        $this->csrfMiddleware = new CsrfMiddleware();
+        
+        // Initialize Rate Limiter
+        $db = \Infrastructure\Persistence\DatabaseConnection::getInstance()->getConnection();
+        $rateLimiter = new RateLimiter($db);
+        $this->rateLimitMiddleware = new RateLimitMiddleware($rateLimiter);
+        
         $this->registerRoutes();
     }
 
     public function handle(Request $request): Response
     {
         try {
+            // Check request size limit (10MB max)
+            $contentLength = (int) $request->headers->get('Content-Length', 0);
+            $maxSize = 10 * 1024 * 1024; // 10MB
+            
+            if ($contentLength > $maxSize) {
+                $errorResponse = new Response('Payload Too Large: Request exceeds 10MB limit', 413);
+                return $this->securityHeadersMiddleware->handle($request, $errorResponse);
+            }
+
+            // Apply rate limiting to login requests
+            if ($request->getPathInfo() === '/login' && $request->getMethod() === 'POST') {
+                $rateLimitResponse = $this->rateLimitMiddleware->limitLogin($request);
+                if ($rateLimitResponse !== null) {
+                    return $this->securityHeadersMiddleware->handle($request, $rateLimitResponse);
+                }
+            }
+
+            // Validate CSRF token for state-changing requests
+            if ($this->isStateChangingMethod($request->getMethod())) {
+                try {
+                    $this->csrfMiddleware->validateToken($request);
+                } catch (CsrfException $e) {
+                    $errorResponse = new Response($this->renderErrorPage('403'), 403, ['Content-Type' => 'text/html']);
+                    return $this->securityHeadersMiddleware->handle($request, $errorResponse);
+                }
+            }
+
             // Support method override via _method parameter (POST body, query, or header)
             $originalMethod = $request->getMethod();
             $method = $originalMethod;
@@ -82,7 +125,8 @@ class Kernel
             $request->setMethod($originalMethod);
 
             if ($route === null) {
-                return new Response('Not Found', 404);
+                $response = new Response($this->renderErrorPage('404'), 404, ['Content-Type' => 'text/html']);
+                return $this->securityHeadersMiddleware->handle($request, $response);
             }
 
             // Check authentication for admin routes
@@ -95,8 +139,9 @@ class Kernel
                     $sessionManager = $this->container->get(\Application\Services\SessionManager::class);
                     $sessionManager->start();
                     $sessionManager->set('intended_url', $path);
-                    
-                    return new Response('', 302, ['Location' => '/login']);
+
+                    $response = new Response('', 302, ['Location' => '/login']);
+                    return $this->securityHeadersMiddleware->handle($request, $response);
                 }
             }
 
@@ -120,14 +165,16 @@ class Kernel
                     [$className, $methodName] = explode('@', $callback);
                     if (class_exists($className)) {
                         $action = $className::create();
-                        return $action->$methodName($request);
+                        $response = $action->$methodName($request);
+                        return $this->securityHeadersMiddleware->handle($request, $response);
                     }
                 }
 
                 // Handle Action class directly
                 if (class_exists($callback)) {
                     $action = $callback::create();
-                    return $action->handle($request);
+                    $response = $action->handle($request);
+                    return $this->securityHeadersMiddleware->handle($request, $response);
                 }
             }
 
@@ -135,35 +182,64 @@ class Kernel
             if (is_array($callback) && count($callback) === 2) {
                 $controller = $this->container->get($callback[0]);
                 $method = $callback[1];
-                return $controller->$method($request, ...array_values($params));
+                $response = $controller->$method($request, ...array_values($params));
+                return $this->securityHeadersMiddleware->handle($request, $response);
             }
 
             // Fallback for any other callbacks
             $response = call_user_func_array($callback, $params);
 
             if ($response instanceof Response) {
-                return $response;
+                return $this->securityHeadersMiddleware->handle($request, $response);
             }
 
             if (is_array($response) || is_string($response)) {
-                return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
+                $jsonResponse = new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
+                return $this->securityHeadersMiddleware->handle($request, $jsonResponse);
             }
 
-            return new Response((string) $response);
+            $textResponse = new Response((string) $response);
+            return $this->securityHeadersMiddleware->handle($request, $textResponse);
         } catch (\Throwable $e) {
             if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
-                return new Response(
+                $errorResponse = new Response(
                     '<pre>' . htmlspecialchars($e->getMessage()) . "\n\n" . $e->getTraceAsString() . '</pre>',
                     500
                 );
+                return $this->securityHeadersMiddleware->handle($request, $errorResponse);
             }
-            return new Response('Internal Server Error', 500);
+            $errorResponse = new Response($this->renderErrorPage('500'), 500, ['Content-Type' => 'text/html']);
+            return $this->securityHeadersMiddleware->handle($request, $errorResponse);
         }
     }
 
     public function terminate(Request $request, Response $response): void
     {
         // Cleanup
+    }
+
+    /**
+     * Check if HTTP method is state-changing
+     */
+    private function isStateChangingMethod(string $method): bool
+    {
+        return in_array(strtoupper($method), ['POST', 'PUT', 'DELETE', 'PATCH'], true);
+    }
+
+    /**
+     * Render error page template
+     */
+    private function renderErrorPage(string $code): string
+    {
+        $templatePath = __DIR__ . '/../Templates/frontend/errors/' . $code . '.php';
+        
+        if (file_exists($templatePath)) {
+            ob_start();
+            include $templatePath;
+            return ob_get_clean();
+        }
+        
+        return "Error {$code}";
     }
 
     private function registerRoutes(): void

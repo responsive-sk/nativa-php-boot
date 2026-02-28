@@ -19,6 +19,8 @@
 
     <div class="bg-white rounded-lg shadow-md p-8">
         <form action="/contact" method="POST" class="space-y-6">
+            <?= $this->partial('csrf_token') ?>
+            
             <!-- Name -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">

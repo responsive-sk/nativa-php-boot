@@ -15,6 +15,7 @@ final class EventDispatcher implements EventDispatcherInterface
     /** @var array<string, array<callable>> */
     private array $listeners = [];
 
+    #[\Override]
     public function addListener(string $eventClass, callable $listener): void
     {
         if (!isset($this->listeners[$eventClass])) {
@@ -24,6 +25,7 @@ final class EventDispatcher implements EventDispatcherInterface
         $this->listeners[$eventClass][] = $listener;
     }
 
+    #[\Override]
     public function dispatch(DomainEventInterface $event): void
     {
         $eventClass = get_class($event);
@@ -45,11 +47,13 @@ final class EventDispatcher implements EventDispatcherInterface
         }
     }
 
+    #[\Override]
     public function getListeners(string $eventClass): array
     {
         return $this->listeners[$eventClass] ?? [];
     }
 
+    #[\Override]
     public function hasListeners(string $eventClass): bool
     {
         return isset($this->listeners[$eventClass]) && count($this->listeners[$eventClass]) > 0;

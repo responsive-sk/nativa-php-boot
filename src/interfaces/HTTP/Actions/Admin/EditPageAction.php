@@ -22,12 +22,13 @@ final class EditPageAction extends Action
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         // Check if this is an update (POST to /admin/pages/{id}/edit)
         if ($request->getMethod() === 'POST') {
             // Check for special actions
-            $action = $request->request->get('_action');
+            $action = (string) $request->request->get('_action', '');
 
             if ($action) {
                 $this->handleAction($request, $action);
@@ -58,10 +59,10 @@ final class EditPageAction extends Action
 
     private function addBlock(Request $request): Response
     {
-        $id = $this->param($request, 'id');
-        $type = $request->request->get('type', '');
-        $title = $request->request->get('title', '');
-        $content = $request->request->get('content', '');
+        $id = (string) $this->param($request, 'id');
+        $type = (string) $request->request->get('type', '');
+        $title = (string) $request->request->get('title', '');
+        $content = (string) $request->request->get('content', '');
         $sortOrder = (int) $request->request->get('sortOrder', 0);
 
         if (empty($type)) {
@@ -74,8 +75,8 @@ final class EditPageAction extends Action
 
     private function updateBlock(Request $request): Response
     {
-        $blockId = $request->request->get('blockId', '');
-        $title = $request->request->get('title', '');
+        $blockId = (string) $request->request->get('blockId', '');
+        $title = (string) $request->request->get('title', '');
 
         if (empty($blockId)) {
             return $this->json(['error' => 'Block ID is required'], 400);
@@ -87,7 +88,7 @@ final class EditPageAction extends Action
 
     private function deleteBlock(Request $request): Response
     {
-        $blockId = $request->request->get('blockId', '');
+        $blockId = (string) $request->request->get('blockId', '');
 
         if (empty($blockId)) {
             return $this->json(['error' => 'Block ID is required'], 400);
@@ -99,9 +100,9 @@ final class EditPageAction extends Action
 
     private function attachMedia(Request $request): Response
     {
-        $id = $this->param($request, 'id');
-        $mediaId = $request->request->get('mediaId', '');
-        $caption = $request->request->get('caption', '');
+        $id = (string) $this->param($request, 'id');
+        $mediaId = (string) $request->request->get('mediaId', '');
+        $caption = (string) $request->request->get('caption', '');
 
         if (empty($mediaId)) {
             return $this->json(['error' => 'Media ID is required'], 400);
@@ -113,10 +114,10 @@ final class EditPageAction extends Action
 
     private function embedForm(Request $request): Response
     {
-        $id = $this->param($request, 'id');
-        $formId = $request->request->get('formId', '');
-        $title = $request->request->get('title', '');
-        $position = $request->request->get('position', 'sidebar');
+        $id = (string) $this->param($request, 'id');
+        $formId = (string) $request->request->get('formId', '');
+        $title = (string) $request->request->get('title', '');
+        $position = (string) $request->request->get('position', 'sidebar');
 
         if (empty($formId)) {
             return $this->json(['error' => 'Form ID is required'], 400);
@@ -128,7 +129,7 @@ final class EditPageAction extends Action
 
     private function edit(Request $request): Response
     {
-        $id = $this->param($request, 'id');
+        $id = (string) $this->param($request, 'id');
         $page = $this->pageManager->findById($id);
 
         if ($page === null) {
@@ -156,12 +157,12 @@ final class EditPageAction extends Action
     private function update(Request $request): Response
     {
         try {
-            $id = $this->param($request, 'id');
-            
+            $id = (string) $this->param($request, 'id');
+
             if (empty($id)) {
                 return $this->json(['error' => 'Page ID is required'], 400);
             }
-            
+
             $title = (string) $request->request->get('title', '');
             $content = (string) $request->request->get('content', '');
             $template = (string) $request->request->get('template', 'default');

@@ -23,6 +23,7 @@ final class LogoutAction extends Action
     /**
      * Handle logout
      */
+    #[\Override]
     public function handle(Request $request): Response
     {
         $this->authService->logout();

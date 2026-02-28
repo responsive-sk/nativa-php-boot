@@ -27,7 +27,7 @@ final class FormManager
         string $slug,
         array $schema,
         ?string $emailNotification = null,
-        ?string $successMessage = null,
+        string $successMessage = 'Thank you for your submission!',
     ): Form {
         $form = Form::create($name, $slug, $schema, $emailNotification, $successMessage);
         $this->formRepository->save($form);

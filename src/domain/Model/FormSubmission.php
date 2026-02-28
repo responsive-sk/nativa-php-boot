@@ -11,6 +11,7 @@ final class FormSubmission
 {
     private string $id;
     private string $formId;
+    /** @var array<string, mixed> */
     private array $data;
     private string $ipAddress;
     private string $userAgent;
@@ -20,6 +21,9 @@ final class FormSubmission
     {
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function create(
         string $formId,
         array $data,
@@ -37,15 +41,18 @@ final class FormSubmission
         return $submission;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         $submission = new self();
-        $submission->id = $data['id'];
-        $submission->formId = $data['form_id'];
-        $submission->data = json_decode($data['data'], true) ?? [];
-        $submission->ipAddress = $data['ip_address'] ?? '';
-        $submission->userAgent = $data['user_agent'] ?? '';
-        $submission->submittedAt = $data['submitted_at'];
+        $submission->id = (string) $data['id'];
+        $submission->formId = (string) $data['form_id'];
+        $submission->data = (array) (json_decode($data['data'], true) ?? []);
+        $submission->ipAddress = (string) ($data['ip_address'] ?? '');
+        $submission->userAgent = (string) ($data['user_agent'] ?? '');
+        $submission->submittedAt = (string) $data['submitted_at'];
 
         return $submission;
     }
@@ -60,6 +67,9 @@ final class FormSubmission
         return $this->formId;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->data;
@@ -80,6 +90,9 @@ final class FormSubmission
         return $this->submittedAt;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

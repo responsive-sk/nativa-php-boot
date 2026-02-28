@@ -14,6 +14,7 @@ use Interfaces\HTTP\View\TemplateRenderer;
  */
 class ViewServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         $paths = AppPaths::instance();
@@ -34,6 +35,7 @@ class ViewServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

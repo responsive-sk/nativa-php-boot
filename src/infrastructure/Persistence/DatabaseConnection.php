@@ -18,6 +18,8 @@ class DatabaseConnection
     private string $connectionName;
     private ?string $dbPath;
 
+    private static ?self $instance = null;
+
     public function __construct(?string $dbPath = null)
     {
         $this->dbPath = $dbPath;
@@ -100,6 +102,25 @@ class DatabaseConnection
     public function close(): void
     {
         $this->manager->closeConnection($this->connectionName);
+    }
+
+    /**
+     * Get singleton instance
+     */
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Reset singleton instance (for testing)
+     */
+    public static function resetInstance(): void
+    {
+        self::$instance = null;
     }
 
     public function __destruct()

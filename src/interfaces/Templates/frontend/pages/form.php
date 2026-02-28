@@ -20,6 +20,8 @@ $success = $this->getCurrentData()['success'] ?? ($this->getCurrentData()['_GET'
 
     <div class="bg-white rounded-lg shadow-md p-8">
         <form action="/form/<?= $this->e($form->slug()) ?>" method="POST" class="space-y-6">
+            <?= $this->partial('csrf_token') ?>
+            
             <?php foreach ($form->schema() as $field): ?>
                 <?php
                 $type = $field['type'] ?? 'text';

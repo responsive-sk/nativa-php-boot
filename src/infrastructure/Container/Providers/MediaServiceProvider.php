@@ -18,6 +18,7 @@ use Infrastructure\Storage\Providers\MediaProviderInterface;
  */
 class MediaServiceProvider implements ServiceProviderInterface
 {
+    #[\Override]
     public function register(Container $container): void
     {
         // Register Storage Provider (configurable via env)
@@ -28,14 +29,14 @@ class MediaServiceProvider implements ServiceProviderInterface
 
                 return match ($provider) {
                     'cloudinary' => new \Infrastructure\Storage\Providers\CloudinaryProvider(
-                        $_ENV['CLOUDINARY_CLOUD_NAME'] ?? null,
-                        $_ENV['CLOUDINARY_API_KEY'] ?? null,
-                        $_ENV['CLOUDINARY_API_SECRET'] ?? null,
-                        $_ENV['CLOUDINARY_UPLOAD_PRESET'] ?? null,
+                        (string) ($_ENV['CLOUDINARY_CLOUD_NAME'] ?? null),
+                        (string) ($_ENV['CLOUDINARY_API_KEY'] ?? null),
+                        (string) ($_ENV['CLOUDINARY_API_SECRET'] ?? null),
+                        (string) ($_ENV['CLOUDINARY_UPLOAD_PRESET'] ?? null),
                     ),
                     default => new LocalStorageProvider(
-                        $_ENV['STORAGE_PATH'] ?? null,
-                        $_ENV['STORAGE_URL'] ?? null,
+                        (string) ($_ENV['STORAGE_PATH'] ?? null),
+                        (string) ($_ENV['STORAGE_URL'] ?? null),
                     ),
                 };
             }
@@ -61,6 +62,7 @@ class MediaServiceProvider implements ServiceProviderInterface
         );
     }
 
+    #[\Override]
     public function boot(Container $container): void
     {
         // Bootstrapping logic if needed

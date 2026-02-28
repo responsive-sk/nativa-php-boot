@@ -6,6 +6,7 @@ namespace Interfaces\HTTP\Actions\Frontend;
 
 use Application\DTOs\SubmitContactCommand;
 use Application\Services\ContactManager;
+use Application\Middleware\RateLimitMiddleware;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
@@ -20,9 +21,11 @@ final class ContactAction extends Action
     public function __construct(
         private readonly ContactManager $contactManager,
         private readonly TemplateRenderer $renderer,
+        private readonly RateLimitMiddleware $rateLimitMiddleware,
     ) {
     }
 
+    #[\Override]
     public function handle(Request $request): Response
     {
         if ($request->getMethod() === 'POST') {
@@ -44,6 +47,12 @@ final class ContactAction extends Action
 
     public function submit(Request $request): Response
     {
+        // Apply rate limiting
+        $rateLimitResponse = $this->rateLimitMiddleware->limitFormSubmission($request);
+        if ($rateLimitResponse !== null) {
+            return $rateLimitResponse;
+        }
+
         try {
             $command = new SubmitContactCommand(
                 name: (string) $request->request->get('name', ''),
@@ -90,9 +99,13 @@ final class ContactAction extends Action
     public static function create(): self
     {
         $container = ContainerFactory::create();
+        $db = \Infrastructure\Persistence\DatabaseConnection::getInstance()->getConnection();
+        $rateLimiter = new \Application\Services\RateLimiter($db);
+        
         return new self(
             $container->get(ContactManager::class),
             $container->get(TemplateRenderer::class),
+            new \Application\Middleware\RateLimitMiddleware($rateLimiter),
         );
     }
 }

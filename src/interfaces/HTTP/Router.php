@@ -66,6 +66,9 @@ class Router
         return null;
     }
 
+    /**
+     * @return array<string, string>|null
+     */
     private function matchPattern(string $pattern, string $path): ?array
     {
         // Convert route pattern to regex
@@ -86,6 +89,9 @@ class Router
         return null;
     }
 
+    /**
+     * @return array<int, array{method: string, pattern: string, callback: callable|array|string}>
+     */
     public function getRoutes(): array
     {
         return $this->routes;
