@@ -198,7 +198,12 @@ final class AuthService
 
         // Dispatch event
         $this->eventDispatcher->dispatch(
-            UserRegistered::create($user->id(), $user->emailString(), $user->name(), $user->roleString())
+            UserRegistered::create(
+                $user->id(),
+                $user->emailString(),
+                $user->name(),
+                $user->roleString()
+            )
         );
 
         $this->logDebug('[AuthService::register] Registration successful');
@@ -263,7 +268,11 @@ final class AuthService
 
         // Dispatch event
         $this->eventDispatcher->dispatch(
-            PasswordChanged::create($user->id(), $user->emailString())
+            PasswordChanged::create(
+                $user->id(),
+                $user->emailString(),
+                date('Y-m-d H:i:s')
+            )
         );
 
         $this->logDebug('[AuthService::changePassword] Password changed successfully');
@@ -278,7 +287,7 @@ final class AuthService
 
         $user = $this->userRepository->findByEmail($email);
 
-        // Always return true to prevent email enumeration
+        // Always return success to prevent email enumeration
         if ($user === null) {
             $this->logDebug('[AuthService::requestPasswordReset] User not found, but returning success');
             return '';
@@ -291,7 +300,12 @@ final class AuthService
         // Store reset token (will be implemented in repository)
         // For now, just dispatch event
         $this->eventDispatcher->dispatch(
-            PasswordResetRequested::create($user->id(), $user->emailString(), $resetToken)
+            PasswordResetRequested::create(
+                $user->id(),
+                $user->emailString(),
+                $resetToken,
+                date('Y-m-d H:i:s')
+            )
         );
 
         $this->logDebug('[AuthService::requestPasswordReset] Reset token generated');

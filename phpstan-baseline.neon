@@ -625,7 +625,7 @@ parameters:
 			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Method Infrastructure\\Container\\Container\:\:build\(\) should return object but returns T\.$#'
+			message: '#^Method Infrastructure\\Container\\Container\:\:get\(\) should return T of object but returns object\.$#'
 			identifier: return.type
 			count: 1
 			path: src/infrastructure/Container/Container.php
@@ -633,11 +633,17 @@ parameters:
 		-
 			message: '#^PHPDoc tag @return with type T is not subtype of native type object\.$#'
 			identifier: return.phpDocType
-			count: 3
+			count: 1
 			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Parameter \#1 \$class of method Infrastructure\\Container\\Container\:\:build\(\) expects class\-string\<mixed\>, string given\.$#'
+			message: '#^Parameter \#1 \$class of method Infrastructure\\Container\\Container\:\:build\(\) expects class\-string\<object\>, class\-string\<T\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Parameter \#1 \$class of method Infrastructure\\Container\\Container\:\:build\(\) expects class\-string\<object\>, string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Container/Container.php
@@ -649,112 +655,22 @@ parameters:
 			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, class\-string\<T\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Container.php
-
-		-
 			message: '#^Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects string, list\<object\|string\>\|object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Parameter \#1 \$db of class Infrastructure\\Persistence\\UnitOfWork constructor expects Infrastructure\\Persistence\\DatabaseConnection, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/ArticleServiceProvider.php
+			message: '#^Unable to resolve the template type T in call to method Infrastructure\\Container\\Container\:\:build\(\)$#'
+			identifier: argument.templateType
+			count: 2
+			path: src/infrastructure/Container/Container.php
 
 		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\ArticleRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/ArticleServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$userRepository of class Application\\Services\\AuthService constructor expects Domain\\Repository\\UserRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$userRepository of class Application\\Services\\TokenManager constructor expects Domain\\Repository\\UserRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
-
-		-
-			message: '#^Parameter \#2 \$sessionManager of class Application\\Services\\AuthService constructor expects Application\\Services\\SessionManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
-
-		-
-			message: '#^Parameter \#3 \$tokenManager of class Application\\Services\\AuthService constructor expects Application\\Services\\TokenManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
-
-		-
-			message: '#^Parameter \#4 \$eventDispatcher of class Application\\Services\\AuthService constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/AuthServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\CreateArticleHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\GetArticleBySlugHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\ListArticlesHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Application\\CQRS\\Article\\Handlers\\PublishArticleHandler constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/CQRSServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$contactRepository of class Application\\Services\\ContactManager constructor expects Domain\\Repository\\ContactRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\ContactRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
-
-		-
-			message: '#^Parameter \#2 \$eventDispatcher of class Application\\Services\\ContactManager constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/ContactServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$formRepository of class Application\\Services\\FormManager constructor expects Domain\\Repository\\FormRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/FormServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\FormRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/FormServiceProvider.php
+			message: '#^Unable to resolve the template type T in call to method Infrastructure\\Container\\Container\:\:get\(\)$#'
+			identifier: argument.templateType
+			count: 2
+			path: src/infrastructure/Container/Container.php
 
 		-
 			message: '#^Parameter \#1 \$basePath of class Infrastructure\\Storage\\Providers\\LocalStorageProvider constructor expects string\|null, mixed given\.$#'
@@ -764,18 +680,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$cloudName of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$provider of class Application\\Services\\MediaManager constructor expects Infrastructure\\Storage\\Providers\\MediaProviderInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\MediaRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
@@ -793,12 +697,6 @@ parameters:
 			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
 
 		-
-			message: '#^Parameter \#2 \$mediaRepository of class Application\\Services\\MediaManager constructor expects Domain\\Repository\\MediaRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
 			message: '#^Parameter \#3 \$apiSecret of class Infrastructure\\Storage\\Providers\\CloudinaryProvider constructor expects string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -809,24 +707,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/infrastructure/Container/Providers/MediaServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$pageRepository of class Application\\Services\\PageManager constructor expects Domain\\Repository\\PageRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/PageServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\PageRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/PageServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$uow of class Infrastructure\\Persistence\\Repositories\\UserRepository constructor expects Infrastructure\\Persistence\\UnitOfWork, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/infrastructure/Container/Providers/UserServiceProvider.php
 
 		-
 			message: '#^Parameter \#4 \$version of class Interfaces\\HTTP\\View\\TemplateRenderer constructor expects string\|null, mixed given\.$#'
@@ -1345,28 +1225,10 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Action.php
 
 		-
-			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\CreateArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/CreateArticleAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\DeleteArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/DeleteArticleAction.php
-
-		-
 			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\DeleteArticleAction\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/interfaces/HTTP/Actions/Admin/Article/DeleteArticleAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
 
 		-
 			message: '#^Parameter \#2 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction\:\:show\(\) expects string, mixed given\.$#'
@@ -1375,34 +1237,10 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
 
 		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\EditArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/EditArticleAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\PublishArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/PublishArticleAction.php
-
-		-
 			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\PublishArticleAction\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Article/PublishArticleAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\StoreArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Article\\StoreArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
 
 		-
 			message: '#^Parameter \$content of method Application\\Services\\ArticleManager\:\:create\(\) expects string, mixed given\.$#'
@@ -1429,12 +1267,6 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
 
 		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\Article\\UpdateArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
-
-		-
 			message: '#^Parameter \#2 \$id of callable \$this\(Interfaces\\HTTP\\Actions\\Admin\\Article\\UpdateArticleAction\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1459,31 +1291,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
 
 		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Admin\\ArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/ArticlesAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\ArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/ArticlesAction.php
-
-		-
-			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\CreateFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
-
-		-
 			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\CreateFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
@@ -1495,40 +1303,10 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
 
 		-
-			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\CreatePageAction constructor expects Application\\Services\\PageManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/CreatePageAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\CreatePageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/CreatePageAction.php
-
-		-
-			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\DashboardAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/DashboardAction.php
-
-		-
 			message: '#^Parameter \#1 \$pageId of method Application\\Services\\PageManager\:\:delete\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/DeletePageAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\DeletePageAction constructor expects Application\\Services\\PageManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/DeletePageAction.php
-
-		-
-			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\EditFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
 
 		-
 			message: '#^Parameter \#1 \$id of method Application\\Services\\FormManager\:\:findById\(\) expects string, mixed given\.$#'
@@ -1538,12 +1316,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\EditFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
@@ -1591,12 +1363,6 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
 
 		-
-			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\EditPageAction constructor expects Application\\Services\\PageManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
 			message: '#^Parameter \#2 \$action of method Interfaces\\HTTP\\Actions\\Admin\\EditPageAction\:\:handleAction\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1610,12 +1376,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#2 \$mediaId of method Application\\Services\\PageManager\:\:attachMedia\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\EditPageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/EditPageAction.php
@@ -1675,39 +1435,9 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
 
 		-
-			message: '#^Parameter \#1 \$submissionRepository of class Interfaces\\HTTP\\Actions\\Admin\\FormSubmissionsAction constructor expects Domain\\Repository\\FormSubmissionRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\FormSubmissionsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/FormSubmissionsAction.php
-
-		-
-			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Admin\\FormsAction constructor expects Application\\Services\\FormManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/FormsAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\FormsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/FormsAction.php
-
-		-
 			message: '#^Parameter \#1 \$id of method Interfaces\\HTTP\\Actions\\Admin\\Media\\DeleteMediaAction\:\:delete\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
-			path: src/interfaces/HTTP/Actions/Admin/Media/DeleteMediaAction.php
-
-		-
-			message: '#^Parameter \#1 \$mediaManager of class Interfaces\\HTTP\\Actions\\Admin\\Media\\DeleteMediaAction constructor expects Application\\Services\\MediaManager, object given\.$#'
-			identifier: argument.type
-			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Media/DeleteMediaAction.php
 
 		-
@@ -1729,49 +1459,13 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
 
 		-
-			message: '#^Parameter \#1 \$mediaManager of class Interfaces\\HTTP\\Actions\\Admin\\MediaAction constructor expects Application\\Services\\MediaManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\MediaAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Admin\\PagesAction constructor expects Application\\Services\\PageManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/PagesAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\PagesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/PagesAction.php
-
-		-
 			message: '#^Parameter \#1 \$name of method Application\\Services\\PermissionService\:\:createPermission\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
 
 		-
-			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\CreatePermissionAction constructor expects Application\\Services\\PermissionService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
-
-		-
 			message: '#^Parameter \#2 \$description of method Application\\Services\\PermissionService\:\:createPermission\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\CreatePermissionAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
@@ -1787,12 +1481,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Permissions/CreatePermissionAction.php
-
-		-
-			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction constructor expects Application\\Services\\PermissionService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
 
 		-
 			message: '#^Parameter \#2 \$description of method Application\\Services\\PermissionService\:\:updatePermissionDescription\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
@@ -1819,31 +1507,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
 
 		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\EditPermissionAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/EditPermissionAction.php
-
-		-
-			message: '#^Parameter \#1 \$permissionService of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\ListPermissionsAction constructor expects Application\\Services\\PermissionService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/ListPermissionsAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Permissions\\ListPermissionsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Permissions/ListPermissionsAction.php
-
-		-
 			message: '#^Parameter \#1 \$name of method Application\\Services\\RoleService\:\:createRole\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
-
-		-
-			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\CreateRoleAction constructor expects Application\\Services\\RoleService, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
@@ -1853,18 +1517,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\CreateRoleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/CreateRoleAction.php
-
-		-
-			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction constructor expects Application\\Services\\RoleService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
 
 		-
 			message: '#^Parameter \#2 \$description of method Application\\Services\\RoleService\:\:updateRoleDescription\(\) expects string\|null, bool\|float\|int\|string\|null given\.$#'
@@ -1891,30 +1543,6 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
 
 		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\EditRoleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/EditRoleAction.php
-
-		-
-			message: '#^Parameter \#1 \$roleService of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\ListRolesAction constructor expects Application\\Services\\RoleService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/ListRolesAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Roles\\ListRolesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Roles/ListRolesAction.php
-
-		-
-			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Settings\\UpdateSettingsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Settings/UpdateSettingsAction.php
-
-		-
 			message: '#^Variable \$data might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -1927,31 +1555,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/Settings/ViewSettingsAction.php
 
 		-
-			message: '#^Parameter \#1 \$renderer of class Interfaces\\HTTP\\Actions\\Admin\\Settings\\ViewSettingsAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Admin/Settings/ViewSettingsAction.php
-
-		-
-			message: '#^Parameter \#1 \$authService of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Application\\Services\\AuthService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
-
-		-
 			message: '#^Parameter \#1 \$url of method Interfaces\\HTTP\\Actions\\Action\:\:redirect\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
-
-		-
-			message: '#^Parameter \#2 \$sessionManager of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Application\\Services\\SessionManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
-
-		-
-			message: '#^Parameter \#3 \$renderer of class Interfaces\\HTTP\\Actions\\Auth\\LoginAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
@@ -1961,18 +1565,6 @@ parameters:
 			identifier: nullCoalesce.variable
 			count: 1
 			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
-
-		-
-			message: '#^Parameter \#1 \$authService of class Interfaces\\HTTP\\Actions\\Auth\\LogoutAction constructor expects Application\\Services\\AuthService, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Auth/LogoutAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ByTagAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
 
 		-
 			message: '#^Parameter \#1 \$string of function htmlspecialchars expects string, mixed given\.$#'
@@ -1987,49 +1579,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
 
 		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ByTagAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ListArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ListArticlesAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ListArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ListArticlesAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\SearchArticlesAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/SearchArticlesAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\SearchArticlesAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/SearchArticlesAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ShowArticleAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
-
-		-
 			message: '#^Parameter \#1 \$slug of method Application\\Services\\ArticleManager\:\:findBySlug\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\Article\\ShowArticleAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/Article/ShowArticleAction.php
@@ -2037,18 +1587,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\:\:getFlashBag\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
-
-		-
-			message: '#^Parameter \#1 \$contactManager of class Interfaces\\HTTP\\Actions\\Frontend\\ContactAction constructor expects Application\\Services\\ContactManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\ContactAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
 
@@ -2071,27 +1609,9 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
 
 		-
-			message: '#^Parameter \#1 \$formManager of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Application\\Services\\FormManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
-
-		-
 			message: '#^Parameter \#1 \$slug of method Application\\Services\\FormManager\:\:findBySlug\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
-
-		-
-			message: '#^Parameter \#2 \$submissionRepository of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Domain\\Repository\\FormSubmissionRepositoryInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
-
-		-
-			message: '#^Parameter \#3 \$eventDispatcher of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Domain\\Events\\EventDispatcherInterface, object given\.$#'
-			identifier: argument.type
-			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
 
 		-
@@ -2101,64 +1621,10 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
 
 		-
-			message: '#^Parameter \#4 \$outboxProcessor of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Infrastructure\\Queue\\Handlers\\OutboxProcessor\|null, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
-
-		-
-			message: '#^Parameter \#5 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayFormAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
-
-		-
-			message: '#^Parameter \#1 \$pageManager of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayPageAction constructor expects Application\\Services\\PageManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
-
-		-
 			message: '#^Parameter \#1 \$slug of method Application\\Services\\PageManager\:\:findBySlug\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\DisplayPageAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/DisplayPageAction.php
-
-		-
-			message: '#^Parameter \#1 \$articleManager of class Interfaces\\HTTP\\Actions\\Frontend\\HomeAction constructor expects Application\\Services\\ArticleManager, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/HomeAction.php
-
-		-
-			message: '#^Parameter \#2 \$renderer of class Interfaces\\HTTP\\Actions\\Frontend\\HomeAction constructor expects Interfaces\\HTTP\\View\\TemplateRenderer, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/interfaces/HTTP/Actions/Frontend/HomeAction.php
-
-		-
-			message: '#^Call to an undefined method object\:\:check\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/interfaces/HTTP/Kernel.php
-
-		-
-			message: '#^Call to an undefined method object\:\:set\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/interfaces/HTTP/Kernel.php
-
-		-
-			message: '#^Call to an undefined method object\:\:start\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/interfaces/HTTP/Kernel.php
 
 		-
 			message: '#^Cannot cast mixed to string\.$#'
@@ -2167,7 +1633,7 @@ parameters:
 			path: src/interfaces/HTTP/Kernel.php
 
 		-
-			message: '#^Parameter \#1 \$abstract of method Infrastructure\\Container\\Container\:\:get\(\) expects class\-string\<mixed\>, mixed given\.$#'
+			message: '#^Parameter \#1 \$abstract of method Infrastructure\\Container\\Container\:\:get\(\) expects class\-string\<object\>, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Kernel.php
@@ -2181,6 +1647,12 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$string of function strtoupper expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
 			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Kernel.php
+
+		-
+			message: '#^Unable to resolve the template type T in call to method Infrastructure\\Container\\Container\:\:get\(\)$#'
+			identifier: argument.templateType
 			count: 1
 			path: src/interfaces/HTTP/Kernel.php
 

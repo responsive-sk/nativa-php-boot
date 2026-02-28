@@ -23,7 +23,7 @@ class MediaServiceProvider implements ServiceProviderInterface
         // Register Storage Provider (configurable via env)
         $container->singleton(
             MediaProviderInterface::class,
-            function (Container $container) {
+            function (Container $container): MediaProviderInterface {
                 $provider = $_ENV['MEDIA_PROVIDER'] ?? 'local';
 
                 return match ($provider) {
@@ -44,7 +44,7 @@ class MediaServiceProvider implements ServiceProviderInterface
         // Register MediaRepository
         $container->bind(
             MediaRepositoryInterface::class,
-            function (Container $container) {
+            function (Container $container): MediaRepositoryInterface {
                 return new MediaRepository($container->get(UnitOfWork::class));
             }
         );
@@ -52,7 +52,7 @@ class MediaServiceProvider implements ServiceProviderInterface
         // Register MediaManager
         $container->singleton(
             MediaManager::class,
-            function (Container $container) {
+            function (Container $container): MediaManager {
                 return new MediaManager(
                     $container->get(MediaProviderInterface::class),
                     $container->get(MediaRepositoryInterface::class),

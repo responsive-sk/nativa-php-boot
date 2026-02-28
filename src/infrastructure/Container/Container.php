@@ -65,7 +65,7 @@ class Container
     /**
      * Resolve a class or interface
      *
-     * @template T
+     * @template T of object
      * @param class-string<T> $abstract
      * @return T
      */
@@ -101,7 +101,7 @@ class Container
     /**
      * Build a class with dependency injection
      *
-     * @template T
+     * @template T of object
      * @param class-string<T> $class
      * @return T
      */

@@ -22,19 +22,19 @@ class AuthServiceProvider implements ServiceProviderInterface
     public function register(Container $container): void
     {
         // Session Manager (singleton)
-        $container->singleton(SessionManager::class, function () {
+        $container->singleton(SessionManager::class, function (): SessionManager {
             return new SessionManager();
         });
 
         // Token Manager
-        $container->singleton(TokenManager::class, function () use ($container) {
+        $container->singleton(TokenManager::class, function () use ($container): TokenManager {
             return new TokenManager(
                 $container->get(UserRepositoryInterface::class)
             );
         });
 
         // Auth Service
-        $container->singleton(AuthService::class, function () use ($container) {
+        $container->singleton(AuthService::class, function () use ($container): AuthService {
             return new AuthService(
                 $container->get(UserRepositoryInterface::class),
                 $container->get(SessionManager::class),

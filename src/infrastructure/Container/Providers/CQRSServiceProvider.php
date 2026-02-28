@@ -25,7 +25,7 @@ class CQRSServiceProvider implements ServiceProviderInterface
     public function register(Container $container): void
     {
         // Register CommandBus as singleton
-        $container->singleton(CommandBus::class, function (Container $container) {
+        $container->singleton(CommandBus::class, function (Container $container): CommandBus {
             $commandBus = new CommandBus();
 
             // Register Article command handlers
@@ -42,7 +42,7 @@ class CQRSServiceProvider implements ServiceProviderInterface
         });
 
         // Register QueryBus as singleton
-        $container->singleton(QueryBus::class, function (Container $container) {
+        $container->singleton(QueryBus::class, function (Container $container): QueryBus {
             $queryBus = new QueryBus();
 
             // Register Article query handlers
