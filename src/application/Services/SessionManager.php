@@ -138,17 +138,6 @@ final class SessionManager
     }
 
     /**
-     * Regenerate session ID (prevents session fixation)
-     */
-    public function regenerate(): void
-    {
-        $this->ensureStarted();
-        session_regenerate_id(true);
-
-        $this->logDebug('[SessionManager] Session ID regenerated');
-    }
-
-    /**
      * Destroy session
      */
     public function destroy(): void

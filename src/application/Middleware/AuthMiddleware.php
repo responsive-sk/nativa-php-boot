@@ -34,7 +34,7 @@ class AuthMiddleware
         if (!$this->sessionManager->isActive(self::SESSION_TIMEOUT)) {
             // Session timed out - destroy and redirect to login
             $this->sessionManager->destroy();
-            $request->getSession()->getFlashBag()->set('error', 'Your session has timed out. Please log in again.');
+            // Note: Flash messages not available in Symfony HttpFoundation without SessionBundle
             return new Response('', 302, ['Location' => '/login']);
         }
 
