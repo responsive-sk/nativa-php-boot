@@ -41,12 +41,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Magic number in `SessionManager` (replaced `1` with `PHP_SESSION_NONE`)
 - Intended URL redirect after login restored
 - `EditRoleAction` and `EditPermissionAction` handle() method signatures
+- PHP 8.4 deprecation: Added explicit nullable type to `User::create()` role parameter
+- PHP 8.4 warning: Fixed undefined `$error` variable in admin templates
 
 ### Security
 - Added `final` keyword to prevent class inheritance attacks
 - Session configuration via environment variables
 
 ---
+
+## [2026-02-28] - Documentation & Code Quality
+
+### Documentation Updates
+- Updated `README.md` with correct `bin/cms` paths
+- Updated `docs/QUICK_START.md` with new CLI paths
+- Updated `docs/TESTING_SUMMARY.md` with Acceptance tests info
+- Updated `docs/COVERAGE.md` with C3 and acceptance coverage details
+- Updated `docs/INDEX.md` with current documentation status
+
+### Code Quality
+- Fixed PHP 8.4 deprecation warnings
+- Fixed undefined variable warnings in templates
+- Added post-commit hook to remove AI co-author lines
+- Created cleanup scripts for git history maintenance
 
 ## [2026-02-27] - Controller to Actions Migration
 

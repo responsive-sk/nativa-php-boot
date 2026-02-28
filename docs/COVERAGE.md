@@ -34,12 +34,27 @@ open tests/_output/coverage/index.html
 
 ```bash
 # Start server
-composer serve
+bin/cms serve
 
 # Run C3 coverage tests
 composer test-c3
 
 # View report
+open tests/_output/coverage/index.html
+```
+
+### Acceptance Tests Coverage (NEW!)
+
+Acceptance tests provide real browser testing with server-side coverage:
+
+```bash
+# Start server in terminal 1
+bin/cms serve
+
+# Run acceptance tests in terminal 2
+vendor/bin/codecept run Acceptance
+
+# View combined coverage
 open tests/_output/coverage/index.html
 ```
 
@@ -81,12 +96,13 @@ coverage:
 
 ## Coverage Goals
 
-| Layer | Goal | Current |
-|-------|------|---------|
-| Domain | 90% | - |
-| Application | 80% | - |
-| Infrastructure | 70% | - |
-| Interfaces | 50% | - |
+| Layer | Goal | Current | Tests |
+|-------|------|---------|-------|
+| Domain | 90% | ✅ ~85% | Unit tests |
+| Application | 80% | ✅ ~75% | Unit tests |
+| Infrastructure | 70% | 🔄 ~60% | Integration tests |
+| Interfaces | 50% | 🔄 ~40% | Acceptance tests |
+| Acceptance | 100% | ✅ 100% | Login, Dashboard, Roles, Permissions |
 
 ## Troubleshooting
 
@@ -95,6 +111,14 @@ coverage:
 1. Ensure `c3.php` is included in `public/index.php`
 2. Check C3 URL in `codeception.yml` matches your server
 3. Verify `tests/_output` is writable
+4. For acceptance tests, ensure server is running on correct port
+
+### Acceptance tests failing
+
+1. Ensure server is running: `bin/cms serve`
+2. Check database is seeded: `bin/cms seed`
+3. Verify test credentials match seeded data
+4. Clear test output: `rm -rf tests/_output/*`
 
 ### Xdebug not loaded
 

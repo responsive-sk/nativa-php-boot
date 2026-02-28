@@ -10,8 +10,8 @@ composer install
 cp .env.example .env
 
 # Databáza
-php src/bin/cms migrate
-php src/bin/cms seed
+bin/cms migrate
+bin/cms seed
 
 # Server
 php -S localhost:8000 router.php
@@ -108,8 +108,8 @@ src/
 
 ```bash
 # Databáza
-php src/bin/cms migrate     # Vytvoriť tabuľky
-php src/bin/cms seed        # Seed testovacích dát
+bin/cms migrate     # Vytvoriť tabuľky
+bin/cms seed        # Seed testovacích dát
 
 # Server
 php -S localhost:8000 router.php

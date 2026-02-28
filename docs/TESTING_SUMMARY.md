@@ -14,22 +14,34 @@
 ### Test Suite
 
 ```
-✅ 22 tests
-✅ 46 assertions
-✅ 100% pass rate
+✅ Acceptance tests for login, dashboard, roles, permissions
+✅ Unit tests for Domain layer
+✅ Integration tests for HTTP actions
 ```
 
 ### Test Categories
 
-1. **Domain Tests** (9 tests)
+1. **Domain Tests**
    - `SlugTest` - Slug generation and validation
    - `ArticleTest` - Article entity operations
+   - `UserTest` - User entity with roles/permissions
+   - `RoleTest` - Role entity tests
+   - `PermissionTest` - Permission entity tests
 
-2. **Application Tests** (6 tests)
-   - `ArticleAppServiceTest` - Service layer operations
+2. **Application Tests**
+   - `AuthServiceTest` - Authentication operations
+   - `RoleServiceTest` - Role CRUD operations
+   - `PermissionServiceTest` - Permission CRUD operations
 
-3. **Integration Tests** (7 tests)
-   - `ArticleHttpTest` - End-to-end HTTP tests
+3. **Integration Tests**
+   - HTTP Actions tests (CreateArticleAction, StoreArticleAction, etc.)
+   - Login/Logout flow tests
+
+4. **Acceptance Tests** (NEW!)
+   - `LoginCest.php` - Login/logout flow
+   - `AdminDashboardCest.php` - Admin dashboard access
+   - `RolesCest.php` - Role management
+   - `PermissionsCest.php` - Permission management
 
 ### Commands
 
@@ -83,6 +95,11 @@ php-cms/
 │   └── COVERAGE.md          # Coverage documentation
 ├── tests/
 │   ├── _output/             # Test reports
+│   ├── Acceptance/          # Acceptance tests (NEW!)
+│   │   ├── LoginCest.php
+│   │   ├── AdminDashboardCest.php
+│   │   ├── RolesCest.php
+│   │   └── PermissionsCest.php
 │   ├── Domain/
 │   │   ├── Model/
 │   │   │   └── ArticleTest.php
@@ -90,25 +107,30 @@ php-cms/
 │   │       └── SlugTest.php
 │   ├── Application/
 │   │   └── Services/
-│   │       └── ArticleAppServiceTest.php
+│   │       ├── AuthServiceTest.php
+│   │       ├── RoleServiceTest.php
+│   │       └── PermissionServiceTest.php
 │   ├── Integration/
-│   │   └── ArticleHttpTest.php
-│   └── README.md
+│   │   └── Actions/         # HTTP Actions tests
+│   └── Helper/
+│       └── Acceptance.php
 └── .gitignore               # Includes .phpunit.cache/, coverage/
 ```
 
 ### Next Steps
 
 1. **Add more tests**
+   - [ ] Article CRUD Actions tests
+   - [ ] Page CRUD Actions tests
    - [ ] Form Builder tests
-   - [ ] Page CRUD tests
-   - [ ] User authentication tests
-   - [ ] HTTP integration tests
+   - [ ] Media management tests
+   - [ ] Settings management tests
 
 2. **Increase coverage**
-   - [ ] Infrastructure layer (Repositories)
-   - [ ] Interface layer (Controllers)
-   - [ ] Value Objects (Email, ArticleStatus)
+   - [ ] Infrastructure layer (Repositories, DatabaseConnection)
+   - [ ] Value Objects (Email, Slug, Role, PermissionName)
+   - [ ] Domain Events tests
+   - [ ] Saga pattern tests
 
 3. **CI/CD Integration**
    - [ ] GitHub Actions workflow

@@ -6,8 +6,10 @@
 # Install
 composer install
 cp .env.example .env
-php src/bin/cms migrate
-php src/bin/cms seed
+
+# Database
+bin/cms migrate
+bin/cms seed
 
 # Run
 php -S localhost:8000 router.php
@@ -87,8 +89,8 @@ php-cms/
 
 ```bash
 # Database
-php src/bin/cms migrate     # Create tables
-php src/bin/cms seed        # Seed data
+bin/cms migrate     # Create tables
+bin/cms seed        # Seed data
 
 # Server
 php -S localhost:8000 router.php
