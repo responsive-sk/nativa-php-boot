@@ -11,7 +11,7 @@ use Domain\Model\Permission;
     <div class="max-w-2xl">
         <h1 class="text-2xl font-bold text-gray-800 mb-6"><?= $this->e($title) ?></h1>
 
-        <?php if ($error): ?>
+        <?php if (isset($error) && $error): ?>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <?= $this->e($error) ?>
         </div>
