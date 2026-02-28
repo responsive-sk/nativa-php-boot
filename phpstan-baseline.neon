@@ -73,36 +73,6 @@ parameters:
 			path: src/application/Saga/SagaStep.php
 
 		-
-			message: '#^Method Application\\Services\\ArticleManager\:\:create\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/ArticleManager.php
-
-		-
-			message: '#^Method Application\\Services\\ArticleManager\:\:findByTag\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/ArticleManager.php
-
-		-
-			message: '#^Method Application\\Services\\ArticleManager\:\:listLatest\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/ArticleManager.php
-
-		-
-			message: '#^Method Application\\Services\\ArticleManager\:\:listPublished\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/ArticleManager.php
-
-		-
-			message: '#^Method Application\\Services\\ArticleManager\:\:search\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/ArticleManager.php
-
-		-
 			message: '#^Method Domain\\Repository\\ArticleRepositoryInterface\:\:findByTag\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1

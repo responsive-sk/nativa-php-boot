@@ -25,6 +25,9 @@ final class ArticleManager
 
     /**
      * Create article (for CQRS compatibility)
+     *
+     * @param array<string>|null $tags
+     * @return Article
      */
     public function create(
         string $title,
@@ -170,21 +173,33 @@ final class ArticleManager
         return $article;
     }
 
+    /**
+     * @return array<Article>
+     */
     public function findByTag(string $tag, int $limit = 10, int $offset = 0): array
     {
         return $this->articleRepository->findByTag($tag, $limit, $offset);
     }
 
+    /**
+     * @return array<Article>
+     */
     public function listPublished(int $limit = 10, int $offset = 0): array
     {
         return $this->articleRepository->findPublished($limit, $offset);
     }
 
+    /**
+     * @return array<Article>
+     */
     public function listLatest(int $limit = 5): array
     {
         return $this->articleRepository->findLatest($limit);
     }
 
+    /**
+     * @return array<Article>
+     */
     public function search(string $query): array
     {
         return $this->articleRepository->search($query);
