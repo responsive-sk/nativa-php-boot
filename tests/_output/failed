@@ -1,6 +1,15 @@
 tests/Acceptance/AdminDashboardCest.php:seeDashboard
 tests/Acceptance/AdminDashboardCest.php:seeDashboardNavigation
+tests/Acceptance/AdminDashboardCest.php:cannotAccessAdminWithoutLogin
+tests/Acceptance/AdminDashboardCest.php:intendedUrlIsSaved
+tests/Acceptance/LoginCest.php:seeLoginPage
+tests/Acceptance/LoginCest.php:loginAsAdmin
+tests/Acceptance/LoginCest.php:loginWithInvalidCredentials
+tests/Acceptance/LoginCest.php:loginWithEmptyFields
+tests/Acceptance/LoginCest.php:logout
+tests/Acceptance/LoginCest.php:redirectWhenAlreadyLoggedIn
 tests/Acceptance/PermissionsCest.php:seePermissionsList
+tests/Acceptance/PermissionsCest.php:filterPermissionsByGroup
 tests/Acceptance/PermissionsCest.php:createPermission
 tests/Acceptance/PermissionsCest.php:cannotCreatePermissionWithInvalidFormat
 tests/Acceptance/PermissionsCest.php:cannotCreatePermissionWithoutName

@@ -133,14 +133,8 @@ parameters:
 			path: src/application/Services/MediaManager.php
 
 		-
-			message: '#^Method Application\\Services\\MediaManager\:\:upload\(\) has parameter \$file with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/MediaManager.php
-
-		-
-			message: '#^Method Application\\Services\\MediaManager\:\:upload\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$tmpPath of method Application\\Services\\MediaManager\:\:calculateFileHash\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/application/Services/MediaManager.php
 
@@ -1741,7 +1735,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php
 
 		-
-			message: '#^Parameter \#1 \$file of method Application\\Services\\MediaManager\:\:upload\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \#1 \$file of method Application\\Services\\MediaManager\:\:upload\(\) expects array\<string, mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/MediaAction.php

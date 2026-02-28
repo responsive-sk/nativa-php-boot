@@ -21,9 +21,9 @@ final class MediaManager
     /**
      * Upload file
      *
-     * @param array $file $_FILES array
+     * @param array<string, mixed> $file $_FILES array
      * @param string|null $userId User ID who uploaded
-     * @return array Media data with 'duplicate' flag if file already exists
+     * @return array<string, mixed> Media data with 'duplicate' flag if file already exists
      */
     public function upload(array $file, ?string $userId = null): array
     {
