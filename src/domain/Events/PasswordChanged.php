@@ -20,4 +20,13 @@ final class PasswordChanged implements DomainEventInterface
     {
         return $this->timestamp;
     }
+
+    public function payload(): array
+    {
+        return [
+            'userId' => $this->userId,
+            'userEmail' => $this->userEmail,
+            'timestamp' => $this->timestamp,
+        ];
+    }
 }

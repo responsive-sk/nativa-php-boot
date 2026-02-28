@@ -7,6 +7,9 @@ namespace Application\Services;
 use Domain\Events\EventDispatcherInterface;
 use Domain\Model\User;
 use Domain\Repository\UserRepositoryInterface;
+use Domain\ValueObjects\Email;
+use Domain\ValueObjects\Password;
+use Domain\ValueObjects\Role;
 
 /**
  * User Manager - Handles user operations
@@ -26,13 +29,11 @@ final class UserManager
         string $role = 'user',
         ?string $avatar = null,
     ): User {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         $user = User::create(
             name: $name,
-            email: $email,
-            password: $hashedPassword,
-            role: $role,
+            email: new Email($email),
+            password: new Password($password),
+            role: new Role($role),
             avatar: $avatar,
         );
 
@@ -72,7 +73,7 @@ final class UserManager
             throw new \RuntimeException('User not found');
         }
 
-        $user->changePassword(password_hash($newPassword, PASSWORD_DEFAULT));
+        $user->changePassword(new Password($newPassword));
         $this->userRepository->save($user);
 
         return $user;
@@ -80,7 +81,13 @@ final class UserManager
 
     public function delete(string $userId): void
     {
-        $this->userRepository->delete($userId);
+        $user = $this->userRepository->findById($userId);
+        
+        if ($user === null) {
+            throw new \RuntimeException('User not found');
+        }
+        
+        $this->userRepository->delete($user);
     }
 
     public function findById(string $userId): ?User
@@ -116,7 +123,7 @@ final class UserManager
             return null;
         }
 
-        if (!password_verify($password, $user->password())) {
+        if (!password_verify($password, $user->password()->hash())) {
             return null;
         }
 

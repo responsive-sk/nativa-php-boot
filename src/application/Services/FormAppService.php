@@ -19,11 +19,12 @@ final class FormAppService
 
     public function create(
         string $name,
+        string $slug,
         array $schema,
         ?string $emailNotification = null,
         string $successMessage = 'Thank you for your submission!',
     ): Form {
-        $form = Form::create($name, $schema, $emailNotification, $successMessage);
+        $form = Form::create($name, $slug, $schema, $emailNotification, $successMessage);
         $this->formRepository->save($form);
         return $form;
     }

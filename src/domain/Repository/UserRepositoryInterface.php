@@ -56,4 +56,9 @@ interface UserRepositoryInterface
      * Check if email exists
      */
     public function emailExists(string $email, ?string $excludeId = null): bool;
+
+    /**
+     * Count all users
+     */
+    public function count(): int;
 }

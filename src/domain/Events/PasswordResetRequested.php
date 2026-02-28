@@ -21,4 +21,14 @@ final class PasswordResetRequested implements DomainEventInterface
     {
         return $this->timestamp;
     }
+
+    public function payload(): array
+    {
+        return [
+            'userId' => $this->userId,
+            'userEmail' => $this->userEmail,
+            'resetToken' => $this->resetToken,
+            'timestamp' => $this->timestamp,
+        ];
+    }
 }

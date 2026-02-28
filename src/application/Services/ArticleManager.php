@@ -148,6 +148,33 @@ final class ArticleManager
         return $this->articleRepository->findBySlug($slug);
     }
 
+    public function update(string $articleId, string $title, string $content, ?string $excerpt = null, ?string $categoryId = null, ?string $image = null): Article
+    {
+        $article = $this->articleRepository->findById($articleId);
+
+        if ($article === null) {
+            throw new \RuntimeException('Article not found');
+        }
+
+        $article->update(
+            title: $title,
+            content: $content,
+            excerpt: $excerpt,
+            categoryId: $categoryId,
+            image: $image,
+        );
+
+        $this->articleRepository->save($article);
+        $this->dispatchEvents($article);
+
+        return $article;
+    }
+
+    public function findByTag(string $tag, int $limit = 10, int $offset = 0): array
+    {
+        return $this->articleRepository->findByTag($tag, $limit, $offset);
+    }
+
     public function listPublished(int $limit = 10, int $offset = 0): array
     {
         return $this->articleRepository->findPublished($limit, $offset);

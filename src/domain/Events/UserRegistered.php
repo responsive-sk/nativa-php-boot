@@ -22,4 +22,15 @@ final class UserRegistered implements DomainEventInterface
     {
         return $this->timestamp;
     }
+
+    public function payload(): array
+    {
+        return [
+            'userId' => $this->userId,
+            'userEmail' => $this->userEmail,
+            'userName' => $this->userName,
+            'role' => $this->role,
+            'timestamp' => $this->timestamp,
+        ];
+    }
 }
