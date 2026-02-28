@@ -6,6 +6,7 @@ namespace Application\Services;
 
 use Domain\Model\Page;
 use Domain\Repository\PageRepositoryInterface;
+use Domain\ValueObjects\Slug;
 
 /**
  * Page Manager
