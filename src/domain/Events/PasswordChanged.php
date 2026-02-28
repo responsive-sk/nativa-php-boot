@@ -13,7 +13,9 @@ final class PasswordChanged implements DomainEventInterface
         public readonly string $userId,
         public readonly string $userEmail,
         public readonly string $timestamp,
-    )
+    ) {
+    }
+
     public function occurredAt(): string
     {
         return $this->timestamp;

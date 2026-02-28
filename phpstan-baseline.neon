@@ -1,0 +1,559 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Template type T of method Application\\CQRS\\CommandBus\:\:dispatch\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/application/CQRS/CommandBus.php
+
+		-
+			message: '#^Template type T of method Application\\CQRS\\QueryBus\:\:dispatch\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/application/CQRS/QueryBus.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/application/DTOs/CreateFormCommand.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/application/Middleware/AuthMiddleware.php
+
+		-
+			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:compensateWithTracking\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:executeWithTracking\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:isCompensated\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Call to an undefined method Application\\Saga\\SagaStepInterface\:\:isExecuted\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/application/Saga/SagaOrchestrator.php
+
+		-
+			message: '#^Call to an undefined static method Domain\\Events\\PasswordChanged\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Call to an undefined static method Domain\\Events\\PasswordResetRequested\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Call to an undefined static method Domain\\Events\\UserRegistered\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/application/Services/AuthService.php
+
+		-
+			message: '#^Parameter \#2 \$slug of static method Domain\\Model\\Form\:\:create\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/FormAppService.php
+
+		-
+			message: '#^Parameter \#3 \$schema of static method Domain\\Model\\Form\:\:create\(\) expects array, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/FormAppService.php
+
+		-
+			message: '#^Call to static method fromString\(\) on an unknown class Application\\Services\\Slug\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/application/Services/PageManager.php
+
+		-
+			message: '#^Call to an undefined static method Infrastructure\\Persistence\\DatabaseConnection\:\:getInstance\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/application/Services/RbacService.php
+
+		-
+			message: '#^Call to an undefined static method Infrastructure\\Persistence\\DatabaseConnection\:\:getInstance\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/application/Services/RoleService.php
+
+		-
+			message: '#^Constant Application\\Services\\TokenManager\:\:REMEMBER_TOKEN_LENGTH is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Method Application\\Services\\TokenManager\:\:checkRememberToken\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Method Application\\Services\\TokenManager\:\:validatePasswordResetToken\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Property Application\\Services\\TokenManager\:\:\$userRepository is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/application/Services/TokenManager.php
+
+		-
+			message: '#^Call to an undefined method Domain\\Repository\\UserRepositoryInterface\:\:count\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \#1 \$newPassword of method Domain\\Model\\User\:\:changePassword\(\) expects Domain\\ValueObjects\\Password, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Domain\\Repository\\UserRepositoryInterface\:\:delete\(\) expects Domain\\Model\\User, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \#2 \$hash of function password_verify expects string, Domain\\ValueObjects\\Password given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \$email of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Email, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \$password of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Password, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Parameter \$role of static method Domain\\Model\\User\:\:create\(\) expects Domain\\ValueObjects\\Role\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Property Application\\Services\\UserManager\:\:\$eventDispatcher is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/application/Services/UserManager.php
+
+		-
+			message: '#^Call to an undefined method Domain\\ValueObjects\\PermissionName\:\:toString\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/domain/Model/User.php
+
+		-
+			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/domain/Repository/PageRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getForms\(\) has invalid return type Domain\\Repository\\PageForm\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/domain/Repository/PageRepositoryInterface.php
+
+		-
+			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getMedia\(\) has invalid return type Domain\\Repository\\PageMedia\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/domain/Repository/PageRepositoryInterface.php
+
+		-
+			message: '#^Call to an undefined method ReflectionType\:\:getName\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Call to function is_object\(\) with class\-string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^PHPDoc tag @return with type T is not subtype of native type object\.$#'
+			identifier: return.phpDocType
+			count: 3
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects string, list\<object\|string\>\|object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/infrastructure/Container/Container.php
+
+		-
+			message: '#^Call to function is_subclass_of\(\) with class\-string\<Infrastructure\\Paths\\Presets\\PresetInterface\> and ''Infrastructure\\\\Paths\\\\Presets\\\\PresetInterface'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/infrastructure/Paths/Presets/PresetFactory.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getBlocks\(\) should return array\<Domain\\Repository\\PageBlock\> but returns array\<Domain\\Model\\PageBlock\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getForms\(\) has invalid return type Domain\\Repository\\PageForm\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getForms\(\) should return array\<Domain\\Repository\\PageForm\> but returns array\<Domain\\Model\\PageForm\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getMedia\(\) has invalid return type Domain\\Repository\\PageMedia\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getMedia\(\) should return array\<Domain\\Repository\\PageMedia\> but returns array\<Domain\\Model\\PageMedia\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/infrastructure/Persistence/Repositories/PageRepository.php
+
+		-
+			message: '#^Property Infrastructure\\Queue\\Entities\\Job\:\:\$availableAt \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/infrastructure/Queue/Entities/Job.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/StoreArticleAction.php
+
+		-
+			message: '#^Call to an undefined method Application\\Services\\ArticleManager\:\:update\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Article/UpdateArticleAction.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/interfaces/HTTP/Actions/Admin/Settings/UpdateSettingsAction.php
+
+		-
+			message: '#^Variable \$error on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: src/interfaces/HTTP/Actions/Auth/LoginAction.php
+
+		-
+			message: '#^Call to an undefined method Application\\Services\\ArticleManager\:\:findByTag\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/Article/ByTagAction.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\:\:getFlashBag\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\HttpFoundation\\Session\\SessionInterface\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/ContactAction.php
+
+		-
+			message: '#^Class Domain\\Events\\FormSubmitted constructor invoked with 3 parameters, 4\-5 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Parameter \#3 \$submissionId of class Domain\\Events\\FormSubmitted constructor expects string, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/interfaces/HTTP/Actions/Frontend/DisplayFormAction.php
+
+		-
+			message: '#^Property Interfaces\\HTTP\\View\\TemplateRenderer\:\:\$isAdminTemplate is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/interfaces/HTTP/View/TemplateRenderer.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 5
+			path: src/interfaces/Templates/admin/articles/create.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/articles/create.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/articles/edit.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 6
+			path: src/interfaces/Templates/admin/articles/edit.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/articles/edit.php
+
+		-
+			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: src/interfaces/Templates/admin/layouts/base.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 5
+			path: src/interfaces/Templates/admin/pages/forms/edit.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 5
+			path: src/interfaces/Templates/admin/permissions/create.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/permissions/create.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 7
+			path: src/interfaces/Templates/admin/permissions/edit.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/permissions/edit.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/permissions/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 8
+			path: src/interfaces/Templates/admin/permissions/index.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/permissions/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 4
+			path: src/interfaces/Templates/admin/roles/create.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/roles/create.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 6
+			path: src/interfaces/Templates/admin/roles/edit.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/roles/edit.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/roles/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 5
+			path: src/interfaces/Templates/admin/roles/index.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/roles/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 5
+			path: src/interfaces/Templates/admin/settings/index.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/admin/settings/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/layouts/base.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/layouts/base.php
+
+		-
+			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: src/interfaces/Templates/frontend/layouts/base.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/index.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 6
+			path: src/interfaces/Templates/frontend/pages/articles/index.php
+
+		-
+			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/index.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/index.php
+
+		-
+			message: '#^Variable \$title on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/index.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/show.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 5
+			path: src/interfaces/Templates/frontend/pages/articles/show.php
+
+		-
+			message: '#^Call to method nl2br\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/show.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/articles/show.php
+
+		-
+			message: '#^Call to method date\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/home.php
+
+		-
+			message: '#^Call to method e\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 4
+			path: src/interfaces/Templates/frontend/pages/home.php
+
+		-
+			message: '#^Call to method isEmpty\(\) on an unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/home.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$this contains unknown class TemplateRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/interfaces/Templates/frontend/pages/home.php

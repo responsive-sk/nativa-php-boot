@@ -19,6 +19,8 @@
         "codeception/codeception": "^5.3",
         "codeception/module-asserts": "^3.3",
         "codeception/module-phpbrowser": "^4.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^12.0",
         "rector/rector": "^2.0",
         "roave/security-advisories": "dev-latest"
@@ -41,13 +43,22 @@
         "test-coverage": "phpunit --coverage-php tests/_output/coverage.cov --coverage-html tests/_output/coverage",
         "test-c3": "codecept run",
         "test-c3-coverage": "codecept run --coverage --coverage-html",
-        "phpstan": "phpstan analyse --ansi",
-        "cs-fix": "php-cs-fixer fix --ansi",
+        "phpstan": "phpstan analyse --ansi -c phpstan.neon --memory-limit=512M",
+        "phpstan-baseline": "phpstan analyse --generate-baseline --ansi",
+        "cs-fix": "php-cs-fixer fix --ansi --verbose",
+        "cs-fix-dry": "php-cs-fixer fix --ansi --verbose --dry-run",
         "rector": "rector process --ansi",
+        "rector-dry": "rector process --ansi --dry-run",
         "analyze": [
-            "@test",
+            "@cs-fix-dry",
             "@phpstan",
-            "@cs-fix"
+            "@rector-dry",
+            "@test"
+        ],
+        "analyze-fix": [
+            "@cs-fix",
+            "@rector",
+            "@test"
         ],
         "serve": "php -S localhost:8000 -t public",
         "migrate": "php bin/cms migrate",

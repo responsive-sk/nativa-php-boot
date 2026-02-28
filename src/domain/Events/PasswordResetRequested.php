@@ -14,7 +14,9 @@ final class PasswordResetRequested implements DomainEventInterface
         public readonly string $userEmail,
         public readonly string $resetToken,
         public readonly string $timestamp,
-    )
+    ) {
+    }
+
     public function occurredAt(): string
     {
         return $this->timestamp;

@@ -15,7 +15,9 @@ final class UserRegistered implements DomainEventInterface
         public readonly string $userName,
         public readonly string $role,
         public readonly string $timestamp,
-    )
+    ) {
+    }
+
     public function occurredAt(): string
     {
         return $this->timestamp;

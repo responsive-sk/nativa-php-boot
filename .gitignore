@@ -7,6 +7,9 @@
 .DS_Store
 Thumbs.db
 .phpunit.cache/
+/.phpstan.cache/
+/.php-cs-fixer.cache/
+/rector.cache/
 coverage/
 .qwen/settings.json
 .agents/
