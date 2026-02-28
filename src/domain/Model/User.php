@@ -51,7 +51,7 @@ final class User
         string $name,
         Email $email,
         Password $password,
-        RoleVO $role = null,
+        ?RoleVO $role = null,
         ?string $avatar = null,
     ): self {
         $user = new self();
