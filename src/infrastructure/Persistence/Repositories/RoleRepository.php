@@ -12,7 +12,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Role Repository Implementation
  */
-class RoleRepository implements RoleRepositoryInterface
+ final class RoleRepository implements RoleRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow,

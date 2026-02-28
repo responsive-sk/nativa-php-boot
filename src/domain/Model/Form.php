@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Form Entity (Form Builder)
  */
-class Form
+final class Form
 {
     private string $id;
     private string $name;

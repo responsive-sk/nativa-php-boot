@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Form Submission Entity
  */
-class FormSubmission
+final class FormSubmission
 {
     private string $id;
     private string $formId;

@@ -7,32 +7,15 @@ namespace Domain\Events;
 /**
  * Domain Event: Password Changed
  */
-class PasswordChanged
+final class PasswordChanged implements DomainEventInterface
 {
     public function __construct(
         public readonly string $userId,
         public readonly string $userEmail,
         public readonly string $timestamp,
-    ) {
-    }
-
-    public static function create(
-        string $userId,
-        string $userEmail,
-    ): self {
-        return new self(
-            $userId,
-            $userEmail,
-            date('Y-m-d H:i:s')
-        );
-    }
-
-    public function payload(): array
+    )
+    public function occurredAt(): string
     {
-        return [
-            'user_id' => $this->userId,
-            'user_email' => $this->userEmail,
-            'timestamp' => $this->timestamp,
-        ];
+        return $this->timestamp;
     }
 }

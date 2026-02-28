@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Page Updated Event
  */
-class PageUpdated extends DomainEvent
+final class PageUpdated extends DomainEvent
 {
     public function __construct(
         private readonly string $pageId,

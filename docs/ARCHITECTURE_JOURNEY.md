@@ -1,6 +1,6 @@
 # PHP CMS - Architektonický Journey
 
-## 📅 Dátum: 2026-02-27
+## 📅 Dátum: 2026-02-28
 
 Tento dokument zachytáva kompletný proces refactorovania a vylepšovania architektúry PHP CMS projektu.
 
@@ -22,7 +22,7 @@ Tento dokument zachytáva kompletný proces refactorovania a vylepšovania archi
 ```
 php-cms/
 ├── domain/                 # Domain Layer
-├── application/           # Application Layer  
+├── application/           # Application Layer
 ├── infrastructure/        # Infrastructure Layer
 ├── interfaces/           # Interfaces Layer
 └── public/              # Web root
@@ -588,5 +588,93 @@ Tento refactor ukázal, že moderná PHP aplikácia nepotrebuje ťažké framewo
 
 ---
 
+## 📅 2026-02-28 - Final Classes & Complete Actions Migration
+
+### Final Classes Implementation
+
+**Rozhodnutie:** Všetky non-extensible triedy teraz používajú `final` keyword.
+
+**Dôvody:**
+1. **DDD compliance** - Domain modely nemajú byť dediteľné
+2. **Bezpečnosť** - Prevencia overrideovania business logic
+3. **Performance** - PHP optimalizuje final triedy
+4. **Predvídateľnosť** - Kompozícia nad dedičnosťou
+
+**Čo bolo zmenené:**
+- ✅ Domain Models (12 tried) - final
+- ✅ Value Objects (6 tried) - final
+- ✅ Domain Events (14 tried) - final
+- ✅ Actions (27+ tried) - final
+- ✅ Application Services - final
+- ✅ Repositories - final
+- ✅ Storage Providers - final
+
+**Vytvorená dokumentácia:**
+- [FINAL_CLASSES.md](FINAL_CLASSES.md) - Komplexný sprievodca
+
+### Complete Actions Migration
+
+**Status:** ✅ 100% Complete - Všetky controllery migrované na Actions
+
+**Nové Action triedy:**
+```
+src/interfaces/HTTP/Actions/Admin/Article/
+├── CreateArticleAction.php
+├── StoreArticleAction.php
+├── EditArticleAction.php
+├── UpdateArticleAction.php
+├── DeleteArticleAction.php
+└── PublishArticleAction.php
+
+src/interfaces/HTTP/Actions/Admin/Settings/
+├── ViewSettingsAction.php
+└── UpdateSettingsAction.php
+
+src/interfaces/HTTP/Actions/Admin/Media/
+└── DeleteMediaAction.php
+```
+
+**Odstránené controllery (11 súborov):**
+- ❌ Admin: ArticleController, SettingsController, MediaController, PageController, DashboardController, FormController
+- ❌ Frontend: HomeController, ArticleController, PageController, ContactController, FormController
+
+**Vytvorená dokumentácia:**
+- [CONTROLLER_TO_ACTIONS_MIGRATION.md](CONTROLLER_TO_ACTIONS_MIGRATION.md)
+
+### AppPaths Cleanup
+
+**Zmena:** Databázy presunuté z `/data/` do `/storage/data/`
+
+**Dôvod:** Všetky runtime dáta majú byť pod `/storage/`
+
+**Aktualizované:**
+- ✅ `AppPaths::data()` teraz vracia `storage/data/`
+- ✅ `.env` - `DB_CMS=cms.db` (nie `data/cms.db`)
+- ✅ `.gitignore` - `/storage/data/*.db`
+
+**Dokumentácia:**
+- [APPPATHS_USAGE.md](APPPATHS_USAGE.md) - Aktualizovaný s novou štruktúrou
+
+### Acceptance Tests Setup
+
+**Stav:** ✅ Codeception Acceptance tests pripravené
+
+**Vytvorené:**
+- `tests/Acceptance.suite.yml` - Suite konfigurácia
+- `tests/Acceptance/LoginCest.php` - Login testy
+- `tests/Acceptance/AdminDashboardCest.php` - Dashboard testy
+- `tests/Acceptance/RolesCest.php` - Roles testy
+- `tests/Acceptance/PermissionsCest.php` - Permissions testy
+
+**Nainštalované:**
+- `codeception/module-phpbrowser` ^4.0
+
+**Sprievodca:**
+- Testy pripravené pre C3 code coverage
+
+---
+
 *Dokument vytvorený: 2026-02-27*
 *Autor: AI Assistant + User Collaboration*
+
+*Posledná aktualizácia: 2026-02-28*

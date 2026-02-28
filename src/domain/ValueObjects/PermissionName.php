@@ -10,7 +10,7 @@ namespace Domain\ValueObjects;
  * Represents a permission identifier in the format: "resource.action"
  * Examples: "admin.dashboard", "articles.create", "users.manage"
  */
-class PermissionName
+final class PermissionName
 {
     private string $name;
     private string $resource;
@@ -19,7 +19,9 @@ class PermissionName
     private function __construct(string $name)
     {
         $this->name = $name;
-        [$this->resource, $this->action] = explode('.', $name);
+        $parts = explode('.', $name);
+        $this->resource = $parts[0];
+        $this->action = implode('.', array_slice($parts, 1));
     }
 
     /**
@@ -93,7 +95,7 @@ class PermissionName
      */
     private static function validate(string $name): void
     {
-        if (!preg_match('/^[a-z]+\.[a-z_]+$/', $name)) {
+        if (!preg_match('/^[a-z]+(\.[a-z_]+)+$/', $name)) {
             throw new \InvalidArgumentException(
                 sprintf('Invalid permission name "%s". Format must be "resource.action" (e.g., "admin.dashboard")', $name)
             );

@@ -11,7 +11,7 @@ use Domain\Repository\UserRepositoryInterface;
 /**
  * User Manager - Handles user operations
  */
-class UserManager
+final class UserManager
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,

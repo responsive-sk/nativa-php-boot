@@ -9,7 +9,7 @@ namespace Domain\ValueObjects;
  *
  * Represents user roles in the RBAC system
  */
-class Role
+final class Role
 {
     public const ADMIN = 'admin';
     public const EDITOR = 'editor';

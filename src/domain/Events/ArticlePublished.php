@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Article Published Event
  */
-class ArticlePublished extends DomainEvent
+final class ArticlePublished extends DomainEvent
 {
     public function __construct(
         private readonly string $articleId,

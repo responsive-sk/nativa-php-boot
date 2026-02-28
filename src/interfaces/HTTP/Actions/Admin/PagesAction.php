@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Pages List Action
  */
-class PagesAction extends Action
+final class PagesAction extends Action
 {
     public function __construct(
         private readonly PageManager $pageManager,

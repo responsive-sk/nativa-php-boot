@@ -1,7 +1,7 @@
 /vendor/
 /storage/cache/
 /storage/uploads/
-/data/*.db
+/storage/data/*.db
 /.env
 *.log
 .DS_Store

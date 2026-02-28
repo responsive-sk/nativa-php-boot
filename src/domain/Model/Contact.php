@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Contact Entity
  */
-class Contact
+final class Contact
 {
     private string $id;
     private string $name;

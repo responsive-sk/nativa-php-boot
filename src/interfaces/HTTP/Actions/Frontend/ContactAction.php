@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Contact Form Action
  */
-class ContactAction extends Action
+final class ContactAction extends Action
 {
     public function __construct(
         private readonly ContactManager $contactManager,

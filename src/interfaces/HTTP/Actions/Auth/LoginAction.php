@@ -16,10 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Login Action
  */
-class LoginAction extends Action
+final class LoginAction extends Action
 {
     public function __construct(
         private readonly AuthService $authService,
+        private readonly SessionManager $sessionManager,
         private readonly TemplateRenderer $renderer,
     ) {
     }
@@ -62,20 +63,20 @@ class LoginAction extends Action
             $ipAddress = $request->getClientIp() ?? 'unknown';
 
             if ($this->authService->attempt($command, $ipAddress)) {
-                // Login successful
-                $intendedUrl = $request->getSession()?->get('intended_url', '/admin');
-                $request->getSession()?->remove('intended_url');
-
-                return $this->redirect($intendedUrl ?: '/admin');
+                // Login successful - redirect to intended URL or default to /admin
+                $intendedUrl = $this->sessionManager->get('intended_url', '/admin');
+                $this->sessionManager->remove('intended_url');
+                
+                return $this->redirect($intendedUrl);
             }
 
             $error = 'Invalid email or password';
         } catch (\InvalidArgumentException $e) {
+            error_log('[LoginAction] InvalidArgumentException: ' . $e->getMessage());
             $error = $e->getMessage();
         } catch (\RuntimeException $e) {
+            error_log('[LoginAction] RuntimeException: ' . $e->getMessage());
             $error = $e->getMessage();
-        } catch (\Throwable $e) {
-            $error = 'An error occurred. Please try again.';
         }
 
         $content = $this->renderer->render('auth/login', [
@@ -89,11 +90,28 @@ class LoginAction extends Action
         return $this->html($content, 401);
     }
 
+    /**
+     * Handle request (required by ActionInterface)
+     */
+    public function handle(Request $request): Response
+    {
+        if ($request->getMethod() === 'GET') {
+            return $this->show($request);
+        }
+
+        if ($request->getMethod() === 'POST') {
+            return $this->post($request);
+        }
+
+        return new Response('Method not allowed', 405);
+    }
+
     public static function create(): self
     {
         $container = ContainerFactory::create();
         return new self(
             $container->get(AuthService::class),
+            $container->get(SessionManager::class),
             $container->get(TemplateRenderer::class),
         );
     }

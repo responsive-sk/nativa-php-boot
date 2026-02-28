@@ -15,7 +15,7 @@ use PDO;
 /**
  * Page Repository Implementation
  */
-class PageRepository implements PageRepositoryInterface
+ final class PageRepository implements PageRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow

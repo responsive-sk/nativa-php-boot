@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Search Articles Action
  */
-class SearchArticlesAction extends Action
+final class SearchArticlesAction extends Action
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

@@ -32,12 +32,12 @@ class DatabaseConnectionManager
     private function loadDsnConfig(): void
     {
         // CMS Database (main application data)
-        $cmsDb = $_ENV['DB_CMS'] ?? 'data/cms.db';
+        $cmsDb = $_ENV['DB_CMS'] ?? 'cms.db';
         $cmsPath = str_starts_with($cmsDb, '/') ? $cmsDb : $this->paths->data($cmsDb);
         $this->dsnConfig['cms'] = 'sqlite:' . $cmsPath;
 
         // Jobs Database (queue, outbox)
-        $jobsDb = $_ENV['DB_JOBS'] ?? 'data/jobs.db';
+        $jobsDb = $_ENV['DB_JOBS'] ?? 'jobs.db';
         $jobsPath = str_starts_with($jobsDb, '/') ? $jobsDb : $this->paths->data($jobsDb);
         $this->dsnConfig['jobs'] = 'sqlite:' . $jobsPath;
 
@@ -59,13 +59,16 @@ class DatabaseConnectionManager
      */
     public function getConnection(string $name = 'cms'): PDO
     {
+        // Return existing connection if already created (e.g., :memory: for tests)
+        if (isset($this->connections[$name])) {
+            return $this->connections[$name];
+        }
+
         if (!isset($this->dsnConfig[$name])) {
             throw new \InvalidArgumentException("Database connection '{$name}' is not configured");
         }
 
-        if (!isset($this->connections[$name])) {
-            $this->connections[$name] = $this->createConnection($this->dsnConfig[$name]);
-        }
+        $this->connections[$name] = $this->createConnection($this->dsnConfig[$name]);
 
         return $this->connections[$name];
     }

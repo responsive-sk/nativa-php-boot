@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Middleware;
 
 use Application\Services\AuthService;
+use Domain\ValueObjects\PermissionName;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,15 +34,14 @@ class PermissionMiddleware
             return new Response('', 302, ['Location' => '/login']);
         }
 
-        // Admin has all permissions
-        if ($user->isAdmin()) {
-            return null;
-        }
-
-        // TODO: Implement permission check with RBAC service
-        // For now, only admin passes
-        if (!$user->isAdmin()) {
-            return new Response('Forbidden - Missing permission: ' . $this->permission, 403);
+        // Check if user has the required permission
+        $permissionName = PermissionName::fromString($this->permission);
+        
+        if (!$user->hasPermission($permissionName)) {
+            return new Response(
+                'Forbidden - Missing permission: ' . $this->permission,
+                403
+            );
         }
 
         return null;

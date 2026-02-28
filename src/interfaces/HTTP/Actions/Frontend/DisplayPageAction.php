@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Frontend Display Page Action
  */
-class DisplayPageAction extends Action
+final class DisplayPageAction extends Action
 {
     public function __construct(
         private readonly PageManager $pageManager,

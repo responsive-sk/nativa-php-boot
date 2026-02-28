@@ -11,7 +11,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Form Submission Repository Implementation
  */
-class FormSubmissionRepository implements FormSubmissionRepositoryInterface
+ final class FormSubmissionRepository implements FormSubmissionRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow

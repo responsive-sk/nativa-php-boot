@@ -10,7 +10,7 @@ use Domain\Repository\FormRepositoryInterface;
 /**
  * Form Manager
  */
-class FormManager
+final class FormManager
 {
     public function __construct(
         private readonly FormRepositoryInterface $formRepository,

@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Media Entity
  */
-class Media
+final class Media
 {
     private string $id;
     private ?string $userId;

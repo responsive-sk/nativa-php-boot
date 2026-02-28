@@ -12,7 +12,7 @@ use Domain\Repository\ContactRepositoryInterface;
 /**
  * Contact Manager
  */
-class ContactManager
+final class ContactManager
 {
     public function __construct(
         private readonly ContactRepositoryInterface $contactRepository,

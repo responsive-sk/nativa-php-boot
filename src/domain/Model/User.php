@@ -7,11 +7,14 @@ namespace Domain\Model;
 use Domain\ValueObjects\Email;
 use Domain\ValueObjects\Password;
 use Domain\ValueObjects\Role as RoleVO;
+use Domain\ValueObjects\PermissionName;
 
 /**
  * User Entity
+ *
+ * Represents a user with role-based access control (RBAC)
  */
-class User
+final class User
 {
     private string $id;
     private string $name;
@@ -24,6 +27,21 @@ class User
     private ?string $lastLoginIp;
     private string $createdAt;
     private string $updatedAt;
+
+    /**
+     * @var Role[] User's assigned roles (from role_user pivot)
+     */
+    private array $assignedRoles = [];
+
+    /**
+     * @var Permission[] User's direct permissions (cached)
+     */
+    private array $permissions = [];
+
+    /**
+     * @var array<string, bool> Cache for permission checks (permission_name => result)
+     */
+    private array $permissionCache = [];
 
     private function __construct()
     {
@@ -128,6 +146,155 @@ class User
     public function isEditorOrHigher(): bool
     {
         return $this->role->getLevel() >= RoleVO::EDITOR()->getLevel();
+    }
+
+    /**
+     * Assign a role to this user
+     * Prevents duplicate role assignments
+     */
+    public function assignRole(Role $role): void
+    {
+        // Check if role is already assigned
+        foreach ($this->assignedRoles as $assignedRole) {
+            if ($assignedRole->id() === $role->id()) {
+                return; // Role already assigned, prevent duplicate
+            }
+        }
+
+        $this->assignedRoles[] = $role;
+        $this->clearPermissionCache();
+    }
+
+    /**
+     * Change user's primary role
+     */
+    public function changeRole(RoleVO $role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * Check if user has a specific permission
+     * Admin users automatically have all permissions
+     * Uses internal caching to avoid repeated checks
+     */
+    public function hasPermission(PermissionName $permission): bool
+    {
+        $permissionName = $permission->toString();
+        
+        // Check cache first
+        if (isset($this->permissionCache[$permissionName])) {
+            return $this->permissionCache[$permissionName];
+        }
+        
+        // Admin has all permissions
+        if ($this->isAdmin()) {
+            $this->permissionCache[$permissionName] = true;
+            return true;
+        }
+
+        // Check direct permissions
+        foreach ($this->permissions as $userPermission) {
+            if ($userPermission->name()->equals($permission)) {
+                $this->permissionCache[$permissionName] = true;
+                return true;
+            }
+        }
+
+        // Check permissions from assigned roles
+        foreach ($this->assignedRoles as $role) {
+            foreach ($role->getPermissions() as $rolePermission) {
+                if ($rolePermission->name()->equals($permission)) {
+                    $this->permissionCache[$permissionName] = true;
+                    return true;
+                }
+            }
+        }
+
+        $this->permissionCache[$permissionName] = false;
+        return false;
+    }
+
+    /**
+     * Check if user has any of the given permissions
+     */
+    public function hasAnyPermission(array $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+            if ($permission instanceof PermissionName) {
+                if ($this->hasPermission($permission)) {
+                    return true;
+                }
+            } elseif (is_string($permission)) {
+                if ($this->hasPermission(PermissionName::fromString($permission))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if user has all of the given permissions
+     */
+    public function hasAllPermissions(array $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+            if ($permission instanceof PermissionName) {
+                if (!$this->hasPermission($permission)) {
+                    return false;
+                }
+            } elseif (is_string($permission)) {
+                if (!$this->hasPermission(PermissionName::fromString($permission))) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Set user's permissions (for hydration from repository)
+     *
+     * @param Permission[] $permissions
+     */
+    public function setPermissions(array $permissions): void
+    {
+        $this->permissions = $permissions;
+        $this->clearPermissionCache();
+    }
+
+    /**
+     * Get user's permissions
+     *
+     * @return Permission[]
+     */
+    public function getPermissions(): array
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Set user's assigned roles (for hydration from repository)
+     *
+     * @param Role[] $roles
+     */
+    public function setAssignedRoles(array $roles): void
+    {
+        $this->assignedRoles = $roles;
+        $this->clearPermissionCache();
+    }
+
+    /**
+     * Get user's assigned roles
+     *
+     * @return Role[]
+     */
+    public function getAssignedRoles(): array
+    {
+        return $this->assignedRoles;
     }
 
     /**
@@ -242,5 +409,13 @@ class User
     private static function now(): string
     {
         return date('Y-m-d H:i:s');
+    }
+
+    /**
+     * Clear permission cache (called when roles or permissions change)
+     */
+    private function clearPermissionCache(): void
+    {
+        $this->permissionCache = [];
     }
 }

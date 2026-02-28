@@ -7,7 +7,7 @@ namespace Domain\ValueObjects;
 /**
  * Slug Value Object
  */
-class Slug
+final class Slug
 {
     public function __construct(
         private readonly string $value

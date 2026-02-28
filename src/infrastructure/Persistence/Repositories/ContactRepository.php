@@ -12,7 +12,7 @@ use PDO;
 /**
  * Contact Repository Implementation
  */
-class ContactRepository implements ContactRepositoryInterface
+ final class ContactRepository implements ContactRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow

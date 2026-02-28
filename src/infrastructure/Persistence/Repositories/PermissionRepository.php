@@ -12,7 +12,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Permission Repository Implementation
  */
-class PermissionRepository implements PermissionRepositoryInterface
+ final class PermissionRepository implements PermissionRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow,

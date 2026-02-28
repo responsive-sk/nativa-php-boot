@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Dashboard Action
  */
-class DashboardAction extends Action
+final class DashboardAction extends Action
 {
     public function __construct(
         private readonly TemplateRenderer $renderer,

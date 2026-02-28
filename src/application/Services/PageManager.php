@@ -10,7 +10,7 @@ use Domain\Repository\PageRepositoryInterface;
 /**
  * Page Manager
  */
-class PageManager
+final class PageManager
 {
     public function __construct(
         private readonly PageRepositoryInterface $pageRepository,

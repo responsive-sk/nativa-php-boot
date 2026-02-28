@@ -1,0 +1,12 @@
+tests/Acceptance/AdminDashboardCest.php:seeDashboard
+tests/Acceptance/AdminDashboardCest.php:seeDashboardNavigation
+tests/Acceptance/PermissionsCest.php:seePermissionsList
+tests/Acceptance/PermissionsCest.php:createPermission
+tests/Acceptance/PermissionsCest.php:cannotCreatePermissionWithInvalidFormat
+tests/Acceptance/PermissionsCest.php:cannotCreatePermissionWithoutName
+tests/Acceptance/PermissionsCest.php:editPermission
+tests/Acceptance/RolesCest.php:seeRolesList
+tests/Acceptance/RolesCest.php:createRole
+tests/Acceptance/RolesCest.php:cannotCreateRoleWithoutName
+tests/Acceptance/RolesCest.php:editRole
+tests/Acceptance/RolesCest.php:cannotDeleteSystemRole

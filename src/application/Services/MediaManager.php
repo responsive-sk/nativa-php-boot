@@ -10,7 +10,7 @@ use Infrastructure\Storage\Providers\MediaProviderInterface;
 /**
  * Media Manager - Handles media operations with provider abstraction
  */
-class MediaManager
+final class MediaManager
 {
     public function __construct(
         private readonly MediaProviderInterface $provider,

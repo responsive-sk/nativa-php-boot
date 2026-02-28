@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Logout Action
  */
-class LogoutAction extends Action
+final class LogoutAction extends Action
 {
     public function __construct(
         private readonly AuthService $authService,
@@ -27,7 +27,11 @@ class LogoutAction extends Action
     {
         $this->authService->logout();
 
-        return $this->redirect('/login');
+        // Create redirect response with cleared session cookie
+        $response = new Response('', 302, ['Location' => '/login']);
+        $response->headers->clearCookie('PHPSESSID', '/', 'localhost', false, true);
+        
+        return $response;
     }
 
     public static function create(): self

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Create Form Action
  */
-class CreateFormAction extends Action
+final class CreateFormAction extends Action
 {
     public function __construct(
         private readonly FormManager $formManager,

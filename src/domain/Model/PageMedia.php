@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Page Media Entity (Page attachments/gallery)
  */
-class PageMedia
+final class PageMedia
 {
     private string $id;
     private string $pageId;

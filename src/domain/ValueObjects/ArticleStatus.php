@@ -7,7 +7,7 @@ namespace Domain\ValueObjects;
 /**
  * Article Status Value Object
  */
-class ArticleStatus
+final class ArticleStatus
 {
     public const DRAFT = 'draft';
     public const PUBLISHED = 'published';

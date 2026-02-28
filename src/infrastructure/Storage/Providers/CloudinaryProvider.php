@@ -12,7 +12,7 @@ use RuntimeException;
  * 
  * Requires: composer require cloudinary/cloudinary_php
  */
-class CloudinaryProvider implements MediaProviderInterface
+final class CloudinaryProvider implements MediaProviderInterface
 {
     private string $cloudName;
     private string $apiKey;

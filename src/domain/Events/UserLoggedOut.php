@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Domain Event: User Logged Out
  */
-class UserLoggedOut
+final class UserLoggedOut implements DomainEventInterface
 {
     public function __construct(
         public readonly string $userId,
@@ -34,5 +34,10 @@ class UserLoggedOut
             'user_email' => $this->userEmail,
             'timestamp' => $this->timestamp,
         ];
+    }
+
+    public function occurredAt(): string
+    {
+        return $this->timestamp;
     }
 }

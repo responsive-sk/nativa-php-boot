@@ -24,7 +24,7 @@ use Domain\Events\EventDispatcherInterface;
  *
  * Handles user authentication, registration, and session management
  */
-class AuthService
+final class AuthService
 {
     private const SESSION_KEY = 'auth_user_id';
     private const SESSION_KEY_EMAIL = 'auth_user_email';

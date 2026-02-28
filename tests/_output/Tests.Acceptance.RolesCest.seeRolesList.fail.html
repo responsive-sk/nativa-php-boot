@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles Management - PHP CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Admin Sidebar -->
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white">
+            <div class="p-4">
+                <h1 class="text-xl font-bold">PHP CMS Admin</h1>
+            </div>
+            <nav class="mt-4 flex flex-col h-full justify-between">
+                <div>
+                    <a href="/admin" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
+                    <a href="/admin/articles" class="block px-4 py-2 hover:bg-gray-700">Articles</a>
+                    <a href="/admin/forms" class="block px-4 py-2 hover:bg-gray-700">Forms</a>
+                    <a href="/admin/pages" class="block px-4 py-2 hover:bg-gray-700">Pages</a>
+                    <a href="/admin/media" class="block px-4 py-2 hover:bg-gray-700">Media</a>
+                    <a href="/admin/settings" class="block px-4 py-2 hover:bg-gray-700">Settings</a>
+                </div>
+                
+                <!-- Logout Button -->
+                <div class="mt-auto border-t border-gray-700">
+                    <a href="/logout" class="block px-4 py-2 text-red-400 hover:bg-gray-700 hover:text-red-300">
+                        ← Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Roles Management</h1>
+        <a href="/admin/roles/create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            + New Role
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                            bg-red-100 text-red-800">
+                            admin                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        Administrator with full access                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        100                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/roles/8107bd63c1ee49a8ca6ee351e69ff540/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                            bg-blue-100 text-blue-800">
+                            editor                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        Content editor with write access                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        50                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/roles/aa2f0b1d57002e24c539dc092b005bfd/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                            bg-gray-100 text-gray-800">
+                            user                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        Regular user                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        10                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/roles/e8276205ac37519d69b52b569d1b3d8a/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                            bg-gray-100 text-gray-800">
+                            viewer                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        Read-only access                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        20                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/roles/6f179ccfce75cabb31956db96adc8970/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                            </td>
+                </tr>
+                            </tbody>
+        </table>
+    </div>
+</div>
+        </main>
+    </div>
+</body>
+</html>

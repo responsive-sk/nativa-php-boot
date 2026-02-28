@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Media Library Action
  */
-class MediaAction extends Action
+final class MediaAction extends Action
 {
     public function __construct(
         private readonly MediaManager $mediaManager,

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * List Articles Action
  */
-class ListArticlesAction extends Action
+final class ListArticlesAction extends Action
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

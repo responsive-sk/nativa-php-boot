@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Articles By Tag Action
  */
-class ByTagAction extends Action
+final class ByTagAction extends Action
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

@@ -1,0 +1,588 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * CMS CLI Entry Point
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Load environment variables
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createArrayBacked(__DIR__);
+    $env = $dotenv->load();
+    foreach ($env as $key => $value) {
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
+}
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Infrastructure\Persistence\DatabaseConnection;
+
+// Migrate Command
+class MigrateCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('migrate')
+             ->setDescription('Run database migrations');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('<info>Running migrations...</info>');
+
+        $db = new DatabaseConnection();
+        $conn = $db->getConnection();
+
+        // Create users table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS users (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                role VARCHAR(50) DEFAULT 'user',
+                avatar VARCHAR(255),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create categories table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS categories (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                description TEXT,
+                parent_id VARCHAR(36) REFERENCES categories(id),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create articles table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS articles (
+                id VARCHAR(36) PRIMARY KEY,
+                author_id VARCHAR(36) REFERENCES users(id),
+                category_id VARCHAR(36) REFERENCES categories(id),
+                title VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                excerpt TEXT,
+                content TEXT NOT NULL,
+                image VARCHAR(255),
+                status VARCHAR(50) DEFAULT 'draft',
+                views INTEGER DEFAULT 0,
+                published_at DATETIME,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create tags table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS tags (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL
+            )
+        SQL);
+
+        // Create article_tag pivot table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS article_tag (
+                article_id VARCHAR(36) REFERENCES articles(id) ON DELETE CASCADE,
+                tag_id VARCHAR(36) REFERENCES tags(id) ON DELETE CASCADE,
+                PRIMARY KEY (article_id, tag_id)
+            )
+        SQL);
+
+        // Create pages table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS pages (
+                id VARCHAR(36) PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                content TEXT NOT NULL,
+                template VARCHAR(100) DEFAULT 'default',
+                meta_title VARCHAR(255),
+                meta_description TEXT,
+                is_published BOOLEAN DEFAULT FALSE,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create page_blocks table (reusable content sections)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_blocks (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                type VARCHAR(50) NOT NULL,
+                title VARCHAR(255),
+                content TEXT,
+                data JSON,
+                sort_order INTEGER DEFAULT 0,
+                is_active BOOLEAN DEFAULT TRUE,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_blocks_page ON page_blocks(page_id)');
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_blocks_type ON page_blocks(type)');
+
+        // Create page_media table (page attachments/gallery)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_media (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                media_id VARCHAR(36) REFERENCES media(id) ON DELETE CASCADE,
+                caption VARCHAR(255),
+                sort_order INTEGER DEFAULT 0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_media_page ON page_media(page_id)');
+
+        // Create page_forms table (embedded forms)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS page_forms (
+                id VARCHAR(36) PRIMARY KEY,
+                page_id VARCHAR(36) REFERENCES pages(id) ON DELETE CASCADE,
+                form_id VARCHAR(36) REFERENCES forms(id) ON DELETE CASCADE,
+                title VARCHAR(255),
+                position VARCHAR(50) DEFAULT 'sidebar',
+                sort_order INTEGER DEFAULT 0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_page_forms_page ON page_forms(page_id)');
+
+        $output->writeln('<info>✓ Pages tables created</info>');
+
+        // Create forms table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS forms (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                slug VARCHAR(255) UNIQUE NOT NULL,
+                schema JSON NOT NULL,
+                email_notification VARCHAR(255),
+                success_message TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create form_submissions table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS form_submissions (
+                id VARCHAR(36) PRIMARY KEY,
+                form_id VARCHAR(36) REFERENCES forms(id) ON DELETE CASCADE,
+                data JSON NOT NULL,
+                ip_address VARCHAR(45),
+                user_agent TEXT,
+                submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create contacts table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS contacts (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                subject VARCHAR(255),
+                message TEXT NOT NULL,
+                status VARCHAR(50) DEFAULT 'new',
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create media table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS media (
+                id VARCHAR(36) PRIMARY KEY,
+                user_id VARCHAR(36) REFERENCES users(id),
+                filename VARCHAR(255) NOT NULL,
+                original_name VARCHAR(255),
+                mime_type VARCHAR(100),
+                size INTEGER,
+                path VARCHAR(255) NOT NULL,
+                url VARCHAR(512) NOT NULL,
+                provider VARCHAR(50) DEFAULT 'local',
+                hash VARCHAR(64),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Add url column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN url VARCHAR(512)
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Add provider column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN provider VARCHAR(50) DEFAULT 'local'
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Add hash column if not exists (for existing databases)
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE media ADD COLUMN hash VARCHAR(64)
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists, ignore
+        }
+
+        // Create index on hash for faster lookups
+        try {
+            $conn->exec(<<<SQL
+                CREATE INDEX IF NOT EXISTS idx_media_hash ON media(hash)
+            SQL);
+        } catch (\PDOException $e) {
+            // Index already exists, ignore
+        }
+
+        $output->writeln('<info>✓ Media table ready</info>');
+
+        // ============================================
+        // AUTH & RBAC TABLES
+        // ============================================
+
+        // Update users table with new columns
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE users ADD COLUMN is_active BOOLEAN DEFAULT TRUE
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
+
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE users ADD COLUMN last_login_at DATETIME
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
+
+        try {
+            $conn->exec(<<<SQL
+                ALTER TABLE users ADD COLUMN last_login_ip VARCHAR(45)
+            SQL);
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
+
+        // Create roles table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS roles (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(50) UNIQUE NOT NULL,
+                description TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create permissions table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS permissions (
+                id VARCHAR(36) PRIMARY KEY,
+                name VARCHAR(100) UNIQUE NOT NULL,
+                description TEXT,
+                group_name VARCHAR(50),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create role_user pivot table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS role_user (
+                role_id VARCHAR(36) REFERENCES roles(id) ON DELETE CASCADE,
+                user_id VARCHAR(36) REFERENCES users(id) ON DELETE CASCADE,
+                PRIMARY KEY (role_id, user_id)
+            )
+        SQL);
+
+        // Create permission_role pivot table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS permission_role (
+                permission_id VARCHAR(36) REFERENCES permissions(id) ON DELETE CASCADE,
+                role_id VARCHAR(36) REFERENCES roles(id) ON DELETE CASCADE,
+                PRIMARY KEY (permission_id, role_id)
+            )
+        SQL);
+
+        // Create password_resets table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS password_resets (
+                id VARCHAR(36) PRIMARY KEY,
+                email VARCHAR(255) NOT NULL,
+                token VARCHAR(255) NOT NULL,
+                expires_at DATETIME NOT NULL,
+                used_at DATETIME,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create remember_tokens table
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS remember_tokens (
+                id VARCHAR(36) PRIMARY KEY,
+                user_id VARCHAR(36) REFERENCES users(id) ON DELETE CASCADE,
+                token VARCHAR(255) NOT NULL,
+                expires_at DATETIME NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create login_attempts table (for rate limiting)
+        $conn->exec(<<<SQL
+            CREATE TABLE IF NOT EXISTS login_attempts (
+                id VARCHAR(36) PRIMARY KEY,
+                email VARCHAR(255) NOT NULL,
+                ip_address VARCHAR(45),
+                attempted_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        SQL);
+
+        // Create indexes for better performance
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_login_attempts_email ON login_attempts(email)');
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_login_attempts_ip ON login_attempts(ip_address)');
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_password_resets_token ON password_resets(token)');
+        $conn->exec('CREATE INDEX IF NOT EXISTS idx_remember_tokens_token ON remember_tokens(token)');
+
+        $output->writeln('<info>✓ Auth & RBAC tables created</info>');
+
+        $output->writeln('<info>✓ All tables created successfully!</info>');
+
+        return Command::SUCCESS;
+    }
+}
+
+// Seed Command
+class SeedCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('seed')
+             ->setDescription('Seed database with test data');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('<info>Seeding database...</info>');
+
+        $db = new DatabaseConnection();
+        $conn = $db->getConnection();
+
+        // ============================================
+        // SEED ROLES
+        // ============================================
+        $roles = [
+            ['name' => 'admin', 'description' => 'Administrator with full access'],
+            ['name' => 'editor', 'description' => 'Content editor with write access'],
+            ['name' => 'viewer', 'description' => 'Read-only access'],
+            ['name' => 'user', 'description' => 'Regular user'],
+        ];
+
+        foreach ($roles as $roleData) {
+            $roleId = bin2hex(random_bytes(16));
+            try {
+                $stmt = $conn->prepare(<<<SQL
+                    INSERT INTO roles (id, name, description) VALUES (?, ?, ?)
+                SQL);
+                $stmt->execute([$roleId, $roleData['name'], $roleData['description']]);
+                $output->writeln("<info>✓ Role created: {$roleData['name']}</info>");
+            } catch (\PDOException $e) {
+                $output->writeln("<comment>Role {$roleData['name']} already exists</comment>");
+            }
+        }
+
+        // ============================================
+        // SEED PERMISSIONS
+        // ============================================
+        $permissions = [
+            // Admin
+            ['name' => 'admin.dashboard', 'group' => 'admin', 'desc' => 'View dashboard'],
+            ['name' => 'admin.users.manage', 'group' => 'admin', 'desc' => 'Manage users'],
+            ['name' => 'admin.settings.manage', 'group' => 'admin', 'desc' => 'Manage settings'],
+
+            // Articles
+            ['name' => 'admin.articles.view', 'group' => 'articles', 'desc' => 'View articles'],
+            ['name' => 'admin.articles.create', 'group' => 'articles', 'desc' => 'Create articles'],
+            ['name' => 'admin.articles.edit', 'group' => 'articles', 'desc' => 'Edit articles'],
+            ['name' => 'admin.articles.delete', 'group' => 'articles', 'desc' => 'Delete articles'],
+            ['name' => 'admin.articles.publish', 'group' => 'articles', 'desc' => 'Publish articles'],
+
+            // Pages
+            ['name' => 'admin.pages.view', 'group' => 'pages', 'desc' => 'View pages'],
+            ['name' => 'admin.pages.create', 'group' => 'pages', 'desc' => 'Create pages'],
+            ['name' => 'admin.pages.edit', 'group' => 'pages', 'desc' => 'Edit pages'],
+            ['name' => 'admin.pages.delete', 'group' => 'pages', 'desc' => 'Delete pages'],
+            ['name' => 'admin.pages.publish', 'group' => 'pages', 'desc' => 'Publish pages'],
+
+            // Forms
+            ['name' => 'admin.forms.view', 'group' => 'forms', 'desc' => 'View forms'],
+            ['name' => 'admin.forms.create', 'group' => 'forms', 'desc' => 'Create forms'],
+            ['name' => 'admin.forms.edit', 'group' => 'forms', 'desc' => 'Edit forms'],
+            ['name' => 'admin.forms.delete', 'group' => 'forms', 'desc' => 'Delete forms'],
+            ['name' => 'admin.forms.submissions.view', 'group' => 'forms', 'desc' => 'View form submissions'],
+
+            // Media
+            ['name' => 'admin.media.view', 'group' => 'media', 'desc' => 'View media'],
+            ['name' => 'admin.media.upload', 'group' => 'media', 'desc' => 'Upload media'],
+            ['name' => 'admin.media.delete', 'group' => 'media', 'desc' => 'Delete media'],
+        ];
+
+        foreach ($permissions as $permData) {
+            $permId = bin2hex(random_bytes(16));
+            try {
+                $stmt = $conn->prepare(<<<SQL
+                    INSERT INTO permissions (id, name, description, group_name)
+                    VALUES (?, ?, ?, ?)
+                SQL);
+                $stmt->execute([$permId, $permData['name'], $permData['desc'], $permData['group']]);
+                $output->writeln("<info>✓ Permission created: {$permData['name']}</info>");
+            } catch (\PDOException $e) {
+                $output->writeln("<comment>Permission {$permData['name']} already exists</comment>");
+            }
+        }
+
+        // ============================================
+        // ASSIGN PERMISSIONS TO ROLES
+        // ============================================
+        // Admin gets all permissions
+        $adminRole = $conn->query("SELECT id FROM roles WHERE name = 'admin'")->fetch();
+        if ($adminRole) {
+            $allPermissions = $conn->query('SELECT id FROM permissions')->fetchAll();
+            foreach ($allPermissions as $perm) {
+                try {
+                    $stmt = $conn->prepare('INSERT OR IGNORE INTO permission_role (permission_id, role_id) VALUES (?, ?)');
+                    $stmt->execute([$perm['id'], $adminRole['id']]);
+                } catch (\PDOException $e) {
+                    // Ignore duplicates
+                }
+            }
+            $output->writeln('<info>✓ Admin role assigned all permissions</info>');
+        }
+
+        // Editor gets content permissions
+        $editorRole = $conn->query("SELECT id FROM roles WHERE name = 'editor'")->fetch();
+        if ($editorRole) {
+            $contentPermissions = $conn->query(<<<SQL
+                SELECT id FROM permissions
+                WHERE group_name IN ('articles', 'pages', 'forms', 'media')
+                AND name NOT LIKE '%delete%'
+            SQL)->fetchAll();
+            foreach ($contentPermissions as $perm) {
+                try {
+                    $stmt = $conn->prepare('INSERT OR IGNORE INTO permission_role (permission_id, role_id) VALUES (?, ?)');
+                    $stmt->execute([$perm['id'], $editorRole['id']]);
+                } catch (\PDOException $e) {
+                    // Ignore duplicates
+                }
+            }
+            $output->writeln('<info>✓ Editor role assigned content permissions</info>');
+        }
+
+        // ============================================
+        // CREATE ADMIN USER
+        // ============================================
+        $stmt = $conn->query('SELECT id FROM users WHERE email = "admin@phpcms.local" LIMIT 1');
+        $existingAdmin = $stmt->fetch();
+
+        if ($existingAdmin) {
+            $adminId = $existingAdmin['id'];
+            $output->writeln('<info>✓ Admin user already exists</info>');
+        } else {
+            // Create admin user
+            $adminId = bin2hex(random_bytes(16));
+            $password = password_hash('admin123', PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare(<<<SQL
+                INSERT INTO users (id, name, email, password, role, is_active, created_at, updated_at)
+                VALUES (?, 'Admin', 'admin@phpcms.local', ?, 'admin', 1, datetime('now'), datetime('now'))
+            SQL);
+            $stmt->execute([$adminId, $password]);
+            $output->writeln('<info>✓ Admin user created (admin@phpcms.local / admin123)</info>');
+        }
+
+        // Assign admin role to admin user
+        if (isset($adminId, $adminRole)) {
+            try {
+                $stmt = $conn->prepare('INSERT OR IGNORE INTO role_user (role_id, user_id) VALUES (?, ?)');
+                $stmt->execute([$adminRole['id'], $adminId]);
+                $output->writeln('<info>✓ Admin role assigned to admin user</info>');
+            } catch (\PDOException $e) {
+                // Ignore duplicates
+            }
+        }
+
+        // ============================================
+        // CREATE SAMPLE ARTICLE
+        // ============================================
+        $stmt = $conn->query('SELECT id FROM articles WHERE slug = "welcome-to-php-cms" LIMIT 1');
+        $existingArticle = $stmt->fetch();
+
+        if ($existingArticle) {
+            $output->writeln('<info>✓ Sample article already exists</info>');
+        } else {
+            // Create sample article
+            $articleId = bin2hex(random_bytes(16));
+            $stmt = $conn->prepare(<<<SQL
+                INSERT INTO articles (id, author_id, title, slug, excerpt, content, status, published_at)
+                VALUES (?, ?, 'Welcome to PHP CMS', 'welcome-to-php-cms', 'Your first article',
+                         'This is your first article. Start creating content!', 'published', datetime('now'))
+            SQL);
+            $stmt->execute([$articleId, $adminId]);
+            $output->writeln('<info>✓ Sample article created</info>');
+        }
+
+        $output->writeln('<info>Done!</info>');
+
+        return Command::SUCCESS;
+    }
+}
+
+// Serve Command
+class ServeCommand extends Command
+{
+    protected function configure(): void
+    {
+        $this->setName('serve')
+             ->setDescription('Start development server')
+             ->addOption('port', 'p', null, 'Port number');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $port = $input->getOption('port') ?? 8000;
+        $output->writeln("<info>Starting development server on http://localhost:{$port}</info>");
+        $output->writeln("<info>Press Ctrl+C to stop</info>");
+
+        passthru("php -S localhost:{$port} -t public");
+
+        return Command::SUCCESS;
+    }
+}
+
+// Setup application
+$application = new Application('PHP CMS', '1.0.0');
+$application->addCommands([new MigrateCommand(), new SeedCommand(), new ServeCommand()]);
+$application->run();

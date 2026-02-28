@@ -11,7 +11,7 @@ use RuntimeException;
  * Local Storage Provider
  * Stores files on local filesystem
  */
-class LocalStorageProvider implements MediaProviderInterface
+final class LocalStorageProvider implements MediaProviderInterface
 {
     private string $basePath;
     private string $baseUrl;

@@ -7,36 +7,16 @@ namespace Domain\Events;
 /**
  * Domain Event: Password Reset Requested
  */
-class PasswordResetRequested
+final class PasswordResetRequested implements DomainEventInterface
 {
     public function __construct(
         public readonly string $userId,
         public readonly string $userEmail,
         public readonly string $resetToken,
         public readonly string $timestamp,
-    ) {
-    }
-
-    public static function create(
-        string $userId,
-        string $userEmail,
-        string $resetToken,
-    ): self {
-        return new self(
-            $userId,
-            $userEmail,
-            $resetToken,
-            date('Y-m-d H:i:s')
-        );
-    }
-
-    public function payload(): array
+    )
+    public function occurredAt(): string
     {
-        return [
-            'user_id' => $this->userId,
-            'user_email' => $this->userEmail,
-            'reset_token' => $this->resetToken,
-            'timestamp' => $this->timestamp,
-        ];
+        return $this->timestamp;
     }
 }

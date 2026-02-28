@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Contact Submitted Event
  */
-class ContactSubmitted extends DomainEvent
+final class ContactSubmitted extends DomainEvent
 {
     public function __construct(
         private readonly string $contactId,

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Delete Page Action
  */
-class DeletePageAction extends Action
+final class DeletePageAction extends Action
 {
     public function __construct(
         private readonly PageManager $pageManager,

@@ -11,6 +11,7 @@ use Infrastructure\Container\Providers\CQRSServiceProvider;
 use Infrastructure\Container\Providers\FormServiceProvider;
 use Infrastructure\Container\Providers\MediaServiceProvider;
 use Infrastructure\Container\Providers\PageServiceProvider;
+use Infrastructure\Container\Providers\RbacServiceProvider;
 use Infrastructure\Container\Providers\UserServiceProvider;
 use Infrastructure\Container\Providers\ViewServiceProvider;
 use Infrastructure\Events\EventDispatcher;
@@ -44,6 +45,7 @@ class ContainerFactory
             new FormServiceProvider(),
             new MediaServiceProvider(),
             new PageServiceProvider(),
+            new RbacServiceProvider(),
         ];
 
         // Register all providers

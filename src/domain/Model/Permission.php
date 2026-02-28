@@ -11,7 +11,7 @@ use Domain\ValueObjects\PermissionName;
  *
  * Represents a granular permission in the RBAC system
  */
-class Permission
+final class Permission
 {
     private string $id;
     private PermissionName $name;

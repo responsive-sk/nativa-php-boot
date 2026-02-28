@@ -15,7 +15,7 @@ use Domain\ValueObjects\Slug;
 /**
  * Article Entity
  */
-class Article
+final class Article
 {
     private string $id;
     private string $authorId;

@@ -5,18 +5,24 @@ declare(strict_types=1);
 namespace Domain\Model;
 
 use Domain\ValueObjects\Role as RoleVO;
+use Domain\ValueObjects\PermissionName;
 
 /**
  * Role Entity
  *
  * Represents a role in the RBAC system
  */
-class Role
+final class Role
 {
     private string $id;
     private RoleVO $name;
     private ?string $description;
     private string $createdAt;
+
+    /**
+     * @var Permission[] Role's permissions (from permission_role pivot)
+     */
+    private array $permissions = [];
 
     private function __construct()
     {
@@ -122,6 +128,47 @@ class Role
     public function getLevel(): int
     {
         return $this->name->getLevel();
+    }
+
+    /**
+     * Assign a permission to this role
+     */
+    public function assignPermission(Permission $permission): void
+    {
+        $this->permissions[] = $permission;
+    }
+
+    /**
+     * Get role's permissions
+     *
+     * @return Permission[]
+     */
+    public function getPermissions(): array
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Set role's permissions (for hydration from repository)
+     *
+     * @param Permission[] $permissions
+     */
+    public function setPermissions(array $permissions): void
+    {
+        $this->permissions = $permissions;
+    }
+
+    /**
+     * Check if role has a specific permission
+     */
+    public function hasPermission(PermissionName $permission): bool
+    {
+        foreach ($this->permissions as $rolePermission) {
+            if ($rolePermission->name()->equals($permission)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

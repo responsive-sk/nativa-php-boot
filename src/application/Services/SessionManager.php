@@ -9,7 +9,7 @@ namespace Application\Services;
  *
  * Handles PHP session operations with security best practices
  */
-class SessionManager
+final class SessionManager
 {
     private bool $started = false;
 
@@ -45,7 +45,7 @@ class SessionManager
         session_set_cookie_params($cookieParams);
 
         // Session name
-        ini_set('session.name', 'PHPSESSID');
+        ini_set('session.name', $_ENV['SESSION_NAME'] ?? 'nativa_session');
 
         // Garbage collection
         ini_set('session.gc_maxlifetime', (string) ($_ENV['AUTH_SESSION_LIFETIME'] ?? '7200'));
@@ -60,7 +60,8 @@ class SessionManager
             return;
         }
 
-        if (session_status() === PHP_NONE) {
+        $status = session_status();
+        if ($status === PHP_SESSION_NONE) {
             session_start();
             $this->started = true;
 

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Frontend Form Display and Submission Action
  */
-class DisplayFormAction extends Action
+final class DisplayFormAction extends Action
 {
     public function __construct(
         private readonly FormManager $formManager,

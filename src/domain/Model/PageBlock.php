@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Page Block Entity (Reusable content sections)
  */
-class PageBlock
+final class PageBlock
 {
     private string $id;
     private string $pageId;

@@ -7,7 +7,7 @@ namespace Domain\ValueObjects;
 /**
  * Email Value Object
  */
-class Email
+final class Email
 {
     private function __construct(
         private readonly string $value

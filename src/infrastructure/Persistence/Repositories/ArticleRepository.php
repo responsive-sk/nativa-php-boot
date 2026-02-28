@@ -12,7 +12,7 @@ use PDO;
 /**
  * Article Repository Implementation
  */
-class ArticleRepository implements ArticleRepositoryInterface
+ final class ArticleRepository implements ArticleRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow

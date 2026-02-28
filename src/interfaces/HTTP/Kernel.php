@@ -25,6 +25,21 @@ use Interfaces\HTTP\Actions\Admin\EditPageAction;
 use Interfaces\HTTP\Actions\Admin\DeletePageAction;
 use Interfaces\HTTP\Actions\Auth\LoginAction;
 use Interfaces\HTTP\Actions\Auth\LogoutAction;
+use Interfaces\HTTP\Actions\Admin\Article\CreateArticleAction;
+use Interfaces\HTTP\Actions\Admin\Article\StoreArticleAction;
+use Interfaces\HTTP\Actions\Admin\Article\EditArticleAction;
+use Interfaces\HTTP\Actions\Admin\Article\UpdateArticleAction;
+use Interfaces\HTTP\Actions\Admin\Article\DeleteArticleAction;
+use Interfaces\HTTP\Actions\Admin\Article\PublishArticleAction;
+use Interfaces\HTTP\Actions\Admin\Settings\ViewSettingsAction;
+use Interfaces\HTTP\Actions\Admin\Settings\UpdateSettingsAction;
+use Interfaces\HTTP\Actions\Admin\Media\DeleteMediaAction;
+use Interfaces\HTTP\Actions\Admin\Roles\ListRolesAction;
+use Interfaces\HTTP\Actions\Admin\Roles\CreateRoleAction;
+use Interfaces\HTTP\Actions\Admin\Roles\EditRoleAction;
+use Interfaces\HTTP\Actions\Admin\Permissions\ListPermissionsAction;
+use Interfaces\HTTP\Actions\Admin\Permissions\CreatePermissionAction;
+use Interfaces\HTTP\Actions\Admin\Permissions\EditPermissionAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -68,6 +83,21 @@ class Kernel
 
             if ($route === null) {
                 return new Response('Not Found', 404);
+            }
+
+            // Check authentication for admin routes
+            $path = $request->getPathInfo();
+            if (str_starts_with($path, '/admin')) {
+                // Check auth directly using AuthService (which uses SessionManager internally)
+                $authService = $this->container->get(\Application\Services\AuthService::class);
+                if (!$authService->check()) {
+                    // Initialize session to store intended URL
+                    $sessionManager = $this->container->get(\Application\Services\SessionManager::class);
+                    $sessionManager->start();
+                    $sessionManager->set('intended_url', $path);
+                    
+                    return new Response('', 302, ['Location' => '/login']);
+                }
             }
 
             $callback = $route['callback'];
@@ -154,8 +184,8 @@ class Kernel
         $this->router->post('/form/{slug}', DisplayFormAction::class);
 
         // Auth Routes
-        $this->router->get('/login', [LoginAction::class, 'show']);
-        $this->router->post('/login', [LoginAction::class, 'post']);
+        $this->router->get('/login', [LoginAction::class, 'handle']);
+        $this->router->post('/login', [LoginAction::class, 'handle']);
         $this->router->get('/logout', [LogoutAction::class, 'handle']);
 
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
@@ -169,16 +199,14 @@ class Kernel
         $this->router->post('/admin/forms/{id}/edit', EditFormAction::class);
         $this->router->get('/admin/forms/{id}/submissions', FormSubmissionsAction::class);
 
-        // Admin Articles - Actions
+        // Admin Articles - Actions (CRUD Complete!)
         $this->router->get('/admin/articles', ArticlesAction::class);
-
-        // TODO: Convert to Actions
-        // $this->router->get('/admin/articles/create', [ArticleController::class, 'create']);
-        // $this->router->post('/admin/articles', [ArticleController::class, 'store']);
-        // $this->router->get('/admin/articles/{id}/edit', [ArticleController::class, 'edit']);
-        // $this->router->put('/admin/articles/{id}', [ArticleController::class, 'update']);
-        // $this->router->delete('/admin/articles/{id}', [ArticleController::class, 'destroy']);
-        // $this->router->post('/admin/articles/{id}/publish', [ArticleController::class, 'publish']);
+        $this->router->get('/admin/articles/create', CreateArticleAction::class);
+        $this->router->post('/admin/articles', StoreArticleAction::class);
+        $this->router->get('/admin/articles/{id}/edit', EditArticleAction::class);
+        $this->router->post('/admin/articles/{id}', UpdateArticleAction::class);
+        $this->router->delete('/admin/articles/{id}', DeleteArticleAction::class);
+        $this->router->post('/admin/articles/{id}/publish', PublishArticleAction::class);
 
         // Admin Pages - Actions (CRUD Complete!)
         $this->router->get('/admin/pages', PagesAction::class);
@@ -188,15 +216,29 @@ class Kernel
         $this->router->post('/admin/pages/{id}/edit', EditPageAction::class);
         $this->router->delete('/admin/pages/{id}', DeletePageAction::class);
 
-        // Admin Media - Action
+        // Admin Media - Actions
         $this->router->get('/admin/media', MediaAction::class);
         $this->router->post('/admin/media', MediaAction::class);
-        // TODO: Delete action
-        // $this->router->delete('/admin/media/{id}', [MediaController::class, 'destroy']);
+        $this->router->delete('/admin/media/{id}', DeleteMediaAction::class);
 
-        // Admin Settings - TODO: Convert to Action
-        // $this->router->get('/admin/settings', [SettingsController::class, 'index']);
-        // $this->router->put('/admin/settings', [SettingsController::class, 'update']);
+        // Admin Settings - Actions
+        $this->router->get('/admin/settings', ViewSettingsAction::class);
+        $this->router->post('/admin/settings', UpdateSettingsAction::class);
+
+        // Admin RBAC - Roles & Permissions
+        $this->router->get('/admin/roles', ListRolesAction::class);
+        $this->router->get('/admin/roles/create', CreateRoleAction::class);
+        $this->router->post('/admin/roles/create', CreateRoleAction::class);
+        $this->router->get('/admin/roles/{id}/edit', EditRoleAction::class);
+        $this->router->post('/admin/roles/{id}/edit', EditRoleAction::class);
+        $this->router->delete('/admin/roles/{id}', EditRoleAction::class);
+
+        $this->router->get('/admin/permissions', ListPermissionsAction::class);
+        $this->router->get('/admin/permissions/create', CreatePermissionAction::class);
+        $this->router->post('/admin/permissions/create', CreatePermissionAction::class);
+        $this->router->get('/admin/permissions/{id}/edit', EditPermissionAction::class);
+        $this->router->post('/admin/permissions/{id}/edit', EditPermissionAction::class);
+        $this->router->delete('/admin/permissions/{id}', EditPermissionAction::class);
 
         // Static Pages - MUST BE LAST (catch-all for /slug)
         $this->router->get('/{slug}', DisplayPageAction::class);

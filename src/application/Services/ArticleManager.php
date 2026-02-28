@@ -14,7 +14,7 @@ use Infrastructure\Queue\Handlers\OutboxProcessor;
 /**
  * Article Manager - Handles article operations and events
  */
-class ArticleManager
+final class ArticleManager
 {
     public function __construct(
         private readonly ArticleRepositoryInterface $articleRepository,

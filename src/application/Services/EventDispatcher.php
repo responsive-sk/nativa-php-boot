@@ -10,7 +10,7 @@ use Domain\Events\EventDispatcherInterface;
 /**
  * Event Dispatcher Implementation
  */
-class EventDispatcher implements EventDispatcherInterface
+final class EventDispatcher implements EventDispatcherInterface
 {
     /** @var array<string, array<callable>> */
     private array $listeners = [];

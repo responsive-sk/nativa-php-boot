@@ -9,7 +9,7 @@ namespace Domain\ValueObjects;
  *
  * Handles password hashing and validation
  */
-class Password
+final class Password
 {
     private string $hashedPassword;
 

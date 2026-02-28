@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permissions Management - PHP CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Admin Sidebar -->
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white">
+            <div class="p-4">
+                <h1 class="text-xl font-bold">PHP CMS Admin</h1>
+            </div>
+            <nav class="mt-4 flex flex-col h-full justify-between">
+                <div>
+                    <a href="/admin" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
+                    <a href="/admin/articles" class="block px-4 py-2 hover:bg-gray-700">Articles</a>
+                    <a href="/admin/forms" class="block px-4 py-2 hover:bg-gray-700">Forms</a>
+                    <a href="/admin/pages" class="block px-4 py-2 hover:bg-gray-700">Pages</a>
+                    <a href="/admin/media" class="block px-4 py-2 hover:bg-gray-700">Media</a>
+                    <a href="/admin/settings" class="block px-4 py-2 hover:bg-gray-700">Settings</a>
+                </div>
+                
+                <!-- Logout Button -->
+                <div class="mt-auto border-t border-gray-700">
+                    <a href="/logout" class="block px-4 py-2 text-red-400 hover:bg-gray-700 hover:text-red-300">
+                        ← Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Permissions Management</h1>
+        <a href="/admin/permissions/create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            + New Permission
+        </a>
+    </div>
+
+    
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.dashboard</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View dashboard                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=admin" 
+                           class="text-blue-600 hover:text-blue-800">
+                            admin                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/127ae9602decdccfddc4b45e2d79ac1a/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/127ae9602decdccfddc4b45e2d79ac1a" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.settings.manage</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Manage settings                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=admin" 
+                           class="text-blue-600 hover:text-blue-800">
+                            admin                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/8ad16be46a44e613783797979bdd9031/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/8ad16be46a44e613783797979bdd9031" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.users.manage</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Manage users                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=admin" 
+                           class="text-blue-600 hover:text-blue-800">
+                            admin                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/f0ea408ff3115df9fa79390f7d0e88d1/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/f0ea408ff3115df9fa79390f7d0e88d1" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.articles.create</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Create articles                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=articles" 
+                           class="text-blue-600 hover:text-blue-800">
+                            articles                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/7ab7a6ce7a59f394b46d3cb34e7f9f66/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/7ab7a6ce7a59f394b46d3cb34e7f9f66" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.articles.delete</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Delete articles                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=articles" 
+                           class="text-blue-600 hover:text-blue-800">
+                            articles                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/2257ed501d7e1721ba2d0642c8848755/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/2257ed501d7e1721ba2d0642c8848755" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.articles.edit</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Edit articles                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=articles" 
+                           class="text-blue-600 hover:text-blue-800">
+                            articles                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/dcd289a7a47fdc8b058d22c190a1e9f2/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/dcd289a7a47fdc8b058d22c190a1e9f2" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.articles.publish</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Publish articles                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=articles" 
+                           class="text-blue-600 hover:text-blue-800">
+                            articles                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/b9893ef91b25fdddd730894fbf8bd13e/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/b9893ef91b25fdddd730894fbf8bd13e" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.articles.view</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View articles                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=articles" 
+                           class="text-blue-600 hover:text-blue-800">
+                            articles                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/ccd3bf24fba561387a340e5dc64f23fe/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/ccd3bf24fba561387a340e5dc64f23fe" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.forms.create</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Create forms                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=forms" 
+                           class="text-blue-600 hover:text-blue-800">
+                            forms                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/2f47d9a2bae0aa268e80f2f1d49cbfb3/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/2f47d9a2bae0aa268e80f2f1d49cbfb3" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.forms.delete</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Delete forms                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=forms" 
+                           class="text-blue-600 hover:text-blue-800">
+                            forms                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/a6e11616844124af73acc27c96c90ac6/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/a6e11616844124af73acc27c96c90ac6" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.forms.edit</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Edit forms                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=forms" 
+                           class="text-blue-600 hover:text-blue-800">
+                            forms                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/10ac9c309f59ae902c158ee813aecbf9/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/10ac9c309f59ae902c158ee813aecbf9" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.forms.submissions.view</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View form submissions                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=forms" 
+                           class="text-blue-600 hover:text-blue-800">
+                            forms                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/6e0840c08e6a3baabe3d0379cc6bc602/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/6e0840c08e6a3baabe3d0379cc6bc602" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.forms.view</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View forms                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=forms" 
+                           class="text-blue-600 hover:text-blue-800">
+                            forms                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/bd14dab0913a7eeb2d3c08b16d2c2df7/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/bd14dab0913a7eeb2d3c08b16d2c2df7" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.media.delete</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Delete media                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=media" 
+                           class="text-blue-600 hover:text-blue-800">
+                            media                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/c6c38b3d362cf882ed702d982ad018c1/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/c6c38b3d362cf882ed702d982ad018c1" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.media.upload</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Upload media                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=media" 
+                           class="text-blue-600 hover:text-blue-800">
+                            media                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/f336f4b15d0707631ddabe2d0a02cf13/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/f336f4b15d0707631ddabe2d0a02cf13" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.media.view</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View media                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=media" 
+                           class="text-blue-600 hover:text-blue-800">
+                            media                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/6f326904191d2c8d66c0823b27037775/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/6f326904191d2c8d66c0823b27037775" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.pages.create</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Create pages                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=pages" 
+                           class="text-blue-600 hover:text-blue-800">
+                            pages                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/93c29cbc917ea9ad6d266fa98666c3e8/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/93c29cbc917ea9ad6d266fa98666c3e8" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.pages.delete</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Delete pages                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=pages" 
+                           class="text-blue-600 hover:text-blue-800">
+                            pages                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/4c0b491e2951767b8fc4bde6e7de5197/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/4c0b491e2951767b8fc4bde6e7de5197" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.pages.edit</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Edit pages                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=pages" 
+                           class="text-blue-600 hover:text-blue-800">
+                            pages                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/3f3de6a617157f884486b438a8553369/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/3f3de6a617157f884486b438a8553369" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.pages.publish</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        Publish pages                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=pages" 
+                           class="text-blue-600 hover:text-blue-800">
+                            pages                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/dca9eb9460c3386c7691c4ffeb92a451/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/dca9eb9460c3386c7691c4ffeb92a451" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <code class="px-2 py-1 bg-gray-100 rounded text-sm">admin.pages.view</code>
+                    </td>
+                    <td class="px-6 py-4">
+                        View pages                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="/admin/permissions?group=pages" 
+                           class="text-blue-600 hover:text-blue-800">
+                            pages                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Feb 28, 2026                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/admin/permissions/5e817cf3b0b4677877b71b5d1d139ece/edit" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form method="POST" action="/admin/permissions/5e817cf3b0b4677877b71b5d1d139ece" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                            </tbody>
+        </table>
+    </div>
+</div>
+        </main>
+    </div>
+</body>
+</html>

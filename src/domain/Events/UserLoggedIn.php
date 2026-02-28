@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Domain Event: User Logged In
  */
-class UserLoggedIn
+final class UserLoggedIn implements DomainEventInterface
 {
     public function __construct(
         public readonly string $userId,
@@ -38,5 +38,10 @@ class UserLoggedIn
             'ip_address' => $this->ipAddress,
             'timestamp' => $this->timestamp,
         ];
+    }
+
+    public function occurredAt(): string
+    {
+        return $this->timestamp;
     }
 }

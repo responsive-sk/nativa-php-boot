@@ -7,7 +7,7 @@ namespace Domain\Events;
 /**
  * Form Submitted Event
  */
-class FormSubmitted extends DomainEvent
+final class FormSubmitted extends DomainEvent
 {
     /**
      * @param array<string, mixed> $data

@@ -12,7 +12,7 @@ use Domain\Repository\UserRepositoryInterface;
  *
  * Handles remember me tokens and password reset tokens
  */
-class TokenManager
+final class TokenManager
 {
     private const REMEMBER_COOKIE_NAME = 'remember_token';
     private const REMEMBER_TOKEN_LENGTH = 64;

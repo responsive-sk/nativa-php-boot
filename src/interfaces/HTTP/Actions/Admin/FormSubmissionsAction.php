@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Admin Form Submissions List Action
  */
-class FormSubmissionsAction extends Action
+final class FormSubmissionsAction extends Action
 {
     public function __construct(
         private readonly FormSubmissionRepositoryInterface $submissionRepository,

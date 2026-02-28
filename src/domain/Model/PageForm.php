@@ -7,7 +7,7 @@ namespace Domain\Model;
 /**
  * Page Form Entity (Embedded forms on pages)
  */
-class PageForm
+final class PageForm
 {
     private string $id;
     private string $pageId;

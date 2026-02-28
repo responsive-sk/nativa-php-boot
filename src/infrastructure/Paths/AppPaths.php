@@ -18,9 +18,8 @@ class AppPaths extends Paths
     public static function instance(): self
     {
         if (self::$instance === null) {
-            // Go up 2 levels from Infrastructure/Paths to project root
-            $paths = Paths::fromHere(__DIR__, 2);
-            self::$instance = new self($paths->getBasePath());
+            // Go up 3 levels from src/infrastructure/Paths to project root
+            self::$instance = new self(dirname(__DIR__, 3));
         }
         return self::$instance;
     }
@@ -61,16 +60,16 @@ class AppPaths extends Paths
         return $this->basePath . '/interfaces';
     }
 
-    public function data(string $path = ''): string
-    {
-        $base = $this->basePath . '/data';
-        return $path ? $base . '/' . ltrim($path, '/') : $base;
-    }
-
     public function storage(string $path = ''): string
     {
         $base = $this->basePath . '/storage';
         return $path ? $base . '/' . ltrim($path, '/') : $base;
+    }
+
+    public function data(string $path = ''): string
+    {
+        // Data directory for SQLite databases (under storage/)
+        return $this->storage('data') . ($path ? '/' . ltrim($path, '/') : '');
     }
 
     public function templates(string $path = ''): string

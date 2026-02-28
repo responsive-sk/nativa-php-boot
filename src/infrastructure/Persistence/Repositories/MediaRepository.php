@@ -12,7 +12,7 @@ use PDO;
 /**
  * Media Repository Implementation
  */
-class MediaRepository implements MediaRepositoryInterface
+ final class MediaRepository implements MediaRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow

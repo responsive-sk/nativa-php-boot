@@ -9,7 +9,7 @@ use Domain\ValueObjects\Slug;
 /**
  * Page Entity (Static pages like About, Contact, etc.)
  */
-class Page
+final class Page
 {
     private string $id;
     private string $title;

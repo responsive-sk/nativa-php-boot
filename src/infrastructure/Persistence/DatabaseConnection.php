@@ -25,32 +25,48 @@ class DatabaseConnection
 
         if ($dbPath !== null) {
             $this->connectionName = 'custom';
-            
-            // Use AppPaths for consistent path resolution
-            $paths = AppPaths::instance();
-            $fullPath = str_starts_with($dbPath, '/') ? $dbPath : $paths->getBasePath() . '/' . $dbPath;
 
-            // Ensure directory exists
-            $dir = dirname($fullPath);
-            if (!is_dir($dir)) {
-                mkdir($dir, 0755, true);
+            // Handle :memory: specially for tests
+            if ($dbPath === ':memory:') {
+                $pdo = new PDO('sqlite::memory:');
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $pdo->exec('PRAGMA foreign_keys = ON');
+
+                // Register via reflection
+                $reflection = new \ReflectionClass($this->manager);
+                $property = $reflection->getProperty('connections');
+                $property->setAccessible(true);
+                $connections = $property->getValue($this->manager);
+                $connections['custom'] = $pdo;
+                $property->setValue($this->manager, $connections);
+            } else {
+                // Use AppPaths for consistent path resolution
+                $paths = AppPaths::instance();
+                $fullPath = str_starts_with($dbPath, '/') ? $dbPath : $paths->getBasePath() . '/' . $dbPath;
+
+                // Ensure directory exists
+                $dir = dirname($fullPath);
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0755, true);
+                }
+
+                // Create custom connection
+                $dsn = 'sqlite:' . $fullPath;
+                $pdo = new PDO($dsn);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $pdo->exec('PRAGMA foreign_keys = ON');
+                $pdo->exec('PRAGMA journal_mode = WAL');
+
+                // Register via reflection
+                $reflection = new \ReflectionClass($this->manager);
+                $property = $reflection->getProperty('connections');
+                $property->setAccessible(true);
+                $connections = $property->getValue($this->manager);
+                $connections['custom'] = $pdo;
+                $property->setValue($this->manager, $connections);
             }
-
-            // Create custom connection
-            $dsn = 'sqlite:' . $fullPath;
-            $pdo = new PDO($dsn);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $pdo->exec('PRAGMA foreign_keys = ON');
-            $pdo->exec('PRAGMA journal_mode = WAL');
-
-            // Register via reflection
-            $reflection = new \ReflectionClass($this->manager);
-            $property = $reflection->getProperty('connections');
-            $property->setAccessible(true);
-            $connections = $property->getValue($this->manager);
-            $connections['custom'] = $pdo;
-            $property->setValue($this->manager, $connections);
         } else {
             $this->connectionName = 'cms';
         }
