@@ -19,6 +19,8 @@ final class FormManager
 
     /**
      * Create a new form
+     *
+     * @param array<int, array<string, mixed>> $schema
      */
     public function create(
         string $name,
@@ -34,6 +36,8 @@ final class FormManager
 
     /**
      * Update form
+     *
+     * @param array<int, array<string, mixed>>|null $schema
      */
     public function update(
         string $formId,

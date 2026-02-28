@@ -17,6 +17,9 @@ final class FormAppService
     ) {
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $schema
+     */
     public function create(
         string $name,
         string $slug,
@@ -29,6 +32,9 @@ final class FormAppService
         return $form;
     }
 
+    /**
+     * @param array<int, array<string, mixed>>|null $schema
+     */
     public function update(
         string $formId,
         ?string $name = null,
@@ -63,6 +69,9 @@ final class FormAppService
         return $this->formRepository->findBySlug($slug);
     }
 
+    /**
+     * @return array<Form>
+     */
     public function listAll(): array
     {
         return $this->formRepository->findAll();

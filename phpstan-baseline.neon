@@ -121,36 +121,6 @@ parameters:
 			path: src/application/Services/AuthService.php
 
 		-
-			message: '#^Method Application\\Services\\FormAppService\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/FormAppService.php
-
-		-
-			message: '#^Method Application\\Services\\FormAppService\:\:listAll\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/FormAppService.php
-
-		-
-			message: '#^Method Application\\Services\\FormAppService\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/FormAppService.php
-
-		-
-			message: '#^Method Application\\Services\\FormManager\:\:create\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/FormManager.php
-
-		-
-			message: '#^Method Application\\Services\\FormManager\:\:update\(\) has parameter \$schema with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/FormManager.php
-
-		-
 			message: '#^Parameter \#5 \$successMessage of static method Domain\\Model\\Form\:\:create\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1567,7 +1537,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
 
 		-
-			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:create\(\) expects array, mixed given\.$#'
+			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:create\(\) expects array\<int, array\<string, mixed\>\>, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/CreateFormAction.php
@@ -1633,7 +1603,7 @@ parameters:
 			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
 
 		-
-			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:update\(\) expects array\|null, mixed given\.$#'
+			message: '#^Parameter \$schema of method Application\\Services\\FormManager\:\:update\(\) expects array\<int, array\<string, mixed\>\>\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/interfaces/HTTP/Actions/Admin/EditFormAction.php
