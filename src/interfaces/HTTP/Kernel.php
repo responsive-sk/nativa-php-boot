@@ -78,9 +78,10 @@ class Kernel
     {
         try {
             // Check request size limit (10MB max)
-            $contentLength = (int) $request->headers->get('Content-Length', 0);
+            $contentLengthHeader = $request->headers->get('Content-Length', '0');
+            $contentLength = (int) $contentLengthHeader;
             $maxSize = 10 * 1024 * 1024; // 10MB
-            
+
             if ($contentLength > $maxSize) {
                 $errorResponse = new Response('Payload Too Large: Request exceeds 10MB limit', 413);
                 return $this->securityHeadersMiddleware->handle($request, $errorResponse);
