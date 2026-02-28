@@ -24,16 +24,17 @@ class SecurityHeadersMiddleware
      * CSP directives for TailwindCSS + Alpine.js
      * - 'self' for same-origin resources
      * - 'unsafe-inline' for styles (Tailwind requirement)
+     * - 'unsafe-eval' for TailwindCSS CDN (required for runtime compilation)
      * - data: for inline images
      * - https: for external fonts/CDNs
      */
     private const CSP_DIRECTIVES = [
         'default-src' => "'self'",
-        'script-src' => "'self' 'unsafe-inline'",  // Alpine.js needs inline scripts
+        'script-src' => "'self' 'unsafe-inline' 'unsafe-eval' https:",  // TailwindCSS CDN + Alpine.js
         'style-src' => "'self' 'unsafe-inline'",   // TailwindCSS needs inline styles
         'img-src' => "'self' data: https:",
         'font-src' => "'self' https:",
-        'connect-src' => "'self'",
+        'connect-src' => "'self' https:",
         'frame-ancestors' => "'none'",
         'base-uri' => "'self'",
         'form-action' => "'self'",
