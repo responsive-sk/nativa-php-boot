@@ -165,16 +165,19 @@ use PDO;
     #[\Override]
     public function findPublished(int $limit = 10, int $offset = 0): array
     {
+        // SQLite doesn't support bound parameters for LIMIT/OFFSET
+        // Sanitize inputs to prevent SQL injection
+        $limit = max(1, min(100, (int) $limit));
+        $offset = max(0, (int) $offset);
+
         $sql = <<<SQL
             SELECT * FROM articles
             WHERE status = 'published'
             ORDER BY published_at DESC
-            LIMIT :limit OFFSET :offset
+            LIMIT $limit OFFSET $offset
         SQL;
 
         $stmt = $this->executeQuery($sql);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
         $rows = $stmt->fetchAll();
