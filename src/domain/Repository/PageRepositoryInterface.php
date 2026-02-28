@@ -53,21 +53,21 @@ interface PageRepositoryInterface
     /**
      * Get page blocks
      *
-     * @return array<PageBlock>
+     * @return array<\Domain\Model\PageBlock>
      */
     public function getBlocks(string $pageId): array;
 
     /**
      * Get page media
      *
-     * @return array<PageMedia>
+     * @return array<\Domain\Model\PageMedia>
      */
     public function getMedia(string $pageId): array;
 
     /**
      * Get page forms
      *
-     * @return array<PageForm>
+     * @return array<\Domain\Model\PageForm>
      */
     public function getForms(string $pageId): array;
 }

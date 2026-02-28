@@ -117,6 +117,9 @@ use PDO;
         return (int) $stmt->fetchColumn();
     }
 
+    /**
+     * @return array<\Domain\Model\PageBlock>
+     */
     public function getBlocks(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -128,6 +131,9 @@ use PDO;
         return array_map(fn($row) => PageBlock::fromArray($row), $stmt->fetchAll());
     }
 
+    /**
+     * @return array<\Domain\Model\PageMedia>
+     */
     public function getMedia(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL
@@ -141,6 +147,9 @@ use PDO;
         return array_map(fn($row) => PageMedia::fromArray($row), $stmt->fetchAll());
     }
 
+    /**
+     * @return array<\Domain\Model\PageForm>
+     */
     public function getForms(string $pageId): array
     {
         $stmt = $this->uow->getConnection()->prepare(<<<SQL

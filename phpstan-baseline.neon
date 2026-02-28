@@ -715,24 +715,6 @@ parameters:
 			path: src/domain/Repository/MediaRepositoryInterface.php
 
 		-
-			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/domain/Repository/PageRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getForms\(\) has invalid return type Domain\\Repository\\PageForm\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/domain/Repository/PageRepositoryInterface.php
-
-		-
-			message: '#^Method Domain\\Repository\\PageRepositoryInterface\:\:getMedia\(\) has invalid return type Domain\\Repository\\PageMedia\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/domain/Repository/PageRepositoryInterface.php
-
-		-
 			message: '#^Parameter \#1 \$string of function trim expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1155,42 +1137,6 @@ parameters:
 		-
 			message: '#^Cannot call method fetchColumn\(\) on PDOStatement\|false\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getBlocks\(\) has invalid return type Domain\\Repository\\PageBlock\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getBlocks\(\) should return array\<Domain\\Repository\\PageBlock\> but returns array\<Domain\\Model\\PageBlock\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getForms\(\) has invalid return type Domain\\Repository\\PageForm\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getForms\(\) should return array\<Domain\\Repository\\PageForm\> but returns array\<Domain\\Model\\PageForm\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getMedia\(\) has invalid return type Domain\\Repository\\PageMedia\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/infrastructure/Persistence/Repositories/PageRepository.php
-
-		-
-			message: '#^Method Infrastructure\\Persistence\\Repositories\\PageRepository\:\:getMedia\(\) should return array\<Domain\\Repository\\PageMedia\> but returns array\<Domain\\Model\\PageMedia\>\.$#'
-			identifier: return.type
 			count: 1
 			path: src/infrastructure/Persistence/Repositories/PageRepository.php
 
