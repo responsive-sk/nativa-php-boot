@@ -145,18 +145,6 @@ parameters:
 			path: src/application/Services/MediaManager.php
 
 		-
-			message: '#^Method Application\\Services\\PageManager\:\:addBlock\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/PageManager.php
-
-		-
-			message: '#^Method Application\\Services\\PageManager\:\:getPageWithRelations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/PageManager.php
-
-		-
 			message: '#^Call to an undefined static method Infrastructure\\Persistence\\DatabaseConnection\:\:getInstance\(\)\.$#'
 			identifier: staticMethod.notFound
 			count: 1
@@ -171,12 +159,6 @@ parameters:
 		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
-			count: 1
-			path: src/application/Services/SessionManager.php
-
-		-
-			message: '#^Method Application\\Services\\SessionManager\:\:all\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/SessionManager.php
 
@@ -267,18 +249,6 @@ parameters:
 		-
 			message: '#^Cannot instantiate class Domain\\ValueObjects\\Role via private constructor Domain\\ValueObjects\\Role\:\:__construct\(\)\.$#'
 			identifier: new.privateConstructor
-			count: 1
-			path: src/application/Services/UserManager.php
-
-		-
-			message: '#^Method Application\\Services\\UserManager\:\:findAll\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/application/Services/UserManager.php
-
-		-
-			message: '#^Method Application\\Services\\UserManager\:\:findByRole\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/application/Services/UserManager.php
 

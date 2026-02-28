@@ -170,6 +170,8 @@ final class SessionManager
 
     /**
      * Get all session data
+     *
+     * @return array<string, mixed>
      */
     public function all(): array
     {

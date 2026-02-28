@@ -179,6 +179,8 @@ final class PageManager
 
     /**
      * Add content block to page
+     *
+     * @param array<string, mixed> $data
      */
     public function addBlock(
         string $pageId,
@@ -224,11 +226,13 @@ final class PageManager
 
     /**
      * Get page with all relationships
+     *
+     * @return array<string, mixed>
      */
     public function getPageWithRelations(string $pageId): array
     {
         $page = $this->pageRepository->findById($pageId);
-        
+
         if ($page === null) {
             return [];
         }

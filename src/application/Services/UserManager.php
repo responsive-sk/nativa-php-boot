@@ -100,11 +100,17 @@ final class UserManager
         return $this->userRepository->findByEmail($email);
     }
 
+    /**
+     * @return array<User>
+     */
     public function findAll(): array
     {
         return $this->userRepository->findAll();
     }
 
+    /**
+     * @return array<User>
+     */
     public function findByRole(string $role): array
     {
         return $this->userRepository->findByRole($role);
