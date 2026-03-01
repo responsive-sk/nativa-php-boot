@@ -118,22 +118,56 @@ async function loadArticles() {
     }
     
     // Render articles
-    container.innerHTML = data.articles.map(article => `
-      <article class="blog-card" data-article-id="${article.id}">
-        <div class="blog-card__content">
-          <h2 class="blog-card__title">
-            <a href="/blog/${article.slug}">${escapeHtml(article.title)}</a>
-          </h2>
-          <div class="blog-card__meta">
-            <span class="blog-card__author">Author: ${article.author_id ? article.author_id.substring(0, 8) + '...' : 'Unknown'}</span>
-            ${article.published_at ? `<span class="blog-card__date">${new Date(article.published_at).toLocaleDateString('sk-SK')}</span>` : ''}
-            <span class="blog-card__views">${article.views || 0} views</span>
-          </div>
-          ${article.excerpt ? `<p class="blog-card__excerpt">${escapeHtml(article.excerpt)}</p>` : ''}
-          <a href="/blog/${article.slug}" class="blog-card__link">Read more →</a>
-        </div>
-      </article>
-    `).join('');
+    container.innerHTML = `
+      <div class="blog-grid">
+        ${data.articles.map(article => `
+          <article class="blog-card" data-article-id="${article.id}">
+            <div class="blog-card__image-wrapper">
+              <img 
+                src="${article.image || 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto,w_800/v1658528025/cld-sample-2.jpg'}" 
+                alt="${escapeHtml(article.title)}"
+                class="blog-card__image"
+                loading="lazy"
+              >
+            </div>
+            <div class="blog-card__content">
+              <h2 class="blog-card__title">
+                <a href="/blog/${article.slug}">${escapeHtml(article.title)}</a>
+              </h2>
+              <div class="blog-card__meta">
+                <span class="blog-card__author">
+                  <svg class="blog-card__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  ${article.author_id ? article.author_id.substring(0, 8) + '...' : 'Unknown'}
+                </span>
+                ${article.published_at ? `
+                  <span class="blog-card__date">
+                    <svg class="blog-card__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    ${new Date(article.published_at).toLocaleDateString('sk-SK')}
+                  </span>
+                ` : ''}
+                <span class="blog-card__views">
+                  <svg class="blog-card__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  ${article.views || 0}
+                </span>
+              </div>
+              ${article.excerpt ? `<p class="blog-card__excerpt">${escapeHtml(article.excerpt)}</p>` : ''}
+              <a href="/blog/${article.slug}" class="blog-card__link">Read more →</a>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    `;
     
     // Update pagination
     if (data.totalPages) {
