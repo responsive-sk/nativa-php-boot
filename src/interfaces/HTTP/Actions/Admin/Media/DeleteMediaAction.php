@@ -7,8 +7,8 @@ namespace Interfaces\HTTP\Actions\Admin\Media;
 use Application\Services\MediaManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Delete Media Action
@@ -30,7 +30,7 @@ final class DeleteMediaAction extends Action
         }
 
         // Support form POST with _method override
-        if ($request->getMethod() === 'POST' && $request->request->get('_method') === 'DELETE') {
+        if ($request->getMethod() === 'POST' && $request->request('_method') === 'DELETE') {
             return $this->delete($id);
         }
 

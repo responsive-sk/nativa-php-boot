@@ -40,6 +40,7 @@ final class JsonResponse extends Response
     /**
      * Create JSON error response
      */
+    #[\Override]
     public static function error(string $message, int $statusCode = 400): self
     {
         return new self([

@@ -6,8 +6,8 @@ namespace Application\Middleware;
 
 use Application\Services\AuthService;
 use Application\Services\SessionManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Authentication Middleware

@@ -7,7 +7,7 @@ namespace Interfaces\HTTP\Actions\Frontend\Article;
 use Application\Services\ArticleManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
-use Symfony\Component\HttpFoundation\Request;
+use Infrastructure\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -25,9 +25,9 @@ final class ListArticlesApiAction extends Action
     #[\Override]
     public function handle(Request $request): JsonResponse
     {
-        $page = (int) $request->query->get('page', 1);
-        $limit = (int) $request->query->get('limit', 10);
-        $search = $request->query->get('q', '');
+        $page = (int) $request->query('page', 1);
+        $limit = (int) $request->query('limit', 10);
+        $search = $request->query('q', '');
         
         $offset = ($page - 1) * $limit;
         

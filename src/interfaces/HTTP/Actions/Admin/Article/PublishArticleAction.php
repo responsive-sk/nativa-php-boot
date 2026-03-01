@@ -7,8 +7,8 @@ namespace Interfaces\HTTP\Actions\Admin\Article;
 use Application\Services\ArticleManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Publish Article Action

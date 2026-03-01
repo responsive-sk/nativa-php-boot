@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Middleware;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * CSRF Protection Middleware

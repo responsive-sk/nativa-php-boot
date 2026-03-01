@@ -7,8 +7,8 @@ namespace Interfaces\HTTP\Actions\Admin;
 use Application\Services\PageManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Admin Delete Page Action

@@ -8,8 +8,8 @@ use Application\Services\RoleService;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Create Role Action
@@ -36,8 +36,8 @@ final class CreateRoleAction extends Action
     public function store(Request $request): Response
     {
         try {
-            $name = $request->request->get('name', '');
-            $description = $request->request->get('description', '');
+            $name = $request->request('name', '');
+            $description = $request->request('description', '');
 
             if (empty($name)) {
                 throw new \InvalidArgumentException('Role name is required');
@@ -53,8 +53,8 @@ final class CreateRoleAction extends Action
                     'title' => 'Create Role',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request->get('name', ''),
-                        'description' => $request->request->get('description', ''),
+                        'name' => $request->request('name', ''),
+                        'description' => $request->request('description', ''),
                     ],
                 ],
                 'admin/layouts/base'
@@ -68,8 +68,8 @@ final class CreateRoleAction extends Action
                     'title' => 'Create Role',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request->get('name', ''),
-                        'description' => $request->request->get('description', ''),
+                        'name' => $request->request('name', ''),
+                        'description' => $request->request('description', ''),
                     ],
                 ],
                 'admin/layouts/base'

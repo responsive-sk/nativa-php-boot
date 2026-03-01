@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Interfaces\HTTP\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Base Action Interface

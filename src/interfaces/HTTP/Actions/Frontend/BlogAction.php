@@ -8,8 +8,8 @@ use Application\Services\ArticleManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Blog Listing Action - Displays blog homepage with article listing
@@ -24,7 +24,7 @@ final class BlogAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $page = (int) $request->query->get('page', 1);
+        $page = (int) $request->query('page', 1);
         $limit = 10;
         $offset = ($page - 1) * $limit;
         

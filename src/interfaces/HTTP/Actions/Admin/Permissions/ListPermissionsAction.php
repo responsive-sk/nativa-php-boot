@@ -8,8 +8,8 @@ use Application\Services\PermissionService;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * List Permissions Action
@@ -25,7 +25,7 @@ final class ListPermissionsAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $group = $request->query->get('group', '');
+        $group = $request->query('group', '');
         
         if (!empty($group)) {
             $permissions = $this->permissionService->getPermissionsByGroup($group);

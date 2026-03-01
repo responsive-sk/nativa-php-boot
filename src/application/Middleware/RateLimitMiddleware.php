@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\Middleware;
 
 use Application\Services\RateLimiter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Rate Limiting Middleware
@@ -149,9 +149,9 @@ class RateLimitMiddleware
     private function createRateLimitResponse(string $message, int $retryAfter): Response
     {
         $response = new Response($message, 429);
-        $response->headers->set('Retry-After', (string) $retryAfter);
-        $response->headers->set('X-RateLimit-Limit', 'See rate limit policy');
-        $response->headers->set('X-RateLimit-Remaining', '0');
+        $response->setHeader('Retry-After', (string) $retryAfter);
+        $response->setHeader('X-RateLimit-Limit', 'See rate limit policy');
+        $response->setHeader('X-RateLimit-Remaining', '0');
 
         return $response;
     }

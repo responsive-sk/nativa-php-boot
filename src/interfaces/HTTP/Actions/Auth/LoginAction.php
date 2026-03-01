@@ -10,8 +10,8 @@ use Application\Services\SessionManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Login Action
@@ -55,9 +55,9 @@ final class LoginAction extends Action
 
         try {
             $command = LoginCommand::fromArray([
-                'email' => $request->request->get('email', ''),
-                'password' => $request->request->get('password', ''),
-                'remember_me' => $request->request->get('remember_me', false),
+                'email' => $request->request('email', ''),
+                'password' => $request->request('password', ''),
+                'remember_me' => $request->request('remember_me', false),
             ]);
 
             $ipAddress = $request->getClientIp() ?? 'unknown';
@@ -86,7 +86,7 @@ final class LoginAction extends Action
             'title' => 'Login',
             'error' => $error ?? 'Login failed',
             'old' => [
-                'email' => $request->request->get('email', ''),
+                'email' => $request->request('email', ''),
             ],
         ]);
 

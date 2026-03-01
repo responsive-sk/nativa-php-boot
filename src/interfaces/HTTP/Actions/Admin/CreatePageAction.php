@@ -8,8 +8,8 @@ use Application\Services\PageManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Admin Create Page Action
@@ -45,11 +45,11 @@ final class CreatePageAction extends Action
     private function store(Request $request): Response
     {
         try {
-            $title = (string) $request->request->get('title', '');
-            $content = (string) $request->request->get('content', '');
-            $template = (string) $request->request->get('template', 'default');
-            $metaTitle = (string) $request->request->get('metaTitle', '');
-            $metaDescription = (string) $request->request->get('metaDescription', '');
+            $title = (string) $request->request('title', '');
+            $content = (string) $request->request('content', '');
+            $template = (string) $request->request('template', 'default');
+            $metaTitle = (string) $request->request('metaTitle', '');
+            $metaDescription = (string) $request->request('metaDescription', '');
             $isPublished = $request->request->getBoolean('isPublished', false);
 
             if (empty($title) || empty($content)) {

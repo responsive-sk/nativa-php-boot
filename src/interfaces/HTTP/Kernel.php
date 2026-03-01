@@ -82,7 +82,7 @@ class Kernel
     {
         try {
             // Check request size limit (10MB max)
-            $contentLengthHeader = $request->headers->get('Content-Length', '0');
+            $contentLengthHeader = $request->headers('Content-Length', '0');
             $contentLength = (int) $contentLengthHeader;
             $maxSize = 10 * 1024 * 1024; // 10MB
 
@@ -116,7 +116,7 @@ class Kernel
             if ($originalMethod === 'POST') {
                 $overrideMethod = $request->request->get('_method')
                     ?? $request->query->get('_method')
-                    ?? $request->headers->get('X-Http-Method-Override');
+                    ?? $request->headers('X-Http-Method-Override');
                 if ($overrideMethod) {
                     $method = strtoupper($overrideMethod);
                 }
@@ -157,12 +157,13 @@ class Kernel
             if (is_string($callback)) {
                 // Add route params to request attributes
                 foreach ($params as $key => $value) {
-                    $request->attributes->set($key, $value);
+                    $request->setAttribute($key, $value);
                 }
-                
+
                 // Also check for _route_id from router.php (for direct URL access)
-                if (!$request->attributes->has('id') && $request->query->has('_route_id')) {
-                    $request->attributes->set('id', $request->query->get('_route_id'));
+                $queryParams = $request->getQuery();
+                if ($request->attributes('id') === null && isset($queryParams['_route_id'])) {
+                    $request->setAttribute('id', $queryParams['_route_id']);
                 }
 
                 // Handle Class@method format

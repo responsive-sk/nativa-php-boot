@@ -8,8 +8,8 @@ use Application\Services\PermissionService;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Create Permission Action
@@ -36,9 +36,9 @@ final class CreatePermissionAction extends Action
     public function store(Request $request): Response
     {
         try {
-            $name = $request->request->get('name', '');
-            $description = $request->request->get('description', '');
-            $group = $request->request->get('group', 'default');
+            $name = $request->request('name', '');
+            $description = $request->request('description', '');
+            $group = $request->request('group', 'default');
 
             if (empty($name)) {
                 throw new \InvalidArgumentException('Permission name is required');
@@ -61,9 +61,9 @@ final class CreatePermissionAction extends Action
                     'title' => 'Create Permission',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request->get('name', ''),
-                        'description' => $request->request->get('description', ''),
-                        'group' => $request->request->get('group', ''),
+                        'name' => $request->request('name', ''),
+                        'description' => $request->request('description', ''),
+                        'group' => $request->request('group', ''),
                     ],
                 ],
                 'admin/layouts/base'
@@ -77,9 +77,9 @@ final class CreatePermissionAction extends Action
                     'title' => 'Create Permission',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request->get('name', ''),
-                        'description' => $request->request->get('description', ''),
-                        'group' => $request->request->get('group', ''),
+                        'name' => $request->request('name', ''),
+                        'description' => $request->request('description', ''),
+                        'group' => $request->request('group', ''),
                     ],
                 ],
                 'admin/layouts/base'

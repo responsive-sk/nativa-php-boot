@@ -44,7 +44,7 @@ final class Session
      */
     public function has(string $key): bool
     {
-        return array_key_exists($key, $_SESSION);
+        return isset($_SESSION[$key]) || array_key_exists($key, $_SESSION ?? []);
     }
 
     /**

@@ -7,8 +7,8 @@ namespace Interfaces\HTTP\Actions\Auth;
 use Application\Services\AuthService;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Logout Action

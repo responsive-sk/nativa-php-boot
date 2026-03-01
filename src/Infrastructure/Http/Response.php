@@ -111,6 +111,17 @@ class Response
     }
 
     /**
+     * Set all headers
+     *
+     * @param array<string, string> $headers
+     */
+    public function setHeaders(array $headers): self
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
+    /**
      * Create HTML response
      */
     public static function html(string $content, int $statusCode = 200): self

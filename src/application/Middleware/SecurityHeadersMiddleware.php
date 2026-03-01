@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Middleware;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Security Headers Middleware
@@ -46,41 +46,41 @@ class SecurityHeadersMiddleware
     public function handle(Request $request, Response $response): Response
     {
         // Content-Security-Policy
-        $response->headers->set(
+        $response->setHeader(
             'Content-Security-Policy',
             $this->buildCspPolicy()
         );
 
         // X-Frame-Options - prevent clickjacking
-        $response->headers->set('X-Frame-Options', 'DENY');
+        $response->setHeader('X-Frame-Options', 'DENY');
 
         // X-Content-Type-Options - prevent MIME sniffing
-        $response->headers->set('X-Content-Type-Options', 'nosniff');
+        $response->setHeader('X-Content-Type-Options', 'nosniff');
 
         // Strict-Transport-Security - force HTTPS (only in production)
         if ($this->isProduction()) {
-            $response->headers->set(
+            $response->setHeader(
                 'Strict-Transport-Security',
                 'max-age=31536000; includeSubDomains; preload'
             );
         }
 
         // Referrer-Policy - control referrer information
-        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
+        $response->setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
         // Permissions-Policy - disable unnecessary browser features
-        $response->headers->set(
+        $response->setHeader(
             'Permissions-Policy',
             'camera=(), microphone=(), geolocation=(), payment=(), usb=()'
         );
 
         // X-XSS-Protection - legacy but still useful for older browsers
-        $response->headers->set('X-XSS-Protection', '1; mode=block');
+        $response->setHeader('X-XSS-Protection', '1; mode=block');
 
         // Cross-Origin policies
-        $response->headers->set('Cross-Origin-Embedder-Policy', 'require-corp');
-        $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin');
-        $response->headers->set('Cross-Origin-Resource-Policy', 'same-origin');
+        $response->setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+        $response->setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        $response->setHeader('Cross-Origin-Resource-Policy', 'same-origin');
 
         return $response;
     }

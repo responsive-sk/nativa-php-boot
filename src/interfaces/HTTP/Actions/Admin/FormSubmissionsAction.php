@@ -8,8 +8,8 @@ use Domain\Repository\FormSubmissionRepositoryInterface;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Admin Form Submissions List Action
@@ -26,7 +26,7 @@ final class FormSubmissionsAction extends Action
     public function handle(Request $request): Response
     {
         $formId = (string) $this->param($request, 'id');
-        $page = max(1, (int) $request->query->get('page', 1));
+        $page = max(1, (int) $request->query('page', 1));
         $limit = 20;
         $offset = ($page - 1) * $limit;
 

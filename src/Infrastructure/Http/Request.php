@@ -37,23 +37,27 @@ final class Request
     {
         $request = new self();
 
-        // Query parameters (?key=value)
-        $request->query = $_GET;
+        // Query parameters (?key=value) - cast to array for Psalm
+        /** @var array<string, mixed> */
+        $query = $_GET;
+        $request->query = $query;
 
-        // Request body (POST data)
-        $request->request = $_POST;
+        // Request body (POST data) - cast to array for Psalm
+        /** @var array<string, mixed> */
+        $body = $_POST;
+        $request->request = $body;
 
         // HTTP method
         $request->method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         // Path info (/path/to/page)
-        $request->pathInfo = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+        $request->pathInfo = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 
         // Headers
         foreach ($_SERVER as $key => $value) {
             if (str_starts_with($key, 'HTTP_')) {
                 $header = str_replace('_', '-', substr($key, 5));
-                $request->headers[$header] = $value;
+                $request->headers[$header] = (string) $value;
             }
         }
 
@@ -85,7 +89,7 @@ final class Request
      *
      * @param mixed $default
      */
-    public function attributes(string $key = null, mixed $default = null): mixed
+    public function attributes(?string $key = null, mixed $default = null): mixed
     {
         if ($key === null) {
             return $this->attributes;
@@ -112,11 +116,39 @@ final class Request
     }
 
     /**
+     * Get all headers
+     *
+     * @return array<string, string>
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * Get header (Symfony compatibility)
+     *
+     * @param mixed $default
+     */
+    public function headers(string $key, mixed $default = null): ?string
+    {
+        return $this->header($key, $default);
+    }
+
+    /**
      * Get HTTP method
      */
     public function getMethod(): string
     {
         return $this->method;
+    }
+
+    /**
+     * Set HTTP method (for method override)
+     */
+    public function setMethod(string $method): void
+    {
+        $this->method = $method;
     }
 
     /**

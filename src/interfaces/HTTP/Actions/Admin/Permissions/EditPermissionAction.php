@@ -8,8 +8,8 @@ use Application\Services\PermissionService;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Edit Permission Action
@@ -42,7 +42,7 @@ final class EditPermissionAction extends Action
     public function update(Request $request, string $id): Response
     {
         try {
-            $description = $request->request->get('description', '');
+            $description = $request->request('description', '');
 
             $this->permissionService->updatePermissionDescription($id, $description);
 

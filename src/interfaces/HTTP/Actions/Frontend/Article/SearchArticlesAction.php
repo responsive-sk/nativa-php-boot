@@ -8,8 +8,8 @@ use Application\Services\ArticleManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Search Articles Action
@@ -25,7 +25,7 @@ final class SearchArticlesAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $query = $request->query->get('q', '');
+        $query = $request->query('q', '');
 
         if (strlen($query) < 2) {
             return $this->error('Please enter a search term (minimum 2 characters)', 400);

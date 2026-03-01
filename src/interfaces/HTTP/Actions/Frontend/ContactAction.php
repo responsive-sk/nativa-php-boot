@@ -10,8 +10,8 @@ use Application\Middleware\RateLimitMiddleware;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Contact Form Action
@@ -60,10 +60,10 @@ final class ContactAction extends Action
 
         try {
             $command = new SubmitContactCommand(
-                name: (string) $request->request->get('name', ''),
-                email: (string) $request->request->get('email', ''),
-                message: (string) $request->request->get('message', ''),
-                subject: (string) $request->request->get('subject', ''),
+                name: (string) $request->request('name', ''),
+                email: (string) $request->request('email', ''),
+                message: (string) $request->request('message', ''),
+                subject: (string) $request->request('subject', ''),
             );
 
             $this->contactManager->submit(
@@ -88,10 +88,10 @@ final class ContactAction extends Action
                     'page' => 'contact',
                     'errors' => $e->getErrors(),
                     'old' => [
-                        'name' => $request->request->get('name'),
-                        'email' => $request->request->get('email'),
-                        'subject' => $request->request->get('subject'),
-                        'message' => $request->request->get('message'),
+                        'name' => $request->request('name'),
+                        'email' => $request->request('email'),
+                        'subject' => $request->request('subject'),
+                        'message' => $request->request('message'),
                     ],
                 ],
                 'frontend/layouts/frontend'

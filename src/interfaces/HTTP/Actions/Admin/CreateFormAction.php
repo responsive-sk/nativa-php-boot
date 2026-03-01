@@ -8,8 +8,8 @@ use Application\Services\FormManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Admin Create Form Action
@@ -45,11 +45,11 @@ final class CreateFormAction extends Action
     private function store(Request $request): Response
     {
         try {
-            $name = (string) $request->request->get('name', '');
-            $slug = (string) $request->request->get('slug', '');
-            $schema = json_decode($request->request->get('schema', '[]'), true);
-            $emailNotification = (string) $request->request->get('emailNotification', '');
-            $successMessage = (string) $request->request->get('successMessage', 'Thank you for your submission!');
+            $name = (string) $request->request('name', '');
+            $slug = (string) $request->request('slug', '');
+            $schema = json_decode($request->request('schema', '[]'), true);
+            $emailNotification = (string) $request->request('emailNotification', '');
+            $successMessage = (string) $request->request('successMessage', 'Thank you for your submission!');
 
             $form = $this->formManager->create(
                 name: $name,

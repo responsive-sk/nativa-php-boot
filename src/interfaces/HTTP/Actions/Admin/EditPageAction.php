@@ -8,8 +8,8 @@ use Application\Services\PageManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * Admin Edit Page Action
@@ -28,7 +28,7 @@ final class EditPageAction extends Action
         // Check if this is an update (POST to /admin/pages/{id}/edit)
         if ($request->getMethod() === 'POST') {
             // Check for special actions
-            $action = (string) $request->request->get('_action', '');
+            $action = (string) $request->request('_action', '');
 
             if ($action) {
                 $this->handleAction($request, $action);
@@ -60,10 +60,10 @@ final class EditPageAction extends Action
     private function addBlock(Request $request): Response
     {
         $id = (string) $this->param($request, 'id');
-        $type = (string) $request->request->get('type', '');
-        $title = (string) $request->request->get('title', '');
-        $content = (string) $request->request->get('content', '');
-        $sortOrder = (int) $request->request->get('sortOrder', 0);
+        $type = (string) $request->request('type', '');
+        $title = (string) $request->request('title', '');
+        $content = (string) $request->request('content', '');
+        $sortOrder = (int) $request->request('sortOrder', 0);
 
         if (empty($type)) {
             return $this->json(['error' => 'Block type is required'], 400);
@@ -75,8 +75,8 @@ final class EditPageAction extends Action
 
     private function updateBlock(Request $request): Response
     {
-        $blockId = (string) $request->request->get('blockId', '');
-        $title = (string) $request->request->get('title', '');
+        $blockId = (string) $request->request('blockId', '');
+        $title = (string) $request->request('title', '');
 
         if (empty($blockId)) {
             return $this->json(['error' => 'Block ID is required'], 400);
@@ -88,7 +88,7 @@ final class EditPageAction extends Action
 
     private function deleteBlock(Request $request): Response
     {
-        $blockId = (string) $request->request->get('blockId', '');
+        $blockId = (string) $request->request('blockId', '');
 
         if (empty($blockId)) {
             return $this->json(['error' => 'Block ID is required'], 400);
@@ -101,8 +101,8 @@ final class EditPageAction extends Action
     private function attachMedia(Request $request): Response
     {
         $id = (string) $this->param($request, 'id');
-        $mediaId = (string) $request->request->get('mediaId', '');
-        $caption = (string) $request->request->get('caption', '');
+        $mediaId = (string) $request->request('mediaId', '');
+        $caption = (string) $request->request('caption', '');
 
         if (empty($mediaId)) {
             return $this->json(['error' => 'Media ID is required'], 400);
@@ -115,9 +115,9 @@ final class EditPageAction extends Action
     private function embedForm(Request $request): Response
     {
         $id = (string) $this->param($request, 'id');
-        $formId = (string) $request->request->get('formId', '');
-        $title = (string) $request->request->get('title', '');
-        $position = (string) $request->request->get('position', 'sidebar');
+        $formId = (string) $request->request('formId', '');
+        $title = (string) $request->request('title', '');
+        $position = (string) $request->request('position', 'sidebar');
 
         if (empty($formId)) {
             return $this->json(['error' => 'Form ID is required'], 400);
@@ -163,11 +163,11 @@ final class EditPageAction extends Action
                 return $this->json(['error' => 'Page ID is required'], 400);
             }
 
-            $title = (string) $request->request->get('title', '');
-            $content = (string) $request->request->get('content', '');
-            $template = (string) $request->request->get('template', 'default');
-            $metaTitle = (string) $request->request->get('metaTitle', '');
-            $metaDescription = (string) $request->request->get('metaDescription', '');
+            $title = (string) $request->request('title', '');
+            $content = (string) $request->request('content', '');
+            $template = (string) $request->request('template', 'default');
+            $metaTitle = (string) $request->request('metaTitle', '');
+            $metaDescription = (string) $request->request('metaDescription', '');
 
             if (empty($title) || empty($content)) {
                 return $this->json(['error' => 'Title and content are required'], 400);

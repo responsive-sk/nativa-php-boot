@@ -14,15 +14,27 @@ declare(strict_types=1);
 // ============================================================================
 
 spl_autoload_register(function (string $class): void {
-    // Our namespace prefixes
+    // Our namespace prefixes (support both old and new casing)
     $map = [
-        'Domain\\' => __DIR__ . '/domain/',
-        'Application\\' => __DIR__ . '/application/',
-        'Infrastructure\\' => __DIR__ . '/infrastructure/',
-        'Interfaces\\' => __DIR__ . '/interfaces/',
+        'Domain\\' => [
+            __DIR__ . '/Domain/',
+            __DIR__ . '/domain/',
+        ],
+        'Application\\' => [
+            __DIR__ . '/Application/',
+            __DIR__ . '/application/',
+        ],
+        'Infrastructure\\' => [
+            __DIR__ . '/Infrastructure/',
+            __DIR__ . '/infrastructure/',
+        ],
+        'Interfaces\\' => [
+            __DIR__ . '/Interfaces/',
+            __DIR__ . '/interfaces/',
+        ],
     ];
     
-    foreach ($map as $prefix => $baseDir) {
+    foreach ($map as $prefix => $baseDirs) {
         // Check if class starts with prefix
         $len = strlen($prefix);
         if (strncmp($prefix, $class, $len) !== 0) {
@@ -33,12 +45,17 @@ spl_autoload_register(function (string $class): void {
         $relativeClass = substr($class, $len);
         
         // Replace namespace separators with directory separators
-        $file = $baseDir . str_replace('\\', '/', $relativeClass) . '.php';
+        $relativeFile = str_replace('\\', '/', $relativeClass);
         
-        // Load file if exists
-        if (file_exists($file)) {
-            require $file;
-            return;
+        // Try each base directory
+        foreach ($baseDirs as $baseDir) {
+            $file = $baseDir . $relativeFile . '.php';
+            
+            // Load file if exists
+            if (file_exists($file)) {
+                require $file;
+                return;
+            }
         }
     }
 });
