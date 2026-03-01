@@ -13,7 +13,8 @@ declare(strict_types=1);
 $contactHeroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_768/v1658528026/cld-sample-4.jpg';
 $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_1280/v1658528026/cld-sample-4.jpg';
 
-error_log("DEBUG: contact.php template rendering");
+// Debug logging
+error_log("DEBUG: contact.php template rendering - page: {$page}, title: {$pageTitle}");
 ?>
 
 <!-- Hero Section -->
@@ -31,7 +32,11 @@ error_log("DEBUG: contact.php template rendering");
 
 <!-- Contact Form Section -->
 <section class="contact">
-  <div class="contact__grid">
+  <div class="container">
+    <h2>Send us a message</h2>
+    <p>We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+    
+    <div class="contact__grid">
     <div class="contact__info">
       <div class="contact__info-item">
         <div class="contact__info-icon">
