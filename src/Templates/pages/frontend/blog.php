@@ -124,10 +124,11 @@ async function loadArticles() {
           <article class="blog-card" data-article-id="${article.id}">
             <div class="blog-card__image-wrapper">
               <img 
-                src="${article.image || 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto,w_800/v1658528025/cld-sample-2.jpg'}" 
+                src="${article.image || 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_800/v1658528025/cld-sample-2.jpg'}" 
                 alt="${escapeHtml(article.title)}"
                 class="blog-card__image"
                 loading="lazy"
+                crossorigin="anonymous"
               >
             </div>
             <div class="blog-card__content">
