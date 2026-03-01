@@ -25,8 +25,12 @@ final class FlashBag
 
     /**
      * Set flash message
+     *
+     * @param (mixed|string[])[]|string $message
+     *
+     * @psalm-param 'Thank you for your message! We will get back to you soon.'|array<string, array<string>|mixed> $message
      */
-    public function set(string $key, mixed $message): void
+    public function set(string $key, array|string $message): void
     {
         $_SESSION['_flash'][$key] = [$message];
     }

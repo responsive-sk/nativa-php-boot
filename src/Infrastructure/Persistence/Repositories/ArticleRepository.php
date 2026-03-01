@@ -22,6 +22,7 @@ use PDO;
     ) {
     }
 
+    #[\Override]
     protected function getConnection(): PDO
     {
         return $this->uow->getConnection();

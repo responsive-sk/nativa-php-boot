@@ -84,7 +84,7 @@ final class LoginAction extends Action
 
         $content = $this->renderer->render('auth/login', [
             'title' => 'Login',
-            'error' => $error ?? 'Login failed',
+            'error' => $error !== '' ? $error : 'Login failed',
             'old' => [
                 'email' => $request->getRequestParam('email', ''),
             ],

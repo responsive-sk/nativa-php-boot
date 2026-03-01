@@ -34,7 +34,7 @@ final class Session
     /**
      * Set session value
      */
-    public function set(string $key, mixed $value): void
+    public function set(string $key, string $value): void
     {
         $_SESSION[$key] = $value;
     }

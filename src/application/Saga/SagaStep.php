@@ -22,7 +22,7 @@ abstract class SagaStep implements SagaStepInterface
         // Convert "PublishArticleStep" to "Publish Article"
         $name = str_replace('Step', '', static::class);
         $name = preg_replace('/(?<!^)[A-Z]/', ' $0', $name);
-        return $name;
+        return $name !== null ? $name : static::class;
     }
 
     /**

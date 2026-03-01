@@ -238,6 +238,7 @@ final class Request
      */
     public function getUserAgent(): string
     {
-        return $this->header('User-Agent', '');
+        $agent = $this->header('User-Agent', '');
+        return $agent !== null ? $agent : '';
     }
 }
