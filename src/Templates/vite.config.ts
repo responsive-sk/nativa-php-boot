@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
 
     build: {
       cssCodeSplit: true,
-      manifest: true,
+      manifest: "manifest.json",
       outDir: resolve(__dirname, "../../public/assets"),
       emptyOutDir: true,
       copyPublicDir: false,
@@ -32,21 +32,21 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           // Core
-          "core/init": resolve(__dirname, "src/init.js"),
-          "core/app": resolve(__dirname, "src/app.ts"),
-          "core/css": resolve(__dirname, "src/css.ts"),
+          "core-init": resolve(__dirname, "src/init.js"),
+          "core-app": resolve(__dirname, "src/app.ts"),
+          "core-css": resolve(__dirname, "src/css.ts"),
           
-          // Frontend pages
-          "frontend/home": resolve(__dirname, "src/frontend/pages/home.ts"),
-          "frontend/blog": resolve(__dirname, "src/frontend/pages/blog.ts"),
-          "frontend/portfolio": resolve(__dirname, "src/frontend/pages/portfolio.ts"),
-          "frontend/contact": resolve(__dirname, "src/frontend/pages/contact.ts"),
-          "frontend/docs": resolve(__dirname, "src/frontend/pages/docs.ts"),
-          "frontend/services": resolve(__dirname, "src/frontend/pages/services.ts"),
-          "frontend/pricing": resolve(__dirname, "src/frontend/pages/pricing.ts"),
+          // Frontend pages (no slashes to avoid subdirectories)
+          "home": resolve(__dirname, "src/frontend/pages/home.ts"),
+          "blog": resolve(__dirname, "src/frontend/pages/blog.ts"),
+          "portfolio": resolve(__dirname, "src/frontend/pages/portfolio.ts"),
+          "contact": resolve(__dirname, "src/frontend/pages/contact.ts"),
+          "docs": resolve(__dirname, "src/frontend/pages/docs.ts"),
+          "services": resolve(__dirname, "src/frontend/pages/services.ts"),
+          "pricing": resolve(__dirname, "src/frontend/pages/pricing.ts"),
           
           // Error pages
-          "frontend/not-found": resolve(
+          "not-found": resolve(
             __dirname,
             "src/frontend/use-cases/not-found/not-found.css",
           ),

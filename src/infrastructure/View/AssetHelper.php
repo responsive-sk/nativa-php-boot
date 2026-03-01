@@ -190,7 +190,7 @@ final class AssetHelper
     {
         $manifest = self::loadManifest();
         
-        // Map page names to Vite entry points (new Templates/ structure)
+        // Map page names to Vite entry points (matches vite.config.ts input keys)
         $pageMap = [
             'home' => 'frontend/pages/home.ts',
             'blog' => 'frontend/pages/blog.ts',
@@ -199,7 +199,7 @@ final class AssetHelper
             'docs' => 'frontend/pages/docs.ts',
             'services' => 'frontend/pages/services.ts',
             'pricing' => 'frontend/pages/pricing.ts',
-            'not-found' => 'frontend/not-found.ts',
+            'not-found' => 'frontend/use-cases/not-found/not-found.css',
         ];
         
         if (!isset($pageMap[$page])) {
