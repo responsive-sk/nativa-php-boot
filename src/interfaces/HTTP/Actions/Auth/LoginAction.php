@@ -60,7 +60,10 @@ final class LoginAction extends Action
                 'remember_me' => $request->getRequestParam('remember_me', false),
             ]);
 
-            $ipAddress = $request->getClientIp() ?? 'unknown';
+            $ipAddress = $request->getClientIp();
+            if ($ipAddress === '') {
+                $ipAddress = 'unknown';
+            }
 
             if ($this->authService->attempt($command, $ipAddress)) {
                 // Login successful - regenerate session ID for security

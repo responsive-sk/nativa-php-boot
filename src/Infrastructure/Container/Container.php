@@ -73,6 +73,7 @@ final class Container
     {
         // Return existing instance if singleton
         if (isset($this->instances[$abstract]) && $this->singletons[$abstract]) {
+            /** @var T */
             return $this->instances[$abstract];
         }
 
@@ -81,12 +82,15 @@ final class Container
             $concrete = $this->bindings[$abstract];
 
             if (is_callable($concrete)) {
+                /** @var T */
                 $instance = $concrete($this);
             } else {
+                /** @var T */
                 $instance = $this->build($concrete);
             }
         } else {
             // Auto-wire the class
+            /** @var T */
             $instance = $this->build($abstract);
         }
 
@@ -144,6 +148,18 @@ final class Container
                 } else {
                     throw new ContainerException(
                         "Cannot resolve parameter '{$parameter->getName()}' - no type hint or default value"
+                    );
+                }
+                continue;
+            }
+
+            // In PHP 8.4+, getType() returns ReflectionType, but we need ReflectionNamedType
+            if (!$type instanceof \ReflectionNamedType) {
+                if ($parameter->isDefaultValueAvailable()) {
+                    $dependencies[] = $parameter->getDefaultValue();
+                } else {
+                    throw new ContainerException(
+                        "Cannot resolve union/intersection type for parameter '{$parameter->getName()}'"
                     );
                 }
                 continue;
@@ -218,10 +234,15 @@ final class Container
         if (is_array($callback)) {
             [$class, $method] = $callback;
             $instance = is_object($class) ? $class : $this->get($class);
-            $callback = [$instance, $method];
+            
+            // Create ReflectionMethod with instance and method name separately
+            $reflector = new \ReflectionMethod($instance, $method);
+            $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
+            
+            return $reflector->invokeArgs($instance, $dependencies);
         }
 
-        $reflector = new \ReflectionMethod($callback);
+        $reflector = new \ReflectionMethod($callback, '__invoke');
         $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
 
         return $reflector->invokeArgs($callback, $dependencies);
@@ -249,7 +270,7 @@ final class Container
 
             $type = $parameter->getType();
 
-            if ($type === null || in_array($type->getName(), ['string', 'int', 'bool', 'float', 'array', 'callable'])) {
+            if ($type === null || !$type instanceof \ReflectionNamedType || in_array($type->getName(), ['string', 'int', 'bool', 'float', 'array', 'callable'])) {
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
                 } else {
