@@ -74,18 +74,39 @@ final class AssetHelper
 
     /**
      * Get the hashed filename for a JavaScript asset
-     * 
+     *
      * @param string $asset Asset name (e.g., 'app.js', 'init.js')
      * @return string Full asset URL with hash
      */
     public static function js(string $asset): string
     {
         $manifest = self::loadManifest();
-        
+
+        // Map legacy names to new manifest keys
+        $legacyMap = [
+            'init.js' => 'core-init',
+            'init' => 'core-init',
+            'app.js' => 'core-app',
+            'app' => 'core-app',
+            'css.js' => 'core-css',
+            'css' => 'core-css',
+        ];
+
+        // Check legacy map first
+        if (isset($legacyMap[$asset])) {
+            $key = $legacyMap[$asset];
+            if (isset($manifest[$key])) {
+                $file = $manifest[$key]['file'];
+                $url = self::$assetBaseUrl . $file;
+                error_log("DEBUG: AssetHelper resolved JS '{$asset}' → '{$url}' (legacy mapping: {$key})");
+                return $url;
+            }
+        }
+
         // Normalize asset name (remove .js extension for manifest lookup)
         $assetKey = preg_replace('/\.js$/', '', $asset);
         $assetKey = preg_replace('/\.ts$/', '.ts', $assetKey);
-        
+
         // Try different possible keys
         $possibleKeys = [
             $asset,
