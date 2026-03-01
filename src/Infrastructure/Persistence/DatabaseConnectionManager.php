@@ -12,7 +12,7 @@ use PDO;
  */
 final class DatabaseConnectionManager
 {
-    /** @var array<string, PDO> */
+    /** @var array<string, ?PDO> */
     private array $connections = [];
 
     /** @var array<string, string> */

@@ -32,7 +32,7 @@ interface ArticleRepositoryInterface
     /**
      * @return array<int, Article>
      */
-    public function findByTag(string $tag): array;
+    public function findByTag(string $tag, int $limit = 10, int $offset = 0): array;
 
     /**
      * @return array<int, Article>
@@ -63,11 +63,16 @@ interface ArticleRepositoryInterface
     public function findByCategory(string $categoryId, int $limit = 10): array;
 
     /**
-     * Find published articles by any of the given tags
+     * Find published articles by any of the given tag slugs
      *
-     * @param array<int, \Domain\Model\Tag> $tags Tags to search for
+     * @param array<int, string> $tagSlugs Tag slugs to search for
      * @param int $limit Maximum results
      * @return array<int, Article>
      */
-    public function findByAnyTag(array $tags, int $limit = 10): array;
+    public function findByAnyTag(array $tagSlugs, int $limit = 10): array;
+
+    /**
+     * Increment view count for an article
+     */
+    public function incrementViewCount(string $articleId): void;
 }

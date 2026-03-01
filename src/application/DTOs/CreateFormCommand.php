@@ -12,7 +12,7 @@ use Application\Validation\Validator;
 final class CreateFormCommand
 {
     /**
-     * @param array<int, array<string, mixed>> $schema
+     * @param array<string, mixed> $schema
      */
     public function __construct(
         public readonly string $name,
@@ -42,7 +42,9 @@ final class CreateFormCommand
         ]);
 
         // Validate schema structure
-        if (!is_array($this->schema) || empty($this->schema)) {
+        /** @var array<string, mixed> $schema */
+        $schema = $this->schema;
+        if (!is_array($schema) || empty($schema)) {
             throw new \Application\Exceptions\ValidationException(
                 ['schema' => ['Form schema must be a non-empty array']],
                 'Validation failed'

@@ -152,15 +152,15 @@ final class Media
     public function getFormattedSize(): string
     {
         $units = ['B', 'KB', 'MB', 'GB'];
-        $size = $this->size;
+        $size = (float) $this->size;
         $unit = 0;
 
-        while ($size >= 1024 && $unit < count($units) - 1) {
-            $size /= 1024;
+        while ($size >= 1024.0 && $unit < 3) {
+            $size /= 1024.0;
             $unit++;
         }
 
-        return round($size, 2) . ' ' . $units[$unit];
+        return sprintf('%.2f %s', $size, $units[$unit]);
     }
 
     private static function generateId(): string

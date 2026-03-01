@@ -307,14 +307,12 @@ use PDO;
     }
 
     #[\Override]
-    public function findByAnyTag(array $tags, int $limit = 10): array
+    public function findByAnyTag(array $tagSlugs, int $limit = 10): array
     {
-        if (empty($tags)) {
+        if (empty($tagSlugs)) {
             return [];
         }
 
-        // Extract tag slugs from Tag objects
-        $tagSlugs = array_map(fn($tag) => $tag instanceof \Domain\Model\Tag ? $tag->slug() : $tag, $tags);
         $placeholders = implode(',', array_fill(0, count($tagSlugs), '?'));
 
         $sql = <<<SQL
@@ -342,6 +340,7 @@ use PDO;
     /**
      * Increment view count for an article
      */
+    #[\Override]
     public function incrementViewCount(string $articleId): void
     {
         $sql = 'UPDATE articles SET views = views + 1 WHERE id = ?';

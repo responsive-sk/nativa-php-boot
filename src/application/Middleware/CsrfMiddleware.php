@@ -84,9 +84,9 @@ final class CsrfMiddleware
             session_start();
         }
 
-        $token = $request->request->get('_token')
-            ?? $request->headers->get('X-CSRF-Token')
-            ?? $request->query->get('_token');
+        $token = $request->getRequestParam('_token')
+            ?? $request->header('X-CSRF-Token')
+            ?? $request->getQueryParam('_token');
 
         if (empty($token)) {
             throw new CsrfException('Missing CSRF token', 403);

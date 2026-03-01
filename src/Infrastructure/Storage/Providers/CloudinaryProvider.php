@@ -36,8 +36,8 @@ final class CloudinaryProvider implements MediaProviderInterface
     }
 
     /**
-     * @param array{name: string, type: string, size: int, tmp_name: string, error: int} $file
-     * @return array{path: string, url: string, size: int, mime_type: string, original_name: string, cloudinary_id: string}
+     * @param array<array-key, mixed> $file
+     * @return array{path: string, url: string, size: int, mime_type: string}
      */
     #[\Override]
     public function upload(array $file): array
@@ -74,7 +74,7 @@ final class CloudinaryProvider implements MediaProviderInterface
             throw new RuntimeException('Cloudinary upload failed');
         }
 
-        /** @var array{secure_url: string, public_id: string, bytes?: int}|null $result */
+        /** @var array{secure_url: string, public_id: string, bytes?: int, format?: string}|null $result */
         $result = json_decode($response, true);
 
         if (!isset($result['secure_url']) || !isset($result['public_id'])) {
@@ -86,8 +86,6 @@ final class CloudinaryProvider implements MediaProviderInterface
             'url' => $result['secure_url'],
             'size' => (int) ($result['bytes'] ?? $file['size']),
             'mime_type' => $result['format'] ?? $file['type'],
-            'original_name' => $file['name'],
-            'cloudinary_id' => $result['public_id'],
         ];
     }
 

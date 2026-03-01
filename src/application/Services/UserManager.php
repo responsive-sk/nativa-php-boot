@@ -31,8 +31,8 @@ final class UserManager
     ): User {
         $user = User::create(
             name: $name,
-            email: new Email($email),
-            password: new Password($password),
+            email: Email::fromString($email),
+            password: Password::fromPlain($password),
             role: Role::fromString($role),
             avatar: $avatar,
         );
@@ -73,7 +73,7 @@ final class UserManager
             throw new \RuntimeException('User not found');
         }
 
-        $user->changePassword(new Password($newPassword));
+        $user->changePassword(Password::fromPlain($newPassword));
         $this->userRepository->save($user);
 
         return $user;
