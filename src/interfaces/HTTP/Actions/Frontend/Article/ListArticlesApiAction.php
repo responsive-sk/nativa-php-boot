@@ -8,11 +8,11 @@ use Application\Services\ArticleManager;
 use Infrastructure\Container\ContainerFactory;
 use Interfaces\HTTP\Actions\Action;
 use Infrastructure\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Infrastructure\Http\JsonResponse;
 
 /**
  * List Articles API Action
- * 
+ *
  * Returns articles as JSON for frontend consumption
  */
 final class ListArticlesApiAction extends Action
@@ -28,20 +28,20 @@ final class ListArticlesApiAction extends Action
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 10);
         $search = $request->query('q', '');
-        
+
         $offset = ($page - 1) * $limit;
-        
+
         // Get articles
         if ($search) {
             $articles = $this->articleManager->search($search);
         } else {
             $articles = $this->articleManager->listPublished($limit, $offset);
         }
-        
+
         // Get total count
         $total = $this->articleManager->countPublished();
         $totalPages = (int) ceil($total / $limit);
-        
+
         // Convert to array for JSON response
         $articlesData = array_map(fn($article) => [
             'id' => $article->id(),
@@ -56,7 +56,7 @@ final class ListArticlesApiAction extends Action
             'created_at' => $article->createdAt(),
             'updated_at' => $article->updatedAt(),
         ], $articles);
-        
+
         return new JsonResponse([
             'articles' => $articlesData,
             'page' => $page,
