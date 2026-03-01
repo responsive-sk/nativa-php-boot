@@ -48,6 +48,13 @@
         "phpstan-baseline": "phpstan analyse --generate-baseline --ansi",
         "cs-fix": "php-cs-fixer fix --ansi --verbose",
         "cs-fix-dry": "php-cs-fixer fix --ansi --verbose --dry-run",
+        "generate-types": "php scripts/generate-types.php",
+        "post-install-cmd": [
+            "@php scripts/generate-types.php"
+        ],
+        "post-update-cmd": [
+            "@php scripts/generate-types.php"
+        ],
         "rector": "rector process --ansi",
         "rector-dry": "rector process --ansi --dry-run",
         "analyze": [
