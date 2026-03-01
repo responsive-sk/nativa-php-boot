@@ -174,14 +174,12 @@ class TemplateRenderer
 
         
         // Invalidate OPcache for this template file (development mode only)
+        // Skip entirely in production to avoid warnings on shared hosting
         if ($this->debug && function_exists('opcache_invalidate')) {
-            try {
-                opcache_invalidate($templatePath, true);
-            } catch (\Throwable $e) {
-                // OPcache may be restricted on shared hosting
-                // Silently ignore - templates will still work
-            }
+            // Suppress warning on shared hosting where OPcache is restricted
+            @opcache_invalidate($templatePath, true);
         }
+        // else: production mode - skip OPcache invalidation
 
         // Check in-memory cache first
         $cacheKey = $template . $this->cacheVersion;
