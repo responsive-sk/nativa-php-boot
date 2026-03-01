@@ -132,15 +132,26 @@ class RateLimitMiddleware
 
     /**
      * Get unique identifier for rate limiting
-     * Uses IP address, with optional user ID if authenticated
+     * Uses IP address + session for better accuracy
      */
     private function getIdentifier(Request $request): string
     {
-        // Use IP address as base identifier
-        $ip = $request->getClientIp() ?? 'unknown';
+        // Use IP address from headers (works behind proxy/Cloudflare)
+        $ip = $request->header('X-Forwarded-For')
+            ?? $request->header('X-Real-IP')
+            ?? $request->header('CF-Connecting-IP')
+            ?? '127.0.0.1';
 
-        // Hash IP for privacy
-        return hash('sha256', $ip);
+        // Take first IP if multiple (X-Forwarded-For can be comma-separated)
+        if (str_contains($ip, ',')) {
+            $ip = explode(',', $ip)[0];
+        }
+
+        // Add session ID for more accurate tracking (if available)
+        $sessionId = session_id() ?: 'no-session';
+
+        // Combine IP and session for unique identifier
+        return hash('sha256', trim($ip) . ':' . $sessionId);
     }
 
     /**
