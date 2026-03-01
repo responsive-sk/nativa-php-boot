@@ -19,12 +19,10 @@ use Infrastructure\Queue\Worker\Worker;
 use Infrastructure\Queue\Worker\JobHandler;
 use Infrastructure\Queue\Handlers\JobHandlerRegistry;
 use Infrastructure\Queue\Handlers\OutboxProcessor;
+use Infrastructure\Env;
 
 // Load environment variables
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-    $dotenv->load();
-}
+Env::load(__DIR__ . '/..');
 
 // Get queue name from arguments
 $queue = $argv[1] ?? 'default';

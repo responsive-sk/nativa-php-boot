@@ -19,17 +19,14 @@ if (file_exists(__DIR__ . '/../c3.php')) {
 }
 
 use Interfaces\HTTP\Kernel;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
+use Infrastructure\Env;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Load environment variables
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-    $dotenv->load();
-}
+Env::loadImmutable(__DIR__ . '/..');
 
 // Error reporting
 if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
