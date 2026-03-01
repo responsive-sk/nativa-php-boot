@@ -33,7 +33,7 @@ final class DeleteArticleAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $id = $request->attributes->get('id');
+        $id = $request->getAttribute('id');
         
         if ($request->getMethod() === 'DELETE') {
             return $this($request, $id);

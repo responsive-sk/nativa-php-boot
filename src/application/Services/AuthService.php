@@ -199,11 +199,12 @@ final class AuthService
 
         // Dispatch event
         $this->eventDispatcher->dispatch(
-            UserRegistered::create(
+            new UserRegistered(
                 $user->id(),
                 $user->emailString(),
                 $user->name(),
-                $user->roleString()
+                $user->roleString(),
+                date('Y-m-d H:i:s')
             )
         );
 
@@ -269,7 +270,7 @@ final class AuthService
 
         // Dispatch event
         $this->eventDispatcher->dispatch(
-            PasswordChanged::create(
+            new PasswordChanged(
                 $user->id(),
                 $user->emailString(),
                 date('Y-m-d H:i:s')
@@ -301,11 +302,11 @@ final class AuthService
         // Store reset token (will be implemented in repository)
         // For now, just dispatch event
         $this->eventDispatcher->dispatch(
-            PasswordResetRequested::create(
+            new PasswordResetRequested(
                 $user->id(),
                 $user->emailString(),
                 $resetToken,
-                date('Y-m-d H:i:s')
+                $expiresAt
             )
         );
 

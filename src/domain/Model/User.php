@@ -129,7 +129,7 @@ final class User
      */
     public function hasRole(RoleVO $role): bool
     {
-        return $this->role->equals($role);
+        return $this->role === $role;
     }
 
     /**
@@ -180,7 +180,7 @@ final class User
      */
     public function hasPermission(PermissionName $permission): bool
     {
-        $permissionName = $permission->toString();
+        $permissionName = $permission->name();
         
         // Check cache first
         if (isset($this->permissionCache[$permissionName])) {

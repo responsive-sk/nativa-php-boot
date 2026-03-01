@@ -11,11 +11,13 @@ namespace Infrastructure\Paths\Presets;
  */
 final class LaravelPreset extends AbstractPreset
 {
+    #[\Override]
     public function getName(): string
     {
         return 'Laravel';
     }
 
+    #[\Override]
     public function getDescription(): string
     {
         return 'Laravel Framework directory structure with app, resources, storage, and database directories';
@@ -26,6 +28,7 @@ final class LaravelPreset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getPaths(): array
     {
         return array_merge($this->getCommonPaths(), [
@@ -86,6 +89,7 @@ final class LaravelPreset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getHelperMethods(): array
     {
         return array_merge(parent::getHelperMethods(), [

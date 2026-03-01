@@ -114,15 +114,15 @@ final class RbacService
     public function userHasRole(User $user, string $roleName): bool
     {
         $roleVO = \Domain\ValueObjects\Role::fromString($roleName);
-        
+
         // Check primary role
-        if ($user->role()->equals($roleVO)) {
+        if ($user->role() === $roleVO) {
             return true;
         }
 
         // Check assigned roles
         foreach ($user->getAssignedRoles() as $role) {
-            if ($role->name()->equals($roleVO)) {
+            if ($role->name() === $roleVO) {
                 return true;
             }
         }

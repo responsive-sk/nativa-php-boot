@@ -25,11 +25,13 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function exists(string $path): bool
     {
         return file_exists($this->getFullPath($path));
     }
 
+    #[\Override]
     public function read(string $path): string
     {
         $fullPath = $this->getFullPath($path);
@@ -46,6 +48,7 @@ final class LocalFilesystem implements FilesystemInterface
         return $contents;
     }
 
+    #[\Override]
     public function write(string $path, string $contents): void
     {
         $fullPath = $this->getFullPath($path);
@@ -63,6 +66,7 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function delete(string $path): void
     {
         $fullPath = $this->getFullPath($path);
@@ -76,6 +80,7 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function createDirectory(string $path, int $permissions = 0755): void
     {
         $fullPath = $this->getFullPath($path);
@@ -89,16 +94,19 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function isDirectory(string $path): bool
     {
         return is_dir($this->getFullPath($path));
     }
 
+    #[\Override]
     public function isFile(string $path): bool
     {
         return is_file($this->getFullPath($path));
     }
 
+    #[\Override]
     public function getSize(string $path): int
     {
         $fullPath = $this->getFullPath($path);
@@ -115,6 +123,7 @@ final class LocalFilesystem implements FilesystemInterface
         return $size;
     }
 
+    #[\Override]
     public function getModifiedTime(string $path): int
     {
         $fullPath = $this->getFullPath($path);
@@ -131,6 +140,7 @@ final class LocalFilesystem implements FilesystemInterface
         return $time;
     }
 
+    #[\Override]
     public function listContents(string $path): array
     {
         $fullPath = $this->getFullPath($path);
@@ -148,6 +158,7 @@ final class LocalFilesystem implements FilesystemInterface
         return array_values(array_filter($contents, fn($item) => $item !== '.' && $item !== '..'));
     }
 
+    #[\Override]
     public function copy(string $source, string $destination): void
     {
         $sourceFullPath = $this->getFullPath($source);
@@ -170,6 +181,7 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function move(string $source, string $destination): void
     {
         $sourceFullPath = $this->getFullPath($source);
@@ -192,6 +204,7 @@ final class LocalFilesystem implements FilesystemInterface
         }
     }
 
+    #[\Override]
     public function getPermissions(string $path): int
     {
         $fullPath = $this->getFullPath($path);
@@ -208,6 +221,7 @@ final class LocalFilesystem implements FilesystemInterface
         return $permissions & 0777; // Return only permission bits
     }
 
+    #[\Override]
     public function setPermissions(string $path, int $permissions): void
     {
         $fullPath = $this->getFullPath($path);

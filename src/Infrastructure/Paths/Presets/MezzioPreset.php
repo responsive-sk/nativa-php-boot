@@ -11,11 +11,13 @@ namespace Infrastructure\Paths\Presets;
  */
 final class MezzioPreset extends AbstractPreset
 {
+    #[\Override]
     public function getName(): string
     {
         return 'Mezzio/Laminas';
     }
 
+    #[\Override]
     public function getDescription(): string
     {
         return 'Mezzio Framework directory structure with src, templates, data, and modules directories';
@@ -26,6 +28,7 @@ final class MezzioPreset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getPaths(): array
     {
         return array_merge($this->getCommonPaths(), [
@@ -87,6 +90,7 @@ final class MezzioPreset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getHelperMethods(): array
     {
         return array_merge(parent::getHelperMethods(), [

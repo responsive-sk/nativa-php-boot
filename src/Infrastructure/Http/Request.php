@@ -89,6 +89,27 @@ final class Request
      *
      * @param mixed $default
      */
+    public function getAttribute(string $key, mixed $default = null): mixed
+    {
+        return $this->attributes[$key] ?? $default;
+    }
+
+    /**
+     * Get all attributes
+     *
+     * @return array<string, mixed>
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Get attribute (route params) - legacy alias
+     *
+     * @param mixed $default
+     * @deprecated Use getAttribute() instead
+     */
     public function attributes(?string $key = null, mixed $default = null): mixed
     {
         if ($key === null) {

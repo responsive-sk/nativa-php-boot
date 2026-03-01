@@ -33,7 +33,7 @@ final class PublishArticleAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $id = $request->attributes->get('id');
+        $id = $request->getAttribute('id');
         
         if ($request->getMethod() === 'POST') {
             return $this($request, $id);

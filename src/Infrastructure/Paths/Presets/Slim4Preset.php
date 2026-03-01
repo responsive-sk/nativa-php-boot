@@ -11,11 +11,13 @@ namespace Infrastructure\Paths\Presets;
  */
 final class Slim4Preset extends AbstractPreset
 {
+    #[\Override]
     public function getName(): string
     {
         return 'Slim 4';
     }
 
+    #[\Override]
     public function getDescription(): string
     {
         return 'Slim 4 Framework directory structure with src, templates, and var directories';
@@ -26,6 +28,7 @@ final class Slim4Preset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getPaths(): array
     {
         return array_merge($this->getCommonPaths(), [
@@ -77,6 +80,7 @@ final class Slim4Preset extends AbstractPreset
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getHelperMethods(): array
     {
         return array_merge(parent::getHelperMethods(), [

@@ -26,6 +26,7 @@ final class MezzioPresetLite implements PresetInterface
      * 
      * @return array<string, string>
      */
+    #[\Override]
     public function getPaths(): array
     {
         return [
