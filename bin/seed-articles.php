@@ -83,15 +83,16 @@ foreach ($articles as $articleData) {
         );
         
         $article->setTags($articleData['tags']);
+        $article->publish();
         
-        // Save directly without using ArticleManager
-        $container->get(\Domain\Repository\ArticleRepositoryInterface::class)->save($article);
+        // Save directly
+        $repo = $container->get(\Domain\Repository\ArticleRepositoryInterface::class);
+        $repo->save($article);
         
         echo "✅ Created: {$articleData['title']}\n";
         $count++;
     } catch (\Throwable $e) {
         echo "❌ Failed to create '{$articleData['title']}': " . $e->getMessage() . "\n";
-        echo "   Trace: " . $e->getTraceAsString() . "\n";
     }
 }
 

@@ -68,64 +68,16 @@ error_log("DEBUG: blog.php template rendering - page: {$currentPage}, total: {$t
     </div>
     
     <!-- Search results will be loaded here via HTMX -->
-    <div id="blog-results"></div>
-
-    <?php if (empty($articleList)): ?>
-    <div class="blog-empty">
-        <h2>No Articles Yet</h2>
-        <p>Check back soon for new content!</p>
-        <a href="/admin/articles/create" class="btn btn--primary">Create First Article</a>
-    </div>
-    <?php else: ?>
-    <div class="blog-grid">
-        <?php foreach ($articleList as $article): ?>
-        <article class="blog-card">
-            <div class="blog-card__content">
-                <h2 class="blog-card__title">
-                    <a href="/blog/<?= $this->e($article->slug()) ?>">
-                        <?= $this->e($article->title()) ?>
-                    </a>
-                </h2>
-                <div class="blog-card__meta">
-                    <span class="blog-card__author">
-                        By <?= $this->e($article->authorId()) ?>
-                    </span>
-                    <span class="blog-card__date">
-                        <?= $this->date($article->publishedAt()) ?>
-                    </span>
-                </div>
-                <p class="blog-card__excerpt">
-                    <?= $this->e($article->excerpt() ?: substr(strip_tags($article->content()), 0, 200) . '...') ?>
-                </p>
-                <a href="/blog/<?= $this->e($article->slug()) ?>" class="blog-card__link">
-                    Read more →
-                </a>
-            </div>
-        </article>
-        <?php endforeach; ?>
+    <div id="blog-results">
+        <!-- Articles loaded via JavaScript -->
     </div>
 
     <!-- Pagination -->
-    <?php if ($totalPages > 1): ?>
-    <nav class="pagination">
-        <?php if ($currentPage > 1): ?>
-        <a href="/blog?page=<?= $currentPage - 1 ?>" class="pagination__link pagination__link--prev">
-            ← Previous
-        </a>
-        <?php endif; ?>
-
-        <span class="pagination__info">
-            Page <?= $currentPage ?> of <?= $totalPages ?>
-        </span>
-
-        <?php if ($currentPage < $totalPages): ?>
-        <a href="/blog?page=<?= $currentPage + 1 ?>" class="pagination__link pagination__link--next">
-            Next →
-        </a>
-        <?php endif; ?>
+    <nav class="pagination" id="blog-pagination" style="display: none;">
+        <a href="#" class="pagination__link pagination__link--prev" id="blog-prev">← Previous</a>
+        <span class="pagination__info" id="blog-page-info">Page 1 of 1</span>
+        <a href="#" class="pagination__link pagination__link--next" id="blog-next">Next →</a>
     </nav>
-    <?php endif; ?>
-    <?php endif; ?>
 </section>
 
 <!-- Blog JavaScript -->
@@ -230,13 +182,12 @@ function setupSearch() {
  * Update pagination links
  */
 function updatePagination() {
-  const prevLink = document.querySelector('.pagination__link--prev');
-  const nextLink = document.querySelector('.pagination__link--next');
-  const pageInfo = document.querySelector('.pagination__info');
+  const prevLink = document.getElementById('blog-prev');
+  const nextLink = document.getElementById('blog-next');
+  const pageInfo = document.getElementById('blog-page-info');
   
   if (prevLink) {
     if (state.page > 1) {
-      prevLink.href = '/blog?page=' + (state.page - 1) + (state.searchQuery ? '&q=' + encodeURIComponent(state.searchQuery) : '');
       prevLink.style.pointerEvents = 'auto';
       prevLink.style.opacity = '1';
     } else {
@@ -247,7 +198,6 @@ function updatePagination() {
   
   if (nextLink) {
     if (state.page < state.totalPages) {
-      nextLink.href = '/blog?page=' + (state.page + 1) + (state.searchQuery ? '&q=' + encodeURIComponent(state.searchQuery) : '');
       nextLink.style.pointerEvents = 'auto';
       nextLink.style.opacity = '1';
     } else {
