@@ -22,7 +22,6 @@ final class PortfolioAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-
         try {
             $content = $this->renderer->render(
                 'frontend/portfolio',
@@ -33,7 +32,6 @@ final class PortfolioAction extends Action
                 ],
                 'frontend/layouts/frontend'
             );
-
 
             return $this->html($content);
         } catch (\Throwable $e) {
