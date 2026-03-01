@@ -5,75 +5,73 @@ declare(strict_types=1);
 namespace Domain\ValueObjects;
 
 /**
- * Article Status Value Object
+ * Article Status Enum
+ * 
+ * Represents the publication status of an article.
  */
-final class ArticleStatus
+enum ArticleStatus: string
 {
-    public const DRAFT = 'draft';
-    public const PUBLISHED = 'published';
-    public const ARCHIVED = 'archived';
+    case DRAFT = 'draft';
+    case PUBLISHED = 'published';
+    case ARCHIVED = 'archived';
 
-    private const VALID_STATUSES = [
-        self::DRAFT,
-        self::PUBLISHED,
-        self::ARCHIVED,
-    ];
-
-    public function __construct(
-        private readonly string $value
-    ) {
-        if (!in_array($value, self::VALID_STATUSES, true)) {
-            throw new \InvalidArgumentException('Invalid article status: ' . $value);
-        }
-    }
-
-    public function value(): string
-    {
-        return $this->value;
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->value === self::DRAFT;
-    }
-
-    public function isPublished(): bool
-    {
-        return $this->value === self::PUBLISHED;
-    }
-
-    public function isArchived(): bool
-    {
-        return $this->value === self::ARCHIVED;
-    }
-
+    /**
+     * Check if status can transition to new status
+     */
     public function canTransitionTo(self $newStatus): bool
     {
-        // Cannot transition from archived to draft or published
-        if ($this->isArchived() && !$newStatus->isArchived()) {
-            return false;
-        }
-
-        return true;
+        return match($this) {
+            self::DRAFT => in_array($newStatus, [self::PUBLISHED, self::ARCHIVED], true),
+            self::PUBLISHED => $newStatus === self::ARCHIVED,
+            self::ARCHIVED => false,
+        };
     }
 
-    public function __toString(): string
+    /**
+     * Check if status is draft
+     */
+    public function isDraft(): bool
     {
-        return $this->value;
+        return $this === self::DRAFT;
     }
 
+    /**
+     * Check if status is published
+     */
+    public function isPublished(): bool
+    {
+        return $this === self::PUBLISHED;
+    }
+
+    /**
+     * Check if status is archived
+     */
+    public function isArchived(): bool
+    {
+        return $this === self::ARCHIVED;
+    }
+
+    /**
+     * Create draft status
+     */
     public static function draft(): self
     {
-        return new self(self::DRAFT);
+        return self::DRAFT;
     }
 
+    /**
+     * Create published status
+     */
     public static function published(): self
     {
-        return new self(self::PUBLISHED);
+        return self::PUBLISHED;
     }
 
+    /**
+     * Create archived status
+     */
     public static function archived(): self
     {
-        return new self(self::ARCHIVED);
+        return self::ARCHIVED;
     }
 }

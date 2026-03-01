@@ -1,16 +1,10 @@
 /**
  * ArticleStatus
- * Auto-generated from PHP class: Domain\ValueObjects\ArticleStatus
+ * Auto-generated from PHP enum: Domain\ValueObjects\ArticleStatus
  * ⚠️  DO NOT EDIT - This file is auto-generated
  */
-export interface ArticleStatus {
-  value: string;
-}
+export type ArticleStatus = 'draft' | 'published' | 'archived';
 
-export function isArticleStatus(data: unknown): data is ArticleStatus {
-  return (
-    typeof data === 'object' &&
-    data !== null &&
-    typeof (data as ArticleStatus).value === 'string'
-  );
+export function isArticleStatus(value: unknown): value is ArticleStatus {
+  return typeof value === 'string' && ['draft', 'published', 'archived'].includes(value);
 }

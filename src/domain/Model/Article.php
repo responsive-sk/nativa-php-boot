@@ -88,7 +88,7 @@ final class Article
         $article->content = (string) $data['content'];
         $article->excerpt = isset($data['excerpt']) ? (string) $data['excerpt'] : '';
         $article->image = isset($data['image']) ? (string) $data['image'] : null;
-        $article->status = new ArticleStatus((string) $data['status']);
+        $article->status = ArticleStatus::from((string) $data['status']);
         $article->views = (int) ($data['views'] ?? 0);
         $article->publishedAt = isset($data['published_at']) ? (string) $data['published_at'] : null;
         $article->createdAt = (string) $data['created_at'];

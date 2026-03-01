@@ -153,10 +153,10 @@ function generateEnumType(ReflectionClass $reflection): string
 
 TS;
 
-    // Get enum cases
+    // Get enum cases - convert CAMEL_CASE to lowercase
     $cases = $reflection->getConstants();
-    $values = array_keys($cases);
-    
+    $values = array_map('strtolower', array_keys($cases));
+
     $unionType = implode(' | ', array_map(fn($v) => "'{$v}'", $values));
     
     $typeAlias = "export type {$shortName} = {$unionType};\n\n";
