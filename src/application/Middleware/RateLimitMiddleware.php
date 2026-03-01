@@ -37,11 +37,12 @@ class RateLimitMiddleware
      */
     public function limitLogin(Request $request): ?Response
     {
-        // Bypass rate limiting in debug mode
-        if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
+        // Only bypass rate limiting for local development (not just debug mode)
+        // This prevents accidental security bypass in production with debug enabled
+        if ($this->isLocalDevelopment()) {
             return null;
         }
-        
+
         $identifier = $this->getIdentifier($request);
         $key = 'login:' . $identifier;
 
@@ -59,10 +60,9 @@ class RateLimitMiddleware
      * Apply rate limiting to form submissions
      */
     public function limitFormSubmission(Request $request): ?Response
-
     {
-        // Bypass rate limiting in debug mode
-        if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
+        // Only bypass rate limiting for local development
+        if ($this->isLocalDevelopment()) {
             return null;
         }
 
@@ -169,6 +169,26 @@ class RateLimitMiddleware
     }
 
     /**
+     * Check if running in local development environment
+     * Only bypass rate limiting for localhost/CLI server
+     */
+    private function isLocalDevelopment(): bool
+    {
+        $appEnv = $_ENV['APP_ENV'] ?? 'production';
+        
+        // Only bypass in development environment
+        if ($appEnv !== 'development') {
+            return false;
+        }
+
+        // Check if request is from localhost
+        $clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        $allowedIps = ['127.0.0.1', '::1', 'localhost'];
+
+        return in_array($clientIp, $allowedIps, true);
+    }
+
+    /**
      * Create 429 Too Many Requests response
      */
     private function createRateLimitResponse(string $message, int $retryAfter): Response
@@ -180,20 +200,4 @@ class RateLimitMiddleware
 
         return $response;
     }
-}
-
-/**
- * Rate Limit Exception
- */
-class RateLimitException extends \Exception
-{
-    public function __construct(
-        string $message = 'Rate limit exceeded',
-        int $retryAfter = 60
-    ) {
-        parent::__construct($message, 429);
-        $this->retryAfter = $retryAfter;
-    }
-
-    public int $retryAfter;
 }

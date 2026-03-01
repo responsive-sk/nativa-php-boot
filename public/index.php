@@ -17,12 +17,18 @@ declare(strict_types=1);
 // ============================================================================
 if (($_ENV['APP_DEBUG'] ?? 'false') !== 'true') {
     ob_start(function ($buffer) {
+        $originalBuffer = $buffer;
+        
         // Remove leading/trailing whitespace
         $buffer = trim($buffer);
-        
+
         // Remove HTML comments (except conditional comments for IE)
         $buffer = preg_replace('/<!--[^<!].*?-->/s', '', $buffer);
-        
+        if ($buffer === null && preg_last_error() !== PREG_NO_ERROR) {
+            error_log('HTML minification failed (comment removal): ' . preg_last_error_msg());
+            return $originalBuffer;
+        }
+
         // Preserve pre/code/textarea content
         $preserve = [];
         $buffer = preg_replace_callback(
@@ -34,29 +40,46 @@ if (($_ENV['APP_DEBUG'] ?? 'false') !== 'true') {
             },
             $buffer
         );
-        
+        if ($buffer === null && preg_last_error() !== PREG_NO_ERROR) {
+            error_log('HTML minification failed (preserve): ' . preg_last_error_msg());
+            return $originalBuffer;
+        }
+
         // Remove extra whitespace
         $buffer = preg_replace('/\s+/', ' ', $buffer);
-        
+        if ($buffer === null && preg_last_error() !== PREG_NO_ERROR) {
+            error_log('HTML minification failed (whitespace): ' . preg_last_error_msg());
+            return $originalBuffer;
+        }
+
         // Remove whitespace around tags
         $buffer = preg_replace('/>\s+</', '><', $buffer);
-        
+        if ($buffer === null && preg_last_error() !== PREG_NO_ERROR) {
+            error_log('HTML minification failed (tags): ' . preg_last_error_msg());
+            return $originalBuffer;
+        }
+
         // Restore preserved content
         foreach ($preserve as $i => $content) {
             $buffer = str_replace('{{PRESERVE_' . $i . '}}', $content, $buffer);
         }
-        
+
         return $buffer;
     });
 }
 
-// Disable OPcache for development - ensures template changes are picked up immediately
-if (function_exists('opcache_reset')) {
-    opcache_reset();
+// Invalidate OPcache for development - ensures changes are picked up immediately
+// Skip in production to avoid performance impact
+if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
+    if (function_exists('opcache_invalidate')) {
+        // Check if OPcache functions are not disabled (shared hosting)
+        $disabled = explode(',', ini_get('disable_functions'));
+        if (!in_array('opcache_invalidate', $disabled, true)) {
+            opcache_invalidate(__FILE__, true);
+        }
+    }
 }
-if (function_exists('opcache_invalidate')) {
-    opcache_invalidate(__FILE__, true);
-}
+// Never call opcache_reset() in production - destroys all cached files
 
 // Codeception C3 Code Coverage
 if (file_exists(__DIR__ . '/../c3.php')) {

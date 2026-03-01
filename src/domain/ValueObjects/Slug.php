@@ -36,6 +36,11 @@ final class Slug
         $slug = preg_replace('/-+/', '-', $slug); // Replace multiple hyphens with single
         $slug = trim($slug, '-');
 
+        // Ensure slug is not empty after sanitization
+        if ($slug === '') {
+            throw new \InvalidArgumentException('Cannot create slug from empty content');
+        }
+
         return new self($slug);
     }
 

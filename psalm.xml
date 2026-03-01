@@ -12,10 +12,9 @@
         <directory name="src/" />
         <ignoreFiles>
             <directory name="vendor" />
-            <directory name="src/infrastructure/Paths" />
+            <directory name="src/Infrastructure/Paths" />
             <directory name="src/interfaces/Templates" />
             <directory name="src/Templates" />
-            <directory name="src/Templates/node_modules" />
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>

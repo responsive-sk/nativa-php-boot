@@ -66,6 +66,7 @@ final class Password
      * - At least one uppercase letter
      * - At least one lowercase letter
      * - At least one number
+     * - At least one special character
      */
     private static function validate(string $password): void
     {
@@ -85,6 +86,10 @@ final class Password
 
         if (!preg_match('/[0-9]/', $password)) {
             $errors[] = 'Password must contain at least one number';
+        }
+
+        if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+            $errors[] = 'Password must contain at least one special character';
         }
 
         if (count($errors) > 0) {

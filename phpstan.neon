@@ -8,7 +8,8 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
     excludePaths:
-        - src/infrastructure/Paths/AppPaths.php
-        - src/infrastructure/Persistence/DatabaseConnection.php
-        - src/interfaces/Templates/*
+        - src/Infrastructure/Paths/AppPaths.php
+        - src/Infrastructure/Persistence/DatabaseConnection.php
+        - src/Interfaces/Templates/*
         - tests/
+    reportUnmatchedIgnoredErrors: false
