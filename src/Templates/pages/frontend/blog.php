@@ -130,16 +130,38 @@ error_log("DEBUG: blog.php template rendering - page: {$currentPage}, total: {$t
 
 <!-- Blog JavaScript -->
 <script type="module">
-import { api } from '/assets/core-app.BuZ55zhq.js';
+// Blog state
+const state = {
+  page: <?= (int)$currentPage ?>,
+  totalPages: <?= (int)$totalPages ?>,
+  searchQuery: '',
+};
 
 // Simple blog initialization
 (async function initBlog() {
+  await loadArticles();
+  setupSearch();
+})();
+
+/**
+ * Load articles from API
+ */
+async function loadArticles() {
   try {
-    const response = await fetch('/api/articles?page=1&limit=10');
+    const params = new URLSearchParams({
+      page: state.page.toString(),
+      limit: '10',
+      ...(state.searchQuery ? { q: state.searchQuery } : {}),
+    });
+    
+    const response = await fetch('/api/articles?' + params.toString());
     const data = await response.json();
     
     const container = document.getElementById('blog-results');
-    if (!container || !data.articles || data.articles.length === 0) {
+    if (!container) return;
+    
+    if (!data.articles || data.articles.length === 0) {
+      container.innerHTML = '<div class="blog-empty"><h2>No Articles Found</h2><p>Try adjusting your search or check back later.</p></div>';
       return;
     }
     
@@ -160,10 +182,84 @@ import { api } from '/assets/core-app.BuZ55zhq.js';
         </div>
       </article>
     `).join('');
+    
+    // Update pagination
+    if (data.totalPages) {
+      state.totalPages = data.totalPages;
+      updatePagination();
+    }
   } catch (error) {
     console.error('Failed to load blog articles:', error);
+    const container = document.getElementById('blog-results');
+    if (container) {
+      container.innerHTML = '<div class="blog-empty"><h2>Error Loading Articles</h2><p>Please try again later.</p></div>';
+    }
   }
-})();
+}
+
+/**
+ * Setup search functionality
+ */
+function setupSearch() {
+  const searchForm = document.querySelector('.blog-search__form');
+  const searchInput = document.querySelector('.blog-search__input');
+  
+  if (!searchForm || !searchInput) return;
+  
+  // Handle search submit
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    state.searchQuery = searchInput.value.trim();
+    state.page = 1; // Reset to first page
+    loadArticles();
+  });
+  
+  // Handle input with debounce
+  let debounceTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      state.searchQuery = searchInput.value.trim();
+      state.page = 1;
+      loadArticles();
+    }, 500); // 500ms debounce
+  });
+}
+
+/**
+ * Update pagination links
+ */
+function updatePagination() {
+  const prevLink = document.querySelector('.pagination__link--prev');
+  const nextLink = document.querySelector('.pagination__link--next');
+  const pageInfo = document.querySelector('.pagination__info');
+  
+  if (prevLink) {
+    if (state.page > 1) {
+      prevLink.href = '/blog?page=' + (state.page - 1) + (state.searchQuery ? '&q=' + encodeURIComponent(state.searchQuery) : '');
+      prevLink.style.pointerEvents = 'auto';
+      prevLink.style.opacity = '1';
+    } else {
+      prevLink.style.pointerEvents = 'none';
+      prevLink.style.opacity = '0.5';
+    }
+  }
+  
+  if (nextLink) {
+    if (state.page < state.totalPages) {
+      nextLink.href = '/blog?page=' + (state.page + 1) + (state.searchQuery ? '&q=' + encodeURIComponent(state.searchQuery) : '');
+      nextLink.style.pointerEvents = 'auto';
+      nextLink.style.opacity = '1';
+    } else {
+      nextLink.style.pointerEvents = 'none';
+      nextLink.style.opacity = '0.5';
+    }
+  }
+  
+  if (pageInfo) {
+    pageInfo.textContent = 'Page ' + state.page + ' of ' + state.totalPages;
+  }
+}
 
 function escapeHtml(text) {
   const div = document.createElement('div');
