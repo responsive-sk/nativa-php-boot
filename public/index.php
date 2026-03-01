@@ -3,7 +3,52 @@ declare(strict_types=1);
 
 /**
  * Application entry point
+ * 
+ * Features:
+ * - Zero-dependency bootstrap
+ * - Gzip/Brotli compression (via .htaccess)
+ * - HTML minification (production only)
+ * - Security headers (via .htaccess)
  */
+
+// ============================================================================
+// HTML MINIFICATION (Production Only)
+// Compresses HTML output to reduce bandwidth
+// ============================================================================
+if (($_ENV['APP_DEBUG'] ?? 'false') !== 'true') {
+    ob_start(function ($buffer) {
+        // Remove leading/trailing whitespace
+        $buffer = trim($buffer);
+        
+        // Remove HTML comments (except conditional comments for IE)
+        $buffer = preg_replace('/<!--[^<!].*?-->/s', '', $buffer);
+        
+        // Preserve pre/code/textarea content
+        $preserve = [];
+        $buffer = preg_replace_callback(
+            '/<(pre|code|textarea)\b[^>]*>.*?<\/\1>/is',
+            function($matches) use (&$preserve) {
+                $key = '{{PRESERVE_' . count($preserve) . '}}';
+                $preserve[] = $matches[0];
+                return $key;
+            },
+            $buffer
+        );
+        
+        // Remove extra whitespace
+        $buffer = preg_replace('/\s+/', ' ', $buffer);
+        
+        // Remove whitespace around tags
+        $buffer = preg_replace('/>\s+</', '><', $buffer);
+        
+        // Restore preserved content
+        foreach ($preserve as $i => $content) {
+            $buffer = str_replace('{{PRESERVE_' . $i . '}}', $content, $buffer);
+        }
+        
+        return $buffer;
+    });
+}
 
 // Disable OPcache for development - ensures template changes are picked up immediately
 if (function_exists('opcache_reset')) {
