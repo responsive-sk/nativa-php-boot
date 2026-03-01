@@ -333,7 +333,7 @@ final class Article
             'excerpt' => $this->excerpt,
             'content' => $this->content,
             'image' => $this->image,
-            'status' => $this->status->value(),
+            'status' => $this->status->value,
             'views' => $this->views,
             'published_at' => $this->publishedAt,
             'created_at' => $this->createdAt,
