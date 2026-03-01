@@ -1,17 +1,13 @@
 /**
- * Blog Page Initialization
+ * Blog Page Entry Point
  * 
- * Handles blog listing page functionality including:
- * - Article card rendering
- * - Search with HTMX
- * - Pagination
- * - Loading states
+ * Auto-executes on page load to initialize blog functionality.
+ * Import this file in your HTML to enable blog features.
  */
 
-import { api } from '@core/http';
-import { handleError } from '@core/error-handler';
-import { ArticleCardList } from '@components/ArticleCard';
-import { Article, isArticle } from '@types/generated';
+import { api } from '../core/http';
+import { ArticleCardList } from '../components/ArticleCard';
+import type { Article } from '../types/generated';
 
 interface BlogPageState {
   articles: Article[];
@@ -24,7 +20,7 @@ interface BlogPageState {
 /**
  * Initialize blog page
  */
-export async function initBlogPage(): Promise<BlogPageState> {
+async function initBlogPage(): Promise<void> {
   const state: BlogPageState = {
     articles: [],
     loading: false,
@@ -38,8 +34,6 @@ export async function initBlogPage(): Promise<BlogPageState> {
 
   // Setup HTMX events for search
   setupHtmxEvents();
-
-  return state;
 }
 
 /**
@@ -62,13 +56,13 @@ async function loadArticles(state: BlogPageState): Promise<void> {
       totalPages: number;
     }>(`/api/articles?${params}`);
 
-    state.articles = response.articles.filter(isArticle);
+    state.articles = response.articles as Article[];
     state.page = response.page;
     state.totalPages = response.totalPages;
 
     renderArticles(state.articles);
   } catch (error) {
-    handleError(error);
+    console.error('Failed to load articles:', error);
     state.articles = [];
     renderArticles([]);
   } finally {
@@ -84,12 +78,36 @@ function renderArticles(articles: Article[]): void {
   const container = document.getElementById('blog-results');
   if (!container) return;
 
-  container.innerHTML = ArticleCardList({
-    articles,
-    showExcerpt: true,
-    showStatus: false,
-    showViews: true,
-  });
+  if (articles.length === 0) {
+    container.innerHTML = `
+      <div class="blog-empty">
+        <h2>No Articles Yet</h2>
+        <p>Check back soon for new content!</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="blog-grid">
+      ${articles.map(article => `
+        <article class="blog-card" data-article-id="${article.id}">
+          <div class="blog-card__content">
+            <h2 class="blog-card__title">
+              <a href="/blog/${article.slug}">${escapeHtml(article.title)}</a>
+            </h2>
+            <div class="blog-card__meta">
+              <span class="blog-card__author">Author: ${article.authorId.substring(0, 8)}...</span>
+              ${article.publishedAt ? `<span class="blog-card__date">${new Date(article.publishedAt).toLocaleDateString('sk-SK')}</span>` : ''}
+              <span class="blog-card__views">${article.views} ${article.views === 1 ? 'view' : 'views'}</span>
+            </div>
+            ${article.excerpt ? `<p class="blog-card__excerpt">${escapeHtml(article.excerpt)}</p>` : ''}
+            <a href="/blog/${article.slug}" class="blog-card__link">Read more →</a>
+          </div>
+        </article>
+      `).join('')}
+    </div>
+  `;
 }
 
 /**
@@ -107,26 +125,26 @@ function updateLoadingState(loading: boolean): void {
 }
 
 /**
+ * Escape HTML to prevent XSS
+ */
+function escapeHtml(text: string): string {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+/**
  * Setup HTMX event listeners
  */
 function setupHtmxEvents(): void {
-  // Search completed
-  document.body.addEventListener('htmx:afterSwap', (event: any) => {
-    if (event.detail.target.id === 'blog-results') {
-      // Search results loaded
-      console.log('Search results updated');
-    }
-  });
-
-  // Error handling
   document.body.addEventListener('htmx:responseError', (event: any) => {
-    handleError(new Error(`HTTP ${event.detail.xhr.status}: ${event.detail.xhr.statusText}`));
+    console.error('HTMX error:', event.detail.xhr.status, event.detail.xhr.statusText);
   });
 }
 
-// Initialize on DOM ready
+// Auto-execute on DOM ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initBlogPage);
+  document.addEventListener('DOMContentLoaded', () => initBlogPage().catch(console.error));
 } else {
-  initBlogPage();
+  initBlogPage().catch(console.error);
 }

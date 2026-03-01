@@ -127,3 +127,47 @@ error_log("DEBUG: blog.php template rendering - page: {$currentPage}, total: {$t
     <?php endif; ?>
     <?php endif; ?>
 </section>
+
+<!-- Blog JavaScript -->
+<script type="module">
+import { api } from '/assets/core-app.BuZ55zhq.js';
+
+// Simple blog initialization
+(async function initBlog() {
+  try {
+    const response = await fetch('/api/articles?page=1&limit=10');
+    const data = await response.json();
+    
+    const container = document.getElementById('blog-results');
+    if (!container || !data.articles || data.articles.length === 0) {
+      return;
+    }
+    
+    // Render articles
+    container.innerHTML = data.articles.map(article => `
+      <article class="blog-card" data-article-id="${article.id}">
+        <div class="blog-card__content">
+          <h2 class="blog-card__title">
+            <a href="/blog/${article.slug}">${escapeHtml(article.title)}</a>
+          </h2>
+          <div class="blog-card__meta">
+            <span class="blog-card__author">Author: ${article.author_id ? article.author_id.substring(0, 8) + '...' : 'Unknown'}</span>
+            ${article.published_at ? `<span class="blog-card__date">${new Date(article.published_at).toLocaleDateString('sk-SK')}</span>` : ''}
+            <span class="blog-card__views">${article.views || 0} views</span>
+          </div>
+          ${article.excerpt ? `<p class="blog-card__excerpt">${escapeHtml(article.excerpt)}</p>` : ''}
+          <a href="/blog/${article.slug}" class="blog-card__link">Read more →</a>
+        </div>
+      </article>
+    `).join('');
+  } catch (error) {
+    console.error('Failed to load blog articles:', error);
+  }
+})();
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+</script>
