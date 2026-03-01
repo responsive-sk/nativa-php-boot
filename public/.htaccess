@@ -206,21 +206,18 @@ Options -Indexes
 # ErrorDocument 500 /errors/500.html
 
 # =============================================================================
-# PHP SETTINGS (if using mod_php)
+# PHP SETTINGS (PHP-FPM via Apache)
+# Note: Some settings may not work on shared hosting
 # =============================================================================
 
 <IfModule mod_php.c>
-    # Increase memory limit for large applications
-    php_value memory_limit 256M
-    
-    # Increase max execution time
-    php_value max_execution_time 300
-    
-    # Hide PHP version
-    php_flag expose_php Off
-    
-    # Session settings
-    php_value session.cookie_httponly 1
-    php_value session.cookie_secure 1
-    php_value session.use_only_cookies 1
+    # This only works with mod_php, not PHP-FPM
+    # PHP-FPM settings must be set in php.ini or pool config
 </IfModule>
+
+# For PHP-FPM, use .user.ini instead
+# Create public/.user.ini with:
+# memory_limit = 256M
+# max_execution_time = 300
+# session.cookie_httponly = 1
+# session.cookie_secure = 1
