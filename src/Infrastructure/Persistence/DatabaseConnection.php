@@ -12,7 +12,7 @@ use PDOException;
  * SQLite Database Connection - Legacy wrapper for backwards compatibility
  * Uses DatabaseConnectionManager internally
  */
-class DatabaseConnection
+final class DatabaseConnection
 {
     private DatabaseConnectionManager $manager;
     private string $connectionName;

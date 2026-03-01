@@ -14,7 +14,7 @@ use Domain\Model\Article;
  * Executes: Publishes the article
  * Compensates: Unpublishes the article (rollback)
  */
-class PublishArticleStep extends SagaStep
+final class PublishArticleStep extends SagaStep
 {
     private ?Article $originalArticle = null;
 

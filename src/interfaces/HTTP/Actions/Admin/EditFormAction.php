@@ -56,10 +56,10 @@ final class EditFormAction extends Action
     {
         try {
             $id = $this->param($request, 'id');
-            $name = (string) $request->request('name', '');
-            $schema = json_decode($request->request('schema', '[]'), true);
-            $emailNotification = (string) $request->request('emailNotification', '');
-            $successMessage = (string) $request->request('successMessage', 'Thank you for your submission!');
+            $name = (string) $request->getRequestParam('name', '');
+            $schema = json_decode($request->getRequestParam('schema', '[]'), true);
+            $emailNotification = (string) $request->getRequestParam('emailNotification', '');
+            $successMessage = (string) $request->getRequestParam('successMessage', 'Thank you for your submission!');
 
             $this->formManager->update(
                 formId: $id,

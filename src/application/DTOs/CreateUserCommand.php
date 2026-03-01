@@ -11,7 +11,7 @@ use Domain\ValueObjects\Role as RoleVO;
 /**
  * DTO: Create User Command
  */
-class CreateUserCommand
+final class CreateUserCommand
 {
     public function __construct(
         public readonly string $name,

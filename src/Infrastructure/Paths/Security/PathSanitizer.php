@@ -14,7 +14,7 @@ namespace Infrastructure\Paths\Security;
  * - Path length limits
  * - Whitelist/blacklist support
  */
-class PathSanitizer
+final class PathSanitizer
 {
     /** @var array<string> */
     private array $allowedExtensions = [];

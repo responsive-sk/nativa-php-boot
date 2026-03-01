@@ -10,7 +10,7 @@ use Infrastructure\Queue\Entities\Job;
  * Send Form Submission Notification Handler
  * Sends email notification when a form is submitted
  */
-class SendFormSubmissionNotificationHandler
+final class SendFormSubmissionNotificationHandler
 {
     public function __invoke(Job $job): void
     {

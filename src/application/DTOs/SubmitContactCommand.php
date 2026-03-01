@@ -9,7 +9,7 @@ use Application\Validation\Validator;
 /**
  * Submit Contact Command DTO
  */
-class SubmitContactCommand
+final class SubmitContactCommand
 {
     public function __construct(
         public readonly string $name,

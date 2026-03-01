@@ -7,7 +7,7 @@ namespace Application\CQRS;
 /**
  * Command Bus - Dispatches commands to handlers
  */
-class CommandBus
+final class CommandBus
 {
     /** @var array<class-string, callable> */
     private array $handlers = [];

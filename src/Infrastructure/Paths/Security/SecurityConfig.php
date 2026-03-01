@@ -9,7 +9,7 @@ namespace Infrastructure\Paths\Security;
  * 
  * Centralized configuration for path security settings
  */
-class SecurityConfig
+final class SecurityConfig
 {
     private bool $enablePathTraversalProtection = true;
     private bool $enableEncodingProtection = true;

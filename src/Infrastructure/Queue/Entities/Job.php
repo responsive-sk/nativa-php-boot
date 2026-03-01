@@ -7,7 +7,7 @@ namespace Infrastructure\Queue\Entities;
 /**
  * Job Entity
  */
-class Job
+final class Job
 {
     private ?string $id = null;
     private string $queue;

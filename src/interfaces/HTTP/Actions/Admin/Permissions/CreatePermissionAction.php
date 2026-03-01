@@ -36,9 +36,9 @@ final class CreatePermissionAction extends Action
     public function store(Request $request): Response
     {
         try {
-            $name = $request->request('name', '');
-            $description = $request->request('description', '');
-            $group = $request->request('group', 'default');
+            $name = $request->getRequestParam('name', '');
+            $description = $request->getRequestParam('description', '');
+            $group = $request->getRequestParam('group', 'default');
 
             if (empty($name)) {
                 throw new \InvalidArgumentException('Permission name is required');
@@ -61,9 +61,9 @@ final class CreatePermissionAction extends Action
                     'title' => 'Create Permission',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request('name', ''),
-                        'description' => $request->request('description', ''),
-                        'group' => $request->request('group', ''),
+                        'name' => $request->getRequestParam('name', ''),
+                        'description' => $request->getRequestParam('description', ''),
+                        'group' => $request->getRequestParam('group', ''),
                     ],
                 ],
                 'admin/layouts/base'
@@ -77,9 +77,9 @@ final class CreatePermissionAction extends Action
                     'title' => 'Create Permission',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request('name', ''),
-                        'description' => $request->request('description', ''),
-                        'group' => $request->request('group', ''),
+                        'name' => $request->getRequestParam('name', ''),
+                        'description' => $request->getRequestParam('description', ''),
+                        'group' => $request->getRequestParam('group', ''),
                     ],
                 ],
                 'admin/layouts/base'

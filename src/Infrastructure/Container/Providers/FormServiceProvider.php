@@ -14,7 +14,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Form Service Provider
  */
-class FormServiceProvider implements ServiceProviderInterface
+final class FormServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

@@ -9,7 +9,7 @@ use PDO;
 /**
  * Multi-Database Unit of Work - Manages transactions across multiple databases
  */
-class MultiDatabaseUnitOfWork
+final class MultiDatabaseUnitOfWork
 {
     /** @var array<string, PDO> */
     private array $connections = [];

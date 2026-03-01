@@ -15,7 +15,7 @@ namespace Application\Services;
  *
  * Usage: Call SessionSecurityConfig::configure() early in bootstrap
  */
-class SessionSecurityConfig
+final class SessionSecurityConfig
 {
     /**
      * Configure secure session settings

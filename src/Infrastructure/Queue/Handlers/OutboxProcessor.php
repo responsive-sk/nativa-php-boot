@@ -10,7 +10,7 @@ use PDO;
 /**
  * Outbox Processor - Processes events from the outbox table
  */
-class OutboxProcessor
+final class OutboxProcessor
 {
     private ?PDO $cmsConnection = null;
     private ?PDO $jobsConnection = null;

@@ -8,7 +8,7 @@ namespace Infrastructure\Paths;
  * AppPaths - Application-specific paths helper
  * Extends Paths with project-specific path methods
  */
-class AppPaths extends Paths
+final class AppPaths extends Paths
 {
     private static ?self $instance = null;
 

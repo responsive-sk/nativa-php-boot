@@ -13,7 +13,7 @@ use Infrastructure\Http\Response;
  *
  * Checks if user has required role
  */
-class RoleMiddleware
+final class RoleMiddleware
 {
     /**
      * @param string[] $roles Allowed roles

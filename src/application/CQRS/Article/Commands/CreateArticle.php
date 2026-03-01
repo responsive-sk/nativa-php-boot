@@ -9,7 +9,7 @@ use Application\CQRS\CommandInterface;
 /**
  * Create Article Command
  */
-class CreateArticle implements CommandInterface
+final class CreateArticle implements CommandInterface
 {
     public function __construct(
         public readonly string $title,

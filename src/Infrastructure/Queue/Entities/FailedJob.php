@@ -7,7 +7,7 @@ namespace Infrastructure\Queue\Entities;
 /**
  * Failed Job Entity
  */
-class FailedJob
+final class FailedJob
 {
     private ?string $id = null;
     private string $queue;

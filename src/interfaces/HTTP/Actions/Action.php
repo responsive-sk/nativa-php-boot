@@ -18,7 +18,7 @@ abstract class Action implements ActionInterface
      */
     protected function get(Request $request, string $key, mixed $default = null): mixed
     {
-        return $request->request($key, $request->query($key, $default));
+        return $request->getRequestParam($key, $request->getQueryParam($key, $default));
     }
 
     /**

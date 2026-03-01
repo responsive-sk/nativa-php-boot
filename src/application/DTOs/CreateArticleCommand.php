@@ -11,7 +11,7 @@ use Application\Validation\Validator;
  *
  * @phpstan-consistent-constructor
  */
-class CreateArticleCommand
+final class CreateArticleCommand
 {
     /**
      * @param array<string>|null $tags

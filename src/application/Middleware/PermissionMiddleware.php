@@ -14,7 +14,7 @@ use Infrastructure\Http\Response;
  *
  * Checks if user has required permission
  */
-class PermissionMiddleware
+final class PermissionMiddleware
 {
     public function __construct(
         private readonly AuthService $authService,

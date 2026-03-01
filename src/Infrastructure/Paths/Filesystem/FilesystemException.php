@@ -7,7 +7,7 @@ namespace Infrastructure\Paths\Filesystem;
 /**
  * Exception thrown when filesystem operations fail
  */
-class FilesystemException extends \RuntimeException
+final class FilesystemException extends \RuntimeException
 {
     public static function cannotReadFile(string $path, string $reason = ''): self
     {

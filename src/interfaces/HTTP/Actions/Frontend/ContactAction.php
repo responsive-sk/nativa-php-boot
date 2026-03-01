@@ -60,10 +60,10 @@ final class ContactAction extends Action
 
         try {
             $command = new SubmitContactCommand(
-                name: (string) $request->request('name', ''),
-                email: (string) $request->request('email', ''),
-                message: (string) $request->request('message', ''),
-                subject: (string) $request->request('subject', ''),
+                name: (string) $request->getRequestParam('name', ''),
+                email: (string) $request->getRequestParam('email', ''),
+                message: (string) $request->getRequestParam('message', ''),
+                subject: (string) $request->getRequestParam('subject', ''),
             );
 
             $this->contactManager->submit(
@@ -88,10 +88,10 @@ final class ContactAction extends Action
                     'page' => 'contact',
                     'errors' => $e->getErrors(),
                     'old' => [
-                        'name' => $request->request('name'),
-                        'email' => $request->request('email'),
-                        'subject' => $request->request('subject'),
-                        'message' => $request->request('message'),
+                        'name' => $request->getRequestParam('name'),
+                        'email' => $request->getRequestParam('email'),
+                        'subject' => $request->getRequestParam('subject'),
+                        'message' => $request->getRequestParam('message'),
                     ],
                 ],
                 'frontend/layouts/frontend'

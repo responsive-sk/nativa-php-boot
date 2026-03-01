@@ -9,7 +9,7 @@ namespace Infrastructure\Paths\Presets;
  * 
  * Provides Mezzio-specific directory structure and paths.
  */
-class MezzioPreset extends AbstractPreset
+final class MezzioPreset extends AbstractPreset
 {
     public function getName(): string
     {

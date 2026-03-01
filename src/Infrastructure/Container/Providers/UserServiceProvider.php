@@ -13,7 +13,7 @@ use Infrastructure\Container\ServiceProviderInterface;
 /**
  * User Service Provider
  */
-class UserServiceProvider implements ServiceProviderInterface
+final class UserServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

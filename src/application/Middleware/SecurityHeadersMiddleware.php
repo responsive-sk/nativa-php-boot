@@ -18,7 +18,7 @@ use Infrastructure\Http\Response;
  * - Referrer-Policy (information leakage)
  * - Permissions-Policy (browser features)
  */
-class SecurityHeadersMiddleware
+final class SecurityHeadersMiddleware
 {
     /**
      * CSP directives for TailwindCSS + Alpine.js

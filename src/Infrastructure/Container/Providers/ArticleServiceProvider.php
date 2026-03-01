@@ -16,7 +16,7 @@ use Infrastructure\Container\ServiceProviderInterface;
 /**
  * Article Service Provider
  */
-class ArticleServiceProvider implements ServiceProviderInterface
+final class ArticleServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

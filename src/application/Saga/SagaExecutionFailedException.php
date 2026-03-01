@@ -7,7 +7,7 @@ namespace Application\Saga;
 /**
  * Saga Execution Failed Exception
  */
-class SagaExecutionFailedException extends SagaException
+final class SagaExecutionFailedException extends SagaException
 {
     public function __construct(
         string $message,

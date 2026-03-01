@@ -7,6 +7,6 @@ namespace Application\Saga;
 /**
  * Base Saga Exception
  */
-class SagaException extends \RuntimeException
+final class SagaException extends \RuntimeException
 {
 }

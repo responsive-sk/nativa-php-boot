@@ -45,11 +45,11 @@ final class CreatePageAction extends Action
     private function store(Request $request): Response
     {
         try {
-            $title = (string) $request->request('title', '');
-            $content = (string) $request->request('content', '');
-            $template = (string) $request->request('template', 'default');
-            $metaTitle = (string) $request->request('metaTitle', '');
-            $metaDescription = (string) $request->request('metaDescription', '');
+            $title = (string) $request->getRequestParam('title', '');
+            $content = (string) $request->getRequestParam('content', '');
+            $template = (string) $request->getRequestParam('template', 'default');
+            $metaTitle = (string) $request->getRequestParam('metaTitle', '');
+            $metaDescription = (string) $request->getRequestParam('metaDescription', '');
             $isPublished = $request->request->getBoolean('isPublished', false);
 
             if (empty($title) || empty($content)) {

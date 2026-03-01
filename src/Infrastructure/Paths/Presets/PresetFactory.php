@@ -7,7 +7,7 @@ namespace Infrastructure\Paths\Presets;
 /**
  * Factory for creating framework presets
  */
-class PresetFactory
+final class PresetFactory
 {
     /**
      * Available presets

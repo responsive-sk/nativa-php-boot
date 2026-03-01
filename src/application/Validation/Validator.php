@@ -7,7 +7,7 @@ namespace Application\Validation;
 /**
  * Validator - Static validation methods
  */
-class Validator
+final class Validator
 {
     /**
      * @param array<string, mixed> $data

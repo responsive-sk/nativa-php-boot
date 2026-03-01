@@ -7,7 +7,7 @@ namespace Interfaces\HTTP\View;
 /**
  * TemplateRenderer - Native PHP template renderer with layout support
  */
-class TemplateRenderer
+final class TemplateRenderer
 {
     private string $templatesPath;
     private string $cachePath;

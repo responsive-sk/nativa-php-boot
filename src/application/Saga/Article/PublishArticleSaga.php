@@ -20,7 +20,7 @@ use Domain\Model\Article;
  * 
  * If any step fails, all previous steps are compensated (rolled back)
  */
-class PublishArticleSaga
+final class PublishArticleSaga
 {
     private SagaOrchestrator $orchestrator;
 

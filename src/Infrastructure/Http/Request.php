@@ -69,7 +69,7 @@ final class Request
      *
      * @param mixed $default
      */
-    public function query(string $key, mixed $default = null): mixed
+    public function getQueryParam(string $key, mixed $default = null): mixed
     {
         return $this->query[$key] ?? $default;
     }
@@ -79,7 +79,7 @@ final class Request
      *
      * @param mixed $default
      */
-    public function request(string $key, mixed $default = null): mixed
+    public function getRequestParam(string $key, mixed $default = null): mixed
     {
         return $this->request[$key] ?? $default;
     }
@@ -239,25 +239,5 @@ final class Request
     public function getUserAgent(): string
     {
         return $this->header('User-Agent', '');
-    }
-
-    /**
-     * Get request parameter (Symfony compatibility)
-     *
-     * @param mixed $default
-     */
-    public function request(string $key, mixed $default = null): mixed
-    {
-        return $this->request[$key] ?? $default;
-    }
-
-    /**
-     * Get query parameter (Symfony compatibility)
-     *
-     * @param mixed $default
-     */
-    public function query(string $key, mixed $default = null): mixed
-    {
-        return $this->query[$key] ?? $default;
     }
 }

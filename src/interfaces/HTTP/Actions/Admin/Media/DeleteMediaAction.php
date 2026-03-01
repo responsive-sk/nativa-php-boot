@@ -30,7 +30,7 @@ final class DeleteMediaAction extends Action
         }
 
         // Support form POST with _method override
-        if ($request->getMethod() === 'POST' && $request->request('_method') === 'DELETE') {
+        if ($request->getMethod() === 'POST' && $request->getRequestParam('_method') === 'DELETE') {
             return $this->delete($id);
         }
 

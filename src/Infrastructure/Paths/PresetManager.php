@@ -10,7 +10,7 @@ namespace Infrastructure\Paths;
  * Loads presets only when needed to save memory.
  * Presets are optional and loaded on-demand.
  */
-class PresetManager
+final class PresetManager
 {
     /** @var array<string, string> */
     private static array $presetClasses = [

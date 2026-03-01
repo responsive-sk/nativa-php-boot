@@ -11,7 +11,7 @@ use Domain\Model\Article;
 /**
  * Get Article By Slug Handler
  */
-class GetArticleBySlugHandler
+final class GetArticleBySlugHandler
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

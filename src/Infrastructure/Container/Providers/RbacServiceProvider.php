@@ -14,7 +14,7 @@ use Infrastructure\Persistence\Repositories\PermissionRepository;
 /**
  * RBAC Service Provider
  */
-class RbacServiceProvider implements ServiceProviderInterface
+final class RbacServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register bindings

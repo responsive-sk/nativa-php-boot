@@ -10,7 +10,7 @@ use Infrastructure\Queue\Entities\Job;
 /**
  * Queue Worker - Processes jobs from the queue
  */
-class Worker
+final class Worker
 {
     private bool $shouldQuit = false;
 

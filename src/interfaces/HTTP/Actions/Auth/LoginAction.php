@@ -55,9 +55,9 @@ final class LoginAction extends Action
 
         try {
             $command = LoginCommand::fromArray([
-                'email' => $request->request('email', ''),
-                'password' => $request->request('password', ''),
-                'remember_me' => $request->request('remember_me', false),
+                'email' => $request->getRequestParam('email', ''),
+                'password' => $request->getRequestParam('password', ''),
+                'remember_me' => $request->getRequestParam('remember_me', false),
             ]);
 
             $ipAddress = $request->getClientIp() ?? 'unknown';
@@ -86,7 +86,7 @@ final class LoginAction extends Action
             'title' => 'Login',
             'error' => $error ?? 'Login failed',
             'old' => [
-                'email' => $request->request('email', ''),
+                'email' => $request->getRequestParam('email', ''),
             ],
         ]);
 

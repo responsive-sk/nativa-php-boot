@@ -7,7 +7,7 @@ namespace Application\Exceptions;
 /**
  * Validation Exception
  */
-class ValidationException extends \InvalidArgumentException
+final class ValidationException extends \InvalidArgumentException
 {
     /**
      * @param array<string, string[]> $errors

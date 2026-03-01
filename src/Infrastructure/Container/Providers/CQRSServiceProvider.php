@@ -20,7 +20,7 @@ use Infrastructure\Container\ServiceProviderInterface;
 /**
  * CQRS Service Provider
  */
-class CQRSServiceProvider implements ServiceProviderInterface
+final class CQRSServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

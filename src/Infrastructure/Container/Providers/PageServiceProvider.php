@@ -14,7 +14,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Page Service Provider
  */
-class PageServiceProvider implements ServiceProviderInterface
+final class PageServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

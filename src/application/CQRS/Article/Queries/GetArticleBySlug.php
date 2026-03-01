@@ -9,7 +9,7 @@ use Application\CQRS\QueryInterface;
 /**
  * Get Article By Slug Query
  */
-class GetArticleBySlug implements QueryInterface
+final class GetArticleBySlug implements QueryInterface
 {
     public function __construct(
         public readonly string $slug,

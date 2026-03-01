@@ -10,7 +10,7 @@ use ReflectionParameter;
 /**
  * Lightweight Dependency Injection Container with auto-wiring
  */
-class Container
+final class Container
 {
     /** @var array<string, object> */
     private array $instances = [];

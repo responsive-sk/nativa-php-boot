@@ -14,7 +14,7 @@ use Infrastructure\Queue\Entities\Job;
  * Executes: Adds notification job to queue
  * Compensates: Nothing to rollback (notification already queued)
  */
-class QueueNotificationStep extends SagaStep
+final class QueueNotificationStep extends SagaStep
 {
     public function __construct(
         private readonly QueueRepository $queue,

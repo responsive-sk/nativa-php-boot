@@ -9,7 +9,7 @@ namespace Infrastructure\Paths\Presets;
  * 
  * Provides Slim 4-specific directory structure and paths.
  */
-class Slim4Preset extends AbstractPreset
+final class Slim4Preset extends AbstractPreset
 {
     public function getName(): string
     {

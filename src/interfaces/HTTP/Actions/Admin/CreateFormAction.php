@@ -45,11 +45,11 @@ final class CreateFormAction extends Action
     private function store(Request $request): Response
     {
         try {
-            $name = (string) $request->request('name', '');
-            $slug = (string) $request->request('slug', '');
-            $schema = json_decode($request->request('schema', '[]'), true);
-            $emailNotification = (string) $request->request('emailNotification', '');
-            $successMessage = (string) $request->request('successMessage', 'Thank you for your submission!');
+            $name = (string) $request->getRequestParam('name', '');
+            $slug = (string) $request->getRequestParam('slug', '');
+            $schema = json_decode($request->getRequestParam('schema', '[]'), true);
+            $emailNotification = (string) $request->getRequestParam('emailNotification', '');
+            $successMessage = (string) $request->getRequestParam('successMessage', 'Thank you for your submission!');
 
             $form = $this->formManager->create(
                 name: $name,

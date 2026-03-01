@@ -26,7 +26,7 @@ final class FormSubmissionsAction extends Action
     public function handle(Request $request): Response
     {
         $formId = (string) $this->param($request, 'id');
-        $page = max(1, (int) $request->query('page', 1));
+        $page = max(1, (int) $request->getQueryParam('page', 1));
         $limit = 20;
         $offset = ($page - 1) * $limit;
 

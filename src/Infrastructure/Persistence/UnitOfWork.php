@@ -10,7 +10,7 @@ use PDO;
  * Unit of Work Pattern Implementation
  * Ensures transactional consistency across repositories
  */
-class UnitOfWork
+final class UnitOfWork
 {
     private DatabaseConnection $db;
     private bool $transactionStarted = false;

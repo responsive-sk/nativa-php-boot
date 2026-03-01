@@ -12,7 +12,7 @@ use PDO;
 /**
  * SQLite Queue Repository
  */
-class QueueRepository
+final class QueueRepository
 {
     private PDO $connection;
 

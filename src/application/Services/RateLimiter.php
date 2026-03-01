@@ -16,7 +16,7 @@ namespace Application\Services;
  *       throw new RateLimitException('Too many attempts');
  *   }
  */
-class RateLimiter
+final class RateLimiter
 {
     private \PDO $db;
 

@@ -14,7 +14,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Contact Service Provider
  */
-class ContactServiceProvider implements ServiceProviderInterface
+final class ContactServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

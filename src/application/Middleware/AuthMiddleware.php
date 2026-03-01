@@ -14,7 +14,7 @@ use Infrastructure\Http\Response;
  *
  * Checks if user is authenticated
  */
-class AuthMiddleware
+final class AuthMiddleware
 {
     private const SESSION_TIMEOUT = 1800; // 30 minutes
 

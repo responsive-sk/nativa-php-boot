@@ -9,7 +9,7 @@ use Infrastructure\Http\Request;
 /**
  * Simple Router Implementation
  */
-class Router
+final class Router
 {
     /** @var array<array{method: string, pattern: string, callback: callable|array|string}> */
     private array $routes = [];

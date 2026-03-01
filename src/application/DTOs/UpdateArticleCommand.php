@@ -9,7 +9,7 @@ use Application\Validation\Validator;
 /**
  * Update Article Command DTO
  */
-class UpdateArticleCommand
+final class UpdateArticleCommand
 {
     public function __construct(
         public readonly string $articleId,

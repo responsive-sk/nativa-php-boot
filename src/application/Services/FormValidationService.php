@@ -17,7 +17,7 @@ use Domain\ValueObjects\Email;
  *   $result = $validator->validate($formData, $formSchema);
  *   if ($result->fails()) { /* handle errors *\/ }
  */
-class FormValidationService
+final class FormValidationService
 {
     /** @var array<string, array<string>> */
     private array $errors = [];

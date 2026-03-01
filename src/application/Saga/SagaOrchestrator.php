@@ -7,7 +7,7 @@ namespace Application\Saga;
 /**
  * Saga Orchestrator - Coordinates saga execution and rollback
  */
-class SagaOrchestrator
+final class SagaOrchestrator
 {
     /** @var array<SagaStepInterface> */
     private array $steps = [];

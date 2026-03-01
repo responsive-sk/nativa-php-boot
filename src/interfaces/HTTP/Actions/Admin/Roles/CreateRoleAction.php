@@ -36,8 +36,8 @@ final class CreateRoleAction extends Action
     public function store(Request $request): Response
     {
         try {
-            $name = $request->request('name', '');
-            $description = $request->request('description', '');
+            $name = $request->getRequestParam('name', '');
+            $description = $request->getRequestParam('description', '');
 
             if (empty($name)) {
                 throw new \InvalidArgumentException('Role name is required');
@@ -53,8 +53,8 @@ final class CreateRoleAction extends Action
                     'title' => 'Create Role',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request('name', ''),
-                        'description' => $request->request('description', ''),
+                        'name' => $request->getRequestParam('name', ''),
+                        'description' => $request->getRequestParam('description', ''),
                     ],
                 ],
                 'admin/layouts/base'
@@ -68,8 +68,8 @@ final class CreateRoleAction extends Action
                     'title' => 'Create Role',
                     'error' => $e->getMessage(),
                     'old' => [
-                        'name' => $request->request('name', ''),
-                        'description' => $request->request('description', ''),
+                        'name' => $request->getRequestParam('name', ''),
+                        'description' => $request->getRequestParam('description', ''),
                     ],
                 ],
                 'admin/layouts/base'

@@ -9,7 +9,7 @@ use Application\CQRS\QueryInterface;
 /**
  * List Published Articles Query
  */
-class ListArticles implements QueryInterface
+final class ListArticles implements QueryInterface
 {
     public function __construct(
         public readonly int $limit = 20,

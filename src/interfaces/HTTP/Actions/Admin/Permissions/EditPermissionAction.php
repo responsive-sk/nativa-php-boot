@@ -42,7 +42,7 @@ final class EditPermissionAction extends Action
     public function update(Request $request, string $id): Response
     {
         try {
-            $description = $request->request('description', '');
+            $description = $request->getRequestParam('description', '');
 
             $this->permissionService->updatePermissionDescription($id, $description);
 

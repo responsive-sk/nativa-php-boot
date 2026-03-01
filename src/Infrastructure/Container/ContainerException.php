@@ -7,6 +7,6 @@ namespace Infrastructure\Container;
 /**
  * Container Exception
  */
-class ContainerException extends \Exception
+final class ContainerException extends \Exception
 {
 }

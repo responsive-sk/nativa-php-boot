@@ -12,7 +12,7 @@ use Interfaces\HTTP\View\TemplateRenderer;
 /**
  * View Service Provider
  */
-class ViewServiceProvider implements ServiceProviderInterface
+final class ViewServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

@@ -16,7 +16,7 @@ use Infrastructure\Storage\Providers\MediaProviderInterface;
 /**
  * Media Service Provider
  */
-class MediaServiceProvider implements ServiceProviderInterface
+final class MediaServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

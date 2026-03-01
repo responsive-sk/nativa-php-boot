@@ -17,7 +17,7 @@ use Infrastructure\Persistence\UnitOfWork;
 /**
  * Auth Service Provider
  */
-class AuthServiceProvider implements ServiceProviderInterface
+final class AuthServiceProvider implements ServiceProviderInterface
 {
     #[\Override]
     public function register(Container $container): void

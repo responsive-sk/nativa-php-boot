@@ -11,7 +11,7 @@ use Domain\Model\Article;
 /**
  * Publish Article Handler
  */
-class PublishArticleHandler
+final class PublishArticleHandler
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

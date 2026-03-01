@@ -18,7 +18,7 @@ use Infrastructure\Http\Response;
  * 2. Include token in forms: <input type="hidden" name="_token" value="<?= CsrfMiddleware::token() ?>">
  * 3. Token is automatically validated on POST/PUT/DELETE/PATCH requests
  */
-class CsrfMiddleware
+final class CsrfMiddleware
 {
     private const TOKEN_KEY = 'csrf_token';
     private const TOKEN_LENGTH = 32;
@@ -113,7 +113,7 @@ class CsrfMiddleware
 /**
  * CSRF Validation Exception
  */
-class CsrfException extends \Exception
+final class CsrfException extends \Exception
 {
     public function __construct(string $message = 'CSRF token validation failed', int $code = 403)
     {

@@ -25,7 +25,7 @@ final class ListPermissionsAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $group = $request->query('group', '');
+        $group = $request->getQueryParam('group', '');
         
         if (!empty($group)) {
             $permissions = $this->permissionService->getPermissionsByGroup($group);

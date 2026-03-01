@@ -9,7 +9,7 @@ use Application\Validation\Validator;
 /**
  * Create Form Command DTO
  */
-class CreateFormCommand
+final class CreateFormCommand
 {
     /**
      * @param array<int, array<string, mixed>> $schema

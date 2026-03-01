@@ -13,7 +13,7 @@ use Infrastructure\Paths\AppPaths;
  * Executes: Clears article cache
  * Compensates: Nothing to rollback (cache will rebuild)
  */
-class InvalidateCacheStep extends SagaStep
+final class InvalidateCacheStep extends SagaStep
 {
     private AppPaths $paths;
     

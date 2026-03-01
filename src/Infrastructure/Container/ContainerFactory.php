@@ -20,7 +20,7 @@ use Domain\Events\EventDispatcherInterface;
 /**
  * Container Factory - Bootstrap the DI Container
  */
-class ContainerFactory
+final class ContainerFactory
 {
     /**
      * Create and configure the container

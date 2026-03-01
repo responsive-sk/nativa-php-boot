@@ -24,7 +24,7 @@ final class BlogAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $page = (int) $request->query('page', 1);
+        $page = (int) $request->getQueryParam('page', 1);
         $limit = 10;
         $offset = ($page - 1) * $limit;
         

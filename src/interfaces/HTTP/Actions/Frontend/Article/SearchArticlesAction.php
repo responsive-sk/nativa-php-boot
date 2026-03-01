@@ -25,7 +25,7 @@ final class SearchArticlesAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $query = $request->query('q', '');
+        $query = $request->getQueryParam('q', '');
 
         if (strlen($query) < 2) {
             return $this->error('Please enter a search term (minimum 2 characters)', 400);

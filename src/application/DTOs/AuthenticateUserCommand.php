@@ -9,7 +9,7 @@ use Application\Validation\Validator;
 /**
  * Authenticate User Command DTO
  */
-class AuthenticateUserCommand
+final class AuthenticateUserCommand
 {
     public function __construct(
         public readonly string $email,

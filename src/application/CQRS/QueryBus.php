@@ -7,7 +7,7 @@ namespace Application\CQRS;
 /**
  * Query Bus - Dispatches queries to handlers
  */
-class QueryBus
+final class QueryBus
 {
     /** @var array<class-string, callable> */
     private array $handlers = [];

@@ -7,7 +7,7 @@ namespace Application\DTOs;
 /**
  * DTO: Login Command
  */
-class LoginCommand
+final class LoginCommand
 {
     public function __construct(
         public readonly string $email,

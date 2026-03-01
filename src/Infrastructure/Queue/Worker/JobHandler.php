@@ -10,7 +10,7 @@ use Infrastructure\Queue\Handlers\JobHandlerRegistry;
 /**
  * Job Handler - Dispatches jobs to their handlers
  */
-class JobHandler implements JobHandlerInterface
+final class JobHandler implements JobHandlerInterface
 {
     public function __construct(
         private readonly JobHandlerRegistry $registry,

@@ -11,7 +11,7 @@ use Domain\Model\Article;
 /**
  * List Articles Handler
  */
-class ListArticlesHandler
+final class ListArticlesHandler
 {
     public function __construct(
         private readonly ArticleManager $articleManager,

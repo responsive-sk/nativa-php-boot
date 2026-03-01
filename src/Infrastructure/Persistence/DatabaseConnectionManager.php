@@ -10,7 +10,7 @@ use PDO;
 /**
  * Database Connection Manager - Manages multiple SQLite connections
  */
-class DatabaseConnectionManager
+final class DatabaseConnectionManager
 {
     /** @var array<string, PDO> */
     private array $connections = [];

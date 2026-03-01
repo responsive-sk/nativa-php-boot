@@ -55,7 +55,7 @@ use Infrastructure\Http\Response;
 /**
  * HTTP Kernel - Main entry point for handling requests
  */
-class Kernel
+final class Kernel
 {
     private Router $router;
     private \Infrastructure\Container\Container $container;
@@ -114,8 +114,8 @@ class Kernel
             $method = $originalMethod;
 
             if ($originalMethod === 'POST') {
-                $overrideMethod = $request->request('_method')
-                    ?? $request->query('_method')
+                $overrideMethod = $request->getRequestParam('_method')
+                    ?? $request->getQueryParam('_method')
                     ?? $request->headers('X-Http-Method-Override');
                 if ($overrideMethod) {
                     $method = strtoupper($overrideMethod);

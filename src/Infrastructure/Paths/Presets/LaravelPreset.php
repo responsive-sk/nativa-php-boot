@@ -9,7 +9,7 @@ namespace Infrastructure\Paths\Presets;
  * 
  * Provides Laravel-specific directory structure and paths.
  */
-class LaravelPreset extends AbstractPreset
+final class LaravelPreset extends AbstractPreset
 {
     public function getName(): string
     {

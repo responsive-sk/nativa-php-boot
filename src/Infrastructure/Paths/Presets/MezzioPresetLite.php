@@ -12,7 +12,7 @@ use Infrastructure\Paths\PresetInterface;
  * Memory-efficient Mezzio paths configuration.
  * Uses var/ directory by default for better practices.
  */
-class MezzioPresetLite implements PresetInterface
+final class MezzioPresetLite implements PresetInterface
 {
     private string $basePath;
     

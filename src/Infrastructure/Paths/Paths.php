@@ -28,7 +28,7 @@ use function urldecode;
  * @license MIT
  * @version 6.0.0
  */
-class Paths
+final class Paths
 {
     protected string $basePath;
 

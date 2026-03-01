@@ -25,9 +25,9 @@ final class ListArticlesApiAction extends Action
     #[\Override]
     public function handle(Request $request): JsonResponse
     {
-        $page = (int) $request->query('page', 1);
-        $limit = (int) $request->query('limit', 10);
-        $search = $request->query('q', '');
+        $page = (int) $request->getQueryParam('page', 1);
+        $limit = (int) $request->getQueryParam('limit', 10);
+        $search = $request->getQueryParam('q', '');
 
         $offset = ($page - 1) * $limit;
 

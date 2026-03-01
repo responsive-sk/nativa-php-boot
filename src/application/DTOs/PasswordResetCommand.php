@@ -7,7 +7,7 @@ namespace Application\DTOs;
 /**
  * DTO: Password Reset Command
  */
-class PasswordResetCommand
+final class PasswordResetCommand
 {
     public function __construct(
         public readonly string $token,

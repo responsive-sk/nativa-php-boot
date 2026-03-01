@@ -22,7 +22,7 @@ use Infrastructure\Http\Response;
  *   - API endpoints: 100 per minute
  *   - General: 60 per minute
  */
-class RateLimitMiddleware
+final class RateLimitMiddleware
 {
     private RateLimiter $rateLimiter;
 

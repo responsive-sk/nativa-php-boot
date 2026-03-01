@@ -7,7 +7,7 @@ namespace Application\DTOs;
 /**
  * DTO: Update User Command
  */
-class UpdateUserCommand
+final class UpdateUserCommand
 {
     public function __construct(
         public readonly string $userId,

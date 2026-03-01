@@ -7,7 +7,7 @@ namespace Infrastructure\Queue\Handlers;
 /**
  * Job Handler Registry
  */
-class JobHandlerRegistry
+final class JobHandlerRegistry
 {
     /** @var array<string, callable> */
     private array $handlers = [];

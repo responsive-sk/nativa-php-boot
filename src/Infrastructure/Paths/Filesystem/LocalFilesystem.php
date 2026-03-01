@@ -9,7 +9,7 @@ namespace Infrastructure\Paths\Filesystem;
  * 
  * Provides secure file operations with path validation
  */
-class LocalFilesystem implements FilesystemInterface
+final class LocalFilesystem implements FilesystemInterface
 {
     private string $basePath;
 
