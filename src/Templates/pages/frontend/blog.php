@@ -154,7 +154,7 @@ async function loadArticles() {
       ...(state.searchQuery ? { q: state.searchQuery } : {}),
     });
     
-    const response = await fetch('/api/articles?' + params.toString());
+    const response = await fetch('/articles?' + params.toString());
     const data = await response.json();
     
     const container = document.getElementById('blog-results');
