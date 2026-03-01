@@ -28,8 +28,6 @@ $appJs = AssetHelper::js('app.js');
 // Page-specific CSS - dynamically loaded from manifest.json
 $pageSpecificCssUrl = AssetHelper::pageCss($page);
 
-error_log("DEBUG: CMS layout rendering page: {$page}, title: {$pageTitle}");
-error_log("DEBUG: pageSpecificCssUrl: {$pageSpecificCssUrl}");
 ?>
 <!DOCTYPE html>
 <html lang="sk">

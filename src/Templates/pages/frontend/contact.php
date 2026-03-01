@@ -14,7 +14,6 @@ $contactHeroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_a
 $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_1280/v1658528026/cld-sample-4.jpg';
 
 // Debug logging
-error_log("DEBUG: contact.php template rendering - page: {$page}, title: {$pageTitle}");
 ?>
 
 <!-- Hero Section -->

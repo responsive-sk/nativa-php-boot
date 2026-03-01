@@ -43,7 +43,6 @@ final class AssetHelper
             $manifestPath = dirname(__DIR__, 3) . '/public' . self::$manifestPath;
         }
 
-        error_log("DEBUG: AssetHelper loading manifest from: {$manifestPath}");
 
         if (!file_exists($manifestPath)) {
             error_log("WARN: AssetHelper manifest.json not found at {$manifestPath}, using fallback mode");
@@ -65,8 +64,6 @@ final class AssetHelper
             return self::$manifest;
         }
 
-        error_log("DEBUG: AssetHelper loaded manifest with " . count($manifest) . " entries");
-        error_log("DEBUG: AssetHelper manifest keys: " . implode(', ', array_keys($manifest)));
 
         self::$manifest = $manifest;
         return self::$manifest;
@@ -98,7 +95,6 @@ final class AssetHelper
             if (isset($manifest[$key])) {
                 $file = $manifest[$key]['file'];
                 $url = self::$assetBaseUrl . $file;
-                error_log("DEBUG: AssetHelper resolved JS '{$asset}' → '{$url}' (legacy mapping: {$key})");
                 return $url;
             }
         }
@@ -119,14 +115,12 @@ final class AssetHelper
             if (isset($manifest[$key])) {
                 $file = $manifest[$key]['file'];
                 $url = self::$assetBaseUrl . $file;
-                error_log("DEBUG: AssetHelper resolved JS '{$asset}' → '{$url}' (manifest key: {$key})");
                 return $url;
             }
         }
 
         // Fallback to original asset name
         $url = self::$assetBaseUrl . $asset;
-        error_log("DEBUG: AssetHelper using fallback for JS '{$asset}' → '{$url}'");
         return $url;
     }
 
@@ -158,14 +152,12 @@ final class AssetHelper
                 if (isset($entry['css']) && is_array($entry['css']) && count($entry['css']) > 0) {
                     $cssFile = $entry['css'][0];
                     $url = self::$assetBaseUrl . $cssFile;
-                    error_log("DEBUG: AssetHelper resolved CSS '{$asset}' → '{$url}' (from manifest key: {$key})");
                     return $url;
                 }
                 
                 // If the entry itself is a CSS file
                 if (isset($entry['file']) && str_ends_with($entry['file'], '.css')) {
                     $url = self::$assetBaseUrl . $entry['file'];
-                    error_log("DEBUG: AssetHelper resolved CSS '{$asset}' → '{$url}' (manifest key: {$key})");
                     return $url;
                 }
             }
@@ -173,7 +165,6 @@ final class AssetHelper
 
         // Fallback to original asset name
         $url = self::$assetBaseUrl . $asset;
-        error_log("DEBUG: AssetHelper using fallback for CSS '{$asset}' → '{$url}'");
         return $url;
     }
 
@@ -191,13 +182,11 @@ final class AssetHelper
         if (isset($manifest[$asset])) {
             $file = $manifest[$asset]['file'];
             $url = self::$assetBaseUrl . $file;
-            error_log("DEBUG: AssetHelper resolved asset '{$asset}' → '{$url}'");
             return $url;
         }
 
         // Fallback to original asset name
         $url = self::$assetBaseUrl . $asset;
-        error_log("DEBUG: AssetHelper using fallback for asset '{$asset}' → '{$url}'");
         return $url;
     }
 
@@ -224,7 +213,6 @@ final class AssetHelper
         ];
         
         if (!isset($pageMap[$page])) {
-            error_log("DEBUG: AssetHelper pageCss - no entry for page: {$page}");
             return null;
         }
         
@@ -239,14 +227,12 @@ final class AssetHelper
         
         // Check if entry has CSS files
         if (!isset($entry['css']) || !is_array($entry['css']) || empty($entry['css'])) {
-            error_log("DEBUG: AssetHelper pageCss - no CSS for entry: {$entryKey}");
             return null;
         }
         
         $cssFile = $entry['css'][0];
         $url = self::$assetBaseUrl . $cssFile;
         
-        error_log("DEBUG: AssetHelper pageCss resolved '{$page}' → '{$url}'");
         return $url;
     }
 
@@ -255,7 +241,6 @@ final class AssetHelper
      */
     public static function clearCache(): void
     {
-        error_log("DEBUG: AssetHelper clearing manifest cache");
         self::$manifest = null;
     }
 

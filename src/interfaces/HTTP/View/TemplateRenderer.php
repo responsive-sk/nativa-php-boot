@@ -160,7 +160,6 @@ class TemplateRenderer
             // Frontend templates (Templates/pages/frontend)
             $templatePath .= '/pages/frontend';
             $template = substr($template, 9); // Remove 'frontend/' prefix
-            error_log("DEBUG: TemplateRenderer using frontend template: {$template}");
         } else {
             // Legacy frontend templates
             $templatePath .= '/pages';
@@ -173,7 +172,6 @@ class TemplateRenderer
             throw new \RuntimeException("Template not found: {$templatePath}");
         }
 
-        error_log("DEBUG: TemplateRenderer rendering template: {$templatePath}");
         
         // Invalidate OPcache for this template file (development mode)
         if (function_exists('opcache_invalidate')) {
@@ -223,7 +221,6 @@ class TemplateRenderer
             $layoutPath .= '/layouts/admin.php';
         } elseif (str_starts_with($layout, 'frontend/')) {
             $layoutPath .= '/layouts/frontend.php';
-            error_log("DEBUG: TemplateRenderer using frontend layout");
         } else {
             // Legacy layouts
             $layoutPath .= '/layouts/' . $layout . '.php';
@@ -234,7 +231,6 @@ class TemplateRenderer
             throw new \RuntimeException("Layout not found: {$layoutPath}");
         }
 
-        error_log("DEBUG: TemplateRenderer rendering layout: {$layoutPath}");
 
         // Extract data for layout including content
         $data = array_merge($this->currentData, ['content' => $this->currentContent]);
