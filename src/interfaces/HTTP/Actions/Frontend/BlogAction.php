@@ -28,7 +28,6 @@ final class BlogAction extends Action
         $limit = 10;
         $offset = ($page - 1) * $limit;
         
-        error_log("DEBUG: BlogAction handling request - page: {$page}, limit: {$limit}, offset: {$offset}");
 
         try {
             // Get published articles with pagination
@@ -36,7 +35,6 @@ final class BlogAction extends Action
             $total = $this->articleManager->countPublished();
             $totalPages = (int) ceil($total / $limit);
             
-            error_log("DEBUG: BlogAction found {$total} articles, showing page {$page} of {$totalPages}");
 
             $content = $this->renderer->render(
                 'frontend/blog',
@@ -51,7 +49,6 @@ final class BlogAction extends Action
                 'frontend/layouts/frontend'
             );
 
-            error_log("INFO: BlogAction blog listing rendered successfully");
 
             return $this->html($content);
         } catch (\Throwable $e) {

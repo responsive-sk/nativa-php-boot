@@ -217,7 +217,6 @@ final class ArticleManager
     {
         // Direct SQL update to avoid foreign key issues with full entity save
         $this->articleRepository->incrementViewCount($articleId);
-        error_log("DEBUG: ArticleManager incremented view count for article {$articleId}");
     }
 
     /**
@@ -251,7 +250,6 @@ final class ArticleManager
         // Remove current article and limit results
         $related = array_filter($related, fn($a) => $a->id() !== $currentArticle->id());
         
-        error_log("DEBUG: ArticleManager found " . count($related) . " related articles");
         
         return array_slice($related, 0, $limit);
     }

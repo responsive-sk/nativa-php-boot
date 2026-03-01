@@ -11,7 +11,6 @@
 
 $articleList = $relatedArticles ?? [];
 
-error_log("DEBUG: blog/show.php template rendering article: " . $article->title());
 ?>
 
 <!-- Article Header -->

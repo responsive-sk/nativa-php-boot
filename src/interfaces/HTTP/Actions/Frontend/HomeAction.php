@@ -39,7 +39,6 @@ final class HomeAction extends Action
             'frontend/layouts/frontend'
         );
 
-        error_log("INFO: HomeAction homepage rendered successfully");
 
         return $this->html($content);
     }

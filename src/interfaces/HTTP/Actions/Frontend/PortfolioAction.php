@@ -22,7 +22,6 @@ final class PortfolioAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        error_log("DEBUG: PortfolioAction handling request");
 
         try {
             $content = $this->renderer->render(
@@ -35,7 +34,6 @@ final class PortfolioAction extends Action
                 'frontend/layouts/frontend'
             );
 
-            error_log("INFO: PortfolioAction portfolio page rendered successfully");
 
             return $this->html($content);
         } catch (\Throwable $e) {

@@ -18,7 +18,6 @@ $articleList = $articles ?? [];
 $currentPage = $currentPage ?? 1;
 $totalPages = $totalPages ?? 1;
 
-error_log("DEBUG: blog.php template rendering - page: {$currentPage}, total: {$totalPages}, articles: " . count($articleList));
 ?>
 
 <!-- Hero Section (Portfolio style) -->

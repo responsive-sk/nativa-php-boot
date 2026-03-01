@@ -11,7 +11,6 @@
 $portfolioHeroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_768/v1658528027/cld-sample-5.jpg';
 $portfolioHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_1280/v1658528027/cld-sample-5.jpg';
 
-error_log("DEBUG: portfolio.php template rendering");
 ?>
 
 <section class="portfolio">

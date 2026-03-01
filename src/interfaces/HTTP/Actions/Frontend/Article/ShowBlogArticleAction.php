@@ -27,7 +27,6 @@ final class ShowBlogArticleAction extends Action
     {
         $slug = $this->param($request, 'slug');
         
-        error_log("DEBUG: ShowBlogArticleAction looking for article slug: {$slug}");
         
         $article = $this->articleManager->findBySlug($slug);
 
@@ -36,7 +35,6 @@ final class ShowBlogArticleAction extends Action
             return $this->notFound('Article not found');
         }
 
-        error_log("DEBUG: ShowBlogArticleAction found article: " . $article->title());
 
         // Increment view count
         $this->articleManager->incrementViewCount($article->id());
@@ -56,7 +54,6 @@ final class ShowBlogArticleAction extends Action
             'frontend/layouts/frontend'
         );
 
-        error_log("INFO: ShowBlogArticleAction article detail rendered successfully: {$slug}");
 
         return $this->html($content);
     }
