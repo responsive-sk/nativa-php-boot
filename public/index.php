@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 // ============================================================================
 // HTML MINIFICATION (Production Only)
-// Compresses HTML output to reduce bandwidth
+// DISABLED: ModSecurity WAF blocks minified output
+// Enable only if you control the server WAF rules
 // ============================================================================
+/*
 if (($_ENV['APP_DEBUG'] ?? 'false') !== 'true') {
     ob_start(function ($buffer) {
         $originalBuffer = $buffer;
@@ -67,6 +69,7 @@ if (($_ENV['APP_DEBUG'] ?? 'false') !== 'true') {
         return $buffer;
     });
 }
+*/
 
 // Invalidate OPcache for development - ensures changes are picked up immediately
 // Skip in production to avoid performance impact
