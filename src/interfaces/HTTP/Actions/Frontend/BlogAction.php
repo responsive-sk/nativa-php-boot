@@ -56,7 +56,7 @@ final class BlogAction extends Action
             return $this->html($content);
         } catch (\Throwable $e) {
             error_log("ERROR: BlogAction error: " . $e->getMessage());
-            return $this->error(500);
+            return $this->error('Internal Server Error', 500);
         }
     }
 
