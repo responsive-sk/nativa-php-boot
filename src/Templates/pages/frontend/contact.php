@@ -20,8 +20,8 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
 <section class="contact-hero">
     <div class="contact-hero__overlay"></div>
     <picture class="contact-hero__picture">
-        <source media="(min-width: 769px)" srcset="<?= $contactHeroImageDesktop ?>" crossorigin="anonymous">
-        <img src="<?= $contactHeroImageMobile ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720" crossorigin="anonymous">
+        <source media="(min-width: 769px)" srcset="<?= $contactHeroImageDesktop ?>">
+        <img src="<?= $contactHeroImageMobile ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720">
     </picture>
     <div class="contact-hero__content">
         <h1>Get In Touch</h1>

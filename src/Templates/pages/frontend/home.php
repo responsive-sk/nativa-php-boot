@@ -20,8 +20,8 @@ $extraHeadLinks = '<link rel="preload" as="image" href="' . $heroImageDesktop . 
 <section class="hero">
     <div class="hero__overlay"></div>
     <picture class="hero__picture">
-        <source media="(min-width: 769px)" srcset="<?= $heroImageDesktop ?>" crossorigin="anonymous">
-        <img src="<?= $heroImageMobile ?>" alt="Hero background" fetchpriority="high" loading="eager" decoding="async" class="hero__image" width="1280" height="720" crossorigin="anonymous">
+        <source media="(min-width: 769px)" srcset="<?= $heroImageDesktop ?>">
+        <img src="<?= $heroImageMobile ?>" alt="Hero background" fetchpriority="high" loading="eager" decoding="async" class="hero__image" width="1280" height="720">
     </picture>
     <div class="hero__content">
         <h1 class="hero__title" data-greeting>Welcome to Nativa CMS</h1>
