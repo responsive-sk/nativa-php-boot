@@ -27,7 +27,6 @@ final class HomeAction extends Action
     {
         $articles = $this->articleManager->listLatest(10);
         
-        error_log("DEBUG: HomeAction rendering with " . count($articles) . " articles");
 
         $content = $this->renderer->render(
             'frontend/home',

@@ -173,9 +173,14 @@ class TemplateRenderer
         }
 
         
-        // Invalidate OPcache for this template file (development mode)
-        if (function_exists('opcache_invalidate')) {
-            opcache_invalidate($templatePath, true);
+        // Invalidate OPcache for this template file (development mode only)
+        if ($this->debug && function_exists('opcache_invalidate')) {
+            try {
+                opcache_invalidate($templatePath, true);
+            } catch (\Throwable $e) {
+                // OPcache may be restricted on shared hosting
+                // Silently ignore - templates will still work
+            }
         }
 
         // Check in-memory cache first
