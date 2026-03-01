@@ -194,12 +194,17 @@ class TemplateRenderer
             $templateMtime = filemtime($templatePath);
             $cacheMtime = file_exists($cacheFile) ? filemtime($cacheFile) : false;
 
-            if ($templateMtime === false || ($cacheMtime !== false && $templateMtime > $cacheMtime)) {
+            // Compile if cache doesn't exist or template is newer
+            if ($cacheMtime === false || $templateMtime > $cacheMtime) {
                 $this->compileTemplate($templatePath, $cacheFile);
             }
 
-            $templatePath = $cacheFile;
-            $this->templateCache[$cacheKey] = $templatePath;
+            // Use cache file if it exists, otherwise use original template
+            if (file_exists($cacheFile)) {
+                $templatePath = $cacheFile;
+                $this->templateCache[$cacheKey] = $templatePath;
+            }
+            // else: use original $templatePath (fallback for production)
         }
 
         // Extract data for template
