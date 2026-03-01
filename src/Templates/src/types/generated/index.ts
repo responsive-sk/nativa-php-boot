@@ -19,6 +19,8 @@ export type { ArticleStatus } from './ArticleStatus';
 export { isArticleStatus } from './ArticleStatus';
 export type { Role } from './Role';
 export { isRole } from './Role';
+export type { PermissionName } from './PermissionName';
+export { isPermissionName } from './PermissionName';
 export type { Slug } from './Slug';
 export { isSlug } from './Slug';
 export type { Email } from './Email';

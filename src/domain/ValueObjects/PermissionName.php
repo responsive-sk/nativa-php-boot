@@ -10,18 +10,18 @@ namespace Domain\ValueObjects;
  * Represents a permission identifier in the format: "resource.action"
  * Examples: "admin.dashboard", "articles.create", "users.manage"
  */
-final class PermissionName
+final readonly class PermissionName
 {
-    private string $name;
-    private string $resource;
-    private string $action;
-
-    private function __construct(string $name)
-    {
-        $this->name = $name;
-        $parts = explode('.', $name);
-        $this->resource = $parts[0];
-        $this->action = implode('.', array_slice($parts, 1));
+    /**
+     * @param non-empty-string $name
+     * @param non-empty-string $resource
+     * @param non-empty-string $action
+     */
+    private function __construct(
+        private string $name,
+        private string $resource,
+        private string $action,
+    ) {
     }
 
     /**
@@ -30,7 +30,12 @@ final class PermissionName
     public static function fromString(string $name): self
     {
         self::validate($name);
-        return new self($name);
+        
+        $parts = explode('.', $name);
+        $resource = $parts[0];
+        $action = implode('.', array_slice($parts, 1));
+        
+        return new self($name, $resource, $action);
     }
 
     /**
@@ -40,7 +45,8 @@ final class PermissionName
     {
         $name = sprintf('%s.%s', $resource, $action);
         self::validate($name);
-        return new self($name);
+        
+        return new self($name, $resource, $action);
     }
 
     /**
@@ -85,9 +91,17 @@ final class PermissionName
     /**
      * Check if equals another permission
      */
-    public function equals(PermissionName $other): bool
+    public function equals(self $other): bool
     {
         return $this->name === $other->name;
+    }
+
+    /**
+     * Get string representation
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     /**
