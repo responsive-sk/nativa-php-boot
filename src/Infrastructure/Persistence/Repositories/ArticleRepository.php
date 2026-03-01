@@ -168,8 +168,8 @@ use PDO;
     {
         // SQLite doesn't support bound parameters for LIMIT/OFFSET
         // Sanitize inputs to prevent SQL injection
-        $limit = max(1, min(100, (int) $limit));
-        $offset = max(0, (int) $offset);
+        $limit = max(1, min(100, $limit));
+        $offset = max(0, $offset);
 
         $sql = <<<SQL
             SELECT * FROM articles

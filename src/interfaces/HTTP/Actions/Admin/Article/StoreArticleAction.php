@@ -25,7 +25,7 @@ final class StoreArticleAction extends Action
     public function __invoke(Request $request): Response
     {
         try {
-            $data = $request->request->all();
+            $data = $request->getRequest();
 
             $article = $this->articleManager->create(
                 title: $data['title'],

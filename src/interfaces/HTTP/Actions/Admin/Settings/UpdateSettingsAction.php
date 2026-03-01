@@ -24,7 +24,7 @@ final class UpdateSettingsAction extends Action
     public function handle(Request $request): Response
     {
         try {
-            $data = $request->request->all();
+            $data = $request->getRequest();
             
             // TODO: Validate and save settings to database
             // For now, just redirect back with success

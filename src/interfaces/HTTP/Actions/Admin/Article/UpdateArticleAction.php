@@ -23,7 +23,7 @@ final class UpdateArticleAction extends Action
     public function __invoke(Request $request, string $id): Response
     {
         try {
-            $data = $request->request->all();
+            $data = $request->getRequest();
 
             $this->articleManager->update(
                 articleId: $id,
