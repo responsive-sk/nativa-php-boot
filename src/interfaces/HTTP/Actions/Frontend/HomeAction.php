@@ -26,12 +26,21 @@ final class HomeAction extends Action
     public function handle(Request $request): Response
     {
         $articles = $this->articleManager->listLatest(10);
+        
+        error_log("DEBUG: HomeAction rendering with " . count($articles) . " articles");
 
         $content = $this->renderer->render(
-            'pages/home',
-            ['articles' => $articles, 'title' => 'Welcome'],
-            'layouts/base'
+            'frontend/home',
+            [
+                'articles' => $articles,
+                'pageTitle' => 'Nativa CMS - Modern PHP Blog Platform',
+                'page' => 'home',
+                'metaDescription' => 'Modern PHP 8.4+ CMS and Blog Platform with admin panel',
+            ],
+            'frontend/layouts/frontend'
         );
+
+        error_log("INFO: HomeAction homepage rendered successfully");
 
         return $this->html($content);
     }

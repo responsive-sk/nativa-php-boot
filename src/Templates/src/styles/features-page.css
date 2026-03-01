@@ -1,0 +1,119 @@
+.features-section {
+    padding: var(--space-3xl) 0;
+}
+
+.features-section .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+.features-section .feature-card {
+    background: var(--color-dark);
+    border: 1px solid var(--color-gray);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-xl);
+    transition: all var(--transition-normal);
+}
+
+.features-section .feature-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-4px);
+}
+
+.features-section .feature-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-lg);
+    color: var(--color-gold);
+}
+
+.features-section .feature-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.features-section .feature-card p {
+    color: var(--color-white-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.how-it-works {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--color-gray);
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.how-it-works .section-title {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.how-it-works .section-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--color-white-muted);
+    margin-bottom: var(--space-2xl);
+}
+
+.how-it-works .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+.how-it-works .step-card {
+    text-align: center;
+    padding: var(--space-xl);
+}
+
+.how-it-works .step-number {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    opacity: 0.5;
+    margin-bottom: var(--space-md);
+}
+
+.how-it-works .step-card h3 {
+    font-size: 1.25rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.how-it-works .step-card p {
+    color: var(--color-white-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .features-section .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .how-it-works .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-section .features-grid {
+        grid-template-columns: 1fr;
+    }
+}

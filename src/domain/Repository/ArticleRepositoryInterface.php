@@ -52,4 +52,22 @@ interface ArticleRepositoryInterface
     public function count(): int;
 
     public function countPublished(): int;
+
+    /**
+     * Find published articles by category ID
+     *
+     * @param string $categoryId Category ID
+     * @param int $limit Maximum results
+     * @return array<int, Article>
+     */
+    public function findByCategory(string $categoryId, int $limit = 10): array;
+
+    /**
+     * Find published articles by any of the given tags
+     *
+     * @param array<int, \Domain\Model\Tag> $tags Tags to search for
+     * @param int $limit Maximum results
+     * @return array<int, Article>
+     */
+    public function findByAnyTag(array $tags, int $limit = 10): array;
 }

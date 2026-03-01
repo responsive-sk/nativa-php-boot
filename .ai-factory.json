@@ -25,17 +25,14 @@
         "aif-rules",
         "aif-security-checklist",
         "aif-skill-generator",
-        "aif-verify",
-        "sqlite-database-expert",
-        "task-manager"
+        "aif-verify"
       ],
       "mcp": {
         "github": true,
         "filesystem": true,
         "postgres": false,
         "chromeDevtools": true,
-        "playwright": true,
-        "task-manager": true
+        "playwright": true
       }
     }
   ],

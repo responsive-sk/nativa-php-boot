@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Interfaces\HTTP;
 
 use Interfaces\HTTP\Actions\Frontend\HomeAction;
+use Interfaces\HTTP\Actions\Frontend\BlogAction;
+use Interfaces\HTTP\Actions\Frontend\PortfolioAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
+use Interfaces\HTTP\Actions\Frontend\Article\ShowBlogArticleAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ByTagAction;
 use Interfaces\HTTP\Actions\Frontend\Article\SearchArticlesAction;
 use Interfaces\HTTP\Actions\Frontend\ContactAction;
@@ -247,6 +250,19 @@ class Kernel
     {
         // Frontend Routes - Actions pattern
         $this->router->get('/', HomeAction::class);
+        
+        // Blog routes (new frontend)
+        $this->router->get('/blog', BlogAction::class);
+        $this->router->get('/blog/{slug}', ShowBlogArticleAction::class);
+
+        // Portfolio route
+        $this->router->get('/portfolio', PortfolioAction::class);
+        
+        // Contact route
+        $this->router->get('/contact', ContactAction::class);
+        $this->router->post('/contact', ContactAction::class);
+        
+        // Legacy article routes (keep for backward compatibility)
         $this->router->get('/articles', ListArticlesAction::class);
         $this->router->get('/articles/{slug}', ShowArticleAction::class);
         $this->router->get('/tag/{slug}', ByTagAction::class);

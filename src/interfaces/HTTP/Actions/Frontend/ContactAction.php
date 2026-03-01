@@ -37,9 +37,14 @@ final class ContactAction extends Action
     public function show(Request $request): Response
     {
         $content = $this->renderer->render(
-            'pages/contact',
-            ['title' => 'Contact Us'],
-            'layouts/base'
+            'frontend/contact',
+            [
+                'title' => 'Contact Us',
+                'pageTitle' => 'Contact',
+                'page' => 'contact',
+                'metaDescription' => 'Get in touch with us',
+            ],
+            'frontend/layouts/frontend'
         );
 
         return $this->html($content);
@@ -70,15 +75,17 @@ final class ContactAction extends Action
 
             // Redirect with success message
             $request->getSession()?->getFlashBag()->set('success', 'Thank you for your message! We will get back to you soon.');
-            
+
             return $this->redirect('/contact');
 
         } catch (\Application\Exceptions\ValidationException $e) {
             // Re-display form with errors
             $content = $this->renderer->render(
-                'pages/contact',
+                'frontend/contact',
                 [
                     'title' => 'Contact Us',
+                    'pageTitle' => 'Contact',
+                    'page' => 'contact',
                     'errors' => $e->getErrors(),
                     'old' => [
                         'name' => $request->request->get('name'),
@@ -87,7 +94,7 @@ final class ContactAction extends Action
                         'message' => $request->request->get('message'),
                     ],
                 ],
-                'layouts/base'
+                'frontend/layouts/frontend'
             );
 
             return $this->html($content, 400);

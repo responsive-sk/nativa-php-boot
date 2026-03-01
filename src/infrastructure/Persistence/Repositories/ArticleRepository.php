@@ -278,8 +278,73 @@ use PDO;
         SQL;
 
         $rows = $this->fetchAll($sql, [$articleId]);
-        
+
         /** @var array<int, array{name: string}> $rows */
         return array_column($rows, 'name');
+    }
+
+    #[\Override]
+    public function findByCategory(string $categoryId, int $limit = 10): array
+    {
+        $sql = <<<SQL
+            SELECT * FROM articles
+            WHERE category_id = ? AND status = 'published'
+            ORDER BY published_at DESC
+            LIMIT ?
+        SQL;
+
+        $rows = $this->fetchAll($sql, [$categoryId, $limit]);
+
+        $articles = [];
+        foreach ($rows as $row) {
+            /** @var array<string, mixed> $row */
+            $row['tags'] = $this->getTags($row['id']);
+            $articles[] = Article::fromArray($row);
+        }
+
+        return $articles;
+    }
+
+    #[\Override]
+    public function findByAnyTag(array $tags, int $limit = 10): array
+    {
+        if (empty($tags)) {
+            return [];
+        }
+
+        // Extract tag slugs from Tag objects
+        $tagSlugs = array_map(fn($tag) => $tag instanceof \Domain\Model\Tag ? $tag->slug() : $tag, $tags);
+        $placeholders = implode(',', array_fill(0, count($tagSlugs), '?'));
+
+        $sql = <<<SQL
+            SELECT DISTINCT a.* FROM articles a
+            INNER JOIN article_tag at ON a.id = at.article_id
+            INNER JOIN tags t ON at.tag_id = t.id
+            WHERE t.slug IN ($placeholders) AND a.status = 'published'
+            ORDER BY a.published_at DESC
+            LIMIT ?
+        SQL;
+
+        $params = array_merge($tagSlugs, [$limit]);
+        $rows = $this->fetchAll($sql, $params);
+
+        $articles = [];
+        foreach ($rows as $row) {
+            /** @var array<string, mixed> $row */
+            $row['tags'] = $this->getTags($row['id']);
+            $articles[] = Article::fromArray($row);
+        }
+
+        return $articles;
+    }
+
+    /**
+     * Increment view count for an article
+     */
+    public function incrementViewCount(string $articleId): void
+    {
+        $sql = 'UPDATE articles SET views = views + 1 WHERE id = ?';
+        $stmt = $this->uow->getConnection()->prepare($sql);
+        $stmt->execute([$articleId]);
     }
 }

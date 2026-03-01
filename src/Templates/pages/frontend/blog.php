@@ -1,0 +1,129 @@
+<?php declare(strict_types=1);
+
+/**
+ * Blog Listing Template - CMS Integration
+ *
+ * @var array $articles Array of Article entities
+ * @var int $currentPage Current page number
+ * @var int $totalPages Total number of pages
+ * @var string $pageTitle Page title
+ * @var string $page Page identifier
+ */
+
+// Cloudinary hero images
+$blogHeroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_768/v1658528025/cld-sample-2.jpg';
+$blogHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_1280/v1658528025/cld-sample-2.jpg';
+
+$articleList = $articles ?? [];
+$currentPage = $currentPage ?? 1;
+$totalPages = $totalPages ?? 1;
+
+error_log("DEBUG: blog.php template rendering - page: {$currentPage}, total: {$totalPages}, articles: " . count($articleList));
+?>
+
+<!-- Hero Section (Portfolio style) -->
+<section class="blog-hero">
+    <div class="blog-hero__overlay"></div>
+    <picture class="blog-hero__picture">
+        <source media="(min-width: 769px)" srcset="<?= $blogHeroImageDesktop ?>" crossorigin="anonymous">
+        <img src="<?= $blogHeroImageMobile ?>" alt="Blog background" fetchpriority="high" loading="eager" decoding="async" class="blog-hero__image" width="1280" height="720" crossorigin="anonymous">
+    </picture>
+    <div class="blog-hero__content">
+        <h1>Our Blog</h1>
+        <p>Latest insights and tutorials from Nativa CMS</p>
+    </div>
+</section>
+
+<!-- Blog Content -->
+<section class="blog">
+    <div class="blog-search">
+        <form class="blog-search__form"
+              hx-get="/blog/search"
+              hx-target="#blog-results"
+              hx-trigger="keyup changed delay:300ms, submit"
+              hx-indicator=".htmx-indicator">
+            <div class="blog-search__input-group">
+                <input
+                    type="search"
+                    name="q"
+                    placeholder="Search articles..."
+                    class="blog-search__input"
+                    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>"
+                >
+                <button type="submit" class="blog-search__submit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    Search
+                </button>
+            </div>
+            <div class="htmx-indicator">
+                <svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10" stroke-width="2" opacity="0.25"/>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Search results will be loaded here via HTMX -->
+    <div id="blog-results"></div>
+
+    <?php if (empty($articleList)): ?>
+    <div class="blog-empty">
+        <h2>No Articles Yet</h2>
+        <p>Check back soon for new content!</p>
+        <a href="/admin/articles/create" class="btn btn--primary">Create First Article</a>
+    </div>
+    <?php else: ?>
+    <div class="blog-grid">
+        <?php foreach ($articleList as $article): ?>
+        <article class="blog-card">
+            <div class="blog-card__content">
+                <h2 class="blog-card__title">
+                    <a href="/blog/<?= $this->e($article->slug()) ?>">
+                        <?= $this->e($article->title()) ?>
+                    </a>
+                </h2>
+                <div class="blog-card__meta">
+                    <span class="blog-card__author">
+                        By <?= $this->e($article->authorId()) ?>
+                    </span>
+                    <span class="blog-card__date">
+                        <?= $this->date($article->publishedAt()) ?>
+                    </span>
+                </div>
+                <p class="blog-card__excerpt">
+                    <?= $this->e($article->excerpt() ?: substr(strip_tags($article->content()), 0, 200) . '...') ?>
+                </p>
+                <a href="/blog/<?= $this->e($article->slug()) ?>" class="blog-card__link">
+                    Read more →
+                </a>
+            </div>
+        </article>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Pagination -->
+    <?php if ($totalPages > 1): ?>
+    <nav class="pagination">
+        <?php if ($currentPage > 1): ?>
+        <a href="/blog?page=<?= $currentPage - 1 ?>" class="pagination__link pagination__link--prev">
+            ← Previous
+        </a>
+        <?php endif; ?>
+
+        <span class="pagination__info">
+            Page <?= $currentPage ?> of <?= $totalPages ?>
+        </span>
+
+        <?php if ($currentPage < $totalPages): ?>
+        <a href="/blog?page=<?= $currentPage + 1 ?>" class="pagination__link pagination__link--next">
+            Next →
+        </a>
+        <?php endif; ?>
+    </nav>
+    <?php endif; ?>
+    <?php endif; ?>
+</section>

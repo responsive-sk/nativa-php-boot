@@ -211,6 +211,52 @@ final class ArticleManager
     }
 
     /**
+     * Increment view count for an article
+     */
+    public function incrementViewCount(string $articleId): void
+    {
+        // Direct SQL update to avoid foreign key issues with full entity save
+        $this->articleRepository->incrementViewCount($articleId);
+        error_log("DEBUG: ArticleManager incremented view count for article {$articleId}");
+    }
+
+    /**
+     * Find related articles (by category or tags, excluding current article)
+     *
+     * @param Article $currentArticle Current article
+     * @param int $limit Maximum number of related articles
+     * @return array<Article>
+     */
+    public function findRelated(Article $currentArticle, int $limit = 3): array
+    {
+        $related = [];
+        
+        // Try to find by category first
+        if ($currentArticle->categoryId() !== null) {
+            $related = $this->articleRepository->findByCategory(
+                $currentArticle->categoryId(),
+                $limit + 1 // Get one extra to exclude current
+            );
+        }
+        
+        // If not enough, try to find by tags
+        if (count($related) < $limit && !empty($currentArticle->tags())) {
+            $tagRelated = $this->articleRepository->findByAnyTag(
+                $currentArticle->tags(),
+                $limit - count($related) + 1
+            );
+            $related = array_merge($related, $tagRelated);
+        }
+        
+        // Remove current article and limit results
+        $related = array_filter($related, fn($a) => $a->id() !== $currentArticle->id());
+        
+        error_log("DEBUG: ArticleManager found " . count($related) . " related articles");
+        
+        return array_slice($related, 0, $limit);
+    }
+
+    /**
      * Dispatch all pending events from entity
      */
     private function dispatchEvents(Article $article): void

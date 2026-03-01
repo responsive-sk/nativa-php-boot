@@ -1,0 +1,106 @@
+/* ===== BUTTON ===== */
+/* BEM naming convention: .btn--modifier */
+
+.btn {
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    color: var(--color-black);
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-gold);
+    display: inline-block;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Variants */
+.btn--primary {
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    color: var(--color-black);
+}
+
+.btn--outline {
+    background: transparent;
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    box-shadow: none;
+}
+
+.btn--outline:hover {
+    background: var(--color-gold);
+    color: var(--color-black);
+}
+
+.btn--secondary {
+    background: var(--color-bg-hover);
+    color: var(--color-text);
+    box-shadow: none;
+}
+
+.btn--secondary:hover {
+    background: var(--color-bg-alt);
+}
+
+/* Sizes */
+.btn--sm {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+}
+
+.btn--lg {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-base);
+}
+
+/* Layout */
+.btn--block {
+    width: 100%;
+    text-align: center;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Transparent button variant - for mobile menu links */
+.btn--link {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: var(--space-2) 0;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--color-text);
+    display: inline-block;
+    transform: none !important;
+    /* Allow scrolling when touching outside the text */
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn--link:hover,
+.btn--link:active,
+.btn--link:focus {
+    background: var(--color-bg-hover) !important;
+    color: var(--color-text);
+    box-shadow: none;
+    transform: none !important;
+}

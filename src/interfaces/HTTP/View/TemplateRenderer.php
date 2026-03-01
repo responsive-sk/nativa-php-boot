@@ -149,20 +149,35 @@ class TemplateRenderer
      */
     private function renderTemplate(string $template, array $data = []): string|false
     {
-        // Determine template type (admin or frontend)
+        // Determine template path based on template type
         $templatePath = $this->templatesPath;
-        
+
         if (str_starts_with($template, 'admin/')) {
-            $templatePath .= '/admin';
+            // Admin templates
+            $templatePath .= '/pages/admin';
             $template = substr($template, 6); // Remove 'admin/' prefix
+        } elseif (str_starts_with($template, 'frontend/')) {
+            // Frontend templates (Templates/pages/frontend)
+            $templatePath .= '/pages/frontend';
+            $template = substr($template, 9); // Remove 'frontend/' prefix
+            error_log("DEBUG: TemplateRenderer using frontend template: {$template}");
         } else {
-            $templatePath .= '/frontend';
+            // Legacy frontend templates
+            $templatePath .= '/pages';
         }
-        
+
         $templatePath .= '/' . $template . '.php';
 
         if (!file_exists($templatePath)) {
+            error_log("WARN: TemplateRenderer template not found: {$templatePath}");
             throw new \RuntimeException("Template not found: {$templatePath}");
+        }
+
+        error_log("DEBUG: TemplateRenderer rendering template: {$templatePath}");
+        
+        // Invalidate OPcache for this template file (development mode)
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($templatePath, true);
         }
 
         // Check in-memory cache first
@@ -175,7 +190,7 @@ class TemplateRenderer
 
             $templateMtime = filemtime($templatePath);
             $cacheMtime = file_exists($cacheFile) ? filemtime($cacheFile) : false;
-            
+
             if ($templateMtime === false || ($cacheMtime !== false && $templateMtime > $cacheMtime)) {
                 $this->compileTemplate($templatePath, $cacheFile);
             }
@@ -202,17 +217,24 @@ class TemplateRenderer
     {
         // Determine layout path based on template type
         $layoutPath = $this->templatesPath;
-        
-        // Layout already includes path (e.g., 'admin/layouts/base' or 'layouts/base')
+
+        // Layout path (Templates/layouts/)
         if (str_starts_with($layout, 'admin/')) {
-            $layoutPath .= '/' . $layout . '.php';
+            $layoutPath .= '/layouts/admin.php';
+        } elseif (str_starts_with($layout, 'frontend/')) {
+            $layoutPath .= '/layouts/frontend.php';
+            error_log("DEBUG: TemplateRenderer using frontend layout");
         } else {
-            $layoutPath .= '/frontend/' . $layout . '.php';
+            // Legacy layouts
+            $layoutPath .= '/layouts/' . $layout . '.php';
         }
 
         if (!file_exists($layoutPath)) {
+            error_log("WARN: TemplateRenderer layout not found: {$layoutPath}");
             throw new \RuntimeException("Layout not found: {$layoutPath}");
         }
+
+        error_log("DEBUG: TemplateRenderer rendering layout: {$layoutPath}");
 
         // Extract data for layout including content
         $data = array_merge($this->currentData, ['content' => $this->currentContent]);

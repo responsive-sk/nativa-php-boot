@@ -1,0 +1,95 @@
+{
+  "app.ts": {
+    "file": "core/app.BuZ55zhq.js",
+    "name": "core/app",
+    "src": "app.ts",
+    "isEntry": true
+  },
+  "css.ts": {
+    "file": "core/css.p1bZ72zi.js",
+    "name": "core/css",
+    "src": "css.ts",
+    "isEntry": true,
+    "css": [
+      "css.Tmr-WscG.css"
+    ]
+  },
+  "frontend/pages/blog.ts": {
+    "file": "frontend/blog.ZRbsl8Ut.js",
+    "name": "frontend/blog",
+    "src": "frontend/pages/blog.ts",
+    "isEntry": true,
+    "css": [
+      "blog.DUUinL-3.css"
+    ]
+  },
+  "frontend/pages/contact.ts": {
+    "file": "frontend/contact.zRrmFMbZ.js",
+    "name": "frontend/contact",
+    "src": "frontend/pages/contact.ts",
+    "isEntry": true,
+    "css": [
+      "contact.O0dWBAJc.css"
+    ]
+  },
+  "frontend/pages/docs.ts": {
+    "file": "frontend/docs.DN3QwyHx.js",
+    "name": "frontend/docs",
+    "src": "frontend/pages/docs.ts",
+    "isEntry": true,
+    "css": [
+      "docs.DebXZYBu.css"
+    ]
+  },
+  "frontend/pages/home.ts": {
+    "file": "frontend/home.mbpeiSv3.js",
+    "name": "frontend/home",
+    "src": "frontend/pages/home.ts",
+    "isEntry": true,
+    "css": [
+      "home.DnKg60T8.css"
+    ]
+  },
+  "frontend/pages/portfolio.ts": {
+    "file": "frontend/portfolio.BMmuKTYY.js",
+    "name": "frontend/portfolio",
+    "src": "frontend/pages/portfolio.ts",
+    "isEntry": true,
+    "css": [
+      "portfolio.s0IWVJZs.css"
+    ]
+  },
+  "frontend/pages/pricing.ts": {
+    "file": "frontend/pricing.B8hM-8KR.js",
+    "name": "frontend/pricing",
+    "src": "frontend/pages/pricing.ts",
+    "isEntry": true,
+    "css": [
+      "pricing.C_muWa6x.css"
+    ]
+  },
+  "frontend/pages/services.ts": {
+    "file": "frontend/services.BaSoeiMK.js",
+    "name": "frontend/services",
+    "src": "frontend/pages/services.ts",
+    "isEntry": true,
+    "css": [
+      "services.CQkYTgF4.css"
+    ]
+  },
+  "frontend/use-cases/not-found/not-found.css": {
+    "file": "frontend/not-found.B1KIQjUw.css",
+    "src": "frontend/use-cases/not-found/not-found.css",
+    "isEntry": true,
+    "name": "frontend/not-found",
+    "names": [
+      "frontend/not-found.css"
+    ]
+  },
+  "init.js": {
+    "file": "core/init.CM62Fm_M.js",
+    "name": "core/init",
+    "src": "init.js",
+    "isEntry": true
+  }
+}

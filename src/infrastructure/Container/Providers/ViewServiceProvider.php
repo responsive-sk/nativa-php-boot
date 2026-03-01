@@ -26,7 +26,7 @@ class ViewServiceProvider implements ServiceProviderInterface
                 $cacheVersion = $_ENV['TEMPLATE_CACHE_VERSION'] ?? null;
 
                 return new TemplateRenderer(
-                    $paths->getBasePath() . '/src/interfaces/Templates',
+                    $paths->getBasePath() . '/src/Templates',
                     $paths->cache('templates'),
                     ($_ENV['APP_DEBUG'] ?? 'false') === 'true',
                     $cacheVersion

@@ -1,10 +1,17 @@
 <?php
-
 declare(strict_types=1);
 
 /**
  * Application entry point
  */
+
+// Disable OPcache for development - ensures template changes are picked up immediately
+if (function_exists('opcache_reset')) {
+    opcache_reset();
+}
+if (function_exists('opcache_invalidate')) {
+    opcache_invalidate(__FILE__, true);
+}
 
 // Codeception C3 Code Coverage
 if (file_exists(__DIR__ . '/../c3.php')) {

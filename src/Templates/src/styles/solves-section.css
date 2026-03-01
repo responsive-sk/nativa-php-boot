@@ -1,0 +1,130 @@
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.solves-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+}
+
+.solves-section .content {
+    display: flex;
+    border-bottom: 1px solid var(--color-gray);
+    border-top: 1px solid var(--color-gray);
+}
+
+.solves-section .dots {
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.solves-section .dots-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solves-section .dots-container::before,
+.solves-section .dots-container::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--color-gray);
+    border-radius: 50%;
+}
+
+.solves-section .dots-container::before {
+    background: var(--color-gold);
+}
+
+.solves-section .content .dots:nth-child(1) {
+    border-right: 1px solid var(--color-gray);
+}
+
+.solves-section .inner {
+    display: flex;
+    flex: 1;
+}
+
+.solves-section .solves {
+    flex: 1;
+    border-right: 1px solid var(--color-gray);
+    padding: 4em;
+    gap: 1.25em;
+    display: flex;
+    line-height: 1.75;
+    flex-direction: column;
+}
+
+.solves-section .solves:last-child {
+    border-right: none;
+}
+
+.solves-section .solves img {
+    align-self: flex-start;
+    width: 48px;
+    height: 48px;
+}
+
+.solves-section .solves h3 {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.solves-section .solves p {
+    margin: 0;
+    color: var(--color-white-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.solves-section .dots-right {
+    border-right: none;
+}
+
+@media (max-width: 768px) {
+    .solves-section .content {
+        flex-direction: column;
+    }
+
+    .solves-section .dots {
+        display: none;
+    }
+
+    .solves-section .inner {
+        flex-direction: column;
+    }
+
+    .solves-section .solves {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3em 2em;
+        text-align: center;
+        border-bottom: 1px solid var(--color-gray);
+        border-right: none;
+    }
+
+    .solves-section .solves:last-child {
+        border-bottom: none;
+    }
+
+    .solves-section .solves img {
+        align-self: center;
+    }
+}
