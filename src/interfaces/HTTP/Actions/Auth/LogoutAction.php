@@ -30,8 +30,8 @@ final class LogoutAction extends Action
 
         // Create redirect response with cleared session cookie
         $response = new Response('', 302, ['Location' => '/login']);
-        $response->headers->clearCookie('PHPSESSID', '/', 'localhost', false, true);
-        
+        $response->clearCookie('PHPSESSID', '/', 'localhost', false, true);
+
         return $response;
     }
 

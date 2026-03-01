@@ -51,6 +51,8 @@ class TemplateRenderer
      * Render a template with optional layout
      *
      * @param array<string, mixed> $data
+     *
+     * @return string
      */
     public function render(string $template, array $data = [], ?string $layout = null): string
     {
@@ -61,21 +63,26 @@ class TemplateRenderer
         if ($this->currentLayout) {
             // Render content first, then layout
             $this->currentContent = $this->renderTemplate($template);
-            return $this->renderLayout($this->currentLayout);
+            $layoutResult = $this->renderLayout($this->currentLayout);
+            return $layoutResult !== false ? $layoutResult : '';
         }
 
-        return $this->renderTemplate($template);
+        $result = $this->renderTemplate($template);
+        return $result !== false ? $result : '';
     }
 
     /**
      * Render a partial template
      *
      * @param array<string, mixed> $data
+     *
+     * @return string
      */
     public function partial(string $partial, array $data = []): string
     {
         $partialData = array_merge($this->currentData, $data);
-        return $this->renderTemplate('partials/' . $partial, $partialData);
+        $result = $this->renderTemplate('partials/' . $partial, $partialData);
+        return $result !== false ? $result : '';
     }
 
     /**
@@ -119,7 +126,7 @@ class TemplateRenderer
     public function url(string $path): string
     {
         $baseUrl = $_ENV['APP_URL'] ?? '';
-        return rtrim($baseUrl, '/') . '/' . ltrim((string) $path, '/');
+        return rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
     }
 
     /**

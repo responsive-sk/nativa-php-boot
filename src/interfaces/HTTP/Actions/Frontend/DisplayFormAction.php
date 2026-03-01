@@ -83,15 +83,16 @@ final class DisplayFormAction extends Action
         try {
             // Validate form data
             $validator = new \Application\Services\FormValidationService();
-            $formData = $request->request->all();
+            $formData = $request->getRequest();
 
             // Remove CSRF token and submit button from data
             unset($formData['_token'], $formData['submit']);
 
             if (!$validator->validate($formData, $form->schema())) {
                 // Redirect back with errors
-                $request->getSession()?->getFlashBag()->set('errors', $validator->getErrors());
-                $request->getSession()?->getFlashBag()->set('old', $formData);
+                $session = $request->getSession();
+                $session->getFlashBag()->set('errors', $validator->getErrors());
+                $session->getFlashBag()->set('old', $formData);
                 return $this->redirect('/form/' . $slug);
             }
 
@@ -103,14 +104,17 @@ final class DisplayFormAction extends Action
                 formId: $form->id(),
                 data: $sanitizedData,
                 ipAddress: $request->getClientIp(),
-                userAgent: $request->headers->get('User-Agent', '')
+                userAgent: $request->getUserAgent()
             );
 
             // Dispatch event
+            $submissionId = bin2hex(random_bytes(8));
             $event = new FormSubmitted(
                 $form->id(),
                 $form->name(),
-                $formData
+                $submissionId,
+                $sanitizedData,
+                $request->getClientIp()
             );
             $this->eventDispatcher->dispatch($event);
 

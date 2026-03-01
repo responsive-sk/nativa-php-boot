@@ -19,7 +19,7 @@ use Domain\ValueObjects\Email;
  */
 class FormValidationService
 {
-    /** @var array<string> */
+    /** @var array<string, array<string>> */
     private array $errors = [];
 
     /** @var array<string, mixed> */

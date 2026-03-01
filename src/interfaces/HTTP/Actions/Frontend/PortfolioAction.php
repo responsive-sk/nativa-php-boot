@@ -38,7 +38,7 @@ final class PortfolioAction extends Action
             return $this->html($content);
         } catch (\Throwable $e) {
             error_log("ERROR: PortfolioAction error: " . $e->getMessage());
-            return $this->error(500);
+            return $this->error('Internal server error', 500);
         }
     }
 

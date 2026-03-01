@@ -167,4 +167,23 @@ class Response
     {
         return new self($message, $statusCode);
     }
+
+    /**
+     * Clear cookie (set expiration to past)
+     */
+    public function clearCookie(
+        string $name,
+        string $path = '/',
+        string $domain = '',
+        bool $secure = false,
+        bool $httpOnly = true
+    ): self {
+        // Set cookie with expiration in the past
+        setcookie($name, '', time() - 3600, $path, $domain, $secure, $httpOnly);
+        
+        // Also remove from headers array if present
+        unset($this->headers['Set-Cookie']);
+        
+        return $this;
+    }
 }

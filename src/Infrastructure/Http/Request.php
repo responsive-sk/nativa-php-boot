@@ -210,4 +210,54 @@ final class Request
     {
         return $this->request;
     }
+
+    /**
+     * Get client IP address
+     */
+    public function getClientIp(): string
+    {
+        // Check X-Forwarded-For header (proxy/Cloudflare)
+        $forwarded = $this->header('X-Forwarded-For');
+        if ($forwarded !== null && $forwarded !== '') {
+            $ips = explode(',', $forwarded);
+            return trim($ips[0]);
+        }
+
+        // Check X-Real-IP header
+        $realIp = $this->header('X-Real-IP');
+        if ($realIp !== null && $realIp !== '') {
+            return $realIp;
+        }
+
+        // Fallback to REMOTE_ADDR
+        return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    }
+
+    /**
+     * Get user agent
+     */
+    public function getUserAgent(): string
+    {
+        return $this->header('User-Agent', '');
+    }
+
+    /**
+     * Get request parameter (Symfony compatibility)
+     *
+     * @param mixed $default
+     */
+    public function request(string $key, mixed $default = null): mixed
+    {
+        return $this->request[$key] ?? $default;
+    }
+
+    /**
+     * Get query parameter (Symfony compatibility)
+     *
+     * @param mixed $default
+     */
+    public function query(string $key, mixed $default = null): mixed
+    {
+        return $this->query[$key] ?? $default;
+    }
 }

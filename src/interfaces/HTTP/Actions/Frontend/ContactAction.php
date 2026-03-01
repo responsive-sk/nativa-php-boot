@@ -74,7 +74,7 @@ final class ContactAction extends Action
             );
 
             // Redirect with success message
-            $request->getSession()?->getFlashBag()->set('success', 'Thank you for your message! We will get back to you soon.');
+            $request->getSession()->getFlashBag()->set('success', 'Thank you for your message! We will get back to you soon.');
 
             return $this->redirect('/contact');
 

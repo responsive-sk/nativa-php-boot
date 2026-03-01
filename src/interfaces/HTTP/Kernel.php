@@ -114,8 +114,8 @@ class Kernel
             $method = $originalMethod;
 
             if ($originalMethod === 'POST') {
-                $overrideMethod = $request->request->get('_method')
-                    ?? $request->query->get('_method')
+                $overrideMethod = $request->request('_method')
+                    ?? $request->query('_method')
                     ?? $request->headers('X-Http-Method-Override');
                 if ($overrideMethod) {
                     $method = strtoupper($overrideMethod);
@@ -238,13 +238,14 @@ class Kernel
     private function renderErrorPage(string $code): string
     {
         $templatePath = __DIR__ . '/../Templates/frontend/errors/' . $code . '.php';
-        
+
         if (file_exists($templatePath)) {
             ob_start();
             include $templatePath;
-            return ob_get_clean();
+            $result = ob_get_clean();
+            return $result !== false ? $result : "Error {$code}";
         }
-        
+
         return "Error {$code}";
     }
 
