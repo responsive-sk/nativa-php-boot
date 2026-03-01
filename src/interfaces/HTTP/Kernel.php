@@ -49,8 +49,8 @@ use Application\Middleware\CsrfMiddleware;
 use Application\Middleware\CsrfException;
 use Application\Middleware\RateLimitMiddleware;
 use Application\Services\RateLimiter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
 
 /**
  * HTTP Kernel - Main entry point for handling requests

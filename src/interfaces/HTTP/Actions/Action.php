@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Interfaces\HTTP\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
+use Infrastructure\Http\JsonResponse;
 
 /**
  * Abstract Base Action
@@ -17,7 +18,7 @@ abstract class Action implements ActionInterface
      */
     protected function get(Request $request, string $key, mixed $default = null): mixed
     {
-        return $request->request->get($key, $request->query->get($key, $default));
+        return $request->request($key, $request->query($key, $default));
     }
 
     /**
@@ -26,12 +27,12 @@ abstract class Action implements ActionInterface
     protected function param(Request $request, string $key, mixed $default = null): mixed
     {
         // Check if param was added directly to attributes (new way)
-        if ($request->attributes->has($key)) {
-            return $request->attributes->get($key, $default);
+        if ($request->attributes($key) !== null) {
+            return $request->attributes($key);
         }
-        
+
         // Fallback to _route_params (old way)
-        $attributes = $request->attributes->all();
+        $attributes = $request->attributes();
         return $attributes['_route_params'][$key] ?? $default;
     }
 
@@ -42,11 +43,7 @@ abstract class Action implements ActionInterface
      */
     protected function json(array $data, int $status = 200): Response
     {
-        return new Response(
-            json_encode($data),
-            $status,
-            ['Content-Type' => 'application/json']
-        );
+        return new JsonResponse($data, $status);
     }
 
     /**
@@ -54,7 +51,7 @@ abstract class Action implements ActionInterface
      */
     protected function redirect(string $url): Response
     {
-        return new Response('', 302, ['Location' => $url]);
+        return Response::redirect($url);
     }
 
     /**
@@ -62,7 +59,7 @@ abstract class Action implements ActionInterface
      */
     protected function html(string $content, int $status = 200): Response
     {
-        return new Response($content, $status, ['Content-Type' => 'text/html']);
+        return Response::html($content, $status);
     }
 
     /**
@@ -70,7 +67,7 @@ abstract class Action implements ActionInterface
      */
     protected function error(string $message, int $status = 400): Response
     {
-        return new Response($message, $status);
+        return Response::error($message, $status);
     }
 
     /**
@@ -78,6 +75,6 @@ abstract class Action implements ActionInterface
      */
     protected function notFound(string $message = 'Not Found'): Response
     {
-        return new Response($message, 404);
+        return Response::notFound($message);
     }
 }

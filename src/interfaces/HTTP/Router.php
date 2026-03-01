@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Interfaces\HTTP;
 
-use Symfony\Component\HttpFoundation\Request;
+use Infrastructure\Http\Request;
 
 /**
  * Simple Router Implementation
