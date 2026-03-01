@@ -7,11 +7,8 @@ declare(strict_types=1);
  * CMS CLI Entry Point
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-// Load environment variables
-use Infrastructure\Env;
-Env::load(__DIR__ . '/..');
+// Initialize application (zero-dependency bootstrap)
+require_once __DIR__ . '/../src/init.php';
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;

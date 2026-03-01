@@ -18,15 +18,12 @@ if (file_exists(__DIR__ . '/../c3.php')) {
     include __DIR__ . '/../c3.php';
 }
 
+// Initialize application (zero-dependency bootstrap)
+require_once __DIR__ . '/../src/init.php';
+
 use Interfaces\HTTP\Kernel;
 use Infrastructure\Http\Request;
 use Infrastructure\Http\Response;
-use Infrastructure\Env;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-// Load environment variables
-Env::loadImmutable(__DIR__ . '/..');
 
 // Error reporting
 if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {

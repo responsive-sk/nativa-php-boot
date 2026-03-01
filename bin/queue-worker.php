@@ -5,13 +5,14 @@ declare(strict_types=1);
 
 /**
  * Queue Worker CLI Command
- * 
+ *
  * Usage:
  *   php bin/queue-worker.php default
  *   php bin/queue-worker.php default --tries=5 --timeout=120
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+// Initialize application (zero-dependency bootstrap)
+require_once __DIR__ . '/../src/init.php';
 
 use Infrastructure\Persistence\DatabaseConnectionManager;
 use Infrastructure\Queue\QueueRepository;
@@ -19,10 +20,6 @@ use Infrastructure\Queue\Worker\Worker;
 use Infrastructure\Queue\Worker\JobHandler;
 use Infrastructure\Queue\Handlers\JobHandlerRegistry;
 use Infrastructure\Queue\Handlers\OutboxProcessor;
-use Infrastructure\Env;
-
-// Load environment variables
-Env::load(__DIR__ . '/..');
 
 // Get queue name from arguments
 $queue = $argv[1] ?? 'default';
