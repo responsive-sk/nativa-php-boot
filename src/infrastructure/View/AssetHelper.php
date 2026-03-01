@@ -22,7 +22,7 @@ namespace Infrastructure\View;
 final class AssetHelper
 {
     private static ?array $manifest = null;
-    private static string $manifestPath = '/assets/.vite/manifest.json';
+    private static string $manifestPath = '/assets/manifest.json';
     private static string $assetBaseUrl = '/assets/';
 
     /**
