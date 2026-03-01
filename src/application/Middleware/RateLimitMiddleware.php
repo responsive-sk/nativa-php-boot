@@ -36,14 +36,9 @@ class RateLimitMiddleware
      * Returns error response if rate limited, null otherwise
      */
     public function limitLogin(Request $request): ?Response
-        // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
-            return null;
-        }
-
     {
         // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
+        if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
             return null;
         }
         
@@ -64,12 +59,13 @@ class RateLimitMiddleware
      * Apply rate limiting to form submissions
      */
     public function limitFormSubmission(Request $request): ?Response
+
+    {
         // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
+        if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
             return null;
         }
 
-    {
         $identifier = $this->getIdentifier($request);
         $key = 'form:' . $identifier;
 
@@ -87,10 +83,6 @@ class RateLimitMiddleware
      * Apply rate limiting to API endpoints
      */
     public function limitApi(Request $request): ?Response
-        // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
-            return null;
-        }
 
     {
         $identifier = $this->getIdentifier($request);
@@ -110,10 +102,6 @@ class RateLimitMiddleware
      * Apply general rate limiting
      */
     public function limitGeneral(Request $request): ?Response
-        // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
-            return null;
-        }
 
     {
         $identifier = $this->getIdentifier($request);
@@ -137,10 +125,6 @@ class RateLimitMiddleware
      * @param int $windowSeconds Time window in seconds
      */
     public function limitCustom(
-        // Bypass rate limiting in debug mode
-        if ($_ENV['APP_DEBUG'] === 'true') {
-            return null;
-        }
 
         Request $request,
         string $key,
