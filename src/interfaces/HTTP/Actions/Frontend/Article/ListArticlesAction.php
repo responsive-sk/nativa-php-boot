@@ -28,9 +28,9 @@ final class ListArticlesAction extends Action
         $articles = $this->articleManager->listPublished(20);
 
         $content = $this->renderer->render(
-            'pages/articles/index',
+            'frontend/articles/index',
             ['articles' => $articles, 'title' => 'Articles'],
-            'layouts/base'
+            'frontend/layouts/frontend'
         );
 
         return $this->html($content);

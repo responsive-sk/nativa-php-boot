@@ -8,6 +8,7 @@ use Interfaces\HTTP\Actions\Frontend\HomeAction;
 use Interfaces\HTTP\Actions\Frontend\BlogAction;
 use Interfaces\HTTP\Actions\Frontend\PortfolioAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesAction;
+use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesApiAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowBlogArticleAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ByTagAction;
@@ -267,6 +268,9 @@ class Kernel
         $this->router->get('/articles/{slug}', ShowArticleAction::class);
         $this->router->get('/tag/{slug}', ByTagAction::class);
         $this->router->get('/search', SearchArticlesAction::class);
+        
+        // API routes for frontend JavaScript
+        $this->router->get('/api/articles', ListArticlesApiAction::class);
 
         // Contact Form - Action pattern
         $this->router->get('/contact', ContactAction::class);
