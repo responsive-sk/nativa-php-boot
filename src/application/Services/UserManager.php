@@ -33,7 +33,7 @@ final class UserManager
             name: $name,
             email: new Email($email),
             password: new Password($password),
-            role: new Role($role),
+            role: Role::fromString($role),
             avatar: $avatar,
         );
 

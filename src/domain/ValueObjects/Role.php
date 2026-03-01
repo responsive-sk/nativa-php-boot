@@ -5,79 +5,23 @@ declare(strict_types=1);
 namespace Domain\ValueObjects;
 
 /**
- * Role Value Object
- *
- * Represents user roles in the RBAC system
+ * Role Enum
+ * 
+ * Represents user roles in the RBAC system.
  */
-final class Role
+enum Role: string
 {
-    public const ADMIN = 'admin';
-    public const EDITOR = 'editor';
-    public const VIEWER = 'viewer';
-    public const USER = 'user';
-
-    private const VALID_ROLES = [
-        self::ADMIN,
-        self::EDITOR,
-        self::VIEWER,
-        self::USER,
-    ];
-
-    private string $name;
-
-    private function __construct(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Create role from string
-     */
-    public static function fromString(string $name): self
-    {
-        $name = strtolower(trim($name));
-        self::validate($name);
-        return new self($name);
-    }
-
-    /**
-     * Create admin role
-     */
-    public static function admin(): self
-    {
-        return new self(self::ADMIN);
-    }
-
-    /**
-     * Create editor role
-     */
-    public static function editor(): self
-    {
-        return new self(self::EDITOR);
-    }
-
-    /**
-     * Create viewer role
-     */
-    public static function viewer(): self
-    {
-        return new self(self::VIEWER);
-    }
-
-    /**
-     * Create user role
-     */
-    public static function user(): self
-    {
-        return new self(self::USER);
-    }
+    case ADMIN = 'admin';
+    case EDITOR = 'editor';
+    case VIEWER = 'viewer';
+    case USER = 'user';
 
     /**
      * Get role name
      */
     public function name(): string
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
@@ -85,7 +29,7 @@ final class Role
      */
     public function isAdmin(): bool
     {
-        return $this->name === self::ADMIN;
+        return $this === self::ADMIN;
     }
 
     /**
@@ -93,15 +37,23 @@ final class Role
      */
     public function isEditor(): bool
     {
-        return $this->name === self::EDITOR;
+        return $this === self::EDITOR;
     }
 
     /**
-     * Check if role equals another role
+     * Check if this is viewer role
      */
-    public function equals(Role $other): bool
+    public function isViewer(): bool
     {
-        return $this->name === $other->name;
+        return $this === self::VIEWER;
+    }
+
+    /**
+     * Check if this is user role
+     */
+    public function isUser(): bool
+    {
+        return $this === self::USER;
     }
 
     /**
@@ -109,32 +61,59 @@ final class Role
      */
     public function getLevel(): int
     {
-        return match ($this->name) {
+        return match($this) {
             self::ADMIN => 100,
             self::EDITOR => 50,
             self::VIEWER => 20,
             self::USER => 10,
-            default => 0,
         };
     }
 
     /**
      * Check if this role has higher or equal level than another
      */
-    public function hasHigherOrEqualLevelThan(Role $other): bool
+    public function hasHigherOrEqualLevelThan(self $other): bool
     {
         return $this->getLevel() >= $other->getLevel();
     }
 
     /**
-     * Validate role name
+     * Create role from string
      */
-    private static function validate(string $name): void
+    public static function fromString(string $name): self
     {
-        if (!in_array($name, self::VALID_ROLES, true)) {
-            throw new \InvalidArgumentException(
-                sprintf('Invalid role "%s". Valid roles are: %s', $name, implode(', ', self::VALID_ROLES))
-            );
-        }
+        return self::from(strtolower(trim($name)));
+    }
+
+    /**
+     * Create admin role
+     */
+    public static function admin(): self
+    {
+        return self::ADMIN;
+    }
+
+    /**
+     * Create editor role
+     */
+    public static function editor(): self
+    {
+        return self::EDITOR;
+    }
+
+    /**
+     * Create viewer role
+     */
+    public static function viewer(): self
+    {
+        return self::VIEWER;
+    }
+
+    /**
+     * Create user role
+     */
+    public static function user(): self
+    {
+        return self::USER;
     }
 }

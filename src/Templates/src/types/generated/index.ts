@@ -17,6 +17,8 @@ export type { Media } from './Media';
 export { isMedia } from './Media';
 export type { ArticleStatus } from './ArticleStatus';
 export { isArticleStatus } from './ArticleStatus';
+export type { Role } from './Role';
+export { isRole } from './Role';
 export type { Slug } from './Slug';
 export { isSlug } from './Slug';
 export type { Email } from './Email';

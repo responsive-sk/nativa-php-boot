@@ -21,6 +21,7 @@ use Domain\Model\User;
 use Domain\Model\Contact;
 use Domain\Model\Media;
 use Domain\ValueObjects\ArticleStatus;
+use Domain\ValueObjects\Role;
 use Domain\ValueObjects\Slug;
 use Domain\ValueObjects\Email;
 
@@ -34,9 +35,10 @@ $classes = [
     User::class,
     Contact::class,
     Media::class,
-    
+
     // Value Objects (as union types)
     ArticleStatus::class,
+    Role::class,
     Slug::class,
     Email::class,
 ];
