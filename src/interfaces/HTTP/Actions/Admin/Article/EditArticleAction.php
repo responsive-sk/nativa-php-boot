@@ -46,8 +46,13 @@ final class EditArticleAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
+        /** @var string|null $id */
         $id = $request->getAttribute('id');
-        
+
+        if ($id === null) {
+            return new Response('Article ID required', 400);
+        }
+
         if ($request->getMethod() === 'GET') {
             return $this->show($request, $id);
         }

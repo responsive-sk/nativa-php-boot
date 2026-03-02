@@ -20,16 +20,17 @@ final class UpdateArticleAction extends Action
     ) {
     }
 
-    public function __invoke(Request $request, string $id): Response
+    public function __invoke(Request $request, ?string $id): Response
     {
         try {
+            /** @var array<string, mixed> $data */
             $data = $request->getRequest();
 
             $this->articleManager->update(
                 articleId: $id,
-                title: $data['title'] ?? null,
-                content: $data['content'] ?? null,
-                excerpt: $data['excerpt'] ?? null,
+                title: isset($data['title']) ? (string) $data['title'] : null,
+                content: isset($data['content']) ? (string) $data['content'] : null,
+                excerpt: isset($data['excerpt']) ? (string) $data['excerpt'] : null,
             );
 
             return $this->redirect('/admin/articles');
@@ -41,8 +42,13 @@ final class UpdateArticleAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
+        /** @var string|null $id */
         $id = $request->getAttribute('id');
-        
+
+        if ($id === null) {
+            return new Response('Article ID required', 400);
+        }
+
         if ($request->getMethod() === 'POST') {
             return $this($request, $id);
         }

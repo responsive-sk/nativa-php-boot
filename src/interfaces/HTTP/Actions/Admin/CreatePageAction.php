@@ -50,7 +50,7 @@ final class CreatePageAction extends Action
             $template = (string) $request->getRequestParam('template', 'default');
             $metaTitle = (string) $request->getRequestParam('metaTitle', '');
             $metaDescription = (string) $request->getRequestParam('metaDescription', '');
-            $isPublished = $request->getRequestParam('isPublished', false);
+            $isPublished = (bool) $request->getRequestParam('isPublished', false);
 
             if (empty($title) || empty($content)) {
                 return $this->json(['error' => 'Title and content are required'], 400);

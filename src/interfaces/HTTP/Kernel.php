@@ -118,7 +118,7 @@ final class Kernel
                 $overrideMethod = $request->getRequestParam('_method')
                     ?? $request->getQueryParam('_method')
                     ?? $request->headers('X-Http-Method-Override');
-                if ($overrideMethod) {
+                if ($overrideMethod !== null && is_string($overrideMethod)) {
                     $method = strtoupper($overrideMethod);
                 }
             }

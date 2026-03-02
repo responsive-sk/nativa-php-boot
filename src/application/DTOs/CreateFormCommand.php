@@ -53,6 +53,7 @@ final class CreateFormCommand
 
         // Validate each field in schema
         foreach ($this->schema as $index => $field) {
+            /** @var array<string, mixed> $field */
             if (!isset($field['type']) || !isset($field['name'])) {
                 throw new \Application\Exceptions\ValidationException(
                     ['schema' => ["Field at index {$index} must have 'type' and 'name'"]],

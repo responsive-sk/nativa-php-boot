@@ -3,8 +3,8 @@
  * Homepage Template - Luxury Winery Style
  * Inspired by BRAND Napa Valley design
  *
- * @var TemplateRenderer $this
- * @var array $articles
+ * @var \Interfaces\HTTP\View\TemplateRenderer $this
+ * @var array<int, object> $articles
  * @var string $pageTitle
  */
 

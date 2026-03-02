@@ -3,7 +3,7 @@
  * Admin Dashboard Template
  * Based on vzor design - dark theme with glassmorphism
  *
- * @var TemplateRenderer $this
+ * @var \Interfaces\HTTP\View\TemplateRenderer $this
  * @var string $title
  */
 

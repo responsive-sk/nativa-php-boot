@@ -247,7 +247,7 @@ final class Request
         // Check X-Real-IP header
         $realIp = $this->header('X-Real-IP');
         if ($realIp !== null && $realIp !== '') {
-            return $realIp;
+            return (string) $realIp;
         }
 
         // Fallback to REMOTE_ADDR

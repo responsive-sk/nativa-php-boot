@@ -113,7 +113,8 @@ final class AssetHelper
         ];
 
         foreach ($possibleKeys as $key) {
-            if (isset($manifest[$key])) {
+            if (isset($manifest[$key]) && is_array($manifest[$key]) && isset($manifest[$key]['file'])) {
+                /** @var string $file */
                 $file = $manifest[$key]['file'];
                 $url = self::$assetBaseUrl . $file;
                 return $url;

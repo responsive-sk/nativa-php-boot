@@ -25,16 +25,17 @@ final class StoreArticleAction extends Action
     public function __invoke(Request $request): Response
     {
         try {
+            /** @var array<string, mixed> $data */
             $data = $request->getRequest();
 
             $article = $this->articleManager->create(
-                title: $data['title'],
-                content: $data['content'],
+                title: (string) ($data['title'] ?? ''),
+                content: (string) ($data['content'] ?? ''),
                 authorId: '1', // TODO: Get from session (current user ID)
-                excerpt: $data['excerpt'] ?? null,
+                excerpt: isset($data['excerpt']) ? (string) $data['excerpt'] : null,
             );
 
-            if ($data['status'] === 'published') {
+            if (isset($data['status']) && $data['status'] === 'published') {
                 $this->articleManager->publish($article->id());
             }
 

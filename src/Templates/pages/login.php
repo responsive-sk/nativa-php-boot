@@ -2,10 +2,10 @@
 /**
  * Login Page
  *
- * @var TemplateRenderer $this
+ * @var \Interfaces\HTTP\View\TemplateRenderer $this
  * @var string $title
  * @var string|null $error
- * @var array $old
+ * @var array<string, mixed> $old
  */
 
 use Application\Middleware\CsrfMiddleware;
@@ -88,9 +88,9 @@ $authCss = AssetHelper::css('auth.css');
                 <p class="auth-card__subtitle">Welcome back. Please enter your details.</p>
             </div>
             
-            <?php if (isset($error) && $error !== null): ?>
+            <?php if (!empty($error)): ?>
             <div class="auth-card__alert auth-card__alert--error">
-                <span class="auth-alert__message"><?= $this->e($error) ?></span>
+                <span class="auth-alert__message"><?= $this->e((string) $error) ?></span>
             </div>
             <?php endif; ?>
             
