@@ -1,5 +1,8 @@
-/* Contact Page Entry Point
- * Imports: contact page-specific styles only (no JS - app.js is loaded separately)
+/**
+ * contact Page JavaScript
  */
 
-import "../use-cases/contact/contact.css";
+import './contact.css';
+
+console.log('contact page loaded');
+

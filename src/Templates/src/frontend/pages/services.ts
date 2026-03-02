@@ -1,5 +1,8 @@
-/* Services Page Entry Point
- * Imports: services page-specific styles only (no JS - app.js is loaded separately)
+/**
+ * services Page JavaScript
  */
 
-import "../use-cases/services/services.css";
+import './services.css';
+
+console.log('services page loaded');
+

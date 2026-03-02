@@ -1,5 +1,8 @@
-/* Blog Page Entry Point
- * Imports: blog page-specific styles only
+/**
+ * blog Page JavaScript
  */
 
-import "../use-cases/blog/blog.css";
+import './blog.css';
+
+console.log('blog page loaded');
+

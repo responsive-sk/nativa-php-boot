@@ -24,13 +24,10 @@ final class PortfolioAction extends Action
     {
         try {
             $content = $this->renderer->render(
-                'frontend/portfolio',
+                'portfolio',
                 [
                     'pageTitle' => 'Portfolio',
-                    'page' => 'portfolio',
-                    'metaDescription' => 'Our latest projects and creative work',
-                ],
-                'frontend/layouts/frontend'
+                ]
             );
 
             return $this->html($content);

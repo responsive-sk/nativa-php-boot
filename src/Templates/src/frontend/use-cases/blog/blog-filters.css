@@ -1,9 +1,0 @@
-/* Blog Filters */
-
-.blog-filters {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-2xl);
-}

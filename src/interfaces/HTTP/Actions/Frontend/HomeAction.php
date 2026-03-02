@@ -26,19 +26,14 @@ final class HomeAction extends Action
     public function handle(Request $request): Response
     {
         $articles = $this->articleManager->listLatest(10);
-        
 
         $content = $this->renderer->render(
-            'frontend/home',
+            'home',
             [
                 'articles' => $articles,
                 'pageTitle' => 'Nativa CMS - Modern PHP Blog Platform',
-                'page' => 'home',
-                'metaDescription' => 'Modern PHP 8.4+ CMS and Blog Platform with admin panel',
-            ],
-            'frontend/layouts/frontend'
+            ]
         );
-
 
         return $this->html($content);
     }

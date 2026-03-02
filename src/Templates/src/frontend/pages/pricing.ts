@@ -1,5 +1,8 @@
-/* Pricing Page Entry Point
- * Imports: pricing page-specific styles only (no JS - app.js is loaded separately)
+/**
+ * pricing Page JavaScript
  */
 
-import "../use-cases/pricing/pricing.css";
+import './pricing.css';
+
+console.log('pricing page loaded');
+

@@ -35,7 +35,7 @@ final class LoginAction extends Action
             return $this->redirect('/admin');
         }
 
-        $content = $this->renderer->render('auth/login', [
+        $content = $this->renderer->render('login', [
             'title' => 'Login',
             'error' => null,
         ]);
@@ -85,7 +85,7 @@ final class LoginAction extends Action
             $error = $e->getMessage();
         }
 
-        $content = $this->renderer->render('auth/login', [
+        $content = $this->renderer->render('login', [
             'title' => 'Login',
             'error' => $error !== '' ? $error : 'Login failed',
             'old' => [

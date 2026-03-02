@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @var bool $isGuest
  */
 
-use App\Infrastructure\View\AssetHelper;
+use Infrastructure\View\AssetHelper;
 
 $assetBase = '/assets';
 $isGuest = $isGuest ?? true;

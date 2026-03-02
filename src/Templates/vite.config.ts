@@ -31,25 +31,23 @@ export default defineConfig(({ mode }) => {
 
       rollupOptions: {
         input: {
-          // Core
-          "core-init": resolve(__dirname, "src/init.js"),
-          "core-app": resolve(__dirname, "src/app.ts"),
-          "core-css": resolve(__dirname, "src/css.ts"),
-          
-          // Frontend pages (no slashes to avoid subdirectories)
-          "home": resolve(__dirname, "src/frontend/pages/home.ts"),
-          "blog": resolve(__dirname, "src/frontend/pages/blog.ts"),
-          "portfolio": resolve(__dirname, "src/frontend/pages/portfolio.ts"),
-          "contact": resolve(__dirname, "src/frontend/pages/contact.ts"),
-          "docs": resolve(__dirname, "src/frontend/pages/docs.ts"),
-          "services": resolve(__dirname, "src/frontend/pages/services.ts"),
-          "pricing": resolve(__dirname, "src/frontend/pages/pricing.ts"),
-          
-          // Error pages
-          "not-found": resolve(
-            __dirname,
-            "src/frontend/use-cases/not-found/not-found.css",
-          ),
+          // Core - always loaded
+          'core-init': resolve(__dirname, 'src/init.js'),
+          'core-app': resolve(__dirname, 'src/app.ts'),
+          'core-css': resolve(__dirname, 'src/css.ts'),
+
+          // Feature modules - loaded per page
+          'admin': resolve(__dirname, 'src/frontend/use-cases/admin/admin.ts'),
+          'auth': resolve(__dirname, 'src/frontend/use-cases/auth/auth.ts'),
+          'home': resolve(__dirname, 'src/frontend/pages/home.ts'),
+          'blog': resolve(__dirname, 'src/frontend/pages/blog.ts'),
+          'articles': resolve(__dirname, 'src/frontend/pages/articles.ts'),
+          'contact': resolve(__dirname, 'src/frontend/pages/contact.ts'),
+          'about': resolve(__dirname, 'src/frontend/pages/about.ts'),
+          'portfolio': resolve(__dirname, 'src/frontend/pages/portfolio.ts'),
+          'services': resolve(__dirname, 'src/frontend/pages/services.ts'),
+          'pricing': resolve(__dirname, 'src/frontend/pages/pricing.ts'),
+          'docs': resolve(__dirname, 'src/frontend/pages/docs.ts'),
         },
         output: {
           entryFileNames: "[name].[hash].js",

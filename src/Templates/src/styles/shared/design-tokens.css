@@ -1,0 +1,61 @@
+:root {
+    /* Background - dark theme from vzor-admin */
+    --admin-bg: #0b0f17;
+    --admin-bg-gradient-1: rgba(124, 92, 255, 0.25);
+    --admin-bg-gradient-2: rgba(43, 213, 118, 0.12);
+    
+    /* Cards */
+    --admin-card: #121a26;
+    --admin-card-2: #0f1622;
+    --admin-card-gradient-top: rgba(255, 255, 255, 0.03);
+    --admin-card-gradient-bottom: rgba(255, 255, 255, 0.01);
+    
+    /* Text */
+    --admin-text: #e6edf3;
+    --admin-text-muted: #9aa9b6;
+    --admin-text-header: #d7e2ec;
+    
+    /* Colors */
+    --admin-accent: #7c5cff;
+    --admin-accent-hover: #8b6dff;
+    --admin-border: #233044;
+    --admin-border-alpha: rgba(255, 255, 255, 0.08);
+    --admin-border-alpha-strong: rgba(255, 255, 255, 0.12);
+    --admin-success: #2bd576;
+    --admin-warning: #ffcc66;
+    --admin-danger: #ff6b6b;
+    
+    /* Shadows */
+    --admin-shadow-card: 0 12px 30px rgba(0, 0, 0, 0.25);
+    --admin-shadow-input: 0 0 0 4px rgba(124, 92, 255, 0.15);
+    
+    /* Spacing */
+    --admin-space-1: 0.25rem;
+    --admin-space-2: 0.5rem;
+    --admin-space-3: 0.75rem;
+    --admin-space-4: 1rem;
+    --admin-space-6: 1.5rem;
+    --admin-space-8: 2rem;
+    
+    /* Border Radius */
+    --admin-radius-md: 10px;
+    --admin-radius-lg: 12px;
+    --admin-radius-xl: 14px;
+    --admin-radius-2xl: 16px;
+    
+    /* Font */
+    --admin-font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    --admin-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Light mode fallback */
+@media (prefers-color-scheme: light) {
+    :root {
+        --admin-bg: #f5f7fa;
+        --admin-card: #ffffff;
+        --admin-card-2: #f8fafc;
+        --admin-text: #1e293b;
+        --admin-text-muted: #64748b;
+        --admin-border: #e2e8f0;
+    }
+}

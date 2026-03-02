@@ -13,3 +13,4 @@ Thumbs.db
 coverage/
 .qwen/settings.json
 .agents/
+/node_modules/

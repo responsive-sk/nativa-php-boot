@@ -1,5 +1,8 @@
-/* Portfolio Page Entry Point
- * Imports: portfolio page-specific styles only (no JS - app.js is loaded separately)
+/**
+ * portfolio Page JavaScript
  */
 
-import "../use-cases/portfolio/portfolio.css";
+import './portfolio.css';
+
+console.log('portfolio page loaded');
+

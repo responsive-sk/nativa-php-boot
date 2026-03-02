@@ -29,6 +29,7 @@ use Interfaces\HTTP\Actions\Admin\EditPageAction;
 use Interfaces\HTTP\Actions\Admin\DeletePageAction;
 use Interfaces\HTTP\Actions\Auth\LoginAction;
 use Interfaces\HTTP\Actions\Auth\LogoutAction;
+use Interfaces\HTTP\Actions\Auth\RegisterAction;
 use Interfaces\HTTP\Actions\Admin\Article\CreateArticleAction;
 use Interfaces\HTTP\Actions\Admin\Article\StoreArticleAction;
 use Interfaces\HTTP\Actions\Admin\Article\EditArticleAction;
@@ -281,6 +282,8 @@ final class Kernel
         // Auth Routes
         $this->router->get('/login', [LoginAction::class, 'handle']);
         $this->router->post('/login', [LoginAction::class, 'handle']);
+        $this->router->get('/register', [RegisterAction::class, 'handle']);
+        $this->router->post('/register', [RegisterAction::class, 'handle']);
         $this->router->get('/logout', [LogoutAction::class, 'handle']);
 
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!

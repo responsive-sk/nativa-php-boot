@@ -24,9 +24,8 @@ final class DashboardAction extends Action
     public function handle(Request $request): Response
     {
         $content = $this->renderer->render(
-            'admin/pages/dashboard',
-            ['title' => 'Dashboard'],
-            'admin/layouts/base'
+            'admin/dashboard',
+            ['title' => 'Dashboard']
         );
 
         return $this->html($content);
