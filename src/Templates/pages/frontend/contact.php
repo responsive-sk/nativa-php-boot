@@ -21,7 +21,7 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
     <div class="contact-hero__overlay"></div>
     <picture class="contact-hero__picture">
         <source media="(min-width: 769px)" srcset="<?= $contactHeroImageDesktop ?>">
-        <img src="<?= $contactHeroImageMobile ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720">
+        <img src="<?= $contactHeroImageMobile ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720" crossorigin="anonymous">
     </picture>
     <div class="contact-hero__content">
         <h1>Get In Touch</h1>
@@ -82,9 +82,9 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
       <div id="contact-message"></div>
       
       <!-- Contact form with HTMX -->
-      <form 
-        class="contact__form" 
-        hx-post="/api/contact" 
+      <form
+        class="contact__form"
+        hx-post="/contact" 
         hx-target="#contact-message" 
         hx-indicator="#contact-loading"
         hx-swap="innerHTML"

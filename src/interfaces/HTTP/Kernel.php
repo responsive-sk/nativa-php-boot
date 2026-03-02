@@ -260,23 +260,19 @@ final class Kernel
 
         // Portfolio route
         $this->router->get('/portfolio', PortfolioAction::class);
-        
+
         // Contact route
         $this->router->get('/contact', ContactAction::class);
         $this->router->post('/contact', ContactAction::class);
-        
+
         // Legacy article routes (keep for backward compatibility)
         $this->router->get('/articles', ListArticlesAction::class);
         $this->router->get('/articles/{slug}', ShowArticleAction::class);
         $this->router->get('/tag/{slug}', ByTagAction::class);
         $this->router->get('/search', SearchArticlesAction::class);
-        
+
         // API routes for frontend JavaScript
         $this->router->get('/api/articles', ListArticlesApiAction::class);
-
-        // Contact Form - Action pattern
-        $this->router->get('/contact', ContactAction::class);
-        $this->router->post('/contact', ContactAction::class);
 
         // Form Builder - Frontend
         $this->router->get('/form/{slug}', DisplayFormAction::class);

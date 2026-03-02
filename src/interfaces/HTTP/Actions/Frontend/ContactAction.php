@@ -73,13 +73,37 @@ final class ContactAction extends Action
                 subject: $command->subject,
             );
 
-            // Redirect with success message
+            // Check if this is an HTMX request
+            $isHtmx = $request->header('HX-Request') === 'true';
+            
+            if ($isHtmx) {
+                // Return just the success message fragment for HTMX
+                $message = '<div class="contact__success">Thank you for your message! We will get back to you soon.</div>';
+                return $this->html($message);
+            }
+
+            // Redirect with success message for regular requests
             $request->getSession()->getFlashBag()->set('success', 'Thank you for your message! We will get back to you soon.');
 
             return $this->redirect('/contact');
 
         } catch (\Application\Exceptions\ValidationException $e) {
-            // Re-display form with errors
+            // Check if this is an HTMX request
+            $isHtmx = $request->header('HX-Request') === 'true';
+            
+            if ($isHtmx) {
+                // Return just the error messages fragment for HTMX
+                $errorsHtml = '<div class="contact__errors">';
+                foreach ($e->getErrors() as $field => $fieldErrors) {
+                    foreach ($fieldErrors as $error) {
+                        $errorsHtml .= '<p class="contact__error">' . htmlspecialchars($error) . '</p>';
+                    }
+                }
+                $errorsHtml .= '</div>';
+                return $this->html($errorsHtml, 400);
+            }
+            
+            // Re-display form with errors for regular requests
             $content = $this->renderer->render(
                 'frontend/contact',
                 [

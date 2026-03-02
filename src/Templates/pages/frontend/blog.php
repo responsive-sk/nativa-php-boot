@@ -25,7 +25,7 @@ $totalPages = $totalPages ?? 1;
     <div class="blog-hero__overlay"></div>
     <picture class="blog-hero__picture">
         <source media="(min-width: 769px)" srcset="<?= $blogHeroImageDesktop ?>">
-        <img src="<?= $blogHeroImageMobile ?>" alt="Blog background" fetchpriority="high" loading="eager" decoding="async" class="blog-hero__image" width="1280" height="720">
+        <img src="<?= $blogHeroImageMobile ?>" alt="Blog background" fetchpriority="high" loading="eager" decoding="async" class="blog-hero__image" width="1280" height="720" crossorigin="anonymous">
     </picture>
     <div class="blog-hero__content">
         <h1>Our Blog</h1>
@@ -122,12 +122,12 @@ async function loadArticles() {
         ${data.articles.map(article => `
           <article class="blog-card" data-article-id="${article.id}">
             <div class="blog-card__image-wrapper">
-              <img 
-                src="${article.image || 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_800/v1658528025/cld-sample-2.jpg'}" 
+              <img
+                src="${article.image || 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_800/v1658528025/cld-sample-2.jpg'}"
                 alt="${escapeHtml(article.title)}"
                 class="blog-card__image"
                 loading="lazy"
-               
+                crossorigin="anonymous"
               >
             </div>
             <div class="blog-card__content">
