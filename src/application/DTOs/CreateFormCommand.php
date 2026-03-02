@@ -61,5 +61,7 @@ final class CreateFormCommand
                 );
             }
         }
+
+        // Remove redundant is_array check - $schema is already typed as array
     }
 }

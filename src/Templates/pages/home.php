@@ -4,7 +4,7 @@
  * Inspired by BRAND Napa Valley design
  *
  * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var array<int, object> $articles
+ * @var array<int, \Domain\Model\Article> $articles
  * @var string $pageTitle
  */
 

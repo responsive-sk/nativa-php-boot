@@ -251,7 +251,7 @@ final class Request
         }
 
         // Fallback to REMOTE_ADDR
-        return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        return (string) ($_SERVER['REMOTE_ADDR'] ?? '127.0.0.1');
     }
 
     /**
