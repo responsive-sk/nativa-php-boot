@@ -141,14 +141,20 @@ use PDO;
      * @return array<int, Article>
      */
     #[\Override]
-    public function findByTag(string $tag): array
+    public function findByTag(string $tag, int $limit = 10, int $offset = 0): array
     {
+        // SQLite doesn't support bound parameters for LIMIT/OFFSET
+        // Sanitize inputs to prevent SQL injection
+        $limit = max(1, min(100, $limit));
+        $offset = max(0, $offset);
+
         $sql = <<<SQL
             SELECT a.* FROM articles a
             INNER JOIN article_tag at ON a.id = at.article_id
             INNER JOIN tags t ON at.tag_id = t.id
             WHERE t.slug = ?
             ORDER BY a.created_at DESC
+            LIMIT $limit OFFSET $offset
         SQL;
 
         $rows = $this->fetchAll($sql, [$tag]);
