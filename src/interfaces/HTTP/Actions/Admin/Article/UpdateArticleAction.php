@@ -28,9 +28,9 @@ final class UpdateArticleAction extends Action
 
             $this->articleManager->update(
                 articleId: $id,
-                title: isset($data['title']) ? (string) $data['title'] : null,
-                content: isset($data['content']) ? (string) $data['content'] : null,
-                excerpt: isset($data['excerpt']) ? (string) $data['excerpt'] : null,
+                title: isset($data['title']) && is_string($data['title']) ? $data['title'] : null,
+                content: isset($data['content']) && is_string($data['content']) ? $data['content'] : null,
+                excerpt: isset($data['excerpt']) && is_string($data['excerpt']) ? $data['excerpt'] : null,
             );
 
             return $this->redirect('/admin/articles');

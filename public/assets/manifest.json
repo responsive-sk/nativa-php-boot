@@ -1,105 +1,115 @@
 {
-  "_vendor-BM0kePWl.js": {
-    "file": "assets/vendor-BM0kePWl.js",
-    "name": "vendor"
-  },
   "app.ts": {
-    "file": "core-app.BuZ55zhq.js",
+    "file": "core-app.DQLw6Whi.js",
     "name": "core-app",
     "src": "app.ts",
     "isEntry": true
   },
+  "assets/fonts/inter-400.woff2": {
+    "file": "fonts/inter-400.woff2",
+    "src": "assets/fonts/inter-400.woff2"
+  },
+  "assets/fonts/roboto-condensed-400.woff2": {
+    "file": "fonts/roboto-condensed-400.woff2",
+    "src": "assets/fonts/roboto-condensed-400.woff2"
+  },
+  "assets/fonts/roboto-condensed-600.woff2": {
+    "file": "fonts/roboto-condensed-600.woff2",
+    "src": "assets/fonts/roboto-condensed-600.woff2"
+  },
   "css.ts": {
-    "file": "core-css.B9yD4mo1.js",
+    "file": "core-css.CrlQNIkb.js",
     "name": "core-css",
     "src": "css.ts",
     "isEntry": true,
     "css": [
-      "core-css.Tmr-WscG.css"
+      "core-css.Czw4xX-F.css"
+    ],
+    "assets": [
+      "fonts/inter-400.woff2",
+      "fonts/roboto-condensed-400.woff2",
+      "fonts/roboto-condensed-600.woff2"
     ]
   },
   "frontend/pages/about.ts": {
-    "file": "about.BPdcim5k.js",
+    "file": "about.DtaKYPrl.js",
     "name": "about",
     "src": "frontend/pages/about.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/articles.ts": {
-    "file": "articles.DVCm0hTD.js",
+    "file": "articles.CBEdaHqF.js",
     "name": "articles",
     "src": "frontend/pages/articles.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.J23Lhvda.js",
+    "file": "blog.D6JNU98o.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/contact.ts": {
-    "file": "contact.C8UxanNE.js",
+    "file": "contact.D--JfqLr.js",
     "name": "contact",
     "src": "frontend/pages/contact.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/docs.ts": {
-    "file": "docs.C8S7qRqp.js",
+    "file": "docs.BzwxZ6MP.js",
     "name": "docs",
     "src": "frontend/pages/docs.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/home.ts": {
-    "file": "home.Dt_i6INA.js",
+    "file": "home.CpClSRyr.js",
     "name": "home",
     "src": "frontend/pages/home.ts",
     "isEntry": true,
-    "imports": [
-      "_vendor-BM0kePWl.js"
-    ],
     "css": [
-      "home.RX9ed-D4.css"
+      "home.oibmXXiU.css"
     ]
   },
   "frontend/pages/portfolio.ts": {
-    "file": "portfolio.CdQSllA0.js",
+    "file": "portfolio.BcXAD5L4.js",
     "name": "portfolio",
     "src": "frontend/pages/portfolio.ts",
     "isEntry": true,
     "css": [
-      "portfolio.COflPMZR.css"
+      "portfolio.Dut3-yIc.css"
     ]
   },
   "frontend/pages/pricing.ts": {
-    "file": "pricing.B_PxhGGD.js",
+    "file": "pricing.Clai0dXN.js",
     "name": "pricing",
     "src": "frontend/pages/pricing.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/pages/services.ts": {
-    "file": "services.BvDXK9-O.js",
+    "file": "services.IgOjb8xY.js",
     "name": "services",
     "src": "frontend/pages/services.ts",
     "isEntry": true,
     "css": [
-      "blog.Djkik15f.css"
+      "blog.BgSTNvxy.css"
     ]
   },
   "frontend/use-cases/admin/admin.ts": {

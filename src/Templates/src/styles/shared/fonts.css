@@ -1,0 +1,31 @@
+/**
+ * Local Fonts - @font-face definitions
+ * Fonts are in src/assets/fonts/ and copied by Vite during build
+ */
+
+/* Inter - Regular (400) */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../assets/fonts/inter-400.woff2') format('woff2');
+}
+
+/* Roboto Condensed - Regular (400) */
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../assets/fonts/roboto-condensed-400.woff2') format('woff2');
+}
+
+/* Roboto Condensed - Bold (700) */
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../assets/fonts/roboto-condensed-600.woff2') format('woff2');
+}

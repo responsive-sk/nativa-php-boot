@@ -96,9 +96,8 @@ final class CsrfMiddleware
             throw new CsrfException('No CSRF token in session', 403);
         }
 
-        /** @var string $sessionToken */
-        $sessionToken = (string) $_SESSION[self::TOKEN_KEY];
-        if (!hash_equals($sessionToken, $token)) {
+        $sessionToken = $_SESSION[self::TOKEN_KEY];
+        if (!is_string($sessionToken) || !hash_equals($sessionToken, $token)) {
             throw new CsrfException('Invalid CSRF token', 403);
         }
     }

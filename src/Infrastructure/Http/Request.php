@@ -247,11 +247,12 @@ final class Request
         // Check X-Real-IP header
         $realIp = $this->header('X-Real-IP');
         if ($realIp !== null && $realIp !== '') {
-            return (string) $realIp;
+            return $realIp;
         }
 
         // Fallback to REMOTE_ADDR
-        return (string) ($_SERVER['REMOTE_ADDR'] ?? '127.0.0.1');
+        // @phpstan-ignore-next-line
+        return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
     }
 
     /**

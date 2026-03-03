@@ -1,45 +1,33 @@
 /**
- * App - Shared JavaScript Entry Point
- * Imports and initializes all shared utilities
+ * App - Core JavaScript Entry Point
+ * ONLY truly shared utilities (loaded on EVERY page)
+ *
+ * Keep this minimal for maximum performance!
+ * Page-specific features go in pages/*.ts
+ *
+ * Dependencies:
+ * - NO 3rd party libs in core (vanilla JS only)
  */
 
 // Core utilities
 import { CsrfManager } from "@core/index.js";
 
-// Components
-import {
-  initCookieConsent,
-  updateGreeting,
-  initGalleryLightbox,
-  initCardInteractions,
-  initFaqToggle,
-  initPricingToggle,
-} from "@components/index.js";
-
-// UI components
+// UI - ONLY essential components
 import {
   notifications,
   initHtmxNotifications,
   initTheme,
   initThemeToggle,
-  setupAlpine,
   initAlerts,
 } from "@ui/index.js";
 
-// Navigation
-import { initSmoothScroll, initMobileMenu, initNavActive } from "@navigation/index.js";
+// Navigation - essential for all pages
+import { initSmoothScroll, initMobileMenu } from "@navigation/index.js";
 
-// Effects
-import {
-  initGoldTextEffect,
-  initScrollAnimations,
-  initParallax,
-} from "@effects/index.js";
+// Effects - anim blocks for text reveal
+import { initAnimBlocks } from "@effects/animBlock.js";
 
-// Forms
-import { initFormEnhancements } from "@forms/index.js";
-
-console.log("%cAPP LOADING...", "color: #d4af37; font-size: 16px; font-weight: bold");
+console.log("%cCORE LOADING...", "color: #d4af37; font-size: 16px; font-weight: bold");
 
 /**
  * Debug utility - log loaded assets and DOM state
@@ -66,45 +54,33 @@ function debugAssets(): void {
 }
 
 /**
- * Initialize all application features
+ * Initialize CORE features only
+ * Page-specific features are initialized in their own entry points
  */
-function initApp(): void {
+function initCore(): void {
   // Theme (load first to prevent flash)
   initTheme();
   initThemeToggle();
 
-  // Core components
-  initCookieConsent();
-  initGalleryLightbox();
-  initCardInteractions();
-  initFaqToggle();
-  initPricingToggle();
-
-  // UI
-  setupAlpine();
+  // UI - essential only
   initAlerts();
 
-  // Navigation
+  // Navigation - essential for all pages
   initSmoothScroll();
   initMobileMenu();
 
-  // Effects
-  initGoldTextEffect();
-  initScrollAnimations();
-  initParallax();
-
-  // Forms
-  initFormEnhancements();
-
   // Notifications
   initHtmxNotifications();
+
+  // Effects - text reveal animations
+  initAnimBlocks();
 
   // Make globals available
   (window as any).notifications = notifications;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initApp();
+  initCore();
   debugAssets();
-  console.log("%c✅ APP READY", "color: #10b981; font-size: 16px; font-weight: bold");
+  console.log("%c✅ CORE READY", "color: #10b981; font-size: 16px; font-weight: bold");
 });

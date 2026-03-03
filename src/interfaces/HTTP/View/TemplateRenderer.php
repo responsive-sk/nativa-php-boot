@@ -48,6 +48,14 @@ final class TemplateRenderer
     }
 
     /**
+     * Get templates path (for includes in layouts)
+     */
+    public function getTemplatesPath(): string
+    {
+        return $this->templatesPath;
+    }
+
+    /**
      * Render a template with optional layout
      *
      * @param array<string, mixed> $data
@@ -164,15 +172,16 @@ final class TemplateRenderer
             $templatePath .= '/pages/admin';
             $template = substr($template, 6); // Remove 'admin/' prefix
         } elseif (str_starts_with($template, 'frontend/')) {
-            // Frontend templates (Templates/pages/frontend)
-            $templatePath .= '/pages/frontend';
+            // Frontend templates (Templates/frontend)
+            $templatePath .= '/frontend';
             $template = substr($template, 9); // Remove 'frontend/' prefix
         } else {
-            // Legacy frontend templates
-            $templatePath .= '/pages';
+            // Direct path (e.g., 'pages/home' → Templates/pages/home.php)
+            $templatePath .= '/' . $template;
+            $template = '';
         }
 
-        $templatePath .= '/' . $template . '.php';
+        $templatePath .= $template === '' ? '.php' : '/' . $template . '.php';
 
         if (!file_exists($templatePath)) {
             error_log("WARN: TemplateRenderer template not found: {$templatePath}");
@@ -231,17 +240,20 @@ final class TemplateRenderer
      */
     private function renderLayout(string $layout): string|false
     {
-        // Determine layout path based on template type
-        $layoutPath = $this->templatesPath;
+        // Remove 'layouts/' prefix if present
+        $layout = str_replace('layouts/', '', $layout);
+        
+        // Determine layout path
+        $layoutPath = $this->templatesPath . '/layouts';
 
         // Layout path (Templates/layouts/)
-        if (str_starts_with($layout, 'admin/')) {
-            $layoutPath .= '/layouts/admin.php';
-        } elseif (str_starts_with($layout, 'frontend/')) {
-            $layoutPath .= '/layouts/frontend.php';
+        if ($layout === 'admin' || str_starts_with($layout, 'admin')) {
+            $layoutPath .= '/admin.php';
+        } elseif ($layout === 'frontend' || str_starts_with($layout, 'frontend')) {
+            $layoutPath .= '/frontend.php';
         } else {
-            // Legacy layouts
-            $layoutPath .= '/layouts/' . $layout . '.php';
+            // Custom layout name
+            $layoutPath .= '/' . $layout . '.php';
         }
 
         if (!file_exists($layoutPath)) {

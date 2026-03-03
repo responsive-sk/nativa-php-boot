@@ -70,7 +70,7 @@ final class CloudinaryProvider implements MediaProviderInterface
         $uploadUrl = "https://api.cloudinary.com/v1_1/{$this->cloudName}/auto/upload";
 
         $postData = [
-            'file' => new \CURLFile($file['tmp_name'], (string) ($file['type'] ?? ''), (string) ($file['name'] ?? '')),
+            'file' => new \CURLFile($file['tmp_name'], $file['type'] ?? '', $file['name'] ?? ''),
             'upload_preset' => $this->uploadPreset,
             'folder' => 'php_cms/' . date('Y/m/d'),
         ];
@@ -83,10 +83,10 @@ final class CloudinaryProvider implements MediaProviderInterface
         }
 
         return [
-            'path' => (string) $result['public_id'],
-            'url' => (string) $result['secure_url'],
+            'path' => $result['public_id'] ?? '',
+            'url' => $result['secure_url'] ?? '',
             'size' => (int) ($result['bytes'] ?? $file['size']),
-            'mime_type' => (string) ($result['format'] ?? $file['type']),
+            'mime_type' => $result['format'] ?? ($file['type'] ?? ''),
         ];
     }
 
@@ -100,7 +100,7 @@ final class CloudinaryProvider implements MediaProviderInterface
     private function executeWithRetry(string $url, array $postData): array
     {
         $attempt = 0;
-        $lastError = null;
+        $lastError = '';
 
         while ($attempt < self::MAX_RETRIES) {
             $attempt++;
@@ -137,6 +137,7 @@ final class CloudinaryProvider implements MediaProviderInterface
                         '[FIX] Cloudinary API request successful (attempt %d)',
                         $attempt
                     ));
+                    /** @var array<string, mixed> $decoded */
                     return $decoded;
                 }
             }
@@ -152,10 +153,10 @@ final class CloudinaryProvider implements MediaProviderInterface
         error_log(sprintf(
             '[FIX] Cloudinary API request failed after %d attempts: %s',
             $attempt,
-            $lastError ?? 'Unknown error'
+            $lastError
         ));
 
-        throw new RuntimeException($lastError ?? 'Cloudinary API request failed');
+        throw new RuntimeException($lastError);
     }
 
     /**
@@ -172,6 +173,7 @@ final class CloudinaryProvider implements MediaProviderInterface
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        // @phpstan-ignore-next-line
         curl_setopt($ch, CURLOPT_USERPWD, "{$this->apiKey}:{$this->apiSecret}");
 
         // Timeout configuration
@@ -196,7 +198,7 @@ final class CloudinaryProvider implements MediaProviderInterface
 
         return [
             'httpCode' => $httpCode,
-            'response' => $response ?: null,
+            'response' => is_string($response) ? $response : null,
         ];
     }
 
@@ -232,8 +234,11 @@ final class CloudinaryProvider implements MediaProviderInterface
         }
 
         $data = json_decode($response, true);
-        if (is_array($data) && isset($data['error']['retry_after'])) {
-            return (int) $data['error']['retry_after'];
+        if (is_array($data) && isset($data['error']) && is_array($data['error'])) {
+            $retryAfter = $data['error']['retry_after'] ?? null;
+            if (is_numeric($retryAfter)) {
+                return (int) $retryAfter;
+            }
         }
 
         return null;

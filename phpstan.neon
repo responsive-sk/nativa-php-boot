@@ -10,6 +10,6 @@ parameters:
     excludePaths:
         - src/Infrastructure/Paths/AppPaths.php
         - src/Infrastructure/Persistence/DatabaseConnection.php
-        - src/Interfaces/Templates/*
+        - src/Templates/*
         - tests/
     reportUnmatchedIgnoredErrors: false

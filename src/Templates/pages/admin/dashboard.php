@@ -138,8 +138,8 @@ $adminJs = AssetHelper::js('admin');
                 </div>
                 <div class="cmdRow">
                     <span class="label">Environment</span>
-                    <code><?= htmlspecialchars((string) ($_ENV['APP_ENV'] ?? 'development')) ?></code>
-                    <button class="copy" data-copy="<?= htmlspecialchars((string) ($_ENV['APP_ENV'] ?? 'development')) ?>">Copy</button>
+                    <code><?= htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development') ?></code>
+                    <button class="copy" data-copy="<?= htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development') ?>">Copy</button>
                 </div>
             </div>
         </section>

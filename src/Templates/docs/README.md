@@ -1,6 +1,76 @@
 # Frontend Documentation
 
-Complete documentation for the yii-boot frontend architecture.
+Complete documentation for the Nativa CMS frontend architecture.
+
+## 🏛️ Pillars
+
+### 1. Build for Speed ⚡
+
+> **"Core + Page-Specific"**
+>
+> Split bundles into minimal core (loaded on every page) and page-specific features (loaded only when needed).
+
+**Why it matters:**
+- Every 100ms faster = +1% conversion
+- Lighthouse 100/100/100/100 = better SEO
+- Core Web Vitals = Google ranking factor
+
+**Implementation:**
+- Core bundle: <10KB gzipped (theme, CSRF, mobile menu, smooth scroll)
+- Page-specific: loaded only when needed (GSAP on home, search on docs)
+- Dark/Light theme consistency: no mixing, entire page is one theme
+
+📖 [Read more →](BUILD_FOR_SPEED.md)
+
+### 2. Type Safety 🛡️
+
+> **"Validate at input, no mixed inside"**
+>
+> TypeScript strict mode with explicit types at boundaries.
+
+**Why it matters:**
+- Catches bugs before production
+- Self-documenting code
+- Better IDE autocomplete
+
+**Implementation:**
+- `declare(strict_types=1)` everywhere
+- Validate `$_POST`, `$_SERVER` at boundaries
+- DTOs and Value Objects for domain logic
+
+### 3. Design Tokens 🎨
+
+> **"Single source of truth for visual styles"**
+>
+> CSS custom properties defined once, used everywhere.
+
+**Why it matters:**
+- Consistent theming (dark/light)
+- Easy maintenance
+- Performance (no runtime calculations)
+
+**Implementation:**
+- `tokens.css` - colors, spacing, typography
+- BEM naming for components
+- No hardcoded values in page-specific CSS
+
+### 4. Progressive Enhancement 📈
+
+> **"Works everywhere, enhanced for modern browsers"**
+>
+> Core functionality works without JavaScript, enhanced experience for modern browsers.
+
+**Why it matters:**
+- Accessibility
+- SEO (content visible to crawlers)
+- Resilience (works when JS fails)
+
+**Implementation:**
+- Semantic HTML first
+- CSS for layout and visual polish
+- JavaScript for enhancements (animations, search, etc.)
+
+---
 
 ## 📚 Documentation Index
 

@@ -7,6 +7,7 @@ namespace Interfaces\HTTP;
 use Interfaces\HTTP\Actions\Frontend\HomeAction;
 use Interfaces\HTTP\Actions\Frontend\BlogAction;
 use Interfaces\HTTP\Actions\Frontend\PortfolioAction;
+use Interfaces\HTTP\Actions\Frontend\DocsAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ListArticlesApiAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
@@ -254,6 +255,9 @@ final class Kernel
     {
         // Frontend Routes - Actions pattern
         $this->router->get('/', HomeAction::class);
+
+        // Documentation
+        $this->router->get('/docs', DocsAction::class);
 
         // Blog routes (new frontend)
         $this->router->get('/blog', BlogAction::class);

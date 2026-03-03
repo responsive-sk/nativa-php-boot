@@ -124,10 +124,17 @@ final class FormValidationService
 
     /**
      * Sanitize email
+     *
+     * @param array<string, mixed> $field
      */
     private function sanitizeEmail(mixed $value, array $field): ?string
     {
-        $value = trim((string) $value);
+        if (!is_string($value)) {
+            $this->addError($field['name'], 'Invalid email format');
+            return null;
+        }
+        
+        $value = trim($value);
 
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             $this->addError($field['name'], 'Invalid email format');
@@ -142,15 +149,22 @@ final class FormValidationService
             return null;
         }
 
-        return filter_var($value, FILTER_SANITIZE_EMAIL);
+        return filter_var($value, FILTER_SANITIZE_EMAIL) ?: null;
     }
 
     /**
      * Sanitize text
+     *
+     * @param array<string, mixed> $field
      */
     private function sanitizeText(mixed $value, array $field): string
     {
-        $value = trim((string) $value);
+        if (!is_string($value)) {
+            $this->addError($field['name'], 'Invalid text format');
+            return '';
+        }
+        
+        $value = trim($value);
 
         // Apply max length
         $maxLength = (int) ($field['max_length'] ?? $field['maxlength'] ?? 1000);
@@ -173,6 +187,7 @@ final class FormValidationService
     /**
      * Sanitize number
      *
+     * @param array<string, mixed> $field
      * @return int|float|null
      */
     private function sanitizeNumber(mixed $value, array $field): int|float|null
@@ -203,25 +218,39 @@ final class FormValidationService
 
     /**
      * Sanitize URL
+     *
+     * @param array<string, mixed> $field
      */
     private function sanitizeUrl(mixed $value, array $field): ?string
     {
-        $value = trim((string) $value);
+        if (!is_string($value)) {
+            $this->addError($field['name'], 'Invalid URL format');
+            return null;
+        }
+        
+        $value = trim($value);
 
         if (!filter_var($value, FILTER_VALIDATE_URL)) {
             $this->addError($field['name'], 'Invalid URL format');
             return null;
         }
 
-        return filter_var($value, FILTER_SANITIZE_URL);
+        return filter_var($value, FILTER_SANITIZE_URL) ?: null;
     }
 
     /**
      * Sanitize date
+     *
+     * @param array<string, mixed> $field
      */
     private function sanitizeDate(mixed $value, array $field): ?string
     {
-        $value = trim((string) $value);
+        if (!is_string($value)) {
+            $this->addError($field['name'], 'Invalid date format');
+            return null;
+        }
+        
+        $value = trim($value);
 
         $timestamp = strtotime($value);
         if ($timestamp === false) {
@@ -252,10 +281,17 @@ final class FormValidationService
 
     /**
      * Sanitize select value
+     *
+     * @param array<string, mixed> $field
      */
     private function sanitizeSelect(mixed $value, array $field): ?string
     {
-        $value = trim((string) $value);
+        if (!is_string($value)) {
+            $this->addError($field['name'], 'Invalid selection');
+            return null;
+        }
+        
+        $value = trim($value);
 
         // Validate against options if provided
         if (isset($field['options']) && is_array($field['options'])) {

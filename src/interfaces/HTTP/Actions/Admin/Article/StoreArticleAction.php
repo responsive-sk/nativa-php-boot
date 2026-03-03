@@ -28,11 +28,15 @@ final class StoreArticleAction extends Action
             /** @var array<string, mixed> $data */
             $data = $request->getRequest();
 
+            $title = isset($data['title']) && is_string($data['title']) ? $data['title'] : '';
+            $content = isset($data['content']) && is_string($data['content']) ? $data['content'] : '';
+            $excerpt = isset($data['excerpt']) && is_string($data['excerpt']) ? $data['excerpt'] : null;
+
             $article = $this->articleManager->create(
-                title: (string) ($data['title'] ?? ''),
-                content: (string) ($data['content'] ?? ''),
+                title: $title,
+                content: $content,
                 authorId: '1', // TODO: Get from session (current user ID)
-                excerpt: isset($data['excerpt']) ? (string) $data['excerpt'] : null,
+                excerpt: $excerpt,
             );
 
             if (isset($data['status']) && $data['status'] === 'published') {

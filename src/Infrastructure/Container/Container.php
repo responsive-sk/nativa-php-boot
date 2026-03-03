@@ -65,15 +65,13 @@ final class Container
     /**
      * Resolve a class or interface
      *
-     * @template T of object
-     * @param class-string<T> $abstract
-     * @return T
+     * @param string $abstract
+     * @return object
      */
     public function get(string $abstract): object
     {
         // Return existing instance if singleton
         if (isset($this->instances[$abstract]) && $this->singletons[$abstract]) {
-            /** @var T */
             return $this->instances[$abstract];
         }
 
@@ -82,15 +80,12 @@ final class Container
             $concrete = $this->bindings[$abstract];
 
             if (is_callable($concrete)) {
-                /** @var T */
                 $instance = $concrete($this);
             } else {
-                /** @var T */
                 $instance = $this->build($concrete);
             }
         } else {
             // Auto-wire the class
-            /** @var T */
             $instance = $this->build($abstract);
         }
 
@@ -105,9 +100,8 @@ final class Container
     /**
      * Build a class with dependency injection
      *
-     * @template T of object
-     * @param class-string<T> $class
-     * @return T
+     * @param string $class
+     * @return object
      */
     private function build(string $class): object
     {
@@ -213,9 +207,8 @@ final class Container
     /**
      * Build a class without caching (always new instance)
      *
-     * @template T
-     * @param class-string<T> $class
-     * @return T
+     * @param string $class
+     * @return object
      */
     public function make(string $class): object
     {

@@ -56,60 +56,70 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
 
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="header__inner container">
-      <a href="/" class="header__logo">Nativa<span class="header__logo-dot">.</span></a>
+  <!-- Navigation -->
+  <nav class="nav-primary">
+    <div class="nav-primary__inner container">
+      <ul class="nav-primary__list">
+        <li class="nav-primary__item nav-primary__item--active">
+          <a href="/" class="nav-primary__link">
+            <span class="nav-primary__number">01</span>
+            <span class="nav-primary__text">Home</span>
+          </a>
+        </li>
+        <li class="nav-primary__item">
+          <a href="/blog" class="nav-primary__link">
+            <span class="nav-primary__number">02</span>
+            <span class="nav-primary__text">Blog</span>
+          </a>
+        </li>
+        <li class="nav-primary__item">
+          <a href="/portfolio" class="nav-primary__link">
+            <span class="nav-primary__number">03</span>
+            <span class="nav-primary__text">Portfolio</span>
+          </a>
+        </li>
+        <li class="nav-primary__item">
+          <a href="/contact" class="nav-primary__link">
+            <span class="nav-primary__number">04</span>
+            <span class="nav-primary__text">Contact</span>
+          </a>
+        </li>
+        <li class="nav-primary__item">
+          <a href="/docs" class="nav-primary__link">
+            <span class="nav-primary__number">05</span>
+            <span class="nav-primary__text">Docs</span>
+          </a>
+        </li>
+      </ul>
 
-      <nav class="nav">
-        <a href="/" class="nav__link" data-page="home">Home</a>
-        <a href="/blog" class="nav__link" data-page="blog">Blog</a>
-        <a href="/portfolio" class="nav__link" data-page="portfolio">Portfolio</a>
-        <a href="/contact" class="nav__link" data-page="contact">Contact</a>
-        <a href="/docs" class="nav__link" data-page="docs">Docs</a>
-      </nav>
-
-      <div class="header__actions">
-        <!-- Theme toggle -->
-        <button class="theme-toggle" aria-label="Toggle theme">
-            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"/>
-                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
-            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
+      <div class="nav-primary__actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
-        
+
         <?php if ($isGuest): ?>
-        <a href="/login" class="btn btn--outline">Sign In</a>
+        <a href="/login" class="btn btn--outline btn--sm">Sign In</a>
         <?php else: ?>
-        <a href="/profile" class="header__user-btn">
-            <span class="header__user-avatar">U</span>
-        </a>
-        <form method="post" action="/logout" style="display:inline;">
-            <input type="hidden" name="_csrf" value="<?= $this->e($csrfToken) ?>">
-            <button type="submit" class="btn btn--outline btn--sm">Sign Out</button>
-        </form>
+        <a href="/profile" class="btn btn--outline btn--sm">Profile</a>
         <?php endif; ?>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="nav-primary__mobile-toggle mobile-menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">
+          <span class="mobile-toggle__icon"></span>
+        </button>
       </div>
-
-      <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg class="mobile-menu-btn__icon-burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-        <svg class="mobile-menu-btn__icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
     </div>
-  </header>
+  </nav>
 
-  <!-- Mobile Navigation Menu -->
-  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" role="dialog" aria-modal="true">
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" aria-label="Mobile navigation" hidden>
     <div class="mobile-menu__header">
       <div class="mobile-menu__theme">
         <span class="mobile-menu__theme-label">Theme</span>
@@ -135,6 +145,11 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
       <div class="mobile-menu__item"><a href="/docs" class="mobile-menu__link" data-page="docs">Docs</a></div>
     </div>
   </nav>
+
+  <!-- Hero Section (only for homepage) -->
+  <?php if (($page ?? '') === 'home'): ?>
+    <?php include $this->getTemplatesPath() . '/partials/hero-home.php'; ?>
+  <?php endif; ?>
 
   <!-- Main Content -->
   <main class="main">
@@ -176,7 +191,15 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   </footer>
 
   <!-- Shared JavaScript -->
- <script type="module" src="<?= $appJs ?>"></script>
+  <script type="module" src="<?= $appJs ?>"></script>
+  
+  <!-- Page-specific JavaScript (if exists) -->
+  <?php if (($page ?? '') === 'home'): ?>
+  <?php
+    $homeJs = \Infrastructure\View\AssetHelper::js('home');
+  ?>
+  <script type="module" src="<?= $homeJs ?>" defer crossorigin="anonymous"></script>
+  <?php endif; ?>
 
 </body>
 </html>

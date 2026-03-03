@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
 import compression from "vite-plugin-compression2";
+import copy from 'rollup-plugin-copy';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode || "development", process.cwd(), "");
@@ -10,13 +11,14 @@ export default defineConfig(({ mode }) => {
   return {
     root: "./src",
     base: baseAssetUrl,
+    publicDir: 'public',
 
     build: {
       cssCodeSplit: true,
       manifest: "manifest.json",
       outDir: resolve(__dirname, "../../public/assets"),
       emptyOutDir: true,
-      copyPublicDir: false,
+      copyPublicDir: true,
 
       // Target ES2017 for Android 8 Chrome compatibility (Chrome 60+)
       // Android 8 ships with Chrome 60 which supports ES2017
@@ -73,8 +75,11 @@ export default defineConfig(({ mode }) => {
               : "[name][extname]";
           },
           manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return "vendor";
+            // Minimal vendor splitting - only essential libs
+            if (id.includes('node_modules')) {
+              // Everything goes to single vendor chunk
+              // We minimize 3rd party deps for maximum performance
+              return 'vendor';
             }
           },
         },

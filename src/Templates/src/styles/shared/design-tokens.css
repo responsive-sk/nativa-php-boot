@@ -1,4 +1,14 @@
 :root {
+    /* Typography - Local fonts from src/assets/fonts */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Roboto Condensed', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Brand Colors */
+    --brand-gold: #c8a96e;
+    --brand-gold-light: #d4b580;
+    --brand-gold-dark: #b8956a;
+
     /* Background - dark theme from vzor-admin */
     --admin-bg: #0b0f17;
     --admin-bg-gradient-1: rgba(124, 92, 255, 0.25);
