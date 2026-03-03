@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-RalewayMediumItalic';
+  src:
+    url('sans-serif-RalewayMediumItalic.woff2') format('woff2'),
+    url('sans-serif-RalewayMediumItalic.woff') format('woff'),
+    url('sans-serif-RalewayMediumItalic.ttf') format('truetype');
+  font-display: swap;
+}

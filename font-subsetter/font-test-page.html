@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test - SK/CZ</title>
+    
+    <style>
+        @font-face {
+            font-family: 'AntonSKCZ';
+            src:
+                url('anton_output/AntonSKCZ.woff2') format('woff2'),
+                url('anton_output/AntonSKCZ.woff') format('woff'),
+                url('anton_output/AntonSKCZ.ttf') format('truetype');
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'UnboundedSKCZ';
+            src:
+                url('unbounded_output/UnboundedSKCZ.woff2') format('woff2'),
+                url('unbounded_output/UnboundedSKCZ.woff') format('woff'),
+                url('unbounded_output/UnboundedSKCZ.ttf') format('truetype');
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'BebasNeueSKCZ';
+            src:
+                url('bebas_output/BebasNeueSKCZ.woff2') format('woff2'),
+                url('bebas_output/BebasNeueSKCZ.woff') format('woff'),
+                url('bebas_output/BebasNeueSKCZ.ttf') format('truetype');
+            font-display: swap;
+        }
+        
+        body {
+            font-family: 'UnboundedSKCZ', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'AntonSKCZ', sans-serif;
+            color: #00d9ff;
+        }
+        
+        .display {
+            font-family: 'BebasNeueSKCZ', sans-serif;
+            font-size: 3rem;
+            color: #ff6b6b;
+        }
+        
+        .chars {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 8px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #16213e;
+            border-radius: 8px;
+        }
+        
+        .char {
+            text-align: center;
+            padding: 10px;
+            background: #0f3460;
+            border-radius: 4px;
+            font-size: 1.2rem;
+        }
+        
+        .test-row {
+            margin: 15px 0;
+            padding: 10px;
+            background: #16213e;
+            border-radius: 8px;
+        }
+        
+        .label {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🇸🇰🇨🇿 Font Test - Slovenské & České Znaky</h1>
+    
+    <h2>1. Ukážka Textu</h2>
+    <p class="display">Vitajte na našej stránke!</p>
+    <p>Ľúbim programovať vo Pythone a tvoriť webové stránky.</p>
+    <p>Český text: Příliš žluťoučký kůň úpěl ďábelské ódy.</p>
+    
+    <h2>2. Abeceda</h2>
+    <div class="test-row">
+        <div class="label">Veľké písmená</div>
+        <p>A Á Ä B C Č D Ď E É F G H I Í J K L Ĺ Ľ M N Ň O Ó Ô P Q R Ŕ S Š T Ť U Ú V W X Y Ý Z Ž</p>
+    </div>
+    
+    <div class="test-row">
+        <div class="label">Malé písmená</div>
+        <p>a á ä b c č d ď e é f g h i í j k l ľ ĺ m n ň o ó ô p q r ŕ s š t ť u ú v w x y ý z ž</p>
+    </div>
+    
+    <div class="test-row">
+        <div class="label">České špecifiká</div>
+        <p>ě ě ů ů Ř ř</p>
+    </div>
+    
+    <h2>3. Všetky Znaky (110)</h2>
+    <div class="chars">
+        <div class="char">A</div><div class="char">Á</div><div class="char">Ä</div>
+        <div class="char">B</div><div class="char">C</div><div class="char">Č</div>
+        <div class="char">D</div><div class="char">Ď</div><div class="char">E</div>
+        <div class="char">É</div><div class="char">F</div><div class="char">G</div>
+        <div class="char">H</div><div class="char">I</div><div class="char">Í</div>
+        <div class="char">J</div><div class="char">K</div><div class="char">L</div>
+        <div class="char">Ĺ</div><div class="char">Ľ</div><div class="char">M</div>
+        <div class="char">N</div><div class="char">Ň</div><div class="char">O</div>
+        <div class="char">Ó</div><div class="char">Ô</div><div class="char">P</div>
+        <div class="char">Q</div><div class="char">R</div><div class="char">Ŕ</div>
+        <div class="char">S</div><div class="char">Š</div><div class="char">T</div>
+        <div class="char">Ť</div><div class="char">U</div><div class="char">Ú</div>
+        <div class="char">V</div><div class="char">W</div><div class="char">X</div>
+        <div class="char">Y</div><div class="char">Ý</div><div class="char">Z</div>
+        <div class="char">Ž</div><div class="char">a</div><div class="char">á</div>
+        <div class="char">ä</div><div class="char">b</div><div class="char">c</div>
+        <div class="char">č</div><div class="char">d</div><div class="char">ď</div>
+        <div class="char">e</div><div class="char">é</div><div class="char">f</div>
+        <div class="char">g</div><div class="char">h</div><div class="char">i</div>
+        <div class="char">í</div><div class="char">j</div><div class="char">k</div>
+        <div class="char">l</div><div class="char">ĺ</div><div class="char">ľ</div>
+        <div class="char">m</div><div class="char">n</div><div class="char">ň</div>
+        <div class="char">o</div><div class="char">ó</div><div class="char">ô</div>
+        <div class="char">p</div><div class="char">q</div><div class="char">r</div>
+        <div class="char">ŕ</div><div class="char">s</div><div class="char">š</div>
+        <div class="char">t</div><div class="char">ť</div><div class="char">u</div>
+        <div class="char">ú</div><div class="char">v</div><div class="char">w</div>
+        <div class="char">x</div><div class="char">y</div><div class="char">ý</div>
+        <div class="char">z</div><div class="char">ž</div><div class="char">0</div>
+        <div class="char">1</div><div class="char">2</div><div class="char">3</div>
+        <div class="char">4</div><div class="char">5</div><div class="char">6</div>
+        <div class="char">7</div><div class="char">8</div><div class="char">9</div>
+        <div class="char">!</div><div class="char">@</div><div class="char">#</div>
+        <div class="char">$</div><div class="char">%</div><div class="char">^</div>
+        <div class="char">&</div><div class="char">*</div><div class="char">(</div>
+        <div class="char">)</div><div class="char">_</div><div class="char">+</div>
+        <div class="char">=</div><div class="char">[</div><div class="char">]</div>
+        <div class="char">{</div><div class="char">}</div><div class="char">|</div>
+        <div class="char">;</div><div class="char">:</div><div class="char">,</div>
+        <div class="char">.</div><div class="char">?</div><div class="char">€</div>
+    </div>
+    
+    <h2>4. Font Porovnanie</h2>
+    <div class="test-row">
+        <div class="label">Anton (Display)</div>
+        <p style="font-family: 'AntonSKCZ'; font-size: 2rem;">Aa Áá Ää Čč Ďď Éé Íí Ĺĺ Ľľ Ňň Óó Ôô Ŕŕ Šš Ťť Úú Ýý Žž</p>
+    </div>
+    
+    <div class="test-row">
+        <div class="label">Unbounded (Body Text)</div>
+        <p style="font-family: 'UnboundedSKCZ'; font-size: 1.2rem;">Aa Áá Ää Čč Ďď Éé Íí Ĺĺ Ľľ Ňň Óó Ôô Ŕŕ Šš Ťť Úú Ýý Žž</p>
+    </div>
+    
+    <div class="test-row">
+        <div class="label">Bebas Neue (Headlines)</div>
+        <p style="font-family: 'BebasNeueSKCZ'; font-size: 2rem;">Aa Áá Ää Čč Ďď Éé Íí Ĺĺ Ľľ Ňň Óó Ôô Ŕŕ Šš Ťť Úú Ýý Žž</p>
+    </div>
+</body>
+</html>

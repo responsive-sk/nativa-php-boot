@@ -1,0 +1,468 @@
+#!/usr/bin/env python3
+"""
+Font Optimizer - kombinovaná SK+CZ+US sada
+"""
+
+import os
+from fontTools import subset
+
+# KOMBINOVANÁ SADA SK + CZ + US
+COMBINED_CHARSET = (
+    # Slovenčina
+    'AÁÄBCČDĎEÉFGHIÍJKLĹĽMNŇOÓÔPQRŔSŠTŤUÚVWXYÝZŽ' +
+    'aáäbcčdďeéfghiíjklĺľmnňoóôpqrŕsštťuúvwxyýzž' +
+    
+    # Čeština (pridáme len odlišné znaky od SK)
+    'ĚěŘřŮů' +  # Čo má CZ a SK nemá
+    
+    # English/US
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+    'abcdefghijklmnopqrstuvwxyz' +
+    
+    # Čísla
+    '0123456789' +
+    
+    # Základná interpunkcia (optimálna pre web)
+    ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~' +
+    '„“”‘’‚‹›«»–—•…€™€$£¥¢©®™°±×÷≠≈∞∂∫∑∏√≤≥∈∉∧∨¬→↔' +
+    '§¶†‡‰' +
+    
+    # Špeciálne pre web
+    '←↑→↓↔↕↨⇐⇑⇒⇓⇔∀∃∅∇∈∉∋∏∑−∕∗∘∙√∝∞∠∧∨∩∪∫∮∴∵∼∽≅≈≠≡≤≥⊂⊃⊄⊆⊇⊕⊗⊥⋅'
+)
+
+def create_combined_font(input_font, output_font="font-combined.woff2"):
+    """Vytvorí jeden font pre SK, CZ a US"""
+    
+    os.makedirs("fonts", exist_ok=True)
+    
+    # Získaj unikátne znaky
+    unique_chars = ''.join(sorted(set(COMBINED_CHARSET)))
+    print(f"🔤 Kombinovaná sada: {len(unique_chars)} znakov")
+    print(f"📝 Obsahuje: SK + CZ + US + čísla + interpunkciu")
+    
+    # Konvertuj na unicode range
+    def chars_to_range(chars):
+        codes = sorted(set(ord(c) for c in chars))
+        ranges = []
+        start = end = codes[0]
+        
+        for code in codes[1:]:
+            if code == end + 1:
+                end = code
+            else:
+                ranges.append(f"U+{start:04X}" if start == end else f"U+{start:04X}-{end:04X}")
+                start = end = code
+        
+        ranges.append(f"U+{start:04X}" if start == end else f"U+{start:04X}-{end:04X}")
+        return ','.join(ranges)
+    
+    unicode_range = chars_to_range(unique_chars)
+    print(f"📊 Unicode range: {len(unicode_range.split(','))} blokov")
+    
+    # Subset args
+    args = [
+        input_font,
+        f"--output-file=fonts/{output_font}",
+        f"--unicodes={unicode_range}",
+        "--flavor=woff2",
+        "--layout-features=*",  # Všetky OpenType features
+        "--desubroutinize",
+        "--no-hinting",  # Web nepotrebuje hinting
+        "--obfuscate-names",  # Ochrana fontu
+        "--recommended-glyphs",
+        "--name-IDs=0,3,4,6",  # Zachovať dôležité name records
+        "--name-legacy",
+        "--retain-gids",
+        "--notdef-outline",
+        "--prune-unicode-ranges",
+        "--canonical-order",
+    ]
+    
+    try:
+        # Spusti subset
+        subset.main(args)
+        
+        # Štatistiky
+        input_size = os.path.getsize(input_font) / 1024
+        output_size = os.path.getsize(f"fonts/{output_font}") / 1024
+        reduction = ((input_size - output_size) / input_size) * 100
+        
+        print(f"\n{'='*60}")
+        print(f"✅ KOMBINOVANÝ FONT VYTVORENÝ!")
+        print(f"{'='*60}")
+        print(f"📁 Vstup:        {input_font}")
+        print(f"📁 Výstup:       fonts/{output_font}")
+        print(f"🌐 Jazyky:       SK + CZ + US")
+        print(f"🔤 Znakov:       {len(unique_chars)}")
+        print(f"📊 Veľkosť:      {input_size:.1f}KB → {output_size:.1f}KB")
+        print(f"📉 Zmenšenie:    {reduction:.1f}%")
+        print(f"{'='*60}")
+        
+        # Vytvor CSS
+        create_css_file(output_font, len(unique_chars), output_size)
+        
+        # Vytvor testovací HTML
+        create_test_html(unique_chars)
+        
+    except Exception as e:
+        print(f"❌ Chyba: {e}")
+
+def create_css_file(font_name, char_count, file_size):
+    """Vytvorí CSS súbor"""
+    
+    css = f"""/* 
+ * Kombinovaný font pre SK + CZ + US
+ * {char_count} znakov, {file_size:.1f}KB
+ */
+
+@font-face {{
+    font-family: 'MultiLangFont';
+    src: url('{font_name}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    /* Optimalizácia pre moderné prehliadače */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}}
+
+/* Utility triedy */
+.sk-text, .cz-text, .en-text {{
+    font-family: 'MultiLangFont', -apple-system, BlinkMacSystemFont, 
+                 'Segoe UI', Roboto, sans-serif;
+}}
+
+/* Optimalizácia renderingu */
+body {{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}}
+
+/* Testovacie triedy */
+.test-box {{
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid;
+    background: #f8f9fa;
+    border-radius: 4px;
+}}
+
+.sk-test {{ border-color: #2e7d32; }}
+.cz-test {{ border-color: #d32f2f; }}
+.en-test {{ border-color: #1976d2; }}
+"""
+    
+    with open("fonts/styles.css", "w", encoding="utf-8") as f:
+        f.write(css)
+    
+    print(f"📝 CSS vytvorený: fonts/styles.css")
+
+def create_test_html(charset):
+    """Vytvorí testovací HTML"""
+    
+    # Rozdeľ charset do kategórií pre lepšiu prehľadnosť
+    categories = {
+        'SK Veľké': ''.join(sorted(set(c for c in charset if c.isupper() and ord(c) > 127))),
+        'SK Malé': ''.join(sorted(set(c for c in charset if c.islower() and ord(c) > 127))),
+        'CZ Špecifické': 'ĚěŘřŮů',
+        'US Veľké': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'US Malé': 'abcdefghijklmnopqrstuvwxyz',
+        'Čísla': '0123456789',
+        'Interpunkcia': ''.join(sorted(set(c for c in charset if not c.isalnum() and ord(c) < 128))),
+        'Špeciálne': ''.join(sorted(set(c for c in charset if ord(c) > 255))),
+    }
+    
+    html = f'''<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test SK+CZ+US fontu</title>
+    <link rel="stylesheet" href="fonts/styles.css">
+    <style>
+        body {{
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }}
+        
+        .container {{
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }}
+        
+        h1, h2, h3 {{
+            margin-top: 0;
+            color: #333;
+        }}
+        
+        h1 {{
+            background: linear-gradient(45deg, #2e7d32, #1976d2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }}
+        
+        .stats-box {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }}
+        
+        .stat {{
+            text-align: center;
+        }}
+        
+        .stat-value {{
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }}
+        
+        .char-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 8px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }}
+        
+        .char {{
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }}
+        
+        .char:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }}
+        
+        .test-section {{
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 6px solid;
+        }}
+        
+        .sk-section {{ border-color: #2e7d32; background: #e8f5e9; }}
+        .cz-section {{ border-color: #d32f2f; background: #ffebee; }}
+        .en-section {{ border-color: #1976d2; background: #e3f2fd; }}
+        
+        .test-text {{
+            font-size: 1.2rem;
+            line-height: 1.6;
+            padding: 1rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }}
+        
+        .language-badge {{
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }}
+        
+        .badge-sk {{ background: #2e7d32; color: white; }}
+        .badge-cz {{ background: #d32f2f; color: white; }}
+        .badge-en {{ background: #1976d2; color: white; }}
+        
+        @media (max-width: 768px) {{
+            .container {{
+                padding: 1rem;
+            }}
+            
+            .char-grid {{
+                grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            }}
+            
+            .char {{
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test kombinovaného fontu SK + CZ + US</h1>
+        
+        <div class="stats-box">
+            <div class="stat">
+                <span class="stat-value">{len(charset)}</span>
+                <span>znakov</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">3</span>
+                <span>jazyky</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">1</span>
+                <span>font súbor</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">~{(len(charset) * 0.3):.0f}KB</span>
+                <span>optimálna veľkosť</span>
+            </div>
+        </div>
+        
+        <h2>🔤 Obsahuje tieto znaky:</h2>
+        
+        <div class="test-section sk-section">
+            <h3><span class="language-badge badge-sk">SK</span> Slovenčina</h3>
+            <div class="char-grid">
+'''
+    
+    # SK znaky
+    sk_chars = ''.join(sorted(set(c for c in charset if any(ord(c) == sc for sc in range(128, 591)))))
+    for char in sk_chars[:100]:  # Limit na 100 znakov pre prehľadnosť
+        html += f'                <div class="char" title="U+{ord(char):04X}">{char}</div>\n'
+    
+    html += '''            </div>
+            <div class="test-text">
+                <strong>Testovacia veta:</strong> Kŕdeľ ďatľov učí koňa žrať kôru. Vĺča Táto preháňa úzko s ním. Štyridsaťštyri mŕtvych je naozaj priveľa! Čučoriedka v čiernej zemí rastie ako šialená.
+            </div>
+        </div>
+        
+        <div class="test-section cz-section">
+            <h3><span class="language-badge badge-cz">CZ</span> Čeština</h3>
+            <div class="char-grid">
+'''
+    
+    # CZ specifické znaky
+    cz_specific = 'ĚěŘřŮů'
+    for char in cz_specific:
+        html += f'                <div class="char" title="U+{ord(char):04X}">{char}</div>\n'
+    
+    html += '''            </div>
+            <div class="test-text">
+                <strong>Testovacia veta:</strong> Příliš žluťoučký kůň úpěl ďábelské ódy. Nechť již hříšné saxofony ďáblů rozezvučí síň úděsnými tóny waltzu, tanga a quickstepu. Ó, náhlý déšť již zvířil prach a čilá laň teď běží s houfcem gazel řídce obdělávanými pozemky.
+            </div>
+        </div>
+        
+        <div class="test-section en-section">
+            <h3><span class="language-badge badge-en">US</span> English / US</h3>
+            <div class="char-grid">
+'''
+    
+    # US znaky
+    for char in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz':
+        html += f'                <div class="char" title="U+{ord(char):04X}">{char}</div>\n'
+    
+    html += '''            </div>
+            <div class="test-text">
+                <strong>Test sentence:</strong> The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump! Sphinx of black quartz, judge my vow. Waltz, bad nymph, for quick jigs vex.
+            </div>
+        </div>
+        
+        <h2>🔢 Čísla a symboly</h2>
+        <div class="char-grid">
+'''
+    
+    # Čísla a základné symboly
+    for char in '0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`"\'\\':
+        html += f'            <div class="char" title="U+{ord(char):04X}">{char}</div>\n'
+    
+    html += '''        </div>
+        
+        <div class="test-section">
+            <h3>🎯 Výhody tohto prístupu:</h3>
+            <ul>
+                <li><strong>✅ Jedno stiahnutie</strong> pre všetky 3 jazyky</li>
+                <li><strong>✅ Optimalizovaná veľkosť</strong> (~30-50KB namiesto 200KB+)</li>
+                <li><strong>✅ Rýchlejšie načítanie</strong> - menej HTTP požiadaviek</li>
+                <li><strong>✅ Jednoduchá implementácia</strong> - jeden @font-face</li>
+                <li><strong>✅ Kompatibilita</strong> so všetkými prehliadačmi</li>
+                <li><strong>✅ Perfektné pre multi-jazyčné weby</strong></li>
+            </ul>
+            
+            <h3>📋 CSS implementácia:</h3>
+            <pre><code>/* Jednoduché! */
+@font-face {{
+    font-family: 'MultiLangFont';
+    src: url('font-combined.woff2') format('woff2');
+    font-display: swap;
+}}
+
+body {{
+    font-family: 'MultiLangFont', sans-serif;
+}}
+
+/* Automaticky funguje pre: */
+/* 🇸🇰 Slovenčinu: Árvíztűrő tükörfúrógép */
+/* 🇨🇿 Češtinu: Příliš žluťoučký kůň */
+/* 🇺🇸 English: The quick brown fox */</code></pre>
+        </div>
+    </div>
+    
+    <script>
+        // Interaktívny test
+        document.querySelectorAll('.char').forEach(char => {{
+            char.addEventListener('click', function() {{
+                const text = this.textContent;
+                const code = this.title;
+                alert(`Znak: ${text}\\n${code}`);
+            }});
+        }});
+        
+        // Font loading indicator
+        document.fonts.ready.then(() => {{
+            console.log('✅ Všetky fonty načítané!');
+            document.body.style.fontFamily = "'MultiLangFont', sans-serif";
+            
+            // Animate stats
+            document.querySelectorAll('.stat-value').forEach((stat, index) => {{
+                setTimeout(() => {{
+                    stat.style.transform = 'scale(1.1)';
+                    setTimeout(() => stat.style.transform = 'scale(1)', 300);
+                }}, index * 200);
+            }});
+        }});
+    </script>
+</body>
+</html>'''
+    
+    with open("font-combined-test.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    
+    print(f"🌐 Testovací HTML vytvorený: font-combined-test.html")
+
+# Spusti
+if __name__ == "__main__":
+    # Zmeň na svoj font súbor
+    INPUT_FONT = "input.otf"
+    
+    if not os.path.exists(INPUT_FONT):
+        print(f"❌ Font '{INPUT_FONT}' neexistuje!")
+        print(f"💡 Vlož svoj font do aktuálneho adresára a premenuj ho na '{INPUT_FONT}'")
+    else:
+        create_combined_font(INPUT_FONT)

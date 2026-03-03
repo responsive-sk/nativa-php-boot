@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Demo - SK/CZ</title>
+    
+    <!-- Sans-serif Fonts -->
+    <link rel="stylesheet" href="output/sans-serif/anton/Anton.css">
+    <link rel="stylesheet" href="output/sans-serif/bebasneue/BebasNeue.css">
+    <link rel="stylesheet" href="output/sans-serif/lato/Lato.css">
+    <link rel="stylesheet" href="output/sans-serif/opensans/OpenSans.css">
+    <link rel="stylesheet" href="output/sans-serif/roboto/Roboto.css">
+    <link rel="stylesheet" href="output/sans-serif/unbounded/Unbounded.css">
+    
+    <!-- Serif Fonts -->
+    <link rel="stylesheet" href="output/serif/cormorantgaramond/CormorantGaramond.css">
+    <link rel="stylesheet" href="output/serif/playfairdisplay/PlayfairDisplay.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a3e;
+            --bg-card: #252550;
+            --text-primary: #f0f0ff;
+            --text-secondary: #b0b0d0;
+            --accent-cyan: #00d9ff;
+            --accent-pink: #ff6b9d;
+            --accent-green: #00ff88;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--bg-secondary);
+        }
+        
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 3.5rem;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent-pink);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg-secondary);
+        }
+        
+        .font-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .font-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s;
+        }
+        
+        .font-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .font-name {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .font-size {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        
+        .sample-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--bg-secondary);
+        }
+        
+        .alphabet {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .char {
+            background: var(--bg-secondary);
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .comparison {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: baseline;
+        }
+        
+        .comparison-label {
+            font-family: 'Unbounded', sans-serif;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .comparison-text {
+            font-size: 1.5rem;
+        }
+        
+        .sk-cz-chars {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 8px;
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+        }
+        
+        .char-box {
+            background: var(--bg-card);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        
+        .char-box:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+        
+        .char-box .char-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        
+        .char-box:hover .char-label {
+            color: var(--bg-primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 2px solid var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .badge-sans {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+        
+        .badge-serif {
+            background: var(--accent-pink);
+            color: var(--bg-primary);
+        }
+        
+        .usage-example {
+            background: #1e1e3f;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Cormorant Garamond', serif;
+            margin-top: 20px;
+        }
+        
+        .usage-example code {
+            display: block;
+            background: var(--bg-primary);
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FONT DEMO</h1>
+            <p class="subtitle">Slovenské & České znaky • Web-optimized subsets</p>
+        </header>
+        
+        <!-- Sans-serif Section -->
+        <section class="section">
+            <h2 class="section-title">
+                Sans-serif (Bezpätkové)
+                <span class="badge badge-sans">6 fonts</span>
+            </h2>
+            
+            <div class="font-grid">
+                <!-- Anton -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Anton
+                        <span class="font-size">Display</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Anton', sans-serif; font-size: 2rem;">
+                        Vitajte na našej stránke!
+                    </div>
+                    <div style="font-family: 'Anton', sans-serif; font-size: 1.2rem; color: var(--text-secondary);">
+                        A Á Ä • Č Ď • É Í • Ĺ Ľ • Ň • Ó Ô • Ŕ Š Ť • Ú Ý Ž
+                    </div>
+                </div>
+                
+                <!-- Bebas Neue -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Bebas Neue
+                        <span class="font-size">Condensed</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;">
+                        Tvoríme webové stránky
+                    </div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--text-secondary);">
+                        A Á Ä • Č Ď • É Í • Ĺ Ľ • Ň • Ó Ô • Ŕ Š Ť • Ú Ý Ž
+                    </div>
+                </div>
+                
+                <!-- Lato -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Lato
+                        <span class="font-size">Body Text</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Lato', sans-serif; font-size: 1.1rem;">
+                        Ľúbim programovať vo Pythone a tvoriť moderné webové aplikácie.
+                    </div>
+                    <div style="font-family: 'Lato', sans-serif; font-size: 1rem; color: var(--text-secondary);">
+                        Príliš žluťoučký kůň úpěl ďábelské ódy.
+                    </div>
+                </div>
+                
+                <!-- Open Sans -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Open Sans
+                        <span class="font-size">Body Text</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Open Sans', sans-serif; font-size: 1.1rem;">
+                        Vyhŕň si rukávy a pustíme sa do práce na novom projekte.
+                    </div>
+                    <div style="font-family: 'Open Sans', sans-serif; font-size: 1rem; color: var(--text-secondary);">
+                        Český text: Příliš žluťoučký kůň úpěl ďábelské ódy.
+                    </div>
+                </div>
+                
+                <!-- Roboto -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Roboto
+                        <span class="font-size">Universal</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Roboto', sans-serif; font-size: 1.1rem;">
+                        Moderný, čitateľný font pre všetky typy projektov.
+                    </div>
+                    <div style="font-family: 'Roboto', sans-serif; font-size: 1rem; color: var(--text-secondary);">
+                        Slovenský font test so všetkými znakmi.
+                    </div>
+                </div>
+                
+                <!-- Unbounded -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Unbounded
+                        <span class="font-size">Tech/Display</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Unbounded', sans-serif; font-size: 1.3rem;">
+                        TECH • KÓD • WEB
+                    </div>
+                    <div style="font-family: 'Unbounded', sans-serif; font-size: 1rem; color: var(--text-secondary);">
+                        A Á Ä B C Č D Ď E É F G H I Í J K L Ĺ Ľ M N Ň O Ó Ô P Q R Ŕ S Š T Ť U Ú V W X Y Ý Z Ž
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Serif Section -->
+        <section class="section">
+            <h2 class="section-title">
+                Serif (Pätkové)
+                <span class="badge badge-serif">2 fonts</span>
+            </h2>
+            
+            <div class="font-grid">
+                <!-- Cormorant Garamond -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Cormorant Garamond
+                        <span class="font-size">Elegant</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;">
+                        Elegancia a klasický štýl pre náročné projekty.
+                    </div>
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-secondary);">
+                        Krásny serif font s dokonalými detailmi.
+                    </div>
+                </div>
+                
+                <!-- Playfair Display -->
+                <div class="font-card">
+                    <div class="font-name">
+                        Playfair Display
+                        <span class="font-size">Headlines</span>
+                    </div>
+                    <div class="sample-text" style="font-family: 'Playfair Display', serif; font-size: 1.6rem;">
+                        Moderný serif pre nadpisy
+                    </div>
+                    <div style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-secondary);">
+                        A Á Ä • Č Ď • É Í • Ĺ Ľ • Ň • Ó Ô • Ŕ Š Ť • Ú Ý Ž
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SK/CZ Characters -->
+        <section class="section">
+            <h2 class="section-title">SK/CZ Abeceda (110 znakov)</h2>
+            
+            <div class="sk-cz-chars" style="font-family: 'Roboto', sans-serif;">
+                <!-- Uppercase -->
+                <div class="char-box">A<div class="char-label">A</div></div>
+                <div class="char-box">Á<div class="char-label">Á</div></div>
+                <div class="char-box">Ä<div class="char-label">Ä</div></div>
+                <div class="char-box">B<div class="char-label">B</div></div>
+                <div class="char-box">C<div class="char-label">C</div></div>
+                <div class="char-box">Č<div class="char-label">Č</div></div>
+                <div class="char-box">D<div class="char-label">D</div></div>
+                <div class="char-box">Ď<div class="char-label">Ď</div></div>
+                <div class="char-box">E<div class="char-label">E</div></div>
+                <div class="char-box">É<div class="char-label">É</div></div>
+                <div class="char-box">F<div class="char-label">F</div></div>
+                <div class="char-box">G<div class="char-label">G</div></div>
+                <div class="char-box">H<div class="char-label">H</div></div>
+                <div class="char-box">I<div class="char-label">I</div></div>
+                <div class="char-box">Í<div class="char-label">Í</div></div>
+                <div class="char-box">J<div class="char-label">J</div></div>
+                <div class="char-box">K<div class="char-label">K</div></div>
+                <div class="char-box">L<div class="char-label">L</div></div>
+                <div class="char-box">Ĺ<div class="char-label">Ĺ</div></div>
+                <div class="char-box">Ľ<div class="char-label">Ľ</div></div>
+                <div class="char-box">M<div class="char-label">M</div></div>
+                <div class="char-box">N<div class="char-label">N</div></div>
+                <div class="char-box">Ň<div class="char-label">Ň</div></div>
+                <div class="char-box">O<div class="char-label">O</div></div>
+                <div class="char-box">Ó<div class="char-label">Ó</div></div>
+                <div class="char-box">Ô<div class="char-label">Ô</div></div>
+                <div class="char-box">P<div class="char-label">P</div></div>
+                <div class="char-box">Q<div class="char-label">Q</div></div>
+                <div class="char-box">R<div class="char-label">R</div></div>
+                <div class="char-box">Ŕ<div class="char-label">Ŕ</div></div>
+                <div class="char-box">S<div class="char-label">S</div></div>
+                <div class="char-box">Š<div class="char-label">Š</div></div>
+                <div class="char-box">T<div class="char-label">T</div></div>
+                <div class="char-box">Ť<div class="char-label">Ť</div></div>
+                <div class="char-box">U<div class="char-label">U</div></div>
+                <div class="char-box">Ú<div class="char-label">Ú</div></div>
+                <div class="char-box">V<div class="char-label">V</div></div>
+                <div class="char-box">W<div class="char-label">W</div></div>
+                <div class="char-box">X<div class="char-label">X</div></div>
+                <div class="char-box">Y<div class="char-label">Y</div></div>
+                <div class="char-box">Ý<div class="char-label">Ý</div></div>
+                <div class="char-box">Z<div class="char-label">Z</div></div>
+                <div class="char-box">Ž<div class="char-label">Ž</div></div>
+                
+                <!-- Lowercase -->
+                <div class="char-box">a<div class="char-label">a</div></div>
+                <div class="char-box">á<div class="char-label">á</div></div>
+                <div class="char-box">ä<div class="char-label">ä</div></div>
+                <div class="char-box">b<div class="char-label">b</div></div>
+                <div class="char-box">c<div class="char-label">c</div></div>
+                <div class="char-box">č<div class="char-label">č</div></div>
+                <div class="char-box">d<div class="char-label">d</div></div>
+                <div class="char-box">ď<div class="char-label">ď</div></div>
+                <div class="char-box">e<div class="char-label">e</div></div>
+                <div class="char-box">é<div class="char-label">é</div></div>
+                <div class="char-box">f<div class="char-label">f</div></div>
+                <div class="char-box">g<div class="char-label">g</div></div>
+                <div class="char-box">h<div class="char-label">h</div></div>
+                <div class="char-box">i<div class="char-label">i</div></div>
+                <div class="char-box">í<div class="char-label">í</div></div>
+                <div class="char-box">j<div class="char-label">j</div></div>
+                <div class="char-box">k<div class="char-label">k</div></div>
+                <div class="char-box">l<div class="char-label">l</div></div>
+                <div class="char-box">ĺ<div class="char-label">ĺ</div></div>
+                <div class="char-box">ľ<div class="char-label">ľ</div></div>
+                <div class="char-box">m<div class="char-label">m</div></div>
+                <div class="char-box">n<div class="char-label">n</div></div>
+                <div class="char-box">ň<div class="char-label">ň</div></div>
+                <div class="char-box">o<div class="char-label">o</div></div>
+                <div class="char-box">ó<div class="char-label">ó</div></div>
+                <div class="char-box">ô<div class="char-label">ô</div></div>
+                <div class="char-box">p<div class="char-label">p</div></div>
+                <div class="char-box">q<div class="char-label">q</div></div>
+                <div class="char-box">r<div class="char-label">r</div></div>
+                <div class="char-box">ŕ<div class="char-label">ŕ</div></div>
+                <div class="char-box">s<div class="char-label">s</div></div>
+                <div class="char-box">š<div class="char-label">š</div></div>
+                <div class="char-box">t<div class="char-label">t</div></div>
+                <div class="char-box">ť<div class="char-label">ť</div></div>
+                <div class="char-box">u<div class="char-label">u</div></div>
+                <div class="char-box">ú<div class="char-label">ú</div></div>
+                <div class="char-box">v<div class="char-label">v</div></div>
+                <div class="char-box">w<div class="char-label">w</div></div>
+                <div class="char-box">x<div class="char-label">x</div></div>
+                <div class="char-box">y<div class="char-label">y</div></div>
+                <div class="char-box">ý<div class="char-label">ý</div></div>
+                <div class="char-box">z<div class="char-label">z</div></div>
+                <div class="char-box">ž<div class="char-label">ž</div></div>
+                
+                <!-- Numbers & Symbols -->
+                <div class="char-box">0<div class="char-label">0</div></div>
+                <div class="char-box">1<div class="char-label">1</div></div>
+                <div class="char-box">2<div class="char-label">2</div></div>
+                <div class="char-box">3<div class="char-label">3</div></div>
+                <div class="char-box">4<div class="char-label">4</div></div>
+                <div class="char-box">5<div class="char-label">5</div></div>
+                <div class="char-box">6<div class="char-label">6</div></div>
+                <div class="char-box">7<div class="char-label">7</div></div>
+                <div class="char-box">8<div class="char-label">8</div></div>
+                <div class="char-box">9<div class="char-label">9</div></div>
+                <div class="char-box">!<div class="char-label">!</div></div>
+                <div class="char-box">?<div class="char-label">?</div></div>
+                <div class="char-box">€<div class="char-label">€</div></div>
+            </div>
+        </section>
+        
+        <!-- Usage Example -->
+        <section class="section">
+            <h2 class="section-title">Ako Použiť</h2>
+            
+            <div class="usage-example">
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 15px;">
+                    Stačí nakopírovať výstupné súbory do vášho projektu:
+                </p>
+                <code>
+output/
+├── sans-serif/
+│   ├── roboto/ → Roboto.{ttf,woff,woff2,css}
+│   └── ...
+└── serif/
+    ├── cormorantgaramond/ → CormorantGaramond.{ttf,woff,woff2,css}
+    └── ...
+                </code>
+                
+                <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin: 20px 0 10px;">
+                    V HTML hlavičke:
+                </p>
+                <code>
+&lt;link rel="stylesheet" href="fonts/sans-serif/roboto/Roboto.css"&gt;
+&lt;link rel="stylesheet" href="fonts/serif/playfairdisplay/PlayfairDisplay.css"&gt;
+                </code>
+                
+                <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin: 20px 0 10px;">
+                    V CSS:
+                </p>
+                <code>
+body { font-family: 'Roboto', sans-serif; }
+h1, h2 { font-family: 'Playfair Display', serif; }
+                </code>
+            </div>
+        </section>
+        
+        <footer>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;">
+                🇸🇰🇨🇿 Všetky fonty podporujú slovenské a české znaky
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Google Fonts • OFL License • Web-optimized subsets
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

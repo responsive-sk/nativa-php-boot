@@ -1,24 +1,24 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * CMS Layout - For PHP CMS pages with dynamic content
+ * CMS Layout - For PHP CMS pages with dynamic content.
  *
- * @var string $content
- * @var string $page Page identifier (home, blog, contact, etc.)
- * @var string $pageTitle Page title (dynamic from CMS)
+ * @var string      $content
+ * @var string      $page Page identifier (home, blog, contact, etc.)
+ * @var string      $pageTitle Page title (dynamic from CMS)
  * @var string|null $metaDescription Optional meta description
- * @var bool $isGuest User authentication state
- * @var string $csrfToken CSRF token for forms
+ * @var bool        $isGuest User authentication state
+ * @var string      $csrfToken CSRF token for forms
  */
 
 use Infrastructure\View\AssetHelper;
 
-$page = $page ?? 'home';
-$pageTitle = $pageTitle ?? 'Nativa CMS';
-$isGuest = $isGuest ?? true;
-$csrfToken = $csrfToken ?? '';
-$metaDescription = $metaDescription ?? 'Modern PHP CMS and Blog Platform';
+$page ??= 'home';
+$pageTitle ??= 'Nativa CMS';
+$isGuest ??= true;
+$csrfToken ??= '';
+$metaDescription ??= 'Modern PHP CMS and Blog Platform';
 
 // Use AssetHelper for production builds with hashed filenames
 $themeInitJs = AssetHelper::js('init.js');
@@ -34,25 +34,29 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
-  <meta name="description" content="<?= $this->e($metaDescription) ?>">
+  <meta name="description" content="<?php echo $this->e($metaDescription); ?>">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  
+
   <!-- Dynamic page title from CMS -->
-  <title><?= $this->e($pageTitle) ?></title>
-  
+  <title><?php echo $this->e($pageTitle); ?></title>
+
   <!-- Prevent theme flash - load theme script before CSS -->
-  <script src="<?= $themeInitJs ?>" defer crossorigin="anonymous"></script>
+  <script src="<?php echo $themeInitJs; ?>" defer crossorigin="anonymous"></script>
 
   <!-- Shared base CSS (loaded on every page) -->
-  <link rel="stylesheet" href="<?= $cssBundle ?>">
+  <link rel="stylesheet" href="<?php echo $cssBundle; ?>">
 
   <!-- Page-specific CSS (only if exists) -->
-  <?php if ($pageSpecificCssUrl): ?>
-  <link rel="stylesheet" href="<?= $pageSpecificCssUrl ?>">
-  <?php endif; ?>
+  <?php if ($pageSpecificCssUrl) { ?>
+  <link rel="stylesheet" href="<?php echo $pageSpecificCssUrl; ?>">
+  <?php } ?>
 
   <!-- Preload critical CSS -->
-  <link rel="preload" href="<?= $cssBundle ?>" as="style">
+  <link rel="preload" href="<?php echo $cssBundle; ?>" as="style">
+
+  <!-- Preload critical fonts for hero (Excon - display) -->
+  <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/sans-serif/plein-variable.woff2" as="font" type="font/woff2" crossorigin>
 
 </head>
 <body>
@@ -104,11 +108,11 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
           </svg>
         </button>
 
-        <?php if ($isGuest): ?>
+        <?php if ($isGuest) { ?>
         <a href="/login" class="btn btn--outline btn--sm">Sign In</a>
-        <?php else: ?>
+        <?php } else { ?>
         <a href="/profile" class="btn btn--outline btn--sm">Profile</a>
-        <?php endif; ?>
+        <?php } ?>
 
         <!-- Mobile Menu Toggle -->
         <button class="nav-primary__mobile-toggle mobile-menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">
@@ -147,13 +151,13 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   </nav>
 
   <!-- Hero Section (only for homepage) -->
-  <?php if (($page ?? '') === 'home'): ?>
+  <?php if (($page ?? '') === 'home') { ?>
     <?php include $this->getTemplatesPath() . '/partials/hero-home.php'; ?>
-  <?php endif; ?>
+  <?php } ?>
 
   <!-- Main Content -->
   <main class="main">
-    <?= $content ?>
+    <?php echo $content; ?>
   </main>
 
   <!-- Footer -->
@@ -191,15 +195,15 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   </footer>
 
   <!-- Shared JavaScript -->
-  <script type="module" src="<?= $appJs ?>"></script>
-  
+  <script type="module" src="<?php echo $appJs; ?>"></script>
+
   <!-- Page-specific JavaScript (if exists) -->
-  <?php if (($page ?? '') === 'home'): ?>
+  <?php if (($page ?? '') === 'home') { ?>
   <?php
-    $homeJs = \Infrastructure\View\AssetHelper::js('home');
-  ?>
-  <script type="module" src="<?= $homeJs ?>" defer crossorigin="anonymous"></script>
-  <?php endif; ?>
+    $homeJs = AssetHelper::js('home');
+      ?>
+  <script type="module" src="<?php echo $homeJs; ?>" defer crossorigin="anonymous"></script>
+  <?php } ?>
 
 </body>
 </html>

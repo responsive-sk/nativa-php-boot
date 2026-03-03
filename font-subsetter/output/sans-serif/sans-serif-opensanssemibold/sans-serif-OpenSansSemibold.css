@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-OpenSansSemibold';
+  src:
+    url('sans-serif-OpenSansSemibold.woff2') format('woff2'),
+    url('sans-serif-OpenSansSemibold.woff') format('woff'),
+    url('sans-serif-OpenSansSemibold.ttf') format('truetype');
+  font-display: swap;
+}

@@ -1,0 +1,56 @@
+/* ============================================================================
+   Nativa CMS - Generated Font CSS
+   Created: 2026-03-03 21:41
+   Optimized for SK/CZ languages with sans-serif and serif sets
+   ============================================================================ */
+
+/* ============================================================================
+   SANS-SERIF FONTS
+   ============================================================================ */
+
+/* Sans-Serif Web
+   Optimalizovaná sans-serif sada pre web
+   Characters: 146 | Size: 9.1KB
+*/
+@font-face {
+  font-family: 'font-sans-web';
+  src: url('font-sans-web.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+   SERIF FONTS
+   ============================================================================ */
+
+/* Serif Web
+   Optimalizovaná serif sada pre web
+   Characters: 146 | Size: 9.1KB
+*/
+@font-face {
+  font-family: 'font-serif-web';
+  src: url('font-serif-web.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+/* Primary sans-serif for body text */
+.font-sans { font-family: 'font-sans-web', sans-serif; }
+
+/* Serif for editorial content */
+.font-serif { font-family: 'font-serif-web', serif; }
+
+/* Minimal for UI */
+.font-ui { font-family: 'font-sans-minimal', sans-serif; }
+
+/* Headings */
+.font-heading { font-family: 'font-sans-headings', sans-serif; }
+
+/* Editorial serif */
+.font-editorial { font-family: 'font-serif-editorial', serif; }

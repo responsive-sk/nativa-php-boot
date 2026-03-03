@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-ExconVariable';
+  src:
+    url('sans-serif-ExconVariable.woff2') format('woff2'),
+    url('sans-serif-ExconVariable.woff') format('woff'),
+    url('sans-serif-ExconVariable.ttf') format('truetype');
+  font-display: swap;
+}

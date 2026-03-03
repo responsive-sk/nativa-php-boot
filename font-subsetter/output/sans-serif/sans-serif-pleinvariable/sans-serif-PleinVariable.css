@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-PleinVariable';
+  src:
+    url('sans-serif-PleinVariable.woff2') format('woff2'),
+    url('sans-serif-PleinVariable.woff') format('woff'),
+    url('sans-serif-PleinVariable.ttf') format('truetype');
+  font-display: swap;
+}

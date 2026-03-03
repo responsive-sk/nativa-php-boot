@@ -1,7 +1,17 @@
 :root {
-    /* Typography - Local fonts from src/assets/fonts */
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-serif: 'Roboto Condensed', Georgia, serif;
+    /* Typography - Optimized for EN+SK+CZ */
+    /* Primary Sans: FontSans (optimized for web) */
+    --font-sans: 'FontSans', 'Plein', 'OpenSans', system-ui, -apple-system, sans-serif;
+    
+    /* Primary Serif: FontSerif (optimized for editorial) */
+    --font-serif: 'FontSerif', 'Playfair Display', Georgia, serif;
+    
+    /* Display: FontCombined (your custom font for hero) */
+    --font-display: 'FontCombined', 'Excon', 'Alpino', sans-serif;
+    
+    /* UI: System UI */
+    --font-ui: system-ui, -apple-system, sans-serif;
+    
     --font-mono: 'JetBrains Mono', monospace;
 
     /* Brand Colors */

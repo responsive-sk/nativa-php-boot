@@ -1,68 +1,71 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Paths;
 
 /**
  * AppPaths - Application-specific paths helper
- * Extends Paths with project-specific path methods
+ * Uses composition instead of inheritance since Paths is final.
  */
-final class AppPaths extends Paths
+final class AppPaths
 {
+    private Paths $paths;
+
     private static ?self $instance = null;
 
+    public function __construct(string $basePath = '', array $customPaths = [])
+    {
+        $this->paths = new Paths($basePath, $customPaths);
+    }
+
     /**
-     * Get singleton instance using Paths::fromHere()
+     * Get singleton instance using Paths::fromHere().
      */
     public static function instance(): self
     {
-        if (self::$instance === null) {
+        if (null === self::$instance) {
             // Go up 3 levels from src/infrastructure/Paths to project root
-            self::$instance = new self(dirname(__DIR__, 3));
+            self::$instance = new self(\dirname(__DIR__, 3));
         }
+
         return self::$instance;
     }
 
     /**
-     * Reset singleton instance (for testing)
+     * Reset singleton instance (for testing).
      */
     public static function resetInstance(): void
     {
         self::$instance = null;
     }
 
-    // Override parent constructor to ensure singleton
-    public function __construct(string $basePath = '', array $customPaths = [])
-    {
-        parent::__construct($basePath, $customPaths);
-    }
-
     // Project-specific path methods
 
     public function domain(): string
     {
-        return $this->basePath . '/domain';
+        return $this->paths->getBasePath() . '/domain';
     }
 
     public function application(): string
     {
-        return $this->basePath . '/application';
+        return $this->paths->getBasePath() . '/application';
     }
 
     public function infrastructure(): string
     {
-        return $this->basePath . '/infrastructure';
+        return $this->paths->getBasePath() . '/infrastructure';
     }
 
     public function interfaces(): string
     {
-        return $this->basePath . '/interfaces';
+        return $this->paths->getBasePath() . '/interfaces';
     }
 
     public function storage(string $path = ''): string
     {
-        $base = $this->basePath . '/storage';
+        $base = $this->paths->getBasePath() . '/storage';
+
         return $path ? $base . '/' . ltrim($path, '/') : $base;
     }
 
@@ -76,13 +79,15 @@ final class AppPaths extends Paths
     {
         // Check if it's an admin template (with or without 'admin/' prefix)
         if (str_starts_with($path, 'admin/') || str_starts_with($path, 'admin\\')) {
-            $base = $this->basePath . '/src/interfaces/Templates/admin';
+            $base = $this->paths->getBasePath() . '/src/Interfaces/Templates/admin';
             $subPath = substr($path, 6); // Remove 'admin/' prefix
+
             return $subPath ? $base . '/' . ltrim($subPath, '/') : $base;
         }
-        
+
         // Frontend templates (default)
-        $base = $this->basePath . '/src/interfaces/Templates/frontend';
+        $base = $this->paths->getBasePath() . '/src/Interfaces/Templates/frontend';
+
         return $path ? $base . '/' . ltrim($path, '/') : $base;
     }
 

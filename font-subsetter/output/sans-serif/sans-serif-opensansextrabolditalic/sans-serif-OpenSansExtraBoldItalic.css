@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-OpenSansExtraBoldItalic';
+  src:
+    url('sans-serif-OpenSansExtraBoldItalic.woff2') format('woff2'),
+    url('sans-serif-OpenSansExtraBoldItalic.woff') format('woff'),
+    url('sans-serif-OpenSansExtraBoldItalic.ttf') format('truetype');
+  font-display: swap;
+}

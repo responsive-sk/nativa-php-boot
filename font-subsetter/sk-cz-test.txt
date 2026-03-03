@@ -1,0 +1,17 @@
+Vitajte na našej stránke!
+Toto je testovací text pre fonty so slovenskými a českými znakmi.
+
+Veľké písmená: Á Ä Č Ď É Í Ĺ Ľ Ň Ó Ô Ŕ Š Ť Ú Ý Ž
+Malé písmená: á ä č ď é í ľ ľ ň ó ô ŕ š ť ú ý ž
+
+České znaky: Ě Š Č Ř Ž Ý Ě Ě Ů ů
+Slovenské znaky: Ĺ Ľ Ŕ Ť Ď Ň
+
+Príklad vety:
+Ľúbim programovať vo Pythone a tvoriť webové stránky.
+Český text: Příliš žluťoučký kůň úpěl ďábelské ódy.
+Slovenský text: Vyhŕň si rukávy a pustíme sa do práce.
+
+Čísla: 0123456789
+Symboly: !@#$%^&*()_+-=[]{}|;:,.<>?
+Mena: € $ £ ¥

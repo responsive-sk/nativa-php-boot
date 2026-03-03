@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test SK+CZ+US fontu</title>
+    <link rel="stylesheet" href="fonts/styles.css">
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1, h2, h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        h1 {
+            background: linear-gradient(45deg, #2e7d32, #1976d2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+        
+        .stats-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 8px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .char {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .char:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 6px solid;
+        }
+        
+        .sk-section { border-color: #2e7d32; background: #e8f5e9; }
+        .cz-section { border-color: #d32f2f; background: #ffebee; }
+        .en-section { border-color: #1976d2; background: #e3f2fd; }
+        
+        .test-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            padding: 1rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .language-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .badge-sk { background: #2e7d32; color: white; }
+        .badge-cz { background: #d32f2f; color: white; }
+        .badge-en { background: #1976d2; color: white; }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .char-grid {
+                grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            }
+            
+            .char {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test kombinovaného fontu SK + CZ + US</h1>
+        
+        <div class="stats-box">
+            <div class="stat">
+                <span class="stat-value">222</span>
+                <span>znakov</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">3</span>
+                <span>jazyky</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">1</span>
+                <span>font súbor</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">~67KB</span>
+                <span>optimálna veľkosť</span>
+            </div>
+        </div>
+        
+        <h2>🔤 Obsahuje tieto znaky:</h2>
+        
+        <div class="test-section sk-section">
+            <h3><span class="language-badge badge-sk">SK</span> Slovenčina</h3>
+            <div class="char-grid">
+                <div class="char" title="U+00A2">¢</div>
+                <div class="char" title="U+00A3">£</div>
+                <div class="char" title="U+00A5">¥</div>
+                <div class="char" title="U+00A7">§</div>
+                <div class="char" title="U+00A9">©</div>
+                <div class="char" title="U+00AB">«</div>
+                <div class="char" title="U+00AC">¬</div>
+                <div class="char" title="U+00AE">®</div>
+                <div class="char" title="U+00B0">°</div>
+                <div class="char" title="U+00B1">±</div>
+                <div class="char" title="U+00B6">¶</div>
+                <div class="char" title="U+00BB">»</div>
+                <div class="char" title="U+00C1">Á</div>
+                <div class="char" title="U+00C4">Ä</div>
+                <div class="char" title="U+00C9">É</div>
+                <div class="char" title="U+00CD">Í</div>
+                <div class="char" title="U+00D3">Ó</div>
+                <div class="char" title="U+00D4">Ô</div>
+                <div class="char" title="U+00D7">×</div>
+                <div class="char" title="U+00DA">Ú</div>
+                <div class="char" title="U+00DD">Ý</div>
+                <div class="char" title="U+00E1">á</div>
+                <div class="char" title="U+00E4">ä</div>
+                <div class="char" title="U+00E9">é</div>
+                <div class="char" title="U+00ED">í</div>
+                <div class="char" title="U+00F3">ó</div>
+                <div class="char" title="U+00F4">ô</div>
+                <div class="char" title="U+00F7">÷</div>
+                <div class="char" title="U+00FA">ú</div>
+                <div class="char" title="U+00FD">ý</div>
+                <div class="char" title="U+010C">Č</div>
+                <div class="char" title="U+010D">č</div>
+                <div class="char" title="U+010E">Ď</div>
+                <div class="char" title="U+010F">ď</div>
+                <div class="char" title="U+011A">Ě</div>
+                <div class="char" title="U+011B">ě</div>
+                <div class="char" title="U+0139">Ĺ</div>
+                <div class="char" title="U+013A">ĺ</div>
+                <div class="char" title="U+013D">Ľ</div>
+                <div class="char" title="U+013E">ľ</div>
+                <div class="char" title="U+0147">Ň</div>
+                <div class="char" title="U+0148">ň</div>
+                <div class="char" title="U+0154">Ŕ</div>
+                <div class="char" title="U+0155">ŕ</div>
+                <div class="char" title="U+0158">Ř</div>
+                <div class="char" title="U+0159">ř</div>
+                <div class="char" title="U+0160">Š</div>
+                <div class="char" title="U+0161">š</div>
+                <div class="char" title="U+0164">Ť</div>
+                <div class="char" title="U+0165">ť</div>
+                <div class="char" title="U+016E">Ů</div>
+                <div class="char" title="U+016F">ů</div>
+                <div class="char" title="U+017D">Ž</div>
+                <div class="char" title="U+017E">ž</div>
+            </div>
+            <div class="test-text">
+                <strong>Testovacia veta:</strong> Kŕdeľ ďatľov učí koňa žrať kôru. Vĺča Táto preháňa úzko s ním. Štyridsaťštyri mŕtvych je naozaj priveľa! Čučoriedka v čiernej zemí rastie ako šialená.
+            </div>
+        </div>
+        
+        <div class="test-section cz-section">
+            <h3><span class="language-badge badge-cz">CZ</span> Čeština</h3>
+            <div class="char-grid">
+                <div class="char" title="U+011A">Ě</div>
+                <div class="char" title="U+011B">ě</div>
+                <div class="char" title="U+0158">Ř</div>
+                <div class="char" title="U+0159">ř</div>
+                <div class="char" title="U+016E">Ů</div>
+                <div class="char" title="U+016F">ů</div>
+            </div>
+            <div class="test-text">
+                <strong>Testovacia veta:</strong> Příliš žluťoučký kůň úpěl ďábelské ódy. Nechť již hříšné saxofony ďáblů rozezvučí síň úděsnými tóny waltzu, tanga a quickstepu. Ó, náhlý déšť již zvířil prach a čilá laň teď běží s houfcem gazel řídce obdělávanými pozemky.
+            </div>
+        </div>
+        
+        <div class="test-section en-section">
+            <h3><span class="language-badge badge-en">US</span> English / US</h3>
+            <div class="char-grid">
+                <div class="char" title="U+0041">A</div>
+                <div class="char" title="U+0042">B</div>
+                <div class="char" title="U+0043">C</div>
+                <div class="char" title="U+0044">D</div>
+                <div class="char" title="U+0045">E</div>
+                <div class="char" title="U+0046">F</div>
+                <div class="char" title="U+0047">G</div>
+                <div class="char" title="U+0048">H</div>
+                <div class="char" title="U+0049">I</div>
+                <div class="char" title="U+004A">J</div>
+                <div class="char" title="U+004B">K</div>
+                <div class="char" title="U+004C">L</div>
+                <div class="char" title="U+004D">M</div>
+                <div class="char" title="U+004E">N</div>
+                <div class="char" title="U+004F">O</div>
+                <div class="char" title="U+0050">P</div>
+                <div class="char" title="U+0051">Q</div>
+                <div class="char" title="U+0052">R</div>
+                <div class="char" title="U+0053">S</div>
+                <div class="char" title="U+0054">T</div>
+                <div class="char" title="U+0055">U</div>
+                <div class="char" title="U+0056">V</div>
+                <div class="char" title="U+0057">W</div>
+                <div class="char" title="U+0058">X</div>
+                <div class="char" title="U+0059">Y</div>
+                <div class="char" title="U+005A">Z</div>
+                <div class="char" title="U+0061">a</div>
+                <div class="char" title="U+0062">b</div>
+                <div class="char" title="U+0063">c</div>
+                <div class="char" title="U+0064">d</div>
+                <div class="char" title="U+0065">e</div>
+                <div class="char" title="U+0066">f</div>
+                <div class="char" title="U+0067">g</div>
+                <div class="char" title="U+0068">h</div>
+                <div class="char" title="U+0069">i</div>
+                <div class="char" title="U+006A">j</div>
+                <div class="char" title="U+006B">k</div>
+                <div class="char" title="U+006C">l</div>
+                <div class="char" title="U+006D">m</div>
+                <div class="char" title="U+006E">n</div>
+                <div class="char" title="U+006F">o</div>
+                <div class="char" title="U+0070">p</div>
+                <div class="char" title="U+0071">q</div>
+                <div class="char" title="U+0072">r</div>
+                <div class="char" title="U+0073">s</div>
+                <div class="char" title="U+0074">t</div>
+                <div class="char" title="U+0075">u</div>
+                <div class="char" title="U+0076">v</div>
+                <div class="char" title="U+0077">w</div>
+                <div class="char" title="U+0078">x</div>
+                <div class="char" title="U+0079">y</div>
+                <div class="char" title="U+007A">z</div>
+            </div>
+            <div class="test-text">
+                <strong>Test sentence:</strong> The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump! Sphinx of black quartz, judge my vow. Waltz, bad nymph, for quick jigs vex.
+            </div>
+        </div>
+        
+        <h2>🔢 Čísla a symboly</h2>
+        <div class="char-grid">
+            <div class="char" title="U+0030">0</div>
+            <div class="char" title="U+0031">1</div>
+            <div class="char" title="U+0032">2</div>
+            <div class="char" title="U+0033">3</div>
+            <div class="char" title="U+0034">4</div>
+            <div class="char" title="U+0035">5</div>
+            <div class="char" title="U+0036">6</div>
+            <div class="char" title="U+0037">7</div>
+            <div class="char" title="U+0038">8</div>
+            <div class="char" title="U+0039">9</div>
+            <div class="char" title="U+0021">!</div>
+            <div class="char" title="U+0040">@</div>
+            <div class="char" title="U+0023">#</div>
+            <div class="char" title="U+0024">$</div>
+            <div class="char" title="U+0025">%</div>
+            <div class="char" title="U+005E">^</div>
+            <div class="char" title="U+0026">&</div>
+            <div class="char" title="U+002A">*</div>
+            <div class="char" title="U+0028">(</div>
+            <div class="char" title="U+0029">)</div>
+            <div class="char" title="U+005F">_</div>
+            <div class="char" title="U+002B">+</div>
+            <div class="char" title="U+002D">-</div>
+            <div class="char" title="U+003D">=</div>
+            <div class="char" title="U+005B">[</div>
+            <div class="char" title="U+005D">]</div>
+            <div class="char" title="U+007B">{</div>
+            <div class="char" title="U+007D">}</div>
+            <div class="char" title="U+007C">|</div>
+            <div class="char" title="U+003B">;</div>
+            <div class="char" title="U+003A">:</div>
+            <div class="char" title="U+002C">,</div>
+            <div class="char" title="U+002E">.</div>
+            <div class="char" title="U+003C"><</div>
+            <div class="char" title="U+003E">></div>
+            <div class="char" title="U+003F">?</div>
+            <div class="char" title="U+002F">/</div>
+            <div class="char" title="U+007E">~</div>
+            <div class="char" title="U+0060">`</div>
+            <div class="char" title="U+0022">"</div>
+            <div class="char" title="U+0027">'</div>
+            <div class="char" title="U+005C">\</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🎯 Výhody tohto prístupu:</h3>
+            <ul>
+                <li><strong>✅ Jedno stiahnutie</strong> pre všetky 3 jazyky</li>
+                <li><strong>✅ Optimalizovaná veľkosť</strong> (~30-50KB namiesto 200KB+)</li>
+                <li><strong>✅ Rýchlejšie načítanie</strong> - menej HTTP požiadaviek</li>
+                <li><strong>✅ Jednoduchá implementácia</strong> - jeden @font-face</li>
+                <li><strong>✅ Kompatibilita</strong> so všetkými prehliadačmi</li>
+                <li><strong>✅ Perfektné pre multi-jazyčné weby</strong></li>
+            </ul>
+            
+            <h3>📋 CSS implementácia:</h3>
+            <pre><code>/* Jednoduché! */
+@font-face {{
+    font-family: 'MultiLangFont';
+    src: url('font-combined.woff2') format('woff2');
+    font-display: swap;
+}}
+
+body {{
+    font-family: 'MultiLangFont', sans-serif;
+}}
+
+/* Automaticky funguje pre: */
+/* 🇸🇰 Slovenčinu: Árvíztűrő tükörfúrógép */
+/* 🇨🇿 Češtinu: Příliš žluťoučký kůň */
+/* 🇺🇸 English: The quick brown fox */</code></pre>
+        </div>
+    </div>
+    
+    <script>
+        // Interaktívny test
+        document.querySelectorAll('.char').forEach(char => {{
+            char.addEventListener('click', function() {{
+                const text = this.textContent;
+                const code = this.title;
+                alert(`Znak: ${text}\n${code}`);
+            }});
+        }});
+        
+        // Font loading indicator
+        document.fonts.ready.then(() => {{
+            console.log('✅ Všetky fonty načítané!');
+            document.body.style.fontFamily = "'MultiLangFont', sans-serif";
+            
+            // Animate stats
+            document.querySelectorAll('.stat-value').forEach((stat, index) => {{
+                setTimeout(() => {{
+                    stat.style.transform = 'scale(1.1)';
+                    setTimeout(() => stat.style.transform = 'scale(1)', 300);
+                }}, index * 200);
+            }});
+        }});
+    </script>
+</body>
+</html>

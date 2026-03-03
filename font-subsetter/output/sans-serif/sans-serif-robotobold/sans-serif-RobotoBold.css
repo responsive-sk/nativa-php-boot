@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-RobotoBold';
+  src:
+    url('sans-serif-RobotoBold.woff2') format('woff2'),
+    url('sans-serif-RobotoBold.woff') format('woff'),
+    url('sans-serif-RobotoBold.ttf') format('truetype');
+  font-display: swap;
+}

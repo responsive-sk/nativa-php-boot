@@ -1,0 +1,7 @@
+Ahoj svet!
+Toto je testovací text pre font subsetter.
+Obsahuje: áäčďéíĺľňóôŕšťúýž
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!@#$%^&*()_+-=[]{}|;:,.<>?

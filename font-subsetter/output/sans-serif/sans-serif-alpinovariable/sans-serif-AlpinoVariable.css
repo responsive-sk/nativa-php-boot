@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-AlpinoVariable';
+  src:
+    url('sans-serif-AlpinoVariable.woff2') format('woff2'),
+    url('sans-serif-AlpinoVariable.woff') format('woff'),
+    url('sans-serif-AlpinoVariable.ttf') format('truetype');
+  font-display: swap;
+}

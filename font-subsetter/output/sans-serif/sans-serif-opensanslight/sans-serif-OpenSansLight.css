@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-OpenSansLight';
+  src:
+    url('sans-serif-OpenSansLight.woff2') format('woff2'),
+    url('sans-serif-OpenSansLight.woff') format('woff'),
+    url('sans-serif-OpenSansLight.ttf') format('truetype');
+  font-display: swap;
+}

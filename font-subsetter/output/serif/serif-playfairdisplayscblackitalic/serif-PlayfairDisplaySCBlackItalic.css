@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'serif-PlayfairDisplaySCBlackItalic';
+  src:
+    url('serif-PlayfairDisplaySCBlackItalic.woff2') format('woff2'),
+    url('serif-PlayfairDisplaySCBlackItalic.woff') format('woff'),
+    url('serif-PlayfairDisplaySCBlackItalic.ttf') format('truetype');
+  font-display: swap;
+}

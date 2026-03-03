@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test subset fontu</title>
+    <style>
+        @font-face {
+            font-family: 'MySubsetFont';
+            src: url('output.woff2') format('woff2');
+            font-display: swap;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'MySubsetFont', sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .test-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔤 Test subset fontu</h1>
+    
+    <div class="test-text">
+        <h2>Slovenčina:</h2>
+        <p>Árvíztűrő tükörfúrógép, čučoriedka, šťastný žáner</p>
+        <p>Kŕdeľ ďatľov učí koňa žrať kôru. Vĺča Táto preháňa úzko s ním.</p>
+    </div>
+    
+    <div class="test-text">
+        <h2>Čeština:</h2>
+        <p>Příliš žluťoučký kůň úpěl ďábelské ódy</p>
+        <p>Nejneobhospodařovávatelnějšími 420</p>
+    </div>
+    
+    <div class="test-text">
+        <h2>Angličtina + čísla:</h2>
+        <p>The quick brown fox jumps over the lazy dog</p>
+        <p>1234567890 !@#$%^&*()</p>
+    </div>
+    
+    <div class="test-text">
+        <h2>Interpunkcia:</h2>
+        <p>"Citácia" – pomlčka … tri bodky</p>
+        <p>€£¥$±×÷=≠≈∞∂∫∑∏√≤≥∈∉∧∨¬→↔</p>
+    </div>
+    
+    <script>
+        // Skontroluj či font naozaj funguje
+        document.addEventListener('DOMContentLoaded', () => {
+            const testText = document.querySelector('.test-text p');
+            const originalText = testText.textContent;
+            
+            // Skús zmeniť font a späť
+            setTimeout(() => {
+                testText.style.fontFamily = 'sans-serif';
+                setTimeout(() => {
+                    testText.style.fontFamily = 'MySubsetFont';
+                    console.log('✅ Font loaded and working');
+                }, 500);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

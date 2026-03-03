@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace Interfaces\HTTP\Actions\Admin;
+
+use Application\Services\FormManager;
+use Infrastructure\Container\ContainerFactory;
+use Infrastructure\Http\Request;
+use Infrastructure\Http\Response;
+use Interfaces\HTTP\Actions\Action;
+use Interfaces\HTTP\View\TemplateRenderer;
+
+/**
+ * Admin Edit Form Action.
+ */
+final class EditFormAction extends Action
+{
+    public function __construct(
+        private readonly FormManager $formManager,
+        private readonly TemplateRenderer $renderer,
+    ) {}
+
+    #[\Override]
+    public function handle(Request $request): Response
+    {
+        if ('POST' === $request->getMethod()) {
+            return $this->update($request);
+        }
+
+        return $this->edit($request);
+    }
+
+    public static function create(): self
+    {
+        $container = ContainerFactory::create();
+
+        return new self(
+            $container->get(FormManager::class),
+            $container->get(TemplateRenderer::class),
+        );
+    }
+
+    private function edit(Request $request): Response
+    {
+        $id = $this->param($request, 'id');
+        $form = $this->formManager->findById($id);
+
+        if (null === $form) {
+            return $this->notFound('Form not found');
+        }
+
+        $content = $this->renderer->render(
+            'admin/pages/forms/edit',
+            [
+                'title' => 'Edit Form',
+                'form'  => $form,
+            ],
+            'admin/layouts/base'
+        );
+
+        return $this->html($content);
+    }
+
+    private function update(Request $request): Response
+    {
+        try {
+            $id = $this->param($request, 'id');
+            $name = (string) $request->getRequestParam('name', '');
+            $schema = json_decode($request->getRequestParam('schema', '[]'), true);
+            $emailNotification = (string) $request->getRequestParam('emailNotification', '');
+            $successMessage = (string) $request->getRequestParam('successMessage', 'Thank you for your submission!');
+
+            $this->formManager->update(
+                formId: $id,
+                name: $name,
+                schema: $schema ?? [],
+                emailNotification: $emailNotification ?: null,
+                successMessage: $successMessage
+            );
+
+            return $this->redirect('/admin/forms');
+        } catch (\Throwable $e) {
+            return $this->error('Failed to update form: ' . $e->getMessage(), 500);
+        }
+    }
+}

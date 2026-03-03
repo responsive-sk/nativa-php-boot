@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Nativa Font Test - 2026-03-03</title>
+    <link rel="stylesheet" href="fonts/styles.css">
+    <style>
+        :root {
+            --sans-color: #2563eb;
+            --serif-color: #dc2626;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: var(--bg-color);
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin-top: 0; }
+        h2 { border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-top: 2rem; }
+
+        .font-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .sans { border-color: var(--sans-color); background: #eff6ff; }
+        .serif { border-color: var(--serif-color); background: #fef2f2; }
+
+        .variant {
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 1px dashed #d1d5db;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .sample-text {
+            font-size: 1.25rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0,0,0,0.05);
+            border-radius: 3px;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Nativa Font Test</h1>
+        <p>Generated: 2026-03-03 21:41:45</p>
+        <p>Input: <code>input.otf</code> | Fonts: <strong>2</strong></p>
+
+        <div class="font-section sans">
+            <h2>📝 Sans-Serif Fonts</h2>
+            <p>Primary for body text, UI, headlines</p>
+
+            <div class="variant">
+                <h3>Sans-Serif Web</h3>
+                <p>Optimalizovaná sans-serif sada pre web</p>
+                <div class="sample-text" style="font-family: 'font-sans-web';">
+                    Vitajte na našej stránke! The quick brown fox jumps over the lazy dog.
+                </div>
+                <div class="stats">
+                    <span class="stat">🔤 146 znakov</span>
+                    <span class="stat">📊 9.1KB</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="font-section serif">
+            <h2>📖 Serif Fonts</h2>
+            <p>For editorial content, quotes, elegant text</p>
+
+            <div class="variant">
+                <h3>Serif Web</h3>
+                <p>Optimalizovaná serif sada pre web</p>
+                <div class="sample-text" style="font-family: 'font-serif-web';">
+                    "Elegancia a klasický štýl pre náročné projekty."
+                </div>
+                <div class="stats">
+                    <span class="stat">🔤 146 znakov</span>
+                    <span class="stat">📊 9.1KB</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="variant">
+            <h2>📋 CSS Usage</h2>
+            <pre><code>/* Import fonts */
+@import url('fonts/styles.css');
+
+/* Use sans-serif for body */
+body {
+    font-family: 'font-sans-web', sans-serif;
+}
+
+/* Use serif for editorial */
+.article {
+    font-family: 'font-serif-editorial', serif;
+}
+
+/* Use for headings */
+h1, h2 {
+    font-family: 'font-sans-headings', sans-serif;
+}</code></pre>
+        </div>
+    </div>
+</body>
+</html>

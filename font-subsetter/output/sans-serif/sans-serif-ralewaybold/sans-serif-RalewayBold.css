@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-RalewayBold';
+  src:
+    url('sans-serif-RalewayBold.woff2') format('woff2'),
+    url('sans-serif-RalewayBold.woff') format('woff'),
+    url('sans-serif-RalewayBold.ttf') format('truetype');
+  font-display: swap;
+}

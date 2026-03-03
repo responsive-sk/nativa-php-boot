@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'serif-PlayfairDisplayBoldItalic';
+  src:
+    url('serif-PlayfairDisplayBoldItalic.woff2') format('woff2'),
+    url('serif-PlayfairDisplayBoldItalic.woff') format('woff'),
+    url('serif-PlayfairDisplayBoldItalic.ttf') format('truetype');
+  font-display: swap;
+}

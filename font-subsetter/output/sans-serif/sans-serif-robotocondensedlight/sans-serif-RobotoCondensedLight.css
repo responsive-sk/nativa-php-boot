@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'sans-serif-RobotoCondensedLight';
+  src:
+    url('sans-serif-RobotoCondensedLight.woff2') format('woff2'),
+    url('sans-serif-RobotoCondensedLight.woff') format('woff'),
+    url('sans-serif-RobotoCondensedLight.ttf') format('truetype');
+  font-display: swap;
+}
