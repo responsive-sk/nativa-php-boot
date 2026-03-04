@@ -82,6 +82,7 @@ use Interfaces\HTTP\View\TemplateRenderer;
                             alt="<?php echo $this->e($article->title()); ?>"
                             class="article-card__image"
                             loading="lazy"
+                            decoding="async"
                             width="800"
                             height="450"
                             crossorigin="anonymous"

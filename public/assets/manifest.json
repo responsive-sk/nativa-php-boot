@@ -37,7 +37,7 @@
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.DPTZukr0.js",
+    "file": "blog.BswoHUpx.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
@@ -45,7 +45,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "blog.CuRPVTem.css"
+      "blog.CiVoriln.css"
     ]
   },
   "frontend/pages/contact.ts": {
@@ -67,7 +67,7 @@
     ]
   },
   "frontend/pages/home.ts": {
-    "file": "home.BCUtMcC8.js",
+    "file": "home.CrhECkB1.js",
     "name": "home",
     "src": "frontend/pages/home.ts",
     "isEntry": true,
@@ -75,7 +75,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "home.CmopwLhM.css"
+      "home.vdU66lTu.css"
     ]
   },
   "frontend/pages/portfolio.ts": {

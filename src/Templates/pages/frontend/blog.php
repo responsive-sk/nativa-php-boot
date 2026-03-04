@@ -193,6 +193,9 @@ async function loadArticles() {
                 alt="${escapeHtml(article.title)}"
                 class="article-card__image"
                 loading="lazy"
+                decoding="async"
+                width="800"
+                height="450"
                 crossorigin="anonymous"
               >
             </div>
