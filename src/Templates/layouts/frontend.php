@@ -65,19 +65,6 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/sans-serif/plein-variable.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- CSS Load Handler (prevent FOUC) -->
-  <script>
-    // Remove critical CSS once full CSS is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      var criticalCss = document.getElementById('critical-css');
-      if (criticalCss) {
-        setTimeout(function() {
-          criticalCss.parentNode.removeChild(criticalCss);
-        }, 100);
-      }
-    });
-  </script>
-
 </head>
 <body>
   <!-- Navigation -->

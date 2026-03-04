@@ -9,6 +9,18 @@
   var savedTheme = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
+  // Remove critical CSS once full CSS is loaded (prevent FOUC)
+  function removeCriticalCss() {
+    var criticalCss = document.getElementById('critical-css');
+    if (criticalCss) {
+      setTimeout(function() {
+        if (criticalCss && criticalCss.parentNode) {
+          criticalCss.parentNode.removeChild(criticalCss);
+        }
+      }, 100);
+    }
+  }
+
   // Set basic CSS for mobile menu (full initialization in app.js)
   function initMobileNavStyles() {
     var menu = document.querySelector('.mobile-menu');
@@ -47,10 +59,15 @@
     });
   }
 
+  // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileNavStyles);
+    document.addEventListener('DOMContentLoaded', function() {
+      initMobileNavStyles();
+      removeCriticalCss();
+    });
   } else {
     initMobileNavStyles();
+    removeCriticalCss();
   }
 
 })();

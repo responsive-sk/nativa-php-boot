@@ -4,7 +4,7 @@
     "name": "index"
   },
   "app.ts": {
-    "file": "core-app.HaOH2zO_.js",
+    "file": "core-app.BmPUHbpB.js",
     "name": "core-app",
     "src": "app.ts",
     "isEntry": true
@@ -124,7 +124,7 @@
     ]
   },
   "init.js": {
-    "file": "core-init.CM62Fm_M.js",
+    "file": "core-init.1ks_84Ia.js",
     "name": "core-init",
     "src": "init.js",
     "isEntry": true
