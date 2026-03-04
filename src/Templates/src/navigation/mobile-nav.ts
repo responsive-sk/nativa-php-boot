@@ -141,6 +141,7 @@ export class MobileNav {
     }
 
     this.isOpen = true;
+    this.menu.removeAttribute("hidden");
     this.menu.classList.add("active");
     this.menu.style.transform = "translateX(0)";
     this.menu.style.opacity = "1";
@@ -171,6 +172,7 @@ export class MobileNav {
     this.menu.classList.remove("active");
     this.menu.style.transform = "translateX(-100%)";
     this.menu.style.opacity = "0";
+    this.menu.setAttribute("hidden", "");
     this.btn.setAttribute("aria-expanded", "false");
     this.btn.setAttribute("aria-label", "Open menu");
 

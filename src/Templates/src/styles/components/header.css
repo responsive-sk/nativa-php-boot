@@ -306,7 +306,12 @@
         padding: var(--space-3) var(--space-4);
     }
 
-    .mobile-menu {
+    /* Mobile menu - respect hidden state and active class */
+    .mobile-menu[hidden] {
+        display: none;
+    }
+
+    .mobile-menu:not([hidden]) {
         display: block;
     }
 
