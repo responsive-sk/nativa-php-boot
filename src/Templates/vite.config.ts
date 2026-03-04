@@ -1,7 +1,26 @@
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
+import fs from "fs";
+import path from "path";
 import compression from "vite-plugin-compression2";
-import copy from 'rollup-plugin-copy';
+
+// Helper na rekurzívne kopírovanie
+function copyRecursiveSync(src: string, dest: string) {
+  if (!fs.existsSync(src)) {
+    console.warn(`[copy-assets] Source not found: ${src}`);
+    return;
+  }
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyRecursiveSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode || "development", process.cwd(), "");
@@ -90,6 +109,24 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
+      // Copy fonts and images after build
+      {
+        name: 'copy-assets',
+        closeBundle() {
+          const outDir = resolve(__dirname, '../../public/assets');
+
+          const assetsToCopy = [
+            { src: resolve(__dirname, 'src/assets/fonts'),  dest: path.join(outDir, 'fonts') },
+            { src: resolve(__dirname, 'src/assets/images'), dest: path.join(outDir, 'images') },
+          ];
+
+          for (const { src, dest } of assetsToCopy) {
+            copyRecursiveSync(src, dest);
+            console.log(`[copy-assets] Copied: ${src} → ${dest}`);
+          }
+        }
+      },
+      
       // Gzip compression
       compression({
         algorithms: ["gzip"],
