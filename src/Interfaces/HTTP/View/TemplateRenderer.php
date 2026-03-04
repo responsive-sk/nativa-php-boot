@@ -204,8 +204,8 @@ final class TemplateRenderer
             $templatePath .= '/pages/admin';
             $template = substr($template, 6); // Remove 'admin/' prefix
         } elseif (str_starts_with($template, 'frontend/')) {
-            // Frontend templates (Templates/frontend)
-            $templatePath .= '/frontend';
+            // Frontend templates (Templates/pages/frontend)
+            $templatePath .= '/pages/frontend';
             $template = substr($template, 9); // Remove 'frontend/' prefix
         } else {
             // Direct path (e.g., 'pages/home' → Templates/pages/home.php)
