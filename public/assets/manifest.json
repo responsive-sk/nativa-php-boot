@@ -6,12 +6,12 @@
     "isEntry": true
   },
   "css.ts": {
-    "file": "core-css.D_XG3OlW.js",
+    "file": "core-css.D5YLmbZA.js",
     "name": "core-css",
     "src": "css.ts",
     "isEntry": true,
     "css": [
-      "core-css.g-osLsDJ.css"
+      "core-css.A-X13d7G.css"
     ]
   },
   "frontend/pages/about.ts": {
@@ -33,12 +33,12 @@
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.DAqgm_jF.js",
+    "file": "blog.DPhRsV_1.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
     "css": [
-      "blog.Qs2Qc6jl.css"
+      "blog.BJZYJfCK.css"
     ]
   },
   "frontend/pages/contact.ts": {
