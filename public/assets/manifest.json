@@ -10,12 +10,12 @@
     "isEntry": true
   },
   "css.ts": {
-    "file": "core-css.DB3zsZkw.js",
+    "file": "core-css.CB-M346R.js",
     "name": "core-css",
     "src": "css.ts",
     "isEntry": true,
     "css": [
-      "core-css.DanEXYtS.css"
+      "core-css.BcI7MS2Z.css"
     ]
   },
   "frontend/pages/about.ts": {
@@ -37,7 +37,7 @@
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.1cXtI_9O.js",
+    "file": "blog.DPTZukr0.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
@@ -45,7 +45,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "blog.CfvBgyyP.css"
+      "blog.CuRPVTem.css"
     ]
   },
   "frontend/pages/contact.ts": {
@@ -67,7 +67,7 @@
     ]
   },
   "frontend/pages/home.ts": {
-    "file": "home.xgKG2Hmx.js",
+    "file": "home.BCUtMcC8.js",
     "name": "home",
     "src": "frontend/pages/home.ts",
     "isEntry": true,
@@ -75,7 +75,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "home.B2NOkAMr.css"
+      "home.CmopwLhM.css"
     ]
   },
   "frontend/pages/portfolio.ts": {
@@ -124,7 +124,7 @@
     ]
   },
   "init.js": {
-    "file": "core-init.1ks_84Ia.js",
+    "file": "core-init.BCYIU5Ab.js",
     "name": "core-init",
     "src": "init.js",
     "isEntry": true

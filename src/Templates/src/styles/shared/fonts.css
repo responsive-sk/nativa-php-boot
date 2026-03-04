@@ -15,6 +15,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  size-adjust: 100%;
 }
 
 /* Plein Variable - Alternative (modern, variable) */
@@ -22,7 +23,7 @@
   font-family: 'Plein';
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   src: url('../assets/fonts/sans-serif/plein-variable.woff2') format('woff2');
 }
 

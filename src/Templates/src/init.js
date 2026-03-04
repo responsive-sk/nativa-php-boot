@@ -10,15 +10,18 @@
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   // Remove critical CSS once full CSS is loaded (prevent FOUC)
+  // DISABLED: Causes CLS issues. Critical CSS stays in page (minimal size impact)
   function removeCriticalCss() {
-    var criticalCss = document.getElementById('critical-css');
-    if (criticalCss) {
-      setTimeout(function() {
-        if (criticalCss && criticalCss.parentNode) {
-          criticalCss.parentNode.removeChild(criticalCss);
-        }
-      }, 100);
-    }
+    // Keep critical CSS inline to prevent layout shifts
+    // The 4.5KB is negligible compared to CLS penalty
+    // var criticalCss = document.getElementById('critical-css');
+    // if (criticalCss) {
+    //   setTimeout(function() {
+    //     if (criticalCss && criticalCss.parentNode) {
+    //       criticalCss.parentNode.removeChild(criticalCss);
+    //     }
+    //   }, 100);
+    // }
   }
 
   // Set basic CSS for mobile menu (full initialization in app.js)
