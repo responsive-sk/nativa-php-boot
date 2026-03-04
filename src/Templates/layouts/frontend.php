@@ -203,12 +203,23 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <script type="module" src="<?php echo $appJs; ?>"></script>
 
   <!-- Page-specific JavaScript (if exists) -->
-  <?php if (($page ?? '') === 'home') { ?>
   <?php
-    $homeJs = AssetHelper::js('home');
-      ?>
-  <script type="module" src="<?php echo $homeJs; ?>" defer crossorigin="anonymous"></script>
-  <?php } ?>
+  $pageSpecificJs = [
+      'home' => AssetHelper::js('home'),
+      'blog' => AssetHelper::js('blog'),
+      'portfolio' => AssetHelper::js('portfolio'),
+      'contact' => AssetHelper::js('contact'),
+      'docs' => AssetHelper::js('docs'),
+      'about' => AssetHelper::js('about'),
+      'services' => AssetHelper::js('services'),
+      'pricing' => AssetHelper::js('pricing'),
+  ];
+  ?>
+  <?php foreach ($pageSpecificJs as $pageName => $jsFile): ?>
+  <?php if (($page ?? '') === $pageName && $jsFile): ?>
+  <script type="module" src="<?php echo $jsFile; ?>" defer crossorigin="anonymous"></script>
+  <?php endif; ?>
+  <?php endforeach; ?>
 
 </body>
 </html>
