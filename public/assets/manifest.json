@@ -10,12 +10,12 @@
     "isEntry": true
   },
   "css.ts": {
-    "file": "core-css.z85Agd4U.js",
+    "file": "core-css.CEV1vAP0.js",
     "name": "core-css",
     "src": "css.ts",
     "isEntry": true,
     "css": [
-      "core-css.KcYRrCrX.css"
+      "core-css.B1_crXFI.css"
     ]
   },
   "frontend/pages/about.ts": {
@@ -37,7 +37,7 @@
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.BigHSAx7.js",
+    "file": "blog.C3SjJvPl.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
@@ -45,7 +45,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "blog.CpYPci7N.css"
+      "blog.Dbr_xSV6.css"
     ]
   },
   "frontend/pages/contact.ts": {
@@ -67,7 +67,7 @@
     ]
   },
   "frontend/pages/home.ts": {
-    "file": "home.DD48VGqy.js",
+    "file": "home.DBdwtn_x.js",
     "name": "home",
     "src": "frontend/pages/home.ts",
     "isEntry": true,
@@ -75,7 +75,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "home.Dl_t5H0H.css"
+      "home.DImD2rUz.css"
     ]
   },
   "frontend/pages/portfolio.ts": {

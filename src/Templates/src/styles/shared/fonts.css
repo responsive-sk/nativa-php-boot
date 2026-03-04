@@ -1,13 +1,13 @@
 /**
  * Nativa CMS - Local Fonts
- * Optimized for EN+SK+CZ character sets
  * 
- * CRITICAL FONTS ONLY - Removed unused fonts to save 120KB
- * Kept: font-sans-web, font-serif-web, plein-variable, font-combined, playfair-display-bold
+ * ESSENTIAL FONTS ONLY - Maximum optimization
+ * Kept: font-sans-web (body), font-serif-web (editorial)
+ * Replaced: plein-variable, font-combined, playfair-display with system fonts
  */
 
 /* ============================================================================
-   SANS-SERIF FONTS (Critical only)
+   SANS-SERIF FONTS (Essential only - body text)
    ========================================================================= */
 
 /* Font Sans Web - Primary for body text (optimized SK/CZ) */
@@ -20,26 +20,8 @@
   size-adjust: 100%;
 }
 
-/* Plein Variable - Alternative (modern, variable) */
-@font-face {
-  font-family: 'Plein';
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: optional;
-  src: url('../assets/fonts/sans-serif/plein-variable.woff2') format('woff2');
-}
-
-/* Font Combined - Your custom combined font */
-@font-face {
-  font-family: 'FontCombined';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('../assets/fonts/sans-serif/font-combined.woff2') format('woff2');
-}
-
 /* ============================================================================
-   SERIF FONTS (Critical only)
+   SERIF FONTS (Essential only - editorial text)
    ========================================================================= */
 
 /* Font Serif Web - Primary for editorial (optimized SK/CZ) */
@@ -52,11 +34,10 @@
   size-adjust: 100%;
 }
 
-/* Playfair Display - Headlines & accents (Bold only) */
-@font-face {
-  font-family: 'Playfair Display';
-  font-weight: 700;
-  font-style: normal;
-  font-display: optional;
-  src: url('../assets/fonts/serif/playfair-display-bold.woff2') format('woff2');
-}
+/* ============================================================================
+   DISPLAY FONTS (System fonts - no web font load)
+   ========================================================================= */
+
+/* Plein Variable replaced with system-ui */
+/* Playfair Display replaced with Georgia */
+/* FontCombined replaced with FontSans */

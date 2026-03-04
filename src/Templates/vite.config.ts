@@ -115,21 +115,18 @@ export default defineConfig(({ mode }) => {
         closeBundle() {
           const outDir = resolve(__dirname, '../../public/assets');
 
-          // Critical fonts only (referenced in CSS) - saves ~120KB
-          const criticalFonts = [
+          // Essential fonts only (referenced in CSS) - saves ~62KB
+          const essentialFonts = [
             'sans-serif/font-sans-web.woff2',
-            'sans-serif/plein-variable.woff2',
-            'sans-serif/font-combined.woff2',
             'serif/font-serif-web.woff2',
-            'serif/playfair-display-bold.woff2',
           ];
 
           const srcFontsDir = resolve(__dirname, 'src/assets/fonts');
           const destFontsDir = path.join(outDir, 'fonts');
 
-          // Copy only critical fonts
+          // Copy only essential fonts
           let copied = 0;
-          for (const fontPath of criticalFonts) {
+          for (const fontPath of essentialFonts) {
             const srcPath = path.join(srcFontsDir, fontPath);
             const destPath = path.join(destFontsDir, fontPath);
             
@@ -146,7 +143,7 @@ export default defineConfig(({ mode }) => {
             }
           }
           
-          console.log(`[copy-assets] Copied ${copied}/${criticalFonts.length} critical fonts (${(copied/criticalFonts.length*100).toFixed(0)}%)`);
+          console.log(`[copy-assets] Copied ${copied}/${essentialFonts.length} essential fonts (${(copied/essentialFonts.length*100).toFixed(0)}%)`);
 
           // Copy all images
           const srcImagesDir = resolve(__dirname, 'src/assets/images');
