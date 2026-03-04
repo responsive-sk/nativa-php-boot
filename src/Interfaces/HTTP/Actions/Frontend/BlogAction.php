@@ -35,16 +35,16 @@ final class BlogAction extends Action
             $totalPages = (int) ceil($total / $limit);
 
             $content = $this->renderer->render(
-                'frontend/blog',
+                'pages/frontend/blog',
                 [
                     'articles'        => $articles,
                     'currentPage'     => $page,
                     'totalPages'      => $totalPages,
-                    'pageTitle'       => 'Blog',
+                    'pageTitle'       => 'Blog - Nativa CMS',
                     'page'            => 'blog',
                     'metaDescription' => 'Latest articles and insights from Nativa CMS',
                 ],
-                'frontend/layouts/frontend'
+                'layouts/frontend'
             );
 
             return $this->html($content);
