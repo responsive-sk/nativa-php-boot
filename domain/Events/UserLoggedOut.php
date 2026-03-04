@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Events;
+
+/**
+ * Domain Event: User Logged Out
+ */
+final class UserLoggedOut implements DomainEventInterface
+{
+    public function __construct(
+        public readonly string $userId,
+        public readonly string $userEmail,
+        public readonly string $timestamp,
+    ) {
+    }
+
+    public static function create(
+        string $userId,
+        string $userEmail,
+    ): self {
+        return new self(
+            $userId,
+            $userEmail,
+            date('Y-m-d H:i:s')
+        );
+    }
+
+    #[\Override]
+    public function payload(): array
+    {
+        return [
+            'user_id' => $this->userId,
+            'user_email' => $this->userEmail,
+            'timestamp' => $this->timestamp,
+        ];
+    }
+
+    #[\Override]
+    public function occurredAt(): string
+    {
+        return $this->timestamp;
+    }
+}
