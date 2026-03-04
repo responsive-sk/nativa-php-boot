@@ -184,41 +184,50 @@ async function loadArticles() {
 
     // Render articles
     container.innerHTML = `
-      <div class="services__grid">
+      <div class="articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-8);">
         ${data.articles.map(article => `
-          <article class="service-card" data-article-id="${article.id}">
-            <div class="service-card__icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
+          <article class="article-card" data-article-id="${article.id}" data-animate="scaleIn">
+            <div class="article-card__image-wrapper">
+              <img
+                src="${article.image || 'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto:best,w_800/v1699999999/cld-sample-4.jpg'}"
+                alt="${escapeHtml(article.title)}"
+                class="article-card__image"
+                loading="lazy"
+                crossorigin="anonymous"
+              >
             </div>
-            <h3 class="service-card__title">${escapeHtml(article.title)}</h3>
-            <p class="service-card__description">${escapeHtml(article.excerpt || article.content?.substring(0, 150) + '...')}</p>
-            <div class="service-card__meta">
-              ${article.published_at ? `
-                <span class="service-card__date">
-                  <svg class="service-card__icon-sm" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                  </svg>
-                  ${new Date(article.published_at).toLocaleDateString('sk-SK')}
-                </span>
-              ` : ''}
-              <span class="service-card__views">
-                <svg class="service-card__icon-sm" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
+            <div class="article-card__content">
+              <h3 class="article-card__title">
+                <a href="/blog/${article.slug}">${escapeHtml(article.title)}</a>
+              </h3>
+              <p class="article-card__excerpt">${escapeHtml(article.excerpt || article.content?.substring(0, 150) + '...')}</p>
+              <div class="article-card__meta">
+                <div class="article-card__author">
+                  <div class="article-card__author-avatar">
+                    ${getAuthorInitials(article.author_id)}
+                  </div>
+                  <span>Author</span>
+                </div>
+                ${article.published_at ? `
+                  <div class="article-card__date">
+                    <svg class="article-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    ${new Date(article.published_at).toLocaleDateString('sk-SK')}
+                  </div>
+                ` : ''}
+              </div>
+              <a href="/blog/${article.slug}" class="article-card__link">
+                Read more
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
                 </svg>
-                ${article.views || 0}
-              </span>
+              </a>
             </div>
-            <a href="/blog/${article.slug}" class="service-card__link">Read more →</a>
           </article>
         `).join('')}
       </div>
@@ -304,5 +313,11 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text || '';
   return div.innerHTML;
+}
+
+function getAuthorInitials(authorId) {
+  if (!authorId) return '?';
+  // Use first 2 characters of author ID as initials
+  return authorId.substring(0, 2).toUpperCase();
 }
 </script>
