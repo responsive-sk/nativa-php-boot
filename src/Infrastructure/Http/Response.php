@@ -5,11 +5,11 @@ declare(strict_types = 1);
 namespace Infrastructure\Http;
 
 /**
- * Simplified HTTP Response class.
+ * HTTP Response class.
  *
  * Replaces Symfony\Component\HttpFoundation\Response
  */
-final class Response
+class Response
 {
     private string $content = '';
 

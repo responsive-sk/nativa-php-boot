@@ -9,7 +9,7 @@ namespace Infrastructure\Http;
  *
  * Replaces Symfony\Component\HttpFoundation\JsonResponse
  */
-final class JsonResponse extends Response
+class JsonResponse extends Response
 {
     /**
      * Create JSON response.
