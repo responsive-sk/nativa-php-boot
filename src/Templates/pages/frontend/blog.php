@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
- * Blog Listing Template - CMS Integration
+ * Blog Listing Template - CMS Integration.
  *
- * @var array $articles Array of Article entities
- * @var int $currentPage Current page number
- * @var int $totalPages Total number of pages
+ * @var array  $articles Array of Article entities
+ * @var int    $currentPage Current page number
+ * @var int    $totalPages Total number of pages
  * @var string $pageTitle Page title
  * @var string $page Page identifier
  */
@@ -15,8 +15,8 @@ $blogHeroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_auto
 $blogHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto:best,w_1280/v1658528025/cld-sample-2.jpg';
 
 $articleList = $articles ?? [];
-$currentPage = $currentPage ?? 1;
-$totalPages = $totalPages ?? 1;
+$currentPage ??= 1;
+$totalPages ??= 1;
 
 ?>
 
@@ -24,8 +24,8 @@ $totalPages = $totalPages ?? 1;
 <section class="blog-hero">
     <div class="blog-hero__overlay"></div>
     <picture class="blog-hero__picture">
-        <source media="(min-width: 769px)" srcset="<?= $blogHeroImageDesktop ?>">
-        <img src="<?= $blogHeroImageMobile ?>" alt="Blog background" fetchpriority="high" loading="eager" decoding="async" class="blog-hero__image" width="1280" height="720" crossorigin="anonymous">
+        <source media="(min-width: 769px)" srcset="<?php echo $blogHeroImageDesktop; ?>">
+        <img src="<?php echo $blogHeroImageMobile; ?>" alt="Blog background" fetchpriority="high" loading="eager" decoding="async" class="blog-hero__image" width="1280" height="720" crossorigin="anonymous">
     </picture>
     <div class="blog-hero__content">
         <h1>Our Blog</h1>
@@ -47,7 +47,7 @@ $totalPages = $totalPages ?? 1;
                     name="q"
                     placeholder="Search articles..."
                     class="blog-search__input"
-                    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>"
+                    value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>"
                 >
                 <button type="submit" class="blog-search__submit">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -65,7 +65,7 @@ $totalPages = $totalPages ?? 1;
             </div>
         </form>
     </div>
-    
+
     <!-- Search results will be loaded here via HTMX -->
     <div id="blog-results">
         <!-- Articles loaded via JavaScript -->
@@ -83,8 +83,8 @@ $totalPages = $totalPages ?? 1;
 <script type="module">
 // Blog state
 const state = {
-  page: <?= (int)$currentPage ?>,
-  totalPages: <?= (int)$totalPages ?>,
+  page: <?php echo (int) $currentPage; ?>,
+  totalPages: <?php echo (int) $totalPages; ?>,
   searchQuery: '',
 };
 
@@ -104,18 +104,18 @@ async function loadArticles() {
       limit: '10',
       ...(state.searchQuery ? { q: state.searchQuery } : {}),
     });
-    
+
     const response = await fetch('/api/articles?' + params.toString());
     const data = await response.json();
-    
+
     const container = document.getElementById('blog-results');
     if (!container) return;
-    
+
     if (!data.articles || data.articles.length === 0) {
       container.innerHTML = '<div class="blog-empty"><h2>No Articles Found</h2><p>Try adjusting your search or check back later.</p></div>';
       return;
     }
-    
+
     // Render articles
     container.innerHTML = `
       <div class="blog-grid">
@@ -168,7 +168,7 @@ async function loadArticles() {
         `).join('')}
       </div>
     `;
-    
+
     // Update pagination
     if (data.totalPages) {
       state.totalPages = data.totalPages;
@@ -189,9 +189,9 @@ async function loadArticles() {
 function setupSearch() {
   const searchForm = document.querySelector('.blog-search__form');
   const searchInput = document.querySelector('.blog-search__input');
-  
+
   if (!searchForm || !searchInput) return;
-  
+
   // Handle search submit
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -199,7 +199,7 @@ function setupSearch() {
     state.page = 1; // Reset to first page
     loadArticles();
   });
-  
+
   // Handle input with debounce
   let debounceTimer;
   searchInput.addEventListener('input', () => {
@@ -219,7 +219,7 @@ function updatePagination() {
   const prevLink = document.getElementById('blog-prev');
   const nextLink = document.getElementById('blog-next');
   const pageInfo = document.getElementById('blog-page-info');
-  
+
   if (prevLink) {
     if (state.page > 1) {
       prevLink.style.pointerEvents = 'auto';
@@ -229,7 +229,7 @@ function updatePagination() {
       prevLink.style.opacity = '0.5';
     }
   }
-  
+
   if (nextLink) {
     if (state.page < state.totalPages) {
       nextLink.style.pointerEvents = 'auto';
@@ -239,7 +239,7 @@ function updatePagination() {
       nextLink.style.opacity = '0.5';
     }
   }
-  
+
   if (pageInfo) {
     pageInfo.textContent = 'Page ' + state.page + ' of ' + state.totalPages;
   }

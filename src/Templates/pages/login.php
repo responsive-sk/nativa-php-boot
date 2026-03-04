@@ -1,15 +1,16 @@
 <?php
 /**
- * Login Page
+ * Login Page.
  *
- * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var string $title
- * @var string|null $error
+ * @var TemplateRenderer     $this
+ * @var string               $title
+ * @var string|null          $error
  * @var array<string, mixed> $old
  */
 
 use Application\Middleware\CsrfMiddleware;
 use Infrastructure\View\AssetHelper;
+use Interfaces\HTTP\View\TemplateRenderer;
 
 $authCss = AssetHelper::css('auth.css');
 ?>
@@ -19,7 +20,7 @@ $authCss = AssetHelper::css('auth.css');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - App</title>
-    <link rel="stylesheet" href="<?= $authCss ?>">
+    <link rel="stylesheet" href="<?php echo $authCss; ?>">
 </head>
 <body>
 <!-- Theme Toggle -->
@@ -51,21 +52,21 @@ $authCss = AssetHelper::css('auth.css');
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
     const STORAGE_KEY = 'theme';
-    
+
     // Check for saved theme preference or default to dark
     const savedTheme = localStorage.getItem(STORAGE_KEY);
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    
+
     if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
         body.classList.add('light-mode');
         toggle.classList.add('theme-toggle__button--light');
     }
-    
+
     // Toggle theme on click
     toggle.addEventListener('click', function() {
         body.classList.toggle('light-mode');
         toggle.classList.toggle('theme-toggle__button--light');
-        
+
         const isLight = body.classList.contains('light-mode');
         localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark');
     });
@@ -80,73 +81,73 @@ $authCss = AssetHelper::css('auth.css');
                 <span class="auth-layout__logo-text">App</span><span class="auth-layout__logo-dot">.</span>
             </a>
         </div>
-        
+
         <!-- Login Card -->
         <div class="auth-card">
             <div class="auth-card__header">
                 <h1 class="auth-card__title">Sign in to your account</h1>
                 <p class="auth-card__subtitle">Welcome back. Please enter your details.</p>
             </div>
-            
-            <?php if (!empty($error)): ?>
+
+            <?php if (!empty($error)) { ?>
             <div class="auth-card__alert auth-card__alert--error">
-                <span class="auth-alert__message"><?= $this->e((string) $error) ?></span>
+                <span class="auth-alert__message"><?php echo $this->e((string) $error); ?></span>
             </div>
-            <?php endif; ?>
-            
+            <?php } ?>
+
             <form class="auth-card__form" method="post" action="/login">
-                <?= CsrfMiddleware::tokenField() ?>
-                
+                <?php echo CsrfMiddleware::tokenField(); ?>
+
                 <!-- Email Field -->
                 <div class="auth-form__group">
                     <label for="email" class="auth-form__label">Email</label>
-                    <input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
                         autocomplete="email"
-                        required 
-                        value="<?= $this->e($old['email'] ?? '') ?>"
+                        required
+                        value="<?php echo $this->e($old['email'] ?? ''); ?>"
                         class="auth-form__input"
                         placeholder="Enter your email"
                     >
                 </div>
-                
+
                 <!-- Password Field -->
                 <div class="auth-form__group">
                     <div class="auth-form__label-row">
                         <label for="password" class="auth-form__label">Password</label>
                         <a href="#" class="auth-form__link">Forgot password?</a>
                     </div>
-                    <input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
                         autocomplete="current-password"
-                        required 
+                        required
                         class="auth-form__input"
                         placeholder="••••••••"
                     >
                 </div>
-                
+
                 <!-- Remember & Submit -->
                 <div class="auth-form__actions">
                     <label class="auth-form__checkbox-wrapper">
-                        <input 
-                            type="checkbox" 
-                            name="remember_me" 
+                        <input
+                            type="checkbox"
+                            name="remember_me"
                             class="auth-form__checkbox"
-                            <?= !empty($old['remember_me']) ? 'checked' : '' ?>
+                            <?php echo !empty($old['remember_me']) ? 'checked' : ''; ?>
                         >
                         <span class="auth-form__checkbox-label">Remember me</span>
                     </label>
-                    
+
                     <button type="submit" class="auth-form__btn auth-form__btn--primary">
                         Sign in
                     </button>
                 </div>
             </form>
-            
+
             <div class="auth-card__footer">
                 <p class="auth-card__text">
                     Don't have an account?
@@ -154,7 +155,7 @@ $authCss = AssetHelper::css('auth.css');
                 </p>
             </div>
         </div>
-        
+
         <!-- Demo Credentials -->
         <div class="auth-demo">
             <p class="auth-demo__title">Demo credentials</p>

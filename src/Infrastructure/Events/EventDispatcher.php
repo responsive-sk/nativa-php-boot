@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Events;
 
@@ -8,7 +8,7 @@ use Domain\Events\DomainEventInterface;
 use Domain\Events\EventDispatcherInterface;
 
 /**
- * Event Dispatcher Implementation
+ * Event Dispatcher Implementation.
  */
 final class EventDispatcher implements EventDispatcherInterface
 {
@@ -16,7 +16,7 @@ final class EventDispatcher implements EventDispatcherInterface
     private array $listeners = [];
 
     /**
-     * Add event listener
+     * Add event listener.
      */
     #[\Override]
     public function addListener(string $eventClass, callable $listener): void
@@ -26,16 +26,17 @@ final class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * Dispatch event to all listeners
+     * Dispatch event to all listeners.
      */
     #[\Override]
     public function dispatch(DomainEventInterface $event): void
     {
-        $eventClass = get_class($event);
+        $eventClass = \get_class($event);
         $this->logDebug("[EventDispatcher] Dispatching: {$eventClass}");
 
         if (!isset($this->listeners[$eventClass])) {
             $this->logDebug("[EventDispatcher] No listeners for: {$eventClass}");
+
             return;
         }
 
@@ -50,7 +51,7 @@ final class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * Get all listeners for an event class
+     * Get all listeners for an event class.
      */
     #[\Override]
     public function getListeners(string $eventClass): array
@@ -59,16 +60,16 @@ final class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * Check if has listeners for an event class
+     * Check if has listeners for an event class.
      */
     #[\Override]
     public function hasListeners(string $eventClass): bool
     {
-        return isset($this->listeners[$eventClass]) && count($this->listeners[$eventClass]) > 0;
+        return isset($this->listeners[$eventClass]) && \count($this->listeners[$eventClass]) > 0;
     }
 
     /**
-     * Clear all listeners (useful for testing)
+     * Clear all listeners (useful for testing).
      */
     public function clearListeners(): void
     {
@@ -76,7 +77,7 @@ final class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * Debug logging
+     * Debug logging.
      */
     private function logDebug(string $message): void
     {
@@ -86,7 +87,7 @@ final class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * Error logging
+     * Error logging.
      */
     private function logError(string $message): void
     {

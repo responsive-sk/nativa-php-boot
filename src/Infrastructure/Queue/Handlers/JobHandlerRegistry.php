@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Queue\Handlers;
 
 /**
- * Job Handler Registry
+ * Job Handler Registry.
  */
 final class JobHandlerRegistry
 {
@@ -13,7 +13,7 @@ final class JobHandlerRegistry
     private array $handlers = [];
 
     /**
-     * Register a job handler
+     * Register a job handler.
      */
     public function register(string $jobName, callable $handler): void
     {
@@ -21,7 +21,7 @@ final class JobHandlerRegistry
     }
 
     /**
-     * Get handler for a job name
+     * Get handler for a job name.
      */
     public function getHandler(string $jobName): ?callable
     {
@@ -29,7 +29,7 @@ final class JobHandlerRegistry
     }
 
     /**
-     * Check if handler exists
+     * Check if handler exists.
      */
     public function hasHandler(string $jobName): bool
     {
@@ -37,7 +37,7 @@ final class JobHandlerRegistry
     }
 
     /**
-     * Get all registered handlers
+     * Get all registered handlers.
      *
      * @return array<string>
      */

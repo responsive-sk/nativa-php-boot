@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container;
 
 /**
- * Container Exception
+ * Container Exception.
  */
-final class ContainerException extends \Exception
-{
-}
+final class ContainerException extends \Exception {}

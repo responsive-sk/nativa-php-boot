@@ -1,23 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
+use Domain\Repository\PermissionRepositoryInterface;
+use Domain\Repository\RoleRepositoryInterface;
 use Infrastructure\Container\Container;
 use Infrastructure\Container\ServiceProviderInterface;
-use Domain\Repository\RoleRepositoryInterface;
-use Domain\Repository\PermissionRepositoryInterface;
-use Infrastructure\Persistence\Repositories\RoleRepository;
 use Infrastructure\Persistence\Repositories\PermissionRepository;
+use Infrastructure\Persistence\Repositories\RoleRepository;
 
 /**
- * RBAC Service Provider
+ * RBAC Service Provider.
  */
 final class RbacServiceProvider implements ServiceProviderInterface
 {
     /**
-     * Register bindings
+     * Register bindings.
      */
     #[\Override]
     public function register(Container $container): void
@@ -28,7 +28,7 @@ final class RbacServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * Boot services
+     * Boot services.
      */
     #[\Override]
     public function boot(Container $container): void

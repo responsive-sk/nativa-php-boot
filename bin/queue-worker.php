@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * Queue Worker CLI Command
+ * Queue Worker CLI Command.
  *
  * Usage:
  *   php bin/queue-worker.php default
@@ -15,11 +15,13 @@ declare(strict_types=1);
 require_once __DIR__ . '/../src/init.php';
 
 use Infrastructure\Persistence\DatabaseConnectionManager;
-use Infrastructure\Queue\QueueRepository;
-use Infrastructure\Queue\Worker\Worker;
-use Infrastructure\Queue\Worker\JobHandler;
 use Infrastructure\Queue\Handlers\JobHandlerRegistry;
 use Infrastructure\Queue\Handlers\OutboxProcessor;
+use Infrastructure\Queue\Handlers\SendContactNotificationHandler;
+use Infrastructure\Queue\Handlers\SendFormSubmissionNotificationHandler;
+use Infrastructure\Queue\QueueRepository;
+use Infrastructure\Queue\Worker\JobHandler;
+use Infrastructure\Queue\Worker\Worker;
 
 // Get queue name from arguments
 $queue = $argv[1] ?? 'default';
@@ -49,17 +51,17 @@ $registry = new JobHandlerRegistry();
 
 // Register Outbox Processor
 $outboxProcessor = new OutboxProcessor($dbManager);
-$registry->register('process-outbox', fn($job) => $outboxProcessor->process());
+$registry->register('process-outbox', static fn ($job) => $outboxProcessor->process());
 
 // Register Contact Form handler
-$registry->register('send-contact-notification', function($job) {
-    $handler = new \Infrastructure\Queue\Handlers\SendContactNotificationHandler();
+$registry->register('send-contact-notification', static function ($job): void {
+    $handler = new SendContactNotificationHandler();
     $handler($job);
 });
 
 // Register Form Submission handler
-$registry->register('send-form-submission-notification', function($job) {
-    $handler = new \Infrastructure\Queue\Handlers\SendFormSubmissionNotificationHandler();
+$registry->register('send-form-submission-notification', static function ($job): void {
+    $handler = new SendFormSubmissionNotificationHandler();
     $handler($job);
 });
 
@@ -72,7 +74,7 @@ $jobHandler = new JobHandler($registry);
 $worker = new Worker($queue, $jobHandler);
 
 // Handle SIGINT (Ctrl+C)
-pcntl_signal(SIGINT, function () use ($worker) {
+pcntl_signal(SIGINT, static function () use ($worker): void {
     echo "\nShutting down worker...\n";
     $worker->stop();
 });

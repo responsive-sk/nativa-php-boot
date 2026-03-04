@@ -1,14 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * Documentation Page Template
+ * Documentation Page Template.
  *
  * @var string $pageTitle
  */
-
-$pageTitle = $pageTitle ?? 'Documentation - Nativa CMS';
+$pageTitle ??= 'Documentation - Nativa CMS';
 ?>
 
 <!-- Hero Section -->

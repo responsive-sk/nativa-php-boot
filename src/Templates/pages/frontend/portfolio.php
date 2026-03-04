@@ -1,7 +1,7 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
- * Portfolio Template - CMS Integration
+ * Portfolio Template - CMS Integration.
  *
  * @var string $pageTitle Page title
  * @var string $page Page identifier
@@ -17,8 +17,8 @@ $portfolioHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/
     <div class="portfolio-hero">
         <div class="portfolio__overlay"></div>
         <picture class="portfolio__hero-picture">
-            <source media="(min-width: 769px)" srcset="<?= $portfolioHeroImageDesktop ?>">
-            <img src="<?= $portfolioHeroImageMobile ?>" alt="Portfolio hero background" fetchpriority="high" loading="eager" decoding="async" class="portfolio__hero-image" width="1280" height="720" crossorigin="anonymous">
+            <source media="(min-width: 769px)" srcset="<?php echo $portfolioHeroImageDesktop; ?>">
+            <img src="<?php echo $portfolioHeroImageMobile; ?>" alt="Portfolio hero background" fetchpriority="high" loading="eager" decoding="async" class="portfolio__hero-image" width="1280" height="720" crossorigin="anonymous">
         </picture>
         <div class="portfolio__hero-content">
             <h1>Our Portfolio</h1>

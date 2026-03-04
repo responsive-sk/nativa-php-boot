@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
 use Application\Services\ContactManager;
+use Domain\Events\EventDispatcherInterface;
 use Domain\Repository\ContactRepositoryInterface;
 use Infrastructure\Container\Container;
 use Infrastructure\Container\ServiceProviderInterface;
@@ -12,7 +13,7 @@ use Infrastructure\Persistence\Repositories\ContactRepository;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Contact Service Provider
+ * Contact Service Provider.
  */
 final class ContactServiceProvider implements ServiceProviderInterface
 {
@@ -22,7 +23,7 @@ final class ContactServiceProvider implements ServiceProviderInterface
         // Register ContactRepository
         $container->bind(
             ContactRepositoryInterface::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new ContactRepository($container->get(UnitOfWork::class));
             }
         );
@@ -30,10 +31,10 @@ final class ContactServiceProvider implements ServiceProviderInterface
         // Register ContactManager
         $container->singleton(
             ContactManager::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new ContactManager(
                     $container->get(ContactRepositoryInterface::class),
-                    $container->get(\Domain\Events\EventDispatcherInterface::class)
+                    $container->get(EventDispatcherInterface::class)
                 );
             }
         );

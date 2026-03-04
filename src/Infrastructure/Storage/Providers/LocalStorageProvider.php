@@ -1,19 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Storage\Providers;
 
 use Infrastructure\Paths\AppPaths;
-use RuntimeException;
 
 /**
  * Local Storage Provider
- * Stores files on local filesystem
+ * Stores files on local filesystem.
  */
 final class LocalStorageProvider implements MediaProviderInterface
 {
     private string $basePath;
+
     private string $baseUrl;
 
     public function __construct(
@@ -26,7 +26,7 @@ final class LocalStorageProvider implements MediaProviderInterface
 
         // Ensure base directory exists
         if (!is_dir($this->basePath)) {
-            mkdir($this->basePath, 0755, true);
+            mkdir($this->basePath, 0o755, true);
         }
     }
 
@@ -34,7 +34,7 @@ final class LocalStorageProvider implements MediaProviderInterface
     public function upload(array $file): array
     {
         if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
-            throw new RuntimeException('Invalid file upload');
+            throw new \RuntimeException('Invalid file upload');
         }
 
         // Validate file
@@ -43,13 +43,13 @@ final class LocalStorageProvider implements MediaProviderInterface
         // Generate unique filename
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = bin2hex(random_bytes(16)) . '.' . $extension;
-        
+
         // Create date-based directory structure
         $datePath = date('Y/m/d');
         $targetDir = $this->basePath . '/' . $datePath;
-        
+
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
+            mkdir($targetDir, 0o755, true);
         }
 
         $targetPath = $targetDir . '/' . $filename;
@@ -57,14 +57,14 @@ final class LocalStorageProvider implements MediaProviderInterface
 
         // Move uploaded file
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            throw new RuntimeException('Failed to move uploaded file');
+            throw new \RuntimeException('Failed to move uploaded file');
         }
 
         return [
-            'path' => $relativePath,
-            'url' => $this->getUrl($relativePath),
-            'size' => (int) $file['size'],
-            'mime_type' => $file['type'] ?: mime_content_type($file['tmp_name']),
+            'path'          => $relativePath,
+            'url'           => $this->getUrl($relativePath),
+            'size'          => (int) $file['size'],
+            'mime_type'     => $file['type'] ?: mime_content_type($file['tmp_name']),
             'original_name' => $file['name'],
         ];
     }
@@ -73,11 +73,11 @@ final class LocalStorageProvider implements MediaProviderInterface
     public function delete(string $path): bool
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
-        
+
         if (file_exists($fullPath)) {
             return unlink($fullPath);
         }
-        
+
         return false;
     }
 
@@ -91,6 +91,7 @@ final class LocalStorageProvider implements MediaProviderInterface
     public function getSize(string $path): int
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
+
         return file_exists($fullPath) ? (int) filesize($fullPath) : 0;
     }
 
@@ -98,6 +99,7 @@ final class LocalStorageProvider implements MediaProviderInterface
     public function exists(string $path): bool
     {
         $fullPath = $this->basePath . '/' . ltrim($path, '/');
+
         return file_exists($fullPath);
     }
 
@@ -108,21 +110,21 @@ final class LocalStorageProvider implements MediaProviderInterface
     }
 
     /**
-     * Validate uploaded file
+     * Validate uploaded file.
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     private function validateFile(array $file): void
     {
         // Check for upload errors
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            throw new RuntimeException('Upload error: ' . $this->getUploadErrorMessage($file['error']));
+        if (UPLOAD_ERR_OK !== $file['error']) {
+            throw new \RuntimeException('Upload error: ' . $this->getUploadErrorMessage($file['error']));
         }
 
         // Check file size (max 10MB)
         $maxSize = 10 * 1024 * 1024; // 10MB
         if ($file['size'] > $maxSize) {
-            throw new RuntimeException('File size exceeds maximum allowed size (10MB)');
+            throw new \RuntimeException('File size exceeds maximum allowed size (10MB)');
         }
 
         // Validate MIME type using native PHP
@@ -139,25 +141,25 @@ final class LocalStorageProvider implements MediaProviderInterface
         ];
 
         $mimeType = $file['type'] ?: mime_content_type($file['tmp_name']);
-        if (!in_array($mimeType, $allowedTypes, true)) {
-            throw new RuntimeException('File type not allowed: ' . $mimeType);
+        if (!\in_array($mimeType, $allowedTypes, true)) {
+            throw new \RuntimeException('File type not allowed: ' . $mimeType);
         }
     }
 
     /**
-     * Get human-readable upload error message
+     * Get human-readable upload error message.
      */
     private function getUploadErrorMessage(int $errorCode): string
     {
         return match ($errorCode) {
-            UPLOAD_ERR_INI_SIZE => 'File exceeds upload_max_filesize',
-            UPLOAD_ERR_FORM_SIZE => 'File exceeds MAX_FILE_SIZE directive',
-            UPLOAD_ERR_PARTIAL => 'File was only partially uploaded',
-            UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+            UPLOAD_ERR_INI_SIZE   => 'File exceeds upload_max_filesize',
+            UPLOAD_ERR_FORM_SIZE  => 'File exceeds MAX_FILE_SIZE directive',
+            UPLOAD_ERR_PARTIAL    => 'File was only partially uploaded',
+            UPLOAD_ERR_NO_FILE    => 'No file was uploaded',
             UPLOAD_ERR_NO_TMP_DIR => 'Missing temporary folder',
             UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-            UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the upload',
-            default => 'Unknown upload error',
+            UPLOAD_ERR_EXTENSION  => 'A PHP extension stopped the upload',
+            default               => 'Unknown upload error',
         };
     }
 }

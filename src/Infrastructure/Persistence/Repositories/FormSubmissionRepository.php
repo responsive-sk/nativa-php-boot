@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence\Repositories;
 
@@ -9,27 +9,26 @@ use Domain\Repository\FormSubmissionRepositoryInterface;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Form Submission Repository Implementation
+ * Form Submission Repository Implementation.
  */
- final class FormSubmissionRepository implements FormSubmissionRepositoryInterface
+final class FormSubmissionRepository implements FormSubmissionRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow
-    ) {
-    }
+    ) {}
 
     #[\Override]
     public function save(FormSubmission $submission): void
     {
         $data = $submission->toArray();
 
-        $sql = <<<SQL
-            INSERT INTO form_submissions (
-                id, form_id, data, ip_address, user_agent, submitted_at
-            ) VALUES (
-                :id, :form_id, :data, :ip_address, :user_agent, :submitted_at
-            )
-        SQL;
+        $sql = <<<'SQL'
+                INSERT INTO form_submissions (
+                    id, form_id, data, ip_address, user_agent, submitted_at
+                ) VALUES (
+                    :id, :form_id, :data, :ip_address, :user_agent, :submitted_at
+                )
+            SQL;
 
         $stmt = $this->uow->getConnection()->prepare($sql);
         $stmt->execute($data);
@@ -73,7 +72,7 @@ use Infrastructure\Persistence\UnitOfWork;
         $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
         $stmt->execute();
 
-        return array_map(fn($row) => FormSubmission::fromArray($row), $stmt->fetchAll());
+        return array_map(static fn ($row) => FormSubmission::fromArray($row), $stmt->fetchAll());
     }
 
     #[\Override]
@@ -83,6 +82,7 @@ use Infrastructure\Persistence\UnitOfWork;
             'SELECT COUNT(*) FROM form_submissions WHERE form_id = ?'
         );
         $stmt->execute([$formId]);
+
         return (int) $stmt->fetchColumn();
     }
 

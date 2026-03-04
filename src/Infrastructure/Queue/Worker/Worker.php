@@ -1,14 +1,14 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Queue\Worker;
 
-use Infrastructure\Queue\QueueRepository;
 use Infrastructure\Queue\Entities\Job;
+use Infrastructure\Queue\QueueRepository;
 
 /**
- * Queue Worker - Processes jobs from the queue
+ * Queue Worker - Processes jobs from the queue.
  */
 final class Worker
 {
@@ -17,11 +17,10 @@ final class Worker
     public function __construct(
         private readonly QueueRepository $queue,
         private readonly JobHandler $handler,
-    ) {
-    }
+    ) {}
 
     /**
-     * Process jobs from the queue
+     * Process jobs from the queue.
      */
     public function work(string $queue, int $maxTries = 3, int $timeout = 60): void
     {
@@ -31,7 +30,7 @@ final class Worker
         while (!$this->shouldQuit) {
             $job = $this->queue->reserve($queue, $timeout);
 
-            if ($job === null) {
+            if (null === $job) {
                 sleep(1); // No job available, wait
                 continue;
             }
@@ -43,12 +42,31 @@ final class Worker
     }
 
     /**
-     * Process a single job
+     * Stop the worker.
+     */
+    public function stop(): void
+    {
+        $this->shouldQuit = true;
+    }
+
+    /**
+     * Process a single job (for testing).
+     */
+    public function processSingle(string $queue): void
+    {
+        $job = $this->queue->reserve($queue);
+        if (null !== $job) {
+            $this->processJob($job, 3);
+        }
+    }
+
+    /**
+     * Process a single job.
      */
     private function processJob(Job $job, int $maxTries): void
     {
         $jobName = $job->payload()['job'] ?? 'Unknown';
-        echo "[" . date('Y-m-d H:i:s') . "] Processing: {$jobName}\n";
+        echo '[' . date('Y-m-d H:i:s') . "] Processing: {$jobName}\n";
 
         try {
             // Check if job has exceeded max attempts
@@ -61,40 +79,20 @@ final class Worker
 
             // Delete successful job
             $this->queue->delete($job);
-            echo "[" . date('Y-m-d H:i:s') . "] Completed: {$jobName}\n";
-
+            echo '[' . date('Y-m-d H:i:s') . "] Completed: {$jobName}\n";
         } catch (\Throwable $e) {
-            echo "[" . date('Y-m-d H:i:s') . "] Failed: {$jobName} - {$e->getMessage()}\n";
+            echo '[' . date('Y-m-d H:i:s') . "] Failed: {$jobName} - {$e->getMessage()}\n";
 
             // Release job back to queue or mark as failed
             if ($job->attempts() >= $maxTries) {
                 $this->queue->fail($job, $e);
-                echo "[" . date('Y-m-d H:i:s') . "] Marked as failed: {$jobName}\n";
+                echo '[' . date('Y-m-d H:i:s') . "] Marked as failed: {$jobName}\n";
             } else {
                 // Release with delay (exponential backoff)
-                $delay = pow(2, $job->attempts()) * 5; // 5s, 10s, 20s...
+                $delay = 2 ** $job->attempts() * 5; // 5s, 10s, 20s...
                 $this->queue->release($job, $delay);
-                echo "[" . date('Y-m-d H:i:s') . "] Released with {$delay}s delay: {$jobName}\n";
+                echo '[' . date('Y-m-d H:i:s') . "] Released with {$delay}s delay: {$jobName}\n";
             }
-        }
-    }
-
-    /**
-     * Stop the worker
-     */
-    public function stop(): void
-    {
-        $this->shouldQuit = true;
-    }
-
-    /**
-     * Process a single job (for testing)
-     */
-    public function processSingle(string $queue): void
-    {
-        $job = $this->queue->reserve($queue);
-        if ($job !== null) {
-            $this->processJob($job, 3);
         }
     }
 }

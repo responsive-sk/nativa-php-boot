@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Acceptance;
 
 use Tests\Support\AcceptanceTester;
 
 /**
- * Login Acceptance Tests
+ * Login Acceptance Tests.
  */
-class LoginCest
+final class LoginCest
 {
     /**
-     * Test login page displays correctly
+     * Test login page displays correctly.
      */
-    public function seeLoginPage(AcceptanceTester $I)
+    public function seeLoginPage(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');
         $I->see('Login');
@@ -24,52 +26,52 @@ class LoginCest
     }
 
     /**
-     * Test successful login with admin credentials
+     * Test successful login with admin credentials.
      */
-    public function loginAsAdmin(AcceptanceTester $I)
+    public function loginAsAdmin(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');
-        
+
         $I->fillField('email', 'admin@phpcms.local');
         $I->fillField('password', 'admin123');
         $I->click('button[type="submit"]');
-        
+
         $I->seeCurrentUrlEquals('/admin');
         $I->see('PHP CMS Admin');
         $I->see('Dashboard');
     }
 
     /**
-     * Test login with invalid credentials
+     * Test login with invalid credentials.
      */
-    public function loginWithInvalidCredentials(AcceptanceTester $I)
+    public function loginWithInvalidCredentials(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');
-        
+
         $I->fillField('email', 'wrong@example.com');
         $I->fillField('password', 'wrongpassword');
         $I->click('button[type="submit"]');
-        
+
         $I->seeCurrentUrlEquals('/login');
         $I->see('Invalid email or password');
     }
 
     /**
-     * Test login with empty fields
+     * Test login with empty fields.
      */
-    public function loginWithEmptyFields(AcceptanceTester $I)
+    public function loginWithEmptyFields(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');
         $I->click('button[type="submit"]');
-        
+
         // Browser should prevent submission or show validation
         $I->seeInCurrentUrl('/login');
     }
 
     /**
-     * Test logout functionality
+     * Test logout functionality.
      */
-    public function logout(AcceptanceTester $I)
+    public function logout(AcceptanceTester $I): void
     {
         // Login first
         $I->amOnPage('/login');
@@ -77,7 +79,7 @@ class LoginCest
         $I->fillField('password', 'admin123');
         $I->click('button[type="submit"]');
         $I->seeCurrentUrlEquals('/admin');
-        
+
         // Logout
         $I->click('Logout');
         $I->seeCurrentUrlEquals('/login');
@@ -85,9 +87,9 @@ class LoginCest
     }
 
     /**
-     * Test redirect to admin when already logged in
+     * Test redirect to admin when already logged in.
      */
-    public function redirectWhenAlreadyLoggedIn(AcceptanceTester $I)
+    public function redirectWhenAlreadyLoggedIn(AcceptanceTester $I): void
     {
         // Login first
         $I->amOnPage('/login');
@@ -95,7 +97,7 @@ class LoginCest
         $I->fillField('password', 'admin123');
         $I->click('button[type="submit"]');
         $I->seeCurrentUrlEquals('/admin');
-        
+
         // Try to access login page again
         $I->amOnPage('/login');
         $I->seeCurrentUrlEquals('/admin');

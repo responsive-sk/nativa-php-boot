@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container;
 
+use Domain\Events\EventDispatcherInterface;
 use Infrastructure\Container\Providers\ArticleServiceProvider;
 use Infrastructure\Container\Providers\AuthServiceProvider;
 use Infrastructure\Container\Providers\ContactServiceProvider;
@@ -15,22 +16,21 @@ use Infrastructure\Container\Providers\RbacServiceProvider;
 use Infrastructure\Container\Providers\UserServiceProvider;
 use Infrastructure\Container\Providers\ViewServiceProvider;
 use Infrastructure\Events\EventDispatcher;
-use Domain\Events\EventDispatcherInterface;
 
 /**
- * Container Factory - Bootstrap the DI Container
+ * Container Factory - Bootstrap the DI Container.
  */
 final class ContainerFactory
 {
     /**
-     * Create and configure the container
+     * Create and configure the container.
      */
     public static function create(): Container
     {
         $container = new Container();
 
         // Register Event Dispatcher first (needed by other services)
-        $container->singleton(EventDispatcherInterface::class, function () {
+        $container->singleton(EventDispatcherInterface::class, static function () {
             return new EventDispatcher();
         });
 

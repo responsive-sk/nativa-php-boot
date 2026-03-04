@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
@@ -11,11 +11,9 @@ use Domain\Events\EventDispatcherInterface;
 use Domain\Repository\UserRepositoryInterface;
 use Infrastructure\Container\Container;
 use Infrastructure\Container\ServiceProviderInterface;
-use Infrastructure\Persistence\Repositories\UserRepository;
-use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Auth Service Provider
+ * Auth Service Provider.
  */
 final class AuthServiceProvider implements ServiceProviderInterface
 {
@@ -23,19 +21,19 @@ final class AuthServiceProvider implements ServiceProviderInterface
     public function register(Container $container): void
     {
         // Session Manager (singleton)
-        $container->singleton(SessionManager::class, function (): SessionManager {
+        $container->singleton(SessionManager::class, static function (): SessionManager {
             return new SessionManager();
         });
 
         // Token Manager
-        $container->singleton(TokenManager::class, function () use ($container): TokenManager {
+        $container->singleton(TokenManager::class, static function () use ($container): TokenManager {
             return new TokenManager(
                 $container->get(UserRepositoryInterface::class)
             );
         });
 
         // Auth Service
-        $container->singleton(AuthService::class, function () use ($container): AuthService {
+        $container->singleton(AuthService::class, static function () use ($container): AuthService {
             return new AuthService(
                 $container->get(UserRepositoryInterface::class),
                 $container->get(SessionManager::class),

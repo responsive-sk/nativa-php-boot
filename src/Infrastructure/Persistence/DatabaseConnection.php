@@ -1,21 +1,21 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence;
 
 use Infrastructure\Paths\AppPaths;
-use PDO;
-use PDOException;
 
 /**
  * SQLite Database Connection - Legacy wrapper for backwards compatibility
- * Uses DatabaseConnectionManager internally
+ * Uses DatabaseConnectionManager internally.
  */
 final class DatabaseConnection
 {
     private DatabaseConnectionManager $manager;
+
     private string $connectionName;
+
     private ?string $dbPath;
 
     private static ?self $instance = null;
@@ -25,14 +25,14 @@ final class DatabaseConnection
         $this->dbPath = $dbPath;
         $this->manager = new DatabaseConnectionManager();
 
-        if ($dbPath !== null) {
+        if (null !== $dbPath) {
             $this->connectionName = 'custom';
 
             // Handle :memory: specially for tests
-            if ($dbPath === ':memory:') {
-                $pdo = new PDO('sqlite::memory:');
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            if (':memory:' === $dbPath) {
+                $pdo = new \PDO('sqlite::memory:');
+                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
                 $pdo->exec('PRAGMA foreign_keys = ON');
 
                 // Register via reflection
@@ -48,16 +48,16 @@ final class DatabaseConnection
                 $fullPath = str_starts_with($dbPath, '/') ? $dbPath : $paths->getBasePath() . '/' . $dbPath;
 
                 // Ensure directory exists
-                $dir = dirname($fullPath);
+                $dir = \dirname($fullPath);
                 if (!is_dir($dir)) {
-                    mkdir($dir, 0755, true);
+                    mkdir($dir, 0o755, true);
                 }
 
                 // Create custom connection
                 $dsn = 'sqlite:' . $fullPath;
-                $pdo = new PDO($dsn);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $pdo = new \PDO($dsn);
+                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
                 $pdo->exec('PRAGMA foreign_keys = ON');
                 $pdo->exec('PRAGMA journal_mode = WAL');
 
@@ -74,7 +74,12 @@ final class DatabaseConnection
         }
     }
 
-    public function getConnection(): PDO
+    public function __destruct()
+    {
+        $this->close();
+    }
+
+    public function getConnection(): \PDO
     {
         return $this->manager->getConnection($this->connectionName);
     }
@@ -105,26 +110,22 @@ final class DatabaseConnection
     }
 
     /**
-     * Get singleton instance
+     * Get singleton instance.
      */
     public static function getInstance(): self
     {
-        if (self::$instance === null) {
+        if (null === self::$instance) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
     /**
-     * Reset singleton instance (for testing)
+     * Reset singleton instance (for testing).
      */
     public static function resetInstance(): void
     {
         self::$instance = null;
-    }
-
-    public function __destruct()
-    {
-        $this->close();
     }
 }

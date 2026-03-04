@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
@@ -10,7 +10,7 @@ use Infrastructure\Paths\AppPaths;
 use Interfaces\HTTP\View\TemplateRenderer;
 
 /**
- * View Service Provider
+ * View Service Provider.
  */
 final class ViewServiceProvider implements ServiceProviderInterface
 {
@@ -21,7 +21,7 @@ final class ViewServiceProvider implements ServiceProviderInterface
 
         $container->singleton(
             TemplateRenderer::class,
-            function () use ($paths) {
+            static function () use ($paths) {
                 // Cache version from env or file-based auto-versioning
                 $cacheVersion = $_ENV['TEMPLATE_CACHE_VERSION'] ?? null;
 

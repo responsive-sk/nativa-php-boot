@@ -63,6 +63,11 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <!-- Navigation -->
   <nav class="nav-primary">
     <div class="nav-primary__inner container">
+      <a href="/" class="nav-primary__logo">
+        <span>Nativa</span>
+        <span class="nav-primary__logo-dot">•</span>
+        <span>CMS</span>
+      </a>
       <ul class="nav-primary__list">
         <li class="nav-primary__item nav-primary__item--active">
           <a href="/" class="nav-primary__link">

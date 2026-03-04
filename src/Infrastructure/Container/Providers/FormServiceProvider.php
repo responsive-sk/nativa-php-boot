@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
@@ -12,7 +12,7 @@ use Infrastructure\Persistence\Repositories\FormRepository;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Form Service Provider
+ * Form Service Provider.
  */
 final class FormServiceProvider implements ServiceProviderInterface
 {
@@ -22,7 +22,7 @@ final class FormServiceProvider implements ServiceProviderInterface
         // Register FormRepository
         $container->bind(
             FormRepositoryInterface::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new FormRepository($container->get(UnitOfWork::class));
             }
         );
@@ -30,7 +30,7 @@ final class FormServiceProvider implements ServiceProviderInterface
         // Register FormManager
         $container->singleton(
             FormManager::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new FormManager(
                     $container->get(FormRepositoryInterface::class)
                 );

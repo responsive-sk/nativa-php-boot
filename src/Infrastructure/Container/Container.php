@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container;
 
-use ReflectionClass;
-use ReflectionParameter;
-
 /**
- * Lightweight Dependency Injection Container with auto-wiring
+ * Lightweight Dependency Injection Container with auto-wiring.
  */
 final class Container
 {
@@ -22,13 +19,9 @@ final class Container
     private array $singletons = [];
 
     /**
-     * Bind a class or interface to a concrete implementation
-     *
-     * @param string $abstract
-     * @param callable|string $concrete
-     * @param bool $singleton
+     * Bind a class or interface to a concrete implementation.
      */
-    public function bind(string $abstract, callable|string $concrete, bool $singleton = false): void
+    public function bind(string $abstract, callable | string $concrete, bool $singleton = false): void
     {
         $this->bindings[$abstract] = $concrete;
         $this->singletons[$abstract] = $singleton;
@@ -40,21 +33,15 @@ final class Container
     }
 
     /**
-     * Bind as singleton (shared instance)
-     *
-     * @param string $abstract
-     * @param callable|string $concrete
+     * Bind as singleton (shared instance).
      */
-    public function singleton(string $abstract, callable|string $concrete): void
+    public function singleton(string $abstract, callable | string $concrete): void
     {
         $this->bind($abstract, $concrete, true);
     }
 
     /**
-     * Register an existing instance
-     *
-     * @param string $abstract
-     * @param object $instance
+     * Register an existing instance.
      */
     public function instance(string $abstract, object $instance): void
     {
@@ -63,10 +50,7 @@ final class Container
     }
 
     /**
-     * Resolve a class or interface
-     *
-     * @param string $abstract
-     * @return object
+     * Resolve a class or interface.
      */
     public function get(string $abstract): object
     {
@@ -79,7 +63,7 @@ final class Container
         if (isset($this->bindings[$abstract])) {
             $concrete = $this->bindings[$abstract];
 
-            if (is_callable($concrete)) {
+            if (\is_callable($concrete)) {
                 $instance = $concrete($this);
             } else {
                 $instance = $this->build($concrete);
@@ -98,14 +82,60 @@ final class Container
     }
 
     /**
-     * Build a class with dependency injection
+     * Check if a class is bound or resolved.
+     */
+    public function has(string $abstract): bool
+    {
+        return isset($this->instances[$abstract]) || isset($this->bindings[$abstract]);
+    }
+
+    /**
+     * Remove a binding or instance.
+     */
+    public function forget(string $abstract): void
+    {
+        unset($this->bindings[$abstract], $this->instances[$abstract], $this->singletons[$abstract]);
+    }
+
+    /**
+     * Build a class without caching (always new instance).
+     */
+    public function make(string $class): object
+    {
+        return $this->build($class);
+    }
+
+    /**
+     * Call a method with dependency injection.
      *
-     * @param string $class
-     * @return object
+     * @param object|array{class-string, string} $callback
+     * @param array<string, mixed>               $parameters
+     */
+    public function call(array | object $callback, array $parameters = []): mixed
+    {
+        if (\is_array($callback)) {
+            [$class, $method] = $callback;
+            $instance = \is_object($class) ? $class : $this->get($class);
+
+            // Create ReflectionMethod with instance and method name separately
+            $reflector = new \ReflectionMethod($instance, $method);
+            $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
+
+            return $reflector->invokeArgs($instance, $dependencies);
+        }
+
+        $reflector = new \ReflectionMethod($callback, '__invoke');
+        $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
+
+        return $reflector->invokeArgs($callback, $dependencies);
+    }
+
+    /**
+     * Build a class with dependency injection.
      */
     private function build(string $class): object
     {
-        $reflector = new ReflectionClass($class);
+        $reflector = new \ReflectionClass($class);
 
         if (!$reflector->isInstantiable()) {
             throw new ContainerException("Class {$class} is not instantiable");
@@ -113,7 +143,7 @@ final class Container
 
         $constructor = $reflector->getConstructor();
 
-        if ($constructor === null) {
+        if (null === $constructor) {
             return new $class();
         }
 
@@ -123,9 +153,10 @@ final class Container
     }
 
     /**
-     * Resolve constructor dependencies
+     * Resolve constructor dependencies.
      *
-     * @param array<ReflectionParameter> $parameters
+     * @param array<\ReflectionParameter> $parameters
+     *
      * @return array<mixed>
      */
     private function resolveDependencies(array $parameters): array
@@ -135,7 +166,7 @@ final class Container
         foreach ($parameters as $parameter) {
             $type = $parameter->getType();
 
-            if ($type === null) {
+            if (null === $type) {
                 // No type hint, check for default value
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
@@ -162,7 +193,7 @@ final class Container
             $typeName = $type->getName();
 
             // Skip built-in types (they should have default values)
-            if (in_array($typeName, ['string', 'int', 'bool', 'float', 'array', 'callable'])) {
+            if (\in_array($typeName, ['string', 'int', 'bool', 'float', 'array', 'callable'], true)) {
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
                 } else {
@@ -189,63 +220,10 @@ final class Container
     }
 
     /**
-     * Check if a class is bound or resolved
-     */
-    public function has(string $abstract): bool
-    {
-        return isset($this->instances[$abstract]) || isset($this->bindings[$abstract]);
-    }
-
-    /**
-     * Remove a binding or instance
-     */
-    public function forget(string $abstract): void
-    {
-        unset($this->bindings[$abstract], $this->instances[$abstract], $this->singletons[$abstract]);
-    }
-
-    /**
-     * Build a class without caching (always new instance)
+     * Resolve method dependencies.
      *
-     * @param string $class
-     * @return object
-     */
-    public function make(string $class): object
-    {
-        return $this->build($class);
-    }
-
-    /**
-     * Call a method with dependency injection
-     *
-     * @param object|array{class-string, string} $callback
      * @param array<string, mixed> $parameters
-     * @return mixed
-     */
-    public function call(object|array $callback, array $parameters = []): mixed
-    {
-        if (is_array($callback)) {
-            [$class, $method] = $callback;
-            $instance = is_object($class) ? $class : $this->get($class);
-            
-            // Create ReflectionMethod with instance and method name separately
-            $reflector = new \ReflectionMethod($instance, $method);
-            $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
-            
-            return $reflector->invokeArgs($instance, $dependencies);
-        }
-
-        $reflector = new \ReflectionMethod($callback, '__invoke');
-        $dependencies = $this->resolveMethodDependencies($reflector, $parameters);
-
-        return $reflector->invokeArgs($callback, $dependencies);
-    }
-
-    /**
-     * Resolve method dependencies
      *
-     * @param \ReflectionMethod $reflector
-     * @param array<string, mixed> $parameters
      * @return array<mixed>
      */
     private function resolveMethodDependencies(\ReflectionMethod $reflector, array $parameters): array
@@ -256,14 +234,14 @@ final class Container
             $name = $parameter->getName();
 
             // Use provided parameter if available
-            if (array_key_exists($name, $parameters)) {
+            if (\array_key_exists($name, $parameters)) {
                 $dependencies[] = $parameters[$name];
                 continue;
             }
 
             $type = $parameter->getType();
 
-            if ($type === null || !$type instanceof \ReflectionNamedType || in_array($type->getName(), ['string', 'int', 'bool', 'float', 'array', 'callable'])) {
+            if (null === $type || !$type instanceof \ReflectionNamedType || \in_array($type->getName(), ['string', 'int', 'bool', 'float', 'array', 'callable'], true)) {
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
                 } else {

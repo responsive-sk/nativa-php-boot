@@ -1,15 +1,16 @@
 <?php
 /**
- * Register Page
+ * Register Page.
  *
- * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var string $title
- * @var string|null $error
+ * @var TemplateRenderer     $this
+ * @var string               $title
+ * @var string|null          $error
  * @var array<string, mixed> $old
  */
 
 use Application\Middleware\CsrfMiddleware;
 use Infrastructure\View\AssetHelper;
+use Interfaces\HTTP\View\TemplateRenderer;
 
 $authCss = AssetHelper::css('auth.css');
 ?>
@@ -19,7 +20,7 @@ $authCss = AssetHelper::css('auth.css');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - App</title>
-    <link rel="stylesheet" href="<?= $authCss ?>">
+    <link rel="stylesheet" href="<?php echo $authCss; ?>">
 </head>
 <body>
 <!-- Theme Toggle -->
@@ -51,21 +52,21 @@ $authCss = AssetHelper::css('auth.css');
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
     const STORAGE_KEY = 'theme';
-    
+
     // Check for saved theme preference or default to dark
     const savedTheme = localStorage.getItem(STORAGE_KEY);
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    
+
     if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
         body.classList.add('light-mode');
         toggle.classList.add('theme-toggle__button--light');
     }
-    
+
     // Toggle theme on click
     toggle.addEventListener('click', function() {
         body.classList.toggle('light-mode');
         toggle.classList.toggle('theme-toggle__button--light');
-        
+
         const isLight = body.classList.contains('light-mode');
         localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark');
     });
@@ -80,90 +81,90 @@ $authCss = AssetHelper::css('auth.css');
                 <span class="auth-layout__logo-text">App</span><span class="auth-layout__logo-dot">.</span>
             </a>
         </div>
-        
+
         <!-- Register Card -->
         <div class="auth-card">
             <div class="auth-card__header">
                 <h1 class="auth-card__title">Create your account</h1>
                 <p class="auth-card__subtitle">Start your 14-day free trial. No credit card required.</p>
             </div>
-            
-            <?php if (!empty($error)): ?>
+
+            <?php if (!empty($error)) { ?>
             <div class="auth-card__alert auth-card__alert--error">
-                <span class="auth-alert__message"><?= $this->e((string) $error) ?></span>
+                <span class="auth-alert__message"><?php echo $this->e((string) $error); ?></span>
             </div>
-            <?php endif; ?>
-            
+            <?php } ?>
+
             <form class="auth-card__form" method="post" action="/register">
-                <?= CsrfMiddleware::tokenField() ?>
-                
+                <?php echo CsrfMiddleware::tokenField(); ?>
+
                 <!-- Name Field -->
                 <div class="auth-form__group">
                     <label for="name" class="auth-form__label">Full Name</label>
-                    <input 
-                        id="name" 
-                        name="name" 
-                        type="text" 
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
                         autocomplete="name"
-                        required 
-                        value="<?= $this->e($old['name'] ?? '') ?>"
+                        required
+                        value="<?php echo $this->e($old['name'] ?? ''); ?>"
                         class="auth-form__input"
                         placeholder="John Doe"
                     >
                 </div>
-                
+
                 <!-- Email Field -->
                 <div class="auth-form__group">
                     <label for="email" class="auth-form__label">Email</label>
-                    <input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
                         autocomplete="email"
-                        required 
-                        value="<?= $this->e($old['email'] ?? '') ?>"
+                        required
+                        value="<?php echo $this->e($old['email'] ?? ''); ?>"
                         class="auth-form__input"
                         placeholder="john@example.com"
                     >
                 </div>
-                
+
                 <!-- Password Field -->
                 <div class="auth-form__group">
                     <label for="password" class="auth-form__label">Password</label>
-                    <input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
                         autocomplete="new-password"
-                        required 
+                        required
                         minlength="8"
                         class="auth-form__input"
                         placeholder="••••••••"
                     >
                     <p class="auth-form__hint">Minimum 8 characters</p>
                 </div>
-                
+
                 <!-- Confirm Password Field -->
                 <div class="auth-form__group">
                     <label for="password_confirm" class="auth-form__label">Confirm Password</label>
-                    <input 
-                        id="password_confirm" 
-                        name="password_confirm" 
-                        type="password" 
+                    <input
+                        id="password_confirm"
+                        name="password_confirm"
+                        type="password"
                         autocomplete="new-password"
-                        required 
+                        required
                         minlength="8"
                         class="auth-form__input"
                         placeholder="••••••••"
                     >
                 </div>
-                
+
                 <!-- Terms & Submit -->
                 <div class="auth-form__actions">
                     <label class="auth-form__checkbox-wrapper">
-                        <input 
-                            type="checkbox" 
-                            name="terms" 
+                        <input
+                            type="checkbox"
+                            name="terms"
                             class="auth-form__checkbox"
                             required
                         >
@@ -171,13 +172,13 @@ $authCss = AssetHelper::css('auth.css');
                             I agree to the <a href="#" class="auth-form__link">Terms of Service</a> and <a href="#" class="auth-form__link">Privacy Policy</a>
                         </span>
                     </label>
-                    
+
                     <button type="submit" class="auth-form__btn auth-form__btn--primary">
                         Create account
                     </button>
                 </div>
             </form>
-            
+
             <div class="auth-card__footer">
                 <p class="auth-card__text">
                     Already have an account?

@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helper;
 
 use Codeception\Module;
 
 /**
- * Acceptance test helper
+ * Acceptance test helper.
  */
-class Acceptance extends Module
-{
-}
+final class Acceptance extends Module {}

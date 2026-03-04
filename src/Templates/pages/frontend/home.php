@@ -1,47 +1,24 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * Homepage Template - CMS Integration
- * 
- * @var array $articles Array of Article entities
+ * Homepage Template - CMS Integration.
+ *
+ * @var array  $articles Array of Article entities
  * @var string $pageTitle Page title
  */
-
-// Cloudinary hero image optimized for speed with responsive sizes
-$heroImageMobile = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto,w_768/v1658528001/samples/ecommerce/analog-classic.jpg';
-$heroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_auto,q_auto,w_1920/v1658528001/samples/ecommerce/analog-classic.jpg';
-$extraHeadLinks = '<link rel="preload" as="image" href="' . $heroImageDesktop . '" fetchpriority="high" media="(min-width: 769px)">' . "\n" .
-                  '  <link rel="preload" as="image" href="' . $heroImageMobile . '" fetchpriority="high" media="(max-width: 768px)">';
 ?>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero__overlay"></div>
-    <picture class="hero__picture">
-        <source media="(min-width: 769px)" srcset="<?= $heroImageDesktop ?>">
-        <img src="<?= $heroImageMobile ?>" alt="Hero background" fetchpriority="high" loading="eager" decoding="async" class="hero__image" width="1280" height="720" crossorigin="anonymous">
-    </picture>
-    <div class="hero__content">
-        <h1 class="hero__title" data-greeting>Welcome to Nativa CMS</h1>
-        <p class="hero__subtitle">Modern PHP 8.4+ Blog Platform with DDD Architecture</p>
-        <div class="hero__actions">
-            <a href="/blog" class="btn btn--primary">Read Blog</a>
-            <a href="/contact" class="btn btn--outline">Contact Us</a>
-        </div>
-    </div>
-</section>
-
 <!-- Latest Articles Section -->
-<?php if (!empty($articles)): ?>
+<?php if (!empty($articles)) { ?>
 <section class="services">
   <div class="services__hero" data-animate="scaleIn" data-duration="1500">
     <h2>Latest Articles</h2>
     <p>Fresh insights and tutorials from our blog</p>
   </div>
   <div class="services__grid">
-    <?php foreach ($articles as $article): ?>
+    <?php foreach ($articles as $article) { ?>
     <article class="service-card">
       <div class="service-card__icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -52,17 +29,17 @@ $extraHeadLinks = '<link rel="preload" as="image" href="' . $heroImageDesktop . 
           <polyline points="10 9 9 9 8 9"/>
         </svg>
       </div>
-      <h3 class="service-card__title"><?= $this->e($article->title()) ?></h3>
-      <p class="service-card__description"><?= $this->e($article->excerpt() ?: substr($article->content(), 0, 150) . '...') ?></p>
-      <a href="/blog/<?= $this->e($article->slug()) ?>" class="service-card__link">Read more →</a>
+      <h3 class="service-card__title"><?php echo $this->e($article->title()); ?></h3>
+      <p class="service-card__description"><?php echo $this->e($article->excerpt() ?: substr($article->content(), 0, 150) . '...'); ?></p>
+      <a href="/blog/<?php echo $this->e($article->slug()); ?>" class="service-card__link">Read more →</a>
     </article>
-    <?php endforeach; ?>
+    <?php } ?>
   </div>
   <div style="text-align: center; margin-top: 2rem;">
     <a href="/blog" class="btn btn--primary">View All Articles</a>
   </div>
 </section>
-<?php endif; ?>
+<?php } ?>
 
 <!-- Services Preview Section -->
 <section class="services">

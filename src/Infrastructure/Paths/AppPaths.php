@@ -20,6 +20,14 @@ final class AppPaths
     }
 
     /**
+     * Get base path.
+     */
+    public function getBasePath(): string
+    {
+        return $this->paths->getBasePath();
+    }
+
+    /**
      * Get singleton instance using Paths::fromHere().
      */
     public static function instance(): self

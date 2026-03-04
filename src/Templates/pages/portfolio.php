@@ -1,13 +1,14 @@
 <?php
 /**
  * Portfolio Page Template
- * Based on vzor design - dark theme with glassmorphism
+ * Based on vzor design - dark theme with glassmorphism.
  *
- * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var string $pageTitle
+ * @var TemplateRenderer $this
+ * @var string           $pageTitle
  */
 
 use Infrastructure\View\AssetHelper;
+use Interfaces\HTTP\View\TemplateRenderer;
 
 $portfolioCss = AssetHelper::css('portfolio');
 $coreCss = AssetHelper::css('core-css');
@@ -19,10 +20,10 @@ $appJs = AssetHelper::js('core-app');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $this->e($pageTitle) ?></title>
+    <title><?php echo $this->e($pageTitle); ?></title>
     <meta name="description" content="Our latest projects and creative work">
-    <link rel="stylesheet" href="<?= $coreCss ?>">
-    <link rel="stylesheet" href="<?= $portfolioCss ?>">
+    <link rel="stylesheet" href="<?php echo $coreCss; ?>">
+    <link rel="stylesheet" href="<?php echo $portfolioCss; ?>">
 </head>
 <body>
     <!-- Topbar -->
@@ -31,7 +32,7 @@ $appJs = AssetHelper::js('core-app');
             <div class="title">Nativa CMS</div>
             <div class="subtitle">Portfolio</div>
         </div>
-        
+
         <div class="topbar-actions">
             <nav class="nav">
                 <a href="/" class="nav__link">Home</a>
@@ -39,7 +40,7 @@ $appJs = AssetHelper::js('core-app');
                 <a href="/portfolio" class="nav__link nav__link--active">Portfolio</a>
                 <a href="/contact" class="nav__link">Contact</a>
             </nav>
-            
+
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
                 <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="5"></circle>
@@ -56,7 +57,7 @@ $appJs = AssetHelper::js('core-app');
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
-            
+
             <a href="/login" class="btn btn--primary">Login</a>
         </div>
     </header>
@@ -80,7 +81,7 @@ $appJs = AssetHelper::js('core-app');
                     <h3 class="project-card__title">Web Design Project</h3>
                     <p class="project-card__desc">Modern responsive website design</p>
                 </article>
-                
+
                 <article class="project-card">
                     <div class="project-card__image">
                         <div class="project-card__placeholder">Project 2</div>
@@ -88,7 +89,7 @@ $appJs = AssetHelper::js('core-app');
                     <h3 class="project-card__title">Mobile App</h3>
                     <p class="project-card__desc">Cross-platform mobile application</p>
                 </article>
-                
+
                 <article class="project-card">
                     <div class="project-card__image">
                         <div class="project-card__placeholder">Project 3</div>
@@ -113,7 +114,7 @@ $appJs = AssetHelper::js('core-app');
     </footer>
 
     <!-- Scripts -->
-    <script src="<?= $coreJs ?>" defer></script>
-    <script src="<?= $appJs ?>" defer></script>
+    <script src="<?php echo $coreJs; ?>" defer></script>
+    <script src="<?php echo $appJs; ?>" defer></script>
 </body>
 </html>

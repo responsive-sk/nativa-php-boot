@@ -1,14 +1,18 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\Model;
 
-use PHPUnit\Framework\TestCase;
 use Domain\Model\Article;
-use Domain\ValueObjects\ArticleStatus;
+use PHPUnit\Framework\TestCase;
 
-class ArticleTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ArticleTest extends TestCase
 {
     public function testCreateArticle(): void
     {
@@ -19,11 +23,11 @@ class ArticleTest extends TestCase
             excerpt: 'Test excerpt'
         );
 
-        $this->assertSame('Test Article', $article->title());
-        $this->assertSame('test-article', $article->slug());
-        $this->assertSame('Test content', $article->content());
-        $this->assertSame('author-123', $article->authorId());
-        $this->assertTrue($article->isDraft());
+        self::assertSame('Test Article', $article->title());
+        self::assertSame('test-article', $article->slug());
+        self::assertSame('Test content', $article->content());
+        self::assertSame('author-123', $article->authorId());
+        self::assertTrue($article->isDraft());
     }
 
     public function testPublishArticle(): void
@@ -34,12 +38,12 @@ class ArticleTest extends TestCase
             authorId: 'author-123'
         );
 
-        $this->assertTrue($article->isDraft());
-        
+        self::assertTrue($article->isDraft());
+
         $article->publish();
-        
-        $this->assertTrue($article->isPublished());
-        $this->assertNotNull($article->publishedAt());
+
+        self::assertTrue($article->isPublished());
+        self::assertNotNull($article->publishedAt());
     }
 
     public function testUpdateArticleTitle(): void
@@ -51,9 +55,9 @@ class ArticleTest extends TestCase
         );
 
         $article->update(title: 'Updated Title');
-        
-        $this->assertSame('Updated Title', $article->title());
-        $this->assertSame('updated-title', $article->slug());
+
+        self::assertSame('Updated Title', $article->title());
+        self::assertSame('updated-title', $article->slug());
     }
 
     public function testUpdateArticleContent(): void
@@ -65,8 +69,8 @@ class ArticleTest extends TestCase
         );
 
         $article->update(content: 'Updated content');
-        
-        $this->assertSame('Updated content', $article->content());
+
+        self::assertSame('Updated content', $article->content());
     }
 
     public function testUnpublishArticle(): void
@@ -78,11 +82,11 @@ class ArticleTest extends TestCase
         );
 
         $article->publish();
-        $this->assertTrue($article->isPublished());
-        
+        self::assertTrue($article->isPublished());
+
         $article->unpublish();
-        $this->assertTrue($article->isDraft());
-        $this->assertNull($article->publishedAt());
+        self::assertTrue($article->isDraft());
+        self::assertNull($article->publishedAt());
     }
 
     public function testArticleToArray(): void
@@ -95,11 +99,11 @@ class ArticleTest extends TestCase
         );
 
         $array = $article->toArray();
-        
-        $this->assertSame('Test Article', $array['title']);
-        $this->assertSame('test-article', $array['slug']);
-        $this->assertSame('draft', $array['status']);
-        $this->assertArrayHasKey('id', $array);
-        $this->assertArrayHasKey('created_at', $array);
+
+        self::assertSame('Test Article', $array['title']);
+        self::assertSame('test-article', $array['slug']);
+        self::assertSame('draft', $array['status']);
+        self::assertArrayHasKey('id', $array);
+        self::assertArrayHasKey('created_at', $array);
     }
 }

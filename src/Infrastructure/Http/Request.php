@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Http;
 
 /**
- * Simplified HTTP Request class
- * 
+ * Simplified HTTP Request class.
+ *
  * Replaces Symfony\Component\HttpFoundation\Request
  * Supports: query params, request body, sessions, method override
  */
@@ -31,7 +31,7 @@ final class Request
     private ?Session $session = null;
 
     /**
-     * Create request from globals
+     * Create request from globals.
      */
     public static function createFromGlobals(): self
     {
@@ -65,9 +65,7 @@ final class Request
     }
 
     /**
-     * Get query parameter (?key=value)
-     *
-     * @param mixed $default
+     * Get query parameter (?key=value).
      */
     public function getQueryParam(string $key, mixed $default = null): mixed
     {
@@ -75,9 +73,7 @@ final class Request
     }
 
     /**
-     * Get request body parameter (POST data)
-     *
-     * @param mixed $default
+     * Get request body parameter (POST data).
      */
     public function getRequestParam(string $key, mixed $default = null): mixed
     {
@@ -85,9 +81,7 @@ final class Request
     }
 
     /**
-     * Get attribute (route params)
-     *
-     * @param mixed $default
+     * Get attribute (route params).
      */
     public function getAttribute(string $key, mixed $default = null): mixed
     {
@@ -95,7 +89,7 @@ final class Request
     }
 
     /**
-     * Get all attributes
+     * Get all attributes.
      *
      * @return array<string, mixed>
      */
@@ -105,21 +99,21 @@ final class Request
     }
 
     /**
-     * Get attribute (route params) - legacy alias
+     * Get attribute (route params) - legacy alias.
      *
-     * @param mixed $default
      * @deprecated Use getAttribute() instead
      */
     public function attributes(?string $key = null, mixed $default = null): mixed
     {
-        if ($key === null) {
+        if (null === $key) {
             return $this->attributes;
         }
+
         return $this->attributes[$key] ?? $default;
     }
 
     /**
-     * Set attribute (route params)
+     * Set attribute (route params).
      */
     public function setAttribute(string $key, mixed $value): void
     {
@@ -127,9 +121,7 @@ final class Request
     }
 
     /**
-     * Get header
-     *
-     * @param mixed $default
+     * Get header.
      */
     public function header(string $key, mixed $default = null): ?string
     {
@@ -137,7 +129,7 @@ final class Request
     }
 
     /**
-     * Get all headers
+     * Get all headers.
      *
      * @return array<string, string>
      */
@@ -147,9 +139,7 @@ final class Request
     }
 
     /**
-     * Get header (Symfony compatibility)
-     *
-     * @param mixed $default
+     * Get header (Symfony compatibility).
      */
     public function headers(string $key, mixed $default = null): ?string
     {
@@ -157,7 +147,7 @@ final class Request
     }
 
     /**
-     * Get HTTP method
+     * Get HTTP method.
      */
     public function getMethod(): string
     {
@@ -165,7 +155,7 @@ final class Request
     }
 
     /**
-     * Set HTTP method (for method override)
+     * Set HTTP method (for method override).
      */
     public function setMethod(string $method): void
     {
@@ -173,7 +163,7 @@ final class Request
     }
 
     /**
-     * Get path info (/path/to/page)
+     * Get path info (/path/to/page).
      */
     public function getPathInfo(): string
     {
@@ -181,11 +171,11 @@ final class Request
     }
 
     /**
-     * Get or create session
+     * Get or create session.
      */
     public function getSession(): Session
     {
-        if ($this->session === null) {
+        if (null === $this->session) {
             $this->session = new Session();
         }
 
@@ -193,15 +183,15 @@ final class Request
     }
 
     /**
-     * Check if request is AJAX
+     * Check if request is AJAX.
      */
     public function isXmlHttpRequest(): bool
     {
-        return strtolower($this->header('X-Requested-With', '')) === 'xmlhttprequest';
+        return 'xmlhttprequest' === strtolower($this->header('X-Requested-With', ''));
     }
 
     /**
-     * Get JSON body
+     * Get JSON body.
      *
      * @return array<string, mixed>
      */
@@ -209,11 +199,12 @@ final class Request
     {
         $content = file_get_contents('php://input');
         $data = json_decode($content, true);
-        return is_array($data) ? $data : [];
+
+        return \is_array($data) ? $data : [];
     }
 
     /**
-     * Get all query parameters
+     * Get all query parameters.
      *
      * @return array<string, mixed>
      */
@@ -223,7 +214,7 @@ final class Request
     }
 
     /**
-     * Get all request body parameters
+     * Get all request body parameters.
      *
      * @return array<string, mixed>
      */
@@ -233,20 +224,21 @@ final class Request
     }
 
     /**
-     * Get client IP address
+     * Get client IP address.
      */
     public function getClientIp(): string
     {
         // Check X-Forwarded-For header (proxy/Cloudflare)
         $forwarded = $this->header('X-Forwarded-For');
-        if ($forwarded !== null && $forwarded !== '') {
+        if (null !== $forwarded && '' !== $forwarded) {
             $ips = explode(',', $forwarded);
+
             return trim($ips[0]);
         }
 
         // Check X-Real-IP header
         $realIp = $this->header('X-Real-IP');
-        if ($realIp !== null && $realIp !== '') {
+        if (null !== $realIp && '' !== $realIp) {
             return $realIp;
         }
 
@@ -256,11 +248,12 @@ final class Request
     }
 
     /**
-     * Get user agent
+     * Get user agent.
      */
     public function getUserAgent(): string
     {
         $agent = $this->header('User-Agent', '');
-        return $agent !== null ? $agent : '';
+
+        return null !== $agent ? $agent : '';
     }
 }

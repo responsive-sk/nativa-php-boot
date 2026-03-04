@@ -93,6 +93,16 @@ header {
   -webkit-tap-highlight-color: transparent;
 }
 
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .theme-toggle .icon-sun { display: block; }
 .theme-toggle .icon-moon { display: none; }
 
@@ -102,6 +112,7 @@ header {
 .theme-toggle:hover {
   border-color: var(--brand-gold);
   color: var(--brand-gold);
+  background: var(--color-bg-hover);
 }
 
 .mobile-menu-btn {
@@ -238,9 +249,18 @@ header {
     transition: all var(--transition-normal);
   }
 
+  .mobile-menu__theme .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
   .mobile-menu__theme .theme-toggle:hover {
     border-color: var(--brand-gold);
     color: var(--brand-gold);
+    background: var(--color-bg-hover);
   }
 
   .mobile-menu__theme .theme-toggle .icon-sun { display: block; }

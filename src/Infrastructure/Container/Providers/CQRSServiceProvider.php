@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
@@ -14,11 +14,12 @@ use Application\CQRS\Article\Queries\GetArticleBySlug;
 use Application\CQRS\Article\Queries\ListArticles;
 use Application\CQRS\CommandBus;
 use Application\CQRS\QueryBus;
+use Application\Services\ArticleManager;
 use Infrastructure\Container\Container;
 use Infrastructure\Container\ServiceProviderInterface;
 
 /**
- * CQRS Service Provider
+ * CQRS Service Provider.
  */
 final class CQRSServiceProvider implements ServiceProviderInterface
 {
@@ -26,34 +27,34 @@ final class CQRSServiceProvider implements ServiceProviderInterface
     public function register(Container $container): void
     {
         // Register CommandBus as singleton
-        $container->singleton(CommandBus::class, function (Container $container): CommandBus {
+        $container->singleton(CommandBus::class, static function (Container $container): CommandBus {
             $commandBus = new CommandBus();
 
             // Register Article command handlers
             $commandBus->register(
                 CreateArticle::class,
-                new CreateArticleHandler($container->get(\Application\Services\ArticleManager::class))
+                new CreateArticleHandler($container->get(ArticleManager::class))
             );
             $commandBus->register(
                 PublishArticle::class,
-                new PublishArticleHandler($container->get(\Application\Services\ArticleManager::class))
+                new PublishArticleHandler($container->get(ArticleManager::class))
             );
 
             return $commandBus;
         });
 
         // Register QueryBus as singleton
-        $container->singleton(QueryBus::class, function (Container $container): QueryBus {
+        $container->singleton(QueryBus::class, static function (Container $container): QueryBus {
             $queryBus = new QueryBus();
 
             // Register Article query handlers
             $queryBus->register(
                 ListArticles::class,
-                new ListArticlesHandler($container->get(\Application\Services\ArticleManager::class))
+                new ListArticlesHandler($container->get(ArticleManager::class))
             );
             $queryBus->register(
                 GetArticleBySlug::class,
-                new GetArticleBySlugHandler($container->get(\Application\Services\ArticleManager::class))
+                new GetArticleBySlugHandler($container->get(ArticleManager::class))
             );
 
             return $queryBus;

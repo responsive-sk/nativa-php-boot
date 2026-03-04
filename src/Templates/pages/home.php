@@ -1,11 +1,15 @@
 <?php
+
+use Domain\Model\Article;
+use Interfaces\HTTP\View\TemplateRenderer;
+
 /**
  * Homepage Template - Main Content (without hero)
- * Inspired by BRAND Napa Valley design
+ * Inspired by BRAND Napa Valley design.
  *
- * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var array<int, \Domain\Model\Article> $articles
- * @var string $pageTitle
+ * @var TemplateRenderer    $this
+ * @var array<int, Article> $articles
+ * @var string              $pageTitle
  */
 ?>
 
@@ -60,7 +64,7 @@
     </section>
 
     <!-- Articles Section -->
-    <?php if (!empty($articles)): ?>
+    <?php if (!empty($articles)) { ?>
     <section class="section section--articles">
         <div class="container">
             <header class="section__header" data-animate="scaleIn">
@@ -70,17 +74,17 @@
             </header>
 
             <div class="articles-grid">
-                <?php foreach ($articles as $article): ?>
+                <?php foreach ($articles as $article) { ?>
                 <article class="article-card">
                     <div class="article-card__content">
-                        <h3 class="article-card__title"><?= $this->e($article->title()) ?></h3>
-                        <p class="article-card__excerpt"><?= $this->e($article->excerpt() ?: substr($article->content(), 0, 150) . '...') ?></p>
-                        <a href="/blog/<?= $this->e($article->slug()) ?>" class="article-card__link">Read more →</a>
+                        <h3 class="article-card__title"><?php echo $this->e($article->title()); ?></h3>
+                        <p class="article-card__excerpt"><?php echo $this->e($article->excerpt() ?: substr($article->content(), 0, 150) . '...'); ?></p>
+                        <a href="/blog/<?php echo $this->e($article->slug()); ?>" class="article-card__link">Read more →</a>
                     </div>
                 </article>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
         </div>
     </section>
-    <?php endif; ?>
+    <?php } ?>
 </main>

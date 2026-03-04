@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence;
 
-use PDO;
-
 /**
- * Multi-Database Unit of Work - Manages transactions across multiple databases
+ * Multi-Database Unit of Work - Manages transactions across multiple databases.
  */
 final class MultiDatabaseUnitOfWork
 {
-    /** @var array<string, PDO> */
+    /** @var array<string, \PDO> */
     private array $connections = [];
 
     /** @var array<string, bool> */
@@ -19,11 +17,10 @@ final class MultiDatabaseUnitOfWork
 
     public function __construct(
         private readonly DatabaseConnectionManager $manager
-    ) {
-    }
+    ) {}
 
     /**
-     * Begin transaction on specific database connection
+     * Begin transaction on specific database connection.
      */
     public function beginTransaction(string $connection = 'cms'): void
     {
@@ -34,7 +31,7 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Commit transaction on specific database connection
+     * Commit transaction on specific database connection.
      */
     public function commit(string $connection = 'cms'): void
     {
@@ -45,7 +42,7 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Rollback transaction on specific database connection
+     * Rollback transaction on specific database connection.
      */
     public function rollback(string $connection = 'cms'): void
     {
@@ -56,18 +53,19 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Get connection by name
+     * Get connection by name.
      */
-    public function getConnection(string $connection = 'cms'): PDO
+    public function getConnection(string $connection = 'cms'): \PDO
     {
         if (!isset($this->connections[$connection])) {
             $this->connections[$connection] = $this->manager->getConnection($connection);
         }
+
         return $this->connections[$connection];
     }
 
     /**
-     * Check if transaction is active on connection
+     * Check if transaction is active on connection.
      */
     public function inTransaction(string $connection = 'cms'): bool
     {
@@ -75,7 +73,7 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Commit all active transactions
+     * Commit all active transactions.
      */
     public function commitAll(): void
     {
@@ -87,7 +85,7 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Rollback all active transactions
+     * Rollback all active transactions.
      */
     public function rollbackAll(): void
     {
@@ -99,7 +97,7 @@ final class MultiDatabaseUnitOfWork
     }
 
     /**
-     * Close all connections
+     * Close all connections.
      */
     public function closeAll(): void
     {

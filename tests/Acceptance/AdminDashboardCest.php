@@ -1,33 +1,35 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Acceptance;
 
 use Tests\Support\AcceptanceTester;
 
 /**
- * Admin Dashboard Acceptance Tests
+ * Admin Dashboard Acceptance Tests.
  */
-class AdminDashboardCest
+final class AdminDashboardCest
 {
     /**
-     * Test dashboard is accessible after login
+     * Test dashboard is accessible after login.
      */
-    public function seeDashboard(AcceptanceTester $I)
+    public function seeDashboard(AcceptanceTester $I): void
     {
         $this->loginAsAdmin($I);
-        
+
         $I->amOnPage('/admin');
         $I->see('PHP CMS Admin');
         $I->see('Dashboard');
     }
 
     /**
-     * Test dashboard navigation links
+     * Test dashboard navigation links.
      */
-    public function seeDashboardNavigation(AcceptanceTester $I)
+    public function seeDashboardNavigation(AcceptanceTester $I): void
     {
         $this->loginAsAdmin($I);
-        
+
         $I->amOnPage('/admin');
         $I->seeLink('Dashboard');
         $I->seeLink('Articles');
@@ -41,9 +43,9 @@ class AdminDashboardCest
     }
 
     /**
-     * Test unauthenticated access to admin is blocked
+     * Test unauthenticated access to admin is blocked.
      */
-    public function cannotAccessAdminWithoutLogin(AcceptanceTester $I)
+    public function cannotAccessAdminWithoutLogin(AcceptanceTester $I): void
     {
         $I->amOnPage('/admin');
         $I->seeCurrentUrlEquals('/login');
@@ -51,26 +53,26 @@ class AdminDashboardCest
     }
 
     /**
-     * Test intended URL is saved when accessing admin while logged out
+     * Test intended URL is saved when accessing admin while logged out.
      */
-    public function intendedUrlIsSaved(AcceptanceTester $I)
+    public function intendedUrlIsSaved(AcceptanceTester $I): void
     {
         // Try to access admin while logged out
         $I->amOnPage('/admin');
         $I->seeCurrentUrlEquals('/login');
-        
+
         // After login, should redirect back to admin
         $I->fillField('email', 'admin@phpcms.local');
         $I->fillField('password', 'admin123');
         $I->click('button[type="submit"]');
-        
+
         $I->seeCurrentUrlEquals('/admin');
     }
 
     /**
-     * Helper method to login as admin
+     * Helper method to login as admin.
      */
-    private function loginAsAdmin(AcceptanceTester $I)
+    private function loginAsAdmin(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');
         $I->fillField('email', 'admin@phpcms.local');

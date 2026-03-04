@@ -1,30 +1,28 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Http;
 
 /**
- * Simplified Session class
- * 
+ * Simplified Session class.
+ *
  * Replaces Symfony\Component\HttpFoundation\Session\Session
  */
 final class Session
 {
     /**
-     * Start session if not started
+     * Start session if not started.
      */
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) {
+        if (PHP_SESSION_NONE === session_status()) {
             session_start();
         }
     }
 
     /**
-     * Get session value
-     *
-     * @param mixed $default
+     * Get session value.
      */
     public function get(string $key, mixed $default = null): mixed
     {
@@ -32,7 +30,7 @@ final class Session
     }
 
     /**
-     * Set session value
+     * Set session value.
      */
     public function set(string $key, string $value): void
     {
@@ -40,15 +38,15 @@ final class Session
     }
 
     /**
-     * Check if session has key
+     * Check if session has key.
      */
     public function has(string $key): bool
     {
-        return isset($_SESSION[$key]) || array_key_exists($key, $_SESSION ?? []);
+        return isset($_SESSION[$key]) || \array_key_exists($key, $_SESSION ?? []);
     }
 
     /**
-     * Remove session value
+     * Remove session value.
      */
     public function remove(string $key): void
     {
@@ -56,7 +54,7 @@ final class Session
     }
 
     /**
-     * Get flash bag
+     * Get flash bag.
      */
     public function getFlashBag(): FlashBag
     {
@@ -64,7 +62,7 @@ final class Session
     }
 
     /**
-     * Destroy session
+     * Destroy session.
      */
     public function invalidate(): void
     {

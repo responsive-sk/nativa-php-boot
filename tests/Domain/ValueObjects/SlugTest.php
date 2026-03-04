@@ -1,18 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
-use PHPUnit\Framework\TestCase;
 use Domain\ValueObjects\Slug;
+use PHPUnit\Framework\TestCase;
 
-class SlugTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SlugTest extends TestCase
 {
     public function testValidSlug(): void
     {
         $slug = new Slug('my-valid-slug');
-        $this->assertSame('my-valid-slug', $slug->value());
+        self::assertSame('my-valid-slug', $slug->value());
     }
 
     public function testInvalidSlug(): void
@@ -24,30 +29,30 @@ class SlugTest extends TestCase
     public function testFromStringWithSpaces(): void
     {
         $slug = Slug::fromString('My Article Title');
-        $this->assertSame('my-article-title', $slug->value());
+        self::assertSame('my-article-title', $slug->value());
     }
 
     public function testFromStringWithSpecialChars(): void
     {
         $slug = Slug::fromString('Article with special chars!');
-        $this->assertSame('article-with-special-chars', $slug->value());
+        self::assertSame('article-with-special-chars', $slug->value());
     }
 
     public function testFromStringWithMultipleSpaces(): void
     {
         $slug = Slug::fromString('Multiple   Spaces   Here');
-        $this->assertSame('multiple-spaces-here', $slug->value());
+        self::assertSame('multiple-spaces-here', $slug->value());
     }
 
     public function testFromStringWithLeadingTrailingSpaces(): void
     {
         $slug = Slug::fromString('  Trimmed Slug  ');
-        $this->assertSame('trimmed-slug', $slug->value());
+        self::assertSame('trimmed-slug', $slug->value());
     }
 
     public function testToString(): void
     {
         $slug = new Slug('test-slug');
-        $this->assertSame('test-slug', (string) $slug);
+        self::assertSame('test-slug', (string) $slug);
     }
 }

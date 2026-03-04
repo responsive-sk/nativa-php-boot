@@ -1,18 +1,19 @@
 #!/usr/bin/env php
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * Seed Demo Articles
- * 
+ * Seed Demo Articles.
+ *
  * Creates sample articles about recent development work
  */
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Domain\Model\Article;
 use Application\Services\ArticleManager;
+use Domain\Model\Article;
+use Domain\Repository\ArticleRepositoryInterface;
 use Infrastructure\Container\ContainerFactory;
 use Infrastructure\Persistence\DatabaseConnection;
 
@@ -35,39 +36,39 @@ $articleManager = $container->get(ArticleManager::class);
 // Articles to seed
 $articles = [
     [
-        'title' => 'End-to-End Type Safety: PHP to TypeScript',
-        'slug' => 'end-to-end-type-safety-php-typescript',
+        'title'   => 'End-to-End Type Safety: PHP to TypeScript',
+        'slug'    => 'end-to-end-type-safety-php-typescript',
         'excerpt' => 'Auto-generate TypeScript types from PHP entities for complete type safety across your entire stack.',
         'content' => 'In modern web development, maintaining type consistency between backend and frontend is crucial. Our new TypeScript type generation system solves this problem elegantly by automatically generating TypeScript interfaces from PHP classes.',
-        'tags' => ['TypeScript', 'PHP', 'Type Safety'],
+        'tags'    => ['TypeScript', 'PHP', 'Type Safety'],
     ],
     [
-        'title' => 'Modern PHP: Using Enums for Better Type Safety',
-        'slug' => 'modern-php-enums-type-safety',
+        'title'   => 'Modern PHP: Using Enums for Better Type Safety',
+        'slug'    => 'modern-php-enums-type-safety',
         'excerpt' => 'Migrate from class-based value objects to native PHP 8.4 enums for cleaner, more maintainable code.',
         'content' => 'PHP 8.1 introduced native enumerations, and PHP 8.4 made them even better. We migrated our ArticleStatus and Role value objects to enums for better type safety and IDE support.',
-        'tags' => ['PHP 8.4', 'Enums', 'Refactoring'],
+        'tags'    => ['PHP 8.4', 'Enums', 'Refactoring'],
     ],
     [
-        'title' => 'Restructuring Templates for Better Organization',
-        'slug' => 'restructuring-templates-better-organization',
+        'title'   => 'Restructuring Templates for Better Organization',
+        'slug'    => 'restructuring-templates-better-organization',
         'excerpt' => 'Centralize all templates under a single root for improved maintainability and clearer separation of concerns.',
         'content' => 'We recently restructured our template organization from a deeply nested structure to a centralized Templates/ root. This improved our developer experience and made the codebase easier to navigate.',
-        'tags' => ['Architecture', 'Templates', 'Refactoring'],
+        'tags'    => ['Architecture', 'Templates', 'Refactoring'],
     ],
     [
-        'title' => 'Building Reusable TypeScript Components',
-        'slug' => 'building-reusable-typescript-components',
+        'title'   => 'Building Reusable TypeScript Components',
+        'slug'    => 'building-reusable-typescript-components',
         'excerpt' => 'Create type-safe, reusable UI components using generated TypeScript types and best practices.',
         'content' => 'Components are the building blocks of modern frontend development. Our ArticleCard component demonstrates how to create type-safe, reusable components using generated TypeScript types.',
-        'tags' => ['TypeScript', 'Components', 'Frontend'],
+        'tags'    => ['TypeScript', 'Components', 'Frontend'],
     ],
     [
-        'title' => 'Asset Management with Vite and PHP',
-        'slug' => 'asset-management-vite-php',
+        'title'   => 'Asset Management with Vite and PHP',
+        'slug'    => 'asset-management-vite-php',
         'excerpt' => 'Handle hashed assets, manifest files, and cache busting with AssetHelper and Vite build system.',
         'content' => 'Managing frontend assets in a PHP application requires careful coordination between build tools and runtime. Our AssetHelper bridges the gap between Vite builds and PHP runtime.',
-        'tags' => ['Vite', 'Assets', 'Build Tools'],
+        'tags'    => ['Vite', 'Assets', 'Build Tools'],
     ],
 ];
 
@@ -81,14 +82,14 @@ foreach ($articles as $articleData) {
             authorId: $userId,
             excerpt: $articleData['excerpt'],
         );
-        
+
         $article->setTags($articleData['tags']);
         $article->publish();
-        
+
         // Save directly
-        $repo = $container->get(\Domain\Repository\ArticleRepositoryInterface::class);
+        $repo = $container->get(ArticleRepositoryInterface::class);
         $repo->save($article);
-        
+
         echo "✅ Created: {$articleData['title']}\n";
         $count++;
     } catch (\Throwable $e) {
@@ -96,5 +97,5 @@ foreach ($articles as $articleData) {
     }
 }
 
-echo "\n✨ Done! Created $count demo articles.\n";
+echo "\n✨ Done! Created {$count} demo articles.\n";
 echo "📝 View them at: http://localhost:8000/articles\n";

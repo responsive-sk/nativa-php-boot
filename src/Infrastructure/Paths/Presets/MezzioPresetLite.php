@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Paths\Presets;
 
 use Infrastructure\Paths\PresetInterface;
 
 /**
- * Lightweight Mezzio preset
+ * Lightweight Mezzio preset.
  *
  * Memory-efficient Mezzio paths configuration.
  * Uses var/ directory by default for better practices.
@@ -15,15 +15,15 @@ use Infrastructure\Paths\PresetInterface;
 final class MezzioPresetLite implements PresetInterface
 {
     private string $basePath;
-    
+
     public function __construct(string $basePath)
     {
         $this->basePath = rtrim($basePath, '/\\');
     }
-    
+
     /**
-     * Get Mezzio-specific paths
-     * 
+     * Get Mezzio-specific paths.
+     *
      * @return array<string, string>
      */
     #[\Override]
@@ -31,53 +31,50 @@ final class MezzioPresetLite implements PresetInterface
     {
         return [
             // Core Mezzio directories
-            'config' => $this->buildPath('config'),
-            'src' => $this->buildPath('src'),
-            'public' => $this->buildPath('public'),
-            'vendor' => $this->buildPath('vendor'),
-            
+            'config'       => $this->buildPath('config'),
+            'src'          => $this->buildPath('src'),
+            'public'       => $this->buildPath('public'),
+            'vendor'       => $this->buildPath('vendor'),
+
             // Module directories
-            'modules' => $this->buildPath('modules'),
-            
+            'modules'      => $this->buildPath('modules'),
+
             // Template directories - use namespace names that match config
-            'templates' => $this->buildPath('templates'),
-            'layout' => $this->buildPath('src/App/templates/layout'),
-            'app' => $this->buildPath('src/App/templates/app'),
-            'error' => $this->buildPath('src/App/templates/error'),
-            'page' => $this->buildPath('src/Page/templates/page'),
-            'partial' => $this->buildPath('src/App/templates/partial'),
-            
+            'templates'    => $this->buildPath('templates'),
+            'layout'       => $this->buildPath('src/App/templates/layout'),
+            'app'          => $this->buildPath('src/App/templates/app'),
+            'error'        => $this->buildPath('src/App/templates/error'),
+            'page'         => $this->buildPath('src/Page/templates/page'),
+            'partial'      => $this->buildPath('src/App/templates/partial'),
+
             // Data directories - use var/ for best practices
-            'var' => $this->buildPath('var'),
-            'data' => $this->buildPath('var/data'),
-            'cache' => $this->buildPath('var/cache'),
-            'logs' => $this->buildPath('var/logs'),
-            'tmp' => $this->buildPath('var/tmp'),
-            'storage' => $this->buildPath('var/storage'),
-            'uploads' => $this->buildPath('var/uploads'),
-            'database' => $this->buildPath('var/database'),
-            
+            'var'          => $this->buildPath('var'),
+            'data'         => $this->buildPath('var/data'),
+            'cache'        => $this->buildPath('var/cache'),
+            'logs'         => $this->buildPath('var/logs'),
+            'tmp'          => $this->buildPath('var/tmp'),
+            'storage'      => $this->buildPath('var/storage'),
+            'uploads'      => $this->buildPath('var/uploads'),
+            'database'     => $this->buildPath('var/database'),
+
             // Configuration cache
             'config_cache' => $this->buildPath('var/cache/config'),
-            'route_cache' => $this->buildPath('var/cache/routes'),
-            
+            'route_cache'  => $this->buildPath('var/cache/routes'),
+
             // Test directories
-            'test' => $this->buildPath('test'),
-            'tests' => $this->buildPath('test'),
-            
+            'test'         => $this->buildPath('test'),
+            'tests'        => $this->buildPath('test'),
+
             // Documentation
-            'docs' => $this->buildPath('docs'),
-            
+            'docs'         => $this->buildPath('docs'),
+
             // Binary files
-            'bin' => $this->buildPath('bin'),
+            'bin'          => $this->buildPath('bin'),
         ];
     }
-    
+
     /**
-     * Build path from relative path
-     * 
-     * @param string $relativePath
-     * @return string
+     * Build path from relative path.
      */
     private function buildPath(string $relativePath): string
     {

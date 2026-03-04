@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * Contact Template - CMS Integration
+ * Contact Template - CMS Integration.
  *
  * @var string $pageTitle Page title
  * @var string $page Page identifier
@@ -20,8 +20,8 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
 <section class="contact-hero">
     <div class="contact-hero__overlay"></div>
     <picture class="contact-hero__picture">
-        <source media="(min-width: 769px)" srcset="<?= $contactHeroImageDesktop ?>">
-        <img src="<?= $contactHeroImageMobile ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720" crossorigin="anonymous">
+        <source media="(min-width: 769px)" srcset="<?php echo $contactHeroImageDesktop; ?>">
+        <img src="<?php echo $contactHeroImageMobile; ?>" alt="Contact background" fetchpriority="high" loading="eager" decoding="async" class="contact-hero__image" width="1280" height="720" crossorigin="anonymous">
     </picture>
     <div class="contact-hero__content">
         <h1>Get In Touch</h1>
@@ -34,7 +34,7 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
   <div class="container">
     <h2>Send us a message</h2>
     <p>We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
-    
+
     <div class="contact__grid">
     <div class="contact__info">
       <div class="contact__info-item">
@@ -77,15 +77,15 @@ $contactHeroImageDesktop = 'https://res.cloudinary.com/epithemic/image/upload/f_
       <div id="contact-loading" class="htmx-indicator" style="display: none;">
         Sending...
       </div>
-      
+
       <!-- Success/Error messages -->
       <div id="contact-message"></div>
-      
+
       <!-- Contact form with HTMX -->
       <form
         class="contact__form"
-        hx-post="/contact" 
-        hx-target="#contact-message" 
+        hx-post="/contact"
+        hx-target="#contact-message"
         hx-indicator="#contact-loading"
         hx-swap="innerHTML"
       >

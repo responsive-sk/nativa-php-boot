@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Container\Providers;
 
@@ -12,7 +12,7 @@ use Infrastructure\Persistence\Repositories\PageRepository;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Page Service Provider
+ * Page Service Provider.
  */
 final class PageServiceProvider implements ServiceProviderInterface
 {
@@ -22,7 +22,7 @@ final class PageServiceProvider implements ServiceProviderInterface
         // Register PageRepository
         $container->bind(
             PageRepositoryInterface::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new PageRepository($container->get(UnitOfWork::class));
             }
         );
@@ -30,7 +30,7 @@ final class PageServiceProvider implements ServiceProviderInterface
         // Register PageManager
         $container->singleton(
             PageManager::class,
-            function (Container $container) {
+            static function (Container $container) {
                 return new PageManager(
                     $container->get(PageRepositoryInterface::class)
                 );

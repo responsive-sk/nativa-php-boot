@@ -1,13 +1,14 @@
 <?php
 /**
  * Admin Dashboard Template
- * Based on vzor design - dark theme with glassmorphism
+ * Based on vzor design - dark theme with glassmorphism.
  *
- * @var \Interfaces\HTTP\View\TemplateRenderer $this
- * @var string $title
+ * @var TemplateRenderer $this
+ * @var string           $title
  */
 
 use Infrastructure\View\AssetHelper;
+use Interfaces\HTTP\View\TemplateRenderer;
 
 $adminCss = AssetHelper::css('admin');
 $adminJs = AssetHelper::js('admin');
@@ -17,17 +18,17 @@ $adminJs = AssetHelper::js('admin');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $this->e($title) ?> - Admin</title>
-    <link rel="stylesheet" href="<?= $adminCss ?>">
+    <title><?php echo $this->e($title); ?> - Admin</title>
+    <link rel="stylesheet" href="<?php echo $adminCss; ?>">
 </head>
 <body>
     <!-- Topbar -->
     <header class="topbar">
         <div>
             <div class="title">Nativa Admin</div>
-            <div class="subtitle">CMS Dashboard • <?= date('Y-m-d H:i') ?></div>
+            <div class="subtitle">CMS Dashboard • <?php echo date('Y-m-d H:i'); ?></div>
         </div>
-        
+
         <div class="topbar-actions">
             <!-- Theme Toggle -->
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
@@ -46,7 +47,7 @@ $adminJs = AssetHelper::js('admin');
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
-            
+
             <!-- Logout -->
             <a href="/logout" class="btn-logout" title="Logout">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -55,11 +56,11 @@ $adminJs = AssetHelper::js('admin');
                     <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
             </a>
-            
+
             <!-- Clock -->
             <div class="clock">
-                <div id="time" class="time"><?= date('H:i') ?></div>
-                <div id="date" class="date"><?= date('Y-m-d') ?></div>
+                <div id="time" class="time"><?php echo date('H:i'); ?></div>
+                <div id="date" class="date"><?php echo date('Y-m-d'); ?></div>
             </div>
         </div>
     </header>
@@ -128,8 +129,8 @@ $adminJs = AssetHelper::js('admin');
             <div class="cmd">
                 <div class="cmdRow">
                     <span class="label">PHP Version</span>
-                    <code><?= phpversion() ?></code>
-                    <button class="copy" data-copy="<?= phpversion() ?>">Copy</button>
+                    <code><?php echo PHP_VERSION; ?></code>
+                    <button class="copy" data-copy="<?php echo PHP_VERSION; ?>">Copy</button>
                 </div>
                 <div class="cmdRow">
                     <span class="label">Database</span>
@@ -138,8 +139,8 @@ $adminJs = AssetHelper::js('admin');
                 </div>
                 <div class="cmdRow">
                     <span class="label">Environment</span>
-                    <code><?= htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development') ?></code>
-                    <button class="copy" data-copy="<?= htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development') ?>">Copy</button>
+                    <code><?php echo htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development'); ?></code>
+                    <button class="copy" data-copy="<?php echo htmlspecialchars(is_string($_ENV['APP_ENV'] ?? '') ? ($_ENV['APP_ENV'] ?? 'development') : 'development'); ?>">Copy</button>
                 </div>
             </div>
         </section>
@@ -156,6 +157,6 @@ $adminJs = AssetHelper::js('admin');
         <span>Nativa CMS v1.0 - Built with PHP 8.4+</span>
     </footer>
 
-    <script src="<?= $adminJs ?>" defer></script>
+    <script src="<?php echo $adminJs; ?>" defer></script>
 </body>
 </html>

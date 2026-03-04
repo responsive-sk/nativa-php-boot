@@ -1,31 +1,34 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 use App\Domain\Article\Article;
 use App\Shared\Render\ContentBlockRenderer;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use League\CommonMark\MarkdownConverter;
 
 /**
- * @var Article $article
+ * @var Article       $article
  * @var list<Article> $relatedArticles
  */
-
 $contentBlockRenderer = new ContentBlockRenderer();
 $contentBlocks = $article->getContentBlocks();
 
 $content = '';
-if ($contentBlocks !== []) {
+if ([] !== $contentBlocks) {
     foreach ($contentBlocks as $block) {
         $content .= $contentBlockRenderer->render($block);
     }
 } else {
     // Article body contains markdown, convert it to HTML
     // Use league/commonmark directly since we don't have ContentBlock objects
-    $environment = new \League\CommonMark\Environment\Environment([
-        'html_input' => 'strip',
+    $environment = new Environment([
+        'html_input'         => 'strip',
         'allow_unsafe_links' => false,
     ]);
-    $environment->addExtension(new \League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension());
-    $environment->addExtension(new \League\CommonMark\Extension\GithubFlavoredMarkdownExtension());
-    $converter = new \League\CommonMark\MarkdownConverter($environment);
+    $environment->addExtension(new CommonMarkCoreExtension());
+    $environment->addExtension(new GithubFlavoredMarkdownExtension());
+    $converter = new MarkdownConverter($environment);
     $content = $converter->convert($article->body)->getContent();
 }
 
@@ -46,32 +49,32 @@ $articleUrl = 'https://example.com/blog/article/' . $article->slug;
 
     <article class="article-page__content">
         <header class="article-page__header">
-            <?php if ($categories !== []): ?>
+            <?php if ([] !== $categories) { ?>
             <div class="article-page__categories">
-                <?php foreach ($categories as $category): ?>
-                <a href="/blog/category/<?= htmlspecialchars($category->slug) ?>" class="article-page__category">
-                    <?= htmlspecialchars($category->name) ?>
+                <?php foreach ($categories as $category) { ?>
+                <a href="/blog/category/<?php echo htmlspecialchars($category->slug); ?>" class="article-page__category">
+                    <?php echo htmlspecialchars($category->name); ?>
                 </a>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
-            <?php endif; ?>
+            <?php } ?>
 
-            <h1 class="article-page__title"><?= htmlspecialchars($article->title) ?></h1>
+            <h1 class="article-page__title"><?php echo htmlspecialchars($article->title); ?></h1>
 
             <div class="article-page__meta">
                 <div class="article-page__author-mini">
-                    <span class="article-page__author-avatar"><?= $authorInitials ?></span>
-                    <span class="article-page__author-name">By <?= htmlspecialchars($author->name ?? 'Admin') ?></span>
+                    <span class="article-page__author-avatar"><?php echo $authorInitials; ?></span>
+                    <span class="article-page__author-name">By <?php echo htmlspecialchars($author->name ?? 'Admin'); ?></span>
                 </div>
                 <span class="article-page__meta-divider">-</span>
-                <time class="article-page__date" datetime="<?= $publicationDate->format('c') ?>">
-                    <?= $publicationDate->format('F d, Y') ?>
+                <time class="article-page__date" datetime="<?php echo $publicationDate->format('c'); ?>">
+                    <?php echo $publicationDate->format('F d, Y'); ?>
                 </time>
             </div>
         </header>
 
         <div class="article-page__body">
-            <?= $content ?>
+            <?php echo $content; ?>
         </div>
 
         <footer class="article-page__footer">
@@ -86,40 +89,40 @@ $articleUrl = 'https://example.com/blog/article/' . $article->slug;
                 </div>
                 <div class="article-page__share">
                     <span class="article-page__share-label">Share:</span>
-                    <a href="https://twitter.com/intent/tweet?url=<?= urlencode($articleUrl) ?>&text=<?= urlencode($article->title) ?>" class="article-page__share-btn" target="_blank" rel="noopener">Twitter</a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode($articleUrl) ?>" class="article-page__share-btn" target="_blank" rel="noopener">LinkedIn</a>
-                    <a href="mailto:?subject=<?= urlencode($article->title) ?>&body=<?= urlencode($articleUrl) ?>" class="article-page__share-btn">Email</a>
+                    <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($articleUrl); ?>&text=<?php echo urlencode($article->title); ?>" class="article-page__share-btn" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($articleUrl); ?>" class="article-page__share-btn" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="mailto:?subject=<?php echo urlencode($article->title); ?>&body=<?php echo urlencode($articleUrl); ?>" class="article-page__share-btn">Email</a>
                 </div>
             </div>
         </footer>
 
         <div class="article-page__author-section">
             <div class="article-page__author-bio">
-                <div class="article-page__author-avatar-lg"><?= $authorInitials ?></div>
+                <div class="article-page__author-avatar-lg"><?php echo $authorInitials; ?></div>
                 <div class="article-page__author-info">
-                    <h3 class="article-page__author-title"><?= htmlspecialchars($author->name ?? 'Admin') ?></h3>
+                    <h3 class="article-page__author-title"><?php echo htmlspecialchars($author->name ?? 'Admin'); ?></h3>
                     <p class="article-page__author-desc">Author and contributor to our blog. Sharing insights on web development and technology.</p>
                 </div>
             </div>
         </div>
 
-        <?php if (!empty($relatedList)): ?>
+        <?php if (!empty($relatedList)) { ?>
         <section class="article-page__related">
             <h2 class="article-page__related-title">Related Articles</h2>
             <div class="article-page__related-grid">
-                <?php foreach ($relatedList as $related): ?>
+                <?php foreach ($relatedList as $related) { ?>
                 <article class="article-page__related-card">
-                    <a href="/blog/article/<?= htmlspecialchars($related->slug) ?>" class="article-page__related-link">
-                        <h3 class="article-page__related-card-title"><?= htmlspecialchars($related->title) ?></h3>
+                    <a href="/blog/article/<?php echo htmlspecialchars($related->slug); ?>" class="article-page__related-link">
+                        <h3 class="article-page__related-card-title"><?php echo htmlspecialchars($related->title); ?></h3>
                         <time class="article-page__related-card-date">
-                            <?= ($related->publication_date ?? $related->created_at)->format('F d, Y') ?>
+                            <?php echo ($related->publication_date ?? $related->created_at)->format('F d, Y'); ?>
                         </time>
                     </a>
                 </article>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
         </section>
-        <?php endif; ?>
+        <?php } ?>
 
         <section class="article-page__comments">
             <h2 class="article-page__comments-title">Comments</h2>

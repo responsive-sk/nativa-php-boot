@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence\Repositories;
 
@@ -10,14 +10,13 @@ use Domain\ValueObjects\Role as RoleVO;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Role Repository Implementation
+ * Role Repository Implementation.
  */
- final class RoleRepository implements RoleRepositoryInterface
+final class RoleRepository implements RoleRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow,
-    ) {
-    }
+    ) {}
 
     #[\Override]
     public function findById(string $id): ?Role
@@ -58,7 +57,7 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM roles ORDER BY name');
 
-        return array_map(function ($row) {
+        return array_map(static function ($row) {
             return Role::fromArray($row);
         }, $stmt->fetchAll());
     }
@@ -68,13 +67,13 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $data = $role->toArray();
 
-        $sql = <<<SQL
-            INSERT INTO roles (id, name, description, created_at)
-            VALUES (:id, :name, :description, :created_at)
-            ON CONFLICT(id) DO UPDATE SET
-                name = excluded.name,
-                description = excluded.description
-        SQL;
+        $sql = <<<'SQL'
+                INSERT INTO roles (id, name, description, created_at)
+                VALUES (:id, :name, :description, :created_at)
+                ON CONFLICT(id) DO UPDATE SET
+                    name = excluded.name,
+                    description = excluded.description
+            SQL;
 
         $stmt = $this->uow->getConnection()->prepare($sql);
         $stmt->execute($data);
@@ -92,7 +91,7 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $role = $this->findByName($name);
 
-        if ($role === null) {
+        if (null === $role) {
             $role = Role::create($name, $description);
             $this->save($role);
         }

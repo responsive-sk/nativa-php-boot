@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * HTTP Foundation Classes
- * 
+ * HTTP Foundation Classes.
+ *
  * Simplified replacements for Symfony\Component\HttpFoundation
  */
 

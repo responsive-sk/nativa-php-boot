@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Http;
 
 /**
- * JSON Response class
- * 
+ * JSON Response class.
+ *
  * Replaces Symfony\Component\HttpFoundation\JsonResponse
  */
 final class JsonResponse extends Response
 {
     /**
-     * Create JSON response
+     * Create JSON response.
      *
      * @param array<string, mixed> $data
      */
@@ -22,13 +22,13 @@ final class JsonResponse extends Response
         array $headers = []
     ) {
         $content = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        
+
         parent::__construct($content, $statusCode, $headers);
         $this->setHeader('Content-Type', 'application/json; charset=utf-8');
     }
 
     /**
-     * Create JSON response from data
+     * Create JSON response from data.
      *
      * @param array<string, mixed> $data
      */
@@ -38,19 +38,19 @@ final class JsonResponse extends Response
     }
 
     /**
-     * Create JSON error response
+     * Create JSON error response.
      */
     #[\Override]
     public static function error(string $message, int $statusCode = 400): self
     {
         return new self([
-            'error' => true,
+            'error'   => true,
             'message' => $message,
         ], $statusCode);
     }
 
     /**
-     * Create JSON success response
+     * Create JSON success response.
      *
      * @param array<string, mixed> $data
      */
@@ -58,7 +58,7 @@ final class JsonResponse extends Response
     {
         return new self([
             'success' => true,
-            'data' => $data,
+            'data'    => $data,
         ]);
     }
 }

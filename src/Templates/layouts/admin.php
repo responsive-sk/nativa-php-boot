@@ -1,18 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * @var string $content
- * @var App\Domain\User\User|null $user
- * @var bool $isGuest
+ * @var string    $content
+ * @var User|null $user
+ * @var bool      $isGuest
  */
 
+use App\Domain\User\User;
 use Infrastructure\View\AssetHelper;
 
 $assetBase = '/assets';
-$isGuest = $isGuest ?? true;
-$csrfToken = $csrfToken ?? '';
+$isGuest ??= true;
+$csrfToken ??= '';
 
 // Use AssetHelper for production builds with hashed filenames
 $themeInitJs = AssetHelper::js('init.js');
@@ -39,9 +40,9 @@ $adminCss = AssetHelper::css('use-cases/admin/admin.css');
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <?= $themeInitJs ?>
-    <?= $cssBundle ?>
-    <?= $adminCss ?>
+    <?php echo $themeInitJs; ?>
+    <?php echo $cssBundle; ?>
+    <?php echo $adminCss; ?>
 
     <style>
         /* Admin Layout Styles */
@@ -314,8 +315,8 @@ $adminCss = AssetHelper::css('use-cases/admin/admin.css');
             <h2>🎛️ Admin</h2>
             <nav>
                 <ul>
-                    <li><a href="/admin" class="<?= $_SERVER['REQUEST_URI'] === '/admin' ? 'active' : '' ?>">📊 Dashboard</a></li>
-                    <li><a href="/admin/pages" class="<?= str_starts_with($_SERVER['REQUEST_URI'], '/admin/pages') ? 'active' : '' ?>">📄 Pages</a></li>
+                    <li><a href="/admin" class="<?php echo '/admin' === $_SERVER['REQUEST_URI'] ? 'active' : ''; ?>">📊 Dashboard</a></li>
+                    <li><a href="/admin/pages" class="<?php echo str_starts_with($_SERVER['REQUEST_URI'], '/admin/pages') ? 'active' : ''; ?>">📄 Pages</a></li>
                     <li><a href="/admin/blog/manage">📝 Blog</a></li>
                     <li><a href="/admin/forms">📋 Forms</a></li>
                     <li><a href="/admin/users">👥 Users</a></li>
@@ -327,27 +328,27 @@ $adminCss = AssetHelper::css('use-cases/admin/admin.css');
         <!-- Main Content -->
         <main class="admin-content">
             <header class="admin-header">
-                <h1><?= $pageTitle ?? 'Admin' ?></h1>
+                <h1><?php echo $pageTitle ?? 'Admin'; ?></h1>
                 <div class="admin-user-menu">
-                    <?php if (!$isGuest && isset($user)): ?>
-                        <span>👤 <?= htmlspecialchars($user->name) ?></span>
+                    <?php if (!$isGuest && isset($user)) { ?>
+                        <span>👤 <?php echo htmlspecialchars($user->name); ?></span>
                         <a href="/profile">Profile</a>
                         <form method="post" action="/logout" style="display:inline;">
-                            <input type="hidden" name="_csrf" value="<?= $csrfToken ?>">
+                            <input type="hidden" name="_csrf" value="<?php echo $csrfToken; ?>">
                             <button type="submit" class="btn btn-secondary">Logout</button>
                         </form>
-                    <?php else: ?>
+                    <?php } else { ?>
                         <a href="/login" class="btn btn-primary">Login</a>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
             </header>
 
-            <?= $content ?>
+            <?php echo $content; ?>
         </main>
     </div>
 
     <!-- Scripts -->
-    <?= $appJs ?>
+    <?php echo $appJs; ?>
 </body>
 
 </html>

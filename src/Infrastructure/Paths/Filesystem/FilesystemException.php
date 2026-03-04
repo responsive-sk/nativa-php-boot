@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Paths\Filesystem;
 
 /**
- * Exception thrown when filesystem operations fail
+ * Exception thrown when filesystem operations fail.
  */
 final class FilesystemException extends \RuntimeException
 {
@@ -15,6 +15,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -24,6 +25,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -33,6 +35,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -42,6 +45,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -51,6 +55,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -60,6 +65,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -69,6 +75,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -78,6 +85,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 
@@ -87,6 +95,7 @@ final class FilesystemException extends \RuntimeException
         if ($reason) {
             $message .= " ({$reason})";
         }
+
         return new self($message);
     }
 }

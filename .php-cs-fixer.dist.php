@@ -133,7 +133,7 @@ return (new Config())
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => ['positions' => ['inside', 'outside']],
         'no_superfluous_phpdoc_tags' => [
-            'allow_hidden_param' => true,
+            'allow_hidden_params' => true,
             'allow_mixed' => true,
         ],
         'no_trailing_comma_in_singleline' => true,
@@ -252,7 +252,6 @@ return (new Config())
         'ternary_to_elvis_operator' => true,
         'trim_array_spaces' => true,
         'types_spaces' => ['space' => 'single'],
-        'unicode_codepoints' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => ['elements' => ['property', 'method', 'const']],
         'void_return' => true,

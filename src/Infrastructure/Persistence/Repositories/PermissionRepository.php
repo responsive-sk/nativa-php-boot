@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence\Repositories;
 
@@ -10,14 +10,13 @@ use Domain\ValueObjects\PermissionName;
 use Infrastructure\Persistence\UnitOfWork;
 
 /**
- * Permission Repository Implementation
+ * Permission Repository Implementation.
  */
- final class PermissionRepository implements PermissionRepositoryInterface
+final class PermissionRepository implements PermissionRepositoryInterface
 {
     public function __construct(
         private readonly UnitOfWork $uow,
-    ) {
-    }
+    ) {}
 
     #[\Override]
     public function findById(string $id): ?Permission
@@ -58,7 +57,7 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $stmt = $this->uow->getConnection()->query('SELECT * FROM permissions ORDER BY group_name, name');
 
-        return array_map(function ($row) {
+        return array_map(static function ($row) {
             return Permission::fromArray($row);
         }, $stmt->fetchAll());
     }
@@ -71,7 +70,7 @@ use Infrastructure\Persistence\UnitOfWork;
         );
         $stmt->execute([$group]);
 
-        return array_map(function ($row) {
+        return array_map(static function ($row) {
             return Permission::fromArray($row);
         }, $stmt->fetchAll());
     }
@@ -88,7 +87,7 @@ use Infrastructure\Persistence\UnitOfWork;
         );
         $stmt->execute([$likePattern]);
 
-        return array_map(function ($row) {
+        return array_map(static function ($row) {
             return Permission::fromArray($row);
         }, $stmt->fetchAll());
     }
@@ -98,14 +97,14 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $data = $permission->toArray();
 
-        $sql = <<<SQL
-            INSERT INTO permissions (id, name, description, group_name, created_at)
-            VALUES (:id, :name, :description, :group_name, :created_at)
-            ON CONFLICT(id) DO UPDATE SET
-                name = excluded.name,
-                description = excluded.description,
-                group_name = excluded.group_name
-        SQL;
+        $sql = <<<'SQL'
+                INSERT INTO permissions (id, name, description, group_name, created_at)
+                VALUES (:id, :name, :description, :group_name, :created_at)
+                ON CONFLICT(id) DO UPDATE SET
+                    name = excluded.name,
+                    description = excluded.description,
+                    group_name = excluded.group_name
+            SQL;
 
         $stmt = $this->uow->getConnection()->prepare($sql);
         $stmt->execute($data);
@@ -123,7 +122,7 @@ use Infrastructure\Persistence\UnitOfWork;
     {
         $permission = $this->findByName($name);
 
-        if ($permission === null) {
+        if (null === $permission) {
             $permission = Permission::create($name, $description, $group);
             $this->save($permission);
         }

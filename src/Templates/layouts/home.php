@@ -1,21 +1,22 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
- * @var string $content
- * @var string $page Page identifier (home, services, pricing, contact, not-found)
+ * @var string      $content
+ * @var string      $page Page identifier (home, services, pricing, contact, not-found)
  * @var string|null $metaDescription Optional meta description
- * @var App\Domain\User\User|null $user
- * @var bool $isGuest
+ * @var User|null   $user
+ * @var bool        $isGuest
  */
 
+use App\Domain\User\User;
 use App\Infrastructure\View\AssetHelper;
 
 $assetBase = '/assets';
-$page = $page ?? 'home';
-$isGuest = $isGuest ?? true;
-$csrfToken = $csrfToken ?? '';
+$page ??= 'home';
+$isGuest ??= true;
+$csrfToken ??= '';
 
 // Use AssetHelper for production builds with hashed filenames
 $themeInitJs = AssetHelper::js('init.js');
@@ -23,51 +24,51 @@ $cssBundle = AssetHelper::css('css.css');
 $appJs = AssetHelper::js('app.js');
 
 // Page-specific CSS only (JS is shared in app.js)
-$pageSpecificCss = match($page) {
-    'home' => 'home.css',
-    'services' => 'services.css',
-    'pricing' => 'pricing.css',
-    'contact' => 'contact.css',
+$pageSpecificCss = match ($page) {
+    'home'      => 'home.css',
+    'services'  => 'services.css',
+    'pricing'   => 'pricing.css',
+    'contact'   => 'contact.css',
     'portfolio' => 'portfolio.css',
-    'blog' => 'blog.css',
-    'docs' => 'docs.css',
+    'blog'      => 'blog.css',
+    'docs'      => 'docs.css',
     'not-found' => 'use-cases/not-found.css',
-    default => null,
+    default     => null,
 };
 
 $pageSpecificCssUrl = $pageSpecificCss ? AssetHelper::css($pageSpecificCss) : null;
 
 $pageDescriptions = [
-    'home' => 'App - Premium digital experiences and web development services.',
-    'services' => 'Our professional web development services include UI/UX design, custom websites, and mobile applications.',
-    'pricing' => 'Transparent pricing plans for every need. Start with a 14-day free trial.',
-    'contact' => 'Get in touch with us. We\'d love to hear from you about your next project.',
-    'blog' => 'Read our latest insights, tutorials, and updates on web development, design, and technology.',
+    'home'      => 'App - Premium digital experiences and web development services.',
+    'services'  => 'Our professional web development services include UI/UX design, custom websites, and mobile applications.',
+    'pricing'   => 'Transparent pricing plans for every need. Start with a 14-day free trial.',
+    'contact'   => 'Get in touch with us. We\'d love to hear from you about your next project.',
+    'blog'      => 'Read our latest insights, tutorials, and updates on web development, design, and technology.',
     'portfolio' => 'Explore our portfolio of web design and development projects showcasing our expertise and creativity.',
-    'docs' => 'Component library documentation with design tokens, UI patterns, and interactive examples.',
+    'docs'      => 'Component library documentation with design tokens, UI patterns, and interactive examples.',
     'not-found' => 'The page you\'re looking for doesn\'t exist.',
 ];
 
-$metaDescription = $metaDescription ?? $pageDescriptions[$page] ?? '';
+$metaDescription ??= $pageDescriptions[$page] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="sk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
-  <meta name="description" content="<?= htmlspecialchars($metaDescription) ?>">
+  <meta name="description" content="<?php echo htmlspecialchars($metaDescription); ?>">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <title>App - Digital Experiences</title>
   <!-- Prevent theme flash - load theme script before CSS -->
-  <script src="<?= $themeInitJs ?>" defer crossorigin="anonymous"></script>
+  <script src="<?php echo $themeInitJs; ?>" defer crossorigin="anonymous"></script>
 
   <!-- Shared base CSS (loaded on every page) -->
-  <link rel="stylesheet" href="<?= $cssBundle ?>">
+  <link rel="stylesheet" href="<?php echo $cssBundle; ?>">
 
   <!-- Page-specific CSS (only if exists) -->
-  <?php if ($pageSpecificCssUrl): ?>
-  <link rel="stylesheet" href="<?= $pageSpecificCssUrl ?>">
-  <?php endif; ?>
+  <?php if ($pageSpecificCssUrl) { ?>
+  <link rel="stylesheet" href="<?php echo $pageSpecificCssUrl; ?>">
+  <?php } ?>
 
 
 </head>
@@ -97,17 +98,17 @@ $metaDescription = $metaDescription ?? $pageDescriptions[$page] ?? '';
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
         </button>
-        <?php if ($isGuest): ?>
+        <?php if ($isGuest) { ?>
         <a href="/login" class="btn btn--outline">Sign In</a>
-        <?php else: ?>
+        <?php } else { ?>
         <a href="/profile" class="header__user-btn">
-            <span class="header__user-avatar"><?= strtoupper(substr($user->name ?? 'U', 0, 2)) ?></span>
+            <span class="header__user-avatar"><?php echo strtoupper(substr($user->name ?? 'U', 0, 2)); ?></span>
         </a>
         <form method="post" action="/logout" style="display:inline;">
-            <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
+            <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($csrfToken ?? ''); ?>">
             <button type="submit" class="btn btn--outline btn--sm">Sign Out</button>
         </form>
-        <?php endif; ?>
+        <?php } ?>
       </div>
 
       <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -158,7 +159,7 @@ $metaDescription = $metaDescription ?? $pageDescriptions[$page] ?? '';
 
   <!-- Main Content -->
   <main class="main">
-    <?= $content ?>
+    <?php echo $content; ?>
   </main>
 
   <!-- Footer -->
@@ -205,7 +206,7 @@ $metaDescription = $metaDescription ?? $pageDescriptions[$page] ?? '';
   </footer>
 
   <!-- Shared JavaScript -->
-  <script type="module" src="<?= $appJs ?>"></script>
+  <script type="module" src="<?php echo $appJs; ?>"></script>
 
   <!-- HTMX for dynamic interactions -->
   <!--<script src="https://unpkg.com/htmx.org@1.9.12"></script>-->

@@ -1,23 +1,29 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Persistence;
 
-use PDO;
-
 /**
  * Unit of Work Pattern Implementation
- * Ensures transactional consistency across repositories
+ * Ensures transactional consistency across repositories.
  */
 final class UnitOfWork
 {
     private DatabaseConnection $db;
+
     private bool $transactionStarted = false;
 
     public function __construct(DatabaseConnection $db)
     {
         $this->db = $db;
+    }
+
+    public function __destruct()
+    {
+        if ($this->transactionStarted) {
+            $this->rollback();
+        }
     }
 
     public function beginTransaction(): void
@@ -44,15 +50,8 @@ final class UnitOfWork
         }
     }
 
-    public function getConnection(): PDO
+    public function getConnection(): \PDO
     {
         return $this->db->getConnection();
-    }
-
-    public function __destruct()
-    {
-        if ($this->transactionStarted) {
-            $this->rollback();
-        }
     }
 }

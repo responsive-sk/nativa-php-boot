@@ -1,19 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Queue\Entities;
 
 /**
- * Failed Job Entity
+ * Failed Job Entity.
  */
 final class FailedJob
 {
     private ?string $id = null;
+
     private string $queue;
+
     /** @var array<string, mixed> */
     private array $payload;
+
     private string $exception;
+
     private string $failedAt;
 
     /**
@@ -42,6 +46,7 @@ final class FailedJob
         );
         $failedJob->setId($data['id']);
         $failedJob->failedAt = $data['failed_at'];
+
         return $failedJob;
     }
 
@@ -86,9 +91,9 @@ final class FailedJob
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'queue' => $this->queue,
-            'payload' => json_encode($this->payload),
+            'id'        => $this->id,
+            'queue'     => $this->queue,
+            'payload'   => json_encode($this->payload),
             'exception' => $this->exception,
             'failed_at' => $this->failedAt,
         ];

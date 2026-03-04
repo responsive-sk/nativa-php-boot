@@ -1,16 +1,15 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 use App\Domain\User\User;
 
 /**
- * @var User $user
+ * @var User   $user
  * @var string $profileUpdateUrl
  * @var string $changePasswordUrl
  * @var string $logoutUrl
  * @var string $blogUrl
  * @var string $csrfToken
  */
-
 $userInitials = strtoupper(substr($user->name ?? 'U', 0, 2));
 ?>
 
@@ -23,16 +22,16 @@ $userInitials = strtoupper(substr($user->name ?? 'U', 0, 2));
 
         <div class="profile__card">
             <div class="profile__user">
-                <div class="profile__avatar"><?= htmlspecialchars($userInitials) ?></div>
+                <div class="profile__avatar"><?php echo htmlspecialchars($userInitials); ?></div>
                 <div class="profile__user-info">
-                    <h2 class="profile__user-name"><?= htmlspecialchars($user->name ?? 'User') ?></h2>
-                    <p class="profile__user-login">@<?= htmlspecialchars($user->login) ?></p>
+                    <h2 class="profile__user-name"><?php echo htmlspecialchars($user->name ?? 'User'); ?></h2>
+                    <p class="profile__user-login">@<?php echo htmlspecialchars($user->login); ?></p>
                 </div>
             </div>
         </div>
 
         <div class="profile__actions">
-            <a href="<?= htmlspecialchars($profileUpdateUrl) ?>" class="profile__action">
+            <a href="<?php echo htmlspecialchars($profileUpdateUrl); ?>" class="profile__action">
                 <div class="profile__action-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -46,7 +45,7 @@ $userInitials = strtoupper(substr($user->name ?? 'U', 0, 2));
                 <span class="profile__action-arrow"></span>
             </a>
 
-            <a href="<?= htmlspecialchars($changePasswordUrl) ?>" class="profile__action">
+            <a href="<?php echo htmlspecialchars($changePasswordUrl); ?>" class="profile__action">
                 <div class="profile__action-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -60,7 +59,7 @@ $userInitials = strtoupper(substr($user->name ?? 'U', 0, 2));
                 <span class="profile__action-arrow"></span>
             </a>
 
-            <a href="<?= htmlspecialchars($blogUrl) ?>" class="profile__action">
+            <a href="<?php echo htmlspecialchars($blogUrl); ?>" class="profile__action">
                 <div class="profile__action-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -78,8 +77,8 @@ $userInitials = strtoupper(substr($user->name ?? 'U', 0, 2));
         </div>
 
         <div class="profile__logout">
-            <form method="post" action="<?= htmlspecialchars($logoutUrl) ?>">
-                <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
+            <form method="post" action="<?php echo htmlspecialchars($logoutUrl); ?>">
+                <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($csrfToken ?? ''); ?>">
                 <button type="submit" class="btn btn--outline profile__logout-btn">
                     Sign Out
                 </button>

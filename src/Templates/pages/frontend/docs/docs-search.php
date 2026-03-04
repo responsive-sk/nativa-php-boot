@@ -1,15 +1,14 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use App\Domain\Search\SearchResult;
 
 /**
  * @var SearchResult $searchResult
- * @var string $query
- * @var string $mode
+ * @var string       $query
+ * @var string       $mode
  */
-
 $result = $searchResult;
 $articles = $result->getArticles();
 $totalCount = $result->getTotalCount();
@@ -41,7 +40,7 @@ $hasResults = $result->hasResults();
                         <input
                             type="search"
                             name="q"
-                            value="<?= htmlspecialchars($query) ?>"
+                            value="<?php echo htmlspecialchars($query); ?>"
                             placeholder="Search documentation..."
                             class="search-input"
                             required
@@ -51,10 +50,10 @@ $hasResults = $result->hasResults();
 
                     <div class="search-options">
                         <select name="mode" class="search-mode-select">
-                            <option value="mixed" <?= $mode === 'mixed' ? 'selected' : '' ?>>Smart Search</option>
-                            <option value="exact" <?= $mode === 'exact' ? 'selected' : '' ?>>Exact Phrase</option>
-                            <option value="fuzzy" <?= $mode === 'fuzzy' ? 'selected' : '' ?>>Fuzzy Match</option>
-                            <option value="boolean" <?= $mode === 'boolean' ? 'selected' : '' ?>>Boolean</option>
+                            <option value="mixed" <?php echo 'mixed' === $mode ? 'selected' : ''; ?>>Smart Search</option>
+                            <option value="exact" <?php echo 'exact' === $mode ? 'selected' : ''; ?>>Exact Phrase</option>
+                            <option value="fuzzy" <?php echo 'fuzzy' === $mode ? 'selected' : ''; ?>>Fuzzy Match</option>
+                            <option value="boolean" <?php echo 'boolean' === $mode ? 'selected' : ''; ?>>Boolean</option>
                         </select>
 
                         <button type="submit" class="search-submit-btn">
@@ -72,64 +71,64 @@ $hasResults = $result->hasResults();
 
     <div class="docs-search-content">
         <div class="container">
-            <?php if (!empty($query)): ?>
+            <?php if (!empty($query)) { ?>
                 <div class="search-results-section">
                     <div class="search-results-header">
                         <h2 class="search-results-title">
-                            Search Results for "<span class="search-query-highlight"><?= htmlspecialchars($query) ?></span>"
+                            Search Results for "<span class="search-query-highlight"><?php echo htmlspecialchars($query); ?></span>"
                         </h2>
 
                         <div class="search-results-meta">
                             <div class="search-stats">
-                                <span class="result-count"><?= $totalCount ?> result<?= $totalCount !== 1 ? 's' : '' ?></span>
-                                <span class="search-time">found in <?= number_format($executionTime, 2) ?>ms</span>
+                                <span class="result-count"><?php echo $totalCount; ?> result<?php echo 1 !== $totalCount ? 's' : ''; ?></span>
+                                <span class="search-time">found in <?php echo number_format($executionTime, 2); ?>ms</span>
                             </div>
                             <div class="search-mode-indicator">
                                 <span class="mode-label">Mode:</span>
-                                <span class="mode-value mode-<?= $mode ?>"><?= ucfirst($mode) ?></span>
+                                <span class="mode-value mode-<?php echo $mode; ?>"><?php echo ucfirst($mode); ?></span>
                             </div>
                         </div>
                     </div>
 
-                    <?php if ($hasResults): ?>
+                    <?php if ($hasResults) { ?>
                         <div class="docs-results-list">
-                            <?php foreach ($articles as $article): ?>
+                            <?php foreach ($articles as $article) { ?>
                                 <article class="docs-result-card">
                                     <div class="docs-result-card__header">
                                         <h3 class="docs-result-card__title">
-                                            <a href="/blog/article/<?= htmlspecialchars($article['slug']) ?>" class="docs-result-card__link">
-                                                <?= htmlspecialchars($article['title']) ?>
+                                            <a href="/blog/article/<?php echo htmlspecialchars($article['slug']); ?>" class="docs-result-card__link">
+                                                <?php echo htmlspecialchars($article['title']); ?>
                                             </a>
                                         </h3>
 
-                                        <?php if (!empty($article['category_name'])): ?>
+                                        <?php if (!empty($article['category_name'])) { ?>
                                             <span class="docs-result-card__category">
-                                                <?= htmlspecialchars($article['category_name']) ?>
+                                                <?php echo htmlspecialchars($article['category_name']); ?>
                                             </span>
-                                        <?php endif; ?>
+                                        <?php } ?>
                                     </div>
 
-                                    <?php if (!empty($article['snippet'])): ?>
+                                    <?php if (!empty($article['snippet'])) { ?>
                                         <div class="docs-result-card__excerpt">
-                                            <?= $article['snippet'] ?>
+                                            <?php echo $article['snippet']; ?>
                                         </div>
-                                    <?php endif; ?>
+                                    <?php } ?>
 
                                     <div class="docs-result-card__footer">
-                                        <?php if (!empty($article['rank'])): ?>
+                                        <?php if (!empty($article['rank'])) { ?>
                                             <span class="relevance-score">
-                                                Relevance: <?= number_format(abs((float) $article['rank']) * 1000000, 1) ?>
+                                                Relevance: <?php echo number_format(abs((float) $article['rank']) * 1000000, 1); ?>
                                             </span>
-                                        <?php endif; ?>
+                                        <?php } ?>
 
-                                        <a href="/blog/article/<?= htmlspecialchars($article['slug']) ?>" class="docs-result-card__link-more">
+                                        <a href="/blog/article/<?php echo htmlspecialchars($article['slug']); ?>" class="docs-result-card__link-more">
                                             View documentation →
                                         </a>
                                     </div>
                                 </article>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </div>
-                    <?php else: ?>
+                    <?php } else { ?>
                         <div class="no-results-section">
                             <div class="no-results-icon">
                                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -142,7 +141,7 @@ $hasResults = $result->hasResults();
 
                             <h3 class="no-results-title">No documentation found</h3>
                             <p class="no-results-description">
-                                We couldn't find any documentation matching "<strong><?= htmlspecialchars($query) ?></strong>".
+                                We couldn't find any documentation matching "<strong><?php echo htmlspecialchars($query); ?></strong>".
                             </p>
 
                             <div class="search-suggestions">
@@ -162,9 +161,9 @@ $hasResults = $result->hasResults();
                                 </button>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="search-help-section">
                     <h2 class="search-help-title">Search Documentation</h2>
                     <p class="search-help-description">
@@ -221,7 +220,7 @@ $hasResults = $result->hasResults();
                         </a>
                     </div>
                 </div>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
 </section>

@@ -1,21 +1,27 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Queue\Entities;
 
 /**
- * Job Entity
+ * Job Entity.
  */
 final class Job
 {
     private ?string $id = null;
+
     private string $queue;
+
     /** @var array<string, mixed> */
     private array $payload;
+
     private int $attempts;
+
     private ?string $reservedAt;
+
     private ?string $availableAt;
+
     private string $createdAt;
 
     /**
@@ -50,6 +56,7 @@ final class Job
         );
         $job->setId($data['id']);
         $job->createdAt = $data['created_at'];
+
         return $job;
     }
 
@@ -111,15 +118,16 @@ final class Job
     // Business logic
     public function isAvailable(): bool
     {
-        if ($this->availableAt === null) {
+        if (null === $this->availableAt) {
             return false;
         }
+
         return strtotime($this->availableAt) <= time();
     }
 
     public function isReserved(): bool
     {
-        return $this->reservedAt !== null;
+        return null !== $this->reservedAt;
     }
 
     /**
@@ -128,13 +136,13 @@ final class Job
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'queue' => $this->queue,
-            'payload' => json_encode($this->payload),
-            'attempts' => $this->attempts,
-            'reserved_at' => $this->reservedAt,
+            'id'           => $this->id,
+            'queue'        => $this->queue,
+            'payload'      => json_encode($this->payload),
+            'attempts'     => $this->attempts,
+            'reserved_at'  => $this->reservedAt,
             'available_at' => $this->availableAt,
-            'created_at' => $this->createdAt,
+            'created_at'   => $this->createdAt,
         ];
     }
 }

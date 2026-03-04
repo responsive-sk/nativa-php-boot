@@ -1,7 +1,7 @@
 <?php
 /**
  * Homepage Hero - Manifesto Section
- * Rendered before main content in layout
+ * Rendered before main content in layout.
  */
 ?>
 

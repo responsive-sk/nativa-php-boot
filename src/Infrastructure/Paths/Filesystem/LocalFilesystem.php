@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Infrastructure\Paths\Filesystem;
 
 /**
- * Local filesystem implementation using native PHP functions
- * 
+ * Local filesystem implementation using native PHP functions.
+ *
  * Provides secure file operations with path validation
  */
 final class LocalFilesystem implements FilesystemInterface
@@ -16,10 +16,10 @@ final class LocalFilesystem implements FilesystemInterface
     public function __construct(string $basePath)
     {
         $this->basePath = rtrim($basePath, '/\\');
-        
+
         // Ensure base path exists
         if (!is_dir($this->basePath)) {
-            if (!mkdir($this->basePath, 0755, true) && !is_dir($this->basePath)) {
+            if (!mkdir($this->basePath, 0o755, true) && !is_dir($this->basePath)) {
                 throw FilesystemException::cannotCreateDirectory($this->basePath);
             }
         }
@@ -35,13 +35,13 @@ final class LocalFilesystem implements FilesystemInterface
     public function read(string $path): string
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             throw FilesystemException::cannotReadFile($path, 'File does not exist');
         }
 
         $contents = file_get_contents($fullPath);
-        if ($contents === false) {
+        if (false === $contents) {
             throw FilesystemException::cannotReadFile($path, 'Failed to read file contents');
         }
 
@@ -52,16 +52,16 @@ final class LocalFilesystem implements FilesystemInterface
     public function write(string $path, string $contents): void
     {
         $fullPath = $this->getFullPath($path);
-        
+
         // Ensure directory exists
-        $directory = dirname($fullPath);
+        $directory = \dirname($fullPath);
         if (!is_dir($directory)) {
-            if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
+            if (!mkdir($directory, 0o755, true) && !is_dir($directory)) {
                 throw FilesystemException::cannotCreateDirectory($directory);
             }
         }
 
-        if (file_put_contents($fullPath, $contents) === false) {
+        if (false === file_put_contents($fullPath, $contents)) {
             throw FilesystemException::cannotWriteFile($path, 'Failed to write file contents');
         }
     }
@@ -70,7 +70,7 @@ final class LocalFilesystem implements FilesystemInterface
     public function delete(string $path): void
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             return; // Already deleted
         }
@@ -81,10 +81,10 @@ final class LocalFilesystem implements FilesystemInterface
     }
 
     #[\Override]
-    public function createDirectory(string $path, int $permissions = 0755): void
+    public function createDirectory(string $path, int $permissions = 0o755): void
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (is_dir($fullPath)) {
             return; // Already exists
         }
@@ -110,13 +110,13 @@ final class LocalFilesystem implements FilesystemInterface
     public function getSize(string $path): int
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             throw FilesystemException::cannotGetFileInfo($path, 'size', 'File does not exist');
         }
 
         $size = filesize($fullPath);
-        if ($size === false) {
+        if (false === $size) {
             throw FilesystemException::cannotGetFileInfo($path, 'size', 'Failed to get file size');
         }
 
@@ -127,13 +127,13 @@ final class LocalFilesystem implements FilesystemInterface
     public function getModifiedTime(string $path): int
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             throw FilesystemException::cannotGetFileInfo($path, 'modification time', 'File does not exist');
         }
 
         $time = filemtime($fullPath);
-        if ($time === false) {
+        if (false === $time) {
             throw FilesystemException::cannotGetFileInfo($path, 'modification time', 'Failed to get modification time');
         }
 
@@ -144,18 +144,18 @@ final class LocalFilesystem implements FilesystemInterface
     public function listContents(string $path): array
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->isDirectory($path)) {
             throw FilesystemException::cannotListDirectory($path, 'Path is not a directory');
         }
 
         $contents = scandir($fullPath);
-        if ($contents === false) {
+        if (false === $contents) {
             throw FilesystemException::cannotListDirectory($path, 'Failed to scan directory');
         }
 
         // Remove . and .. entries
-        return array_values(array_filter($contents, fn($item) => $item !== '.' && $item !== '..'));
+        return array_values(array_filter($contents, static fn ($item) => '.' !== $item && '..' !== $item));
     }
 
     #[\Override]
@@ -163,15 +163,15 @@ final class LocalFilesystem implements FilesystemInterface
     {
         $sourceFullPath = $this->getFullPath($source);
         $destinationFullPath = $this->getFullPath($destination);
-        
+
         if (!$this->exists($source)) {
             throw FilesystemException::cannotCopyFile($source, $destination, 'Source file does not exist');
         }
 
         // Ensure destination directory exists
-        $destinationDir = dirname($destinationFullPath);
+        $destinationDir = \dirname($destinationFullPath);
         if (!is_dir($destinationDir)) {
-            if (!mkdir($destinationDir, 0755, true) && !is_dir($destinationDir)) {
+            if (!mkdir($destinationDir, 0o755, true) && !is_dir($destinationDir)) {
                 throw FilesystemException::cannotCreateDirectory($destinationDir);
             }
         }
@@ -186,15 +186,15 @@ final class LocalFilesystem implements FilesystemInterface
     {
         $sourceFullPath = $this->getFullPath($source);
         $destinationFullPath = $this->getFullPath($destination);
-        
+
         if (!$this->exists($source)) {
             throw FilesystemException::cannotMoveFile($source, $destination, 'Source file does not exist');
         }
 
         // Ensure destination directory exists
-        $destinationDir = dirname($destinationFullPath);
+        $destinationDir = \dirname($destinationFullPath);
         if (!is_dir($destinationDir)) {
-            if (!mkdir($destinationDir, 0755, true) && !is_dir($destinationDir)) {
+            if (!mkdir($destinationDir, 0o755, true) && !is_dir($destinationDir)) {
                 throw FilesystemException::cannotCreateDirectory($destinationDir);
             }
         }
@@ -208,24 +208,24 @@ final class LocalFilesystem implements FilesystemInterface
     public function getPermissions(string $path): int
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             throw FilesystemException::cannotGetFileInfo($path, 'permissions', 'File does not exist');
         }
 
         $permissions = fileperms($fullPath);
-        if ($permissions === false) {
+        if (false === $permissions) {
             throw FilesystemException::cannotGetFileInfo($path, 'permissions', 'Failed to get file permissions');
         }
 
-        return $permissions & 0777; // Return only permission bits
+        return $permissions & 0o777; // Return only permission bits
     }
 
     #[\Override]
     public function setPermissions(string $path, int $permissions): void
     {
         $fullPath = $this->getFullPath($path);
-        
+
         if (!$this->exists($path)) {
             throw FilesystemException::cannotSetPermissions($path, 'File does not exist');
         }
@@ -236,7 +236,7 @@ final class LocalFilesystem implements FilesystemInterface
     }
 
     /**
-     * Get base path
+     * Get base path.
      */
     public function getBasePath(): string
     {
@@ -244,7 +244,7 @@ final class LocalFilesystem implements FilesystemInterface
     }
 
     /**
-     * Get full path with security validation
+     * Get full path with security validation.
      */
     private function getFullPath(string $path): string
     {
@@ -254,11 +254,11 @@ final class LocalFilesystem implements FilesystemInterface
         }
 
         // Normalize path separators
-        $normalizedPath = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
-        
+        $normalizedPath = str_replace(['\\', '/'], \DIRECTORY_SEPARATOR, $path);
+
         // Remove leading separators
-        $normalizedPath = ltrim($normalizedPath, DIRECTORY_SEPARATOR);
-        
-        return $this->basePath . DIRECTORY_SEPARATOR . $normalizedPath;
+        $normalizedPath = ltrim($normalizedPath, \DIRECTORY_SEPARATOR);
+
+        return $this->basePath . \DIRECTORY_SEPARATOR . $normalizedPath;
     }
 }
