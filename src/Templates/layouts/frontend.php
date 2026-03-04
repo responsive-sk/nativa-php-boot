@@ -43,20 +43,40 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <!-- Prevent theme flash - load theme script before CSS -->
   <script src="<?php echo $themeInitJs; ?>" defer crossorigin="anonymous"></script>
 
-  <!-- Shared base CSS (loaded on every page) -->
-  <link rel="stylesheet" href="<?php echo $cssBundle; ?>">
+  <!-- CRITICAL CSS (inlined for faster FCP) -->
+  <?php
+  $criticalCssFile = __DIR__ . '/storage/critical-css/critical.css';
+  if (file_exists($criticalCssFile)) {
+      echo '<style id="critical-css">' . file_get_contents($criticalCssFile) . '</style>';
+  }
+  ?>
 
-  <!-- Page-specific CSS (only if exists) -->
+  <!-- Shared base CSS (async loaded) -->
+  <link rel="preload" href="<?php echo $cssBundle; ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="<?php echo $cssBundle; ?>"></noscript>
+
+  <!-- Page-specific CSS (async loaded, only if exists) -->
   <?php if ($pageSpecificCssUrl) { ?>
-  <link rel="stylesheet" href="<?php echo $pageSpecificCssUrl; ?>">
+  <link rel="preload" href="<?php echo $pageSpecificCssUrl; ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="<?php echo $pageSpecificCssUrl; ?>"></noscript>
   <?php } ?>
 
-  <!-- Preload critical CSS -->
-  <link rel="preload" href="<?php echo $cssBundle; ?>" as="style">
-
-  <!-- Preload critical fonts for hero (Excon - display) -->
+  <!-- Preload critical fonts for hero -->
   <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/sans-serif/plein-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS Load Handler (prevent FOUC) -->
+  <script>
+    // Remove critical CSS once full CSS is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      var criticalCss = document.getElementById('critical-css');
+      if (criticalCss) {
+        setTimeout(function() {
+          criticalCss.parentNode.removeChild(criticalCss);
+        }, 100);
+      }
+    });
+  </script>
 
 </head>
 <body>

@@ -34,5 +34,5 @@ export function initAnimBlocks(): void {
 
   animBlocks.forEach((block) => observer.observe(block));
   
-  console.log('%c🎬 ANIM BLOCKS READY', 'color: #c8a96e; font-weight: bold', `${animBlocks.length} blocks initialized`);
+  console.log('%c ANIM BLOCKS READY', 'color: #c8a96e; font-weight: bold', `${animBlocks.length} blocks initialized`);
 }
