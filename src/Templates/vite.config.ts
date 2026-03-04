@@ -109,20 +109,52 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
-      // Copy fonts and images after build
+      // Copy ONLY critical fonts and images after build
       {
         name: 'copy-assets',
         closeBundle() {
           const outDir = resolve(__dirname, '../../public/assets');
 
-          const assetsToCopy = [
-            { src: resolve(__dirname, 'src/assets/fonts'),  dest: path.join(outDir, 'fonts') },
-            { src: resolve(__dirname, 'src/assets/images'), dest: path.join(outDir, 'images') },
+          // Critical fonts only (referenced in CSS) - saves ~120KB
+          const criticalFonts = [
+            'sans-serif/font-sans-web.woff2',
+            'sans-serif/plein-variable.woff2',
+            'sans-serif/font-combined.woff2',
+            'serif/font-serif-web.woff2',
+            'serif/playfair-display-bold.woff2',
           ];
 
-          for (const { src, dest } of assetsToCopy) {
-            copyRecursiveSync(src, dest);
-            console.log(`[copy-assets] Copied: ${src} → ${dest}`);
+          const srcFontsDir = resolve(__dirname, 'src/assets/fonts');
+          const destFontsDir = path.join(outDir, 'fonts');
+
+          // Copy only critical fonts
+          let copied = 0;
+          for (const fontPath of criticalFonts) {
+            const srcPath = path.join(srcFontsDir, fontPath);
+            const destPath = path.join(destFontsDir, fontPath);
+            
+            if (fs.existsSync(srcPath)) {
+              // Ensure directory exists
+              const destDir = path.dirname(destPath);
+              if (!fs.existsSync(destDir)) {
+                fs.mkdirSync(destDir, { recursive: true });
+              }
+              
+              fs.copyFileSync(srcPath, destPath);
+              console.log(`[copy-assets] Copied font: ${fontPath}`);
+              copied++;
+            }
+          }
+          
+          console.log(`[copy-assets] Copied ${copied}/${criticalFonts.length} critical fonts (${(copied/criticalFonts.length*100).toFixed(0)}%)`);
+
+          // Copy all images
+          const srcImagesDir = resolve(__dirname, 'src/assets/images');
+          const destImagesDir = path.join(outDir, 'images');
+          
+          if (fs.existsSync(srcImagesDir)) {
+            copyRecursiveSync(srcImagesDir, destImagesDir);
+            console.log(`[copy-assets] Copied images: ${srcImagesDir} → ${destImagesDir}`);
           }
         }
       },
