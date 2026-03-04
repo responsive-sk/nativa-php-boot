@@ -16,7 +16,10 @@ $totalPages ??= 1;
 
 ?>
 
-<!-- Blog Section -->
+<!-- Blog Hero -->
+<?php include $this->getTemplatesPath() . '/partials/hero-blog.php'; ?>
+
+<!-- Blog Content -->
 <section class="services">
     <div class="services__hero" data-animate="scaleIn" data-duration="1500">
         <h2>Our Blog</h2>
