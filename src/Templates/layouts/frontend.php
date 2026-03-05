@@ -120,12 +120,6 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
           </svg>
         </button>
 
-        <?php if ($isGuest) { ?>
-        <a href="/login" class="btn btn--outline btn--sm">Sign In</a>
-        <?php } else { ?>
-        <a href="/profile" class="btn btn--outline btn--sm">Profile</a>
-        <?php } ?>
-
         <!-- Mobile Menu Toggle -->
         <button class="nav-primary__mobile-toggle mobile-menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">
           <span class="mobile-toggle__icon"></span>
@@ -148,9 +142,6 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
-      </div>
-      <div class="mobile-menu__auth">
-        <a href="/login" class="btn btn--outline btn--sm">Sign In</a>
       </div>
     </div>
     <div class="mobile-menu__nav">

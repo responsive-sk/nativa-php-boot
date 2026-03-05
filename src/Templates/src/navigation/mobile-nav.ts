@@ -17,7 +17,7 @@ export class MobileNav {
   private readonly animationDuration: number;
 
   constructor(options: MobileNavOptions = {}) {
-    this.breakpoint = options.breakpoint ?? 768;
+    this.breakpoint = options.breakpoint ?? 1024;
     this.animationDuration = options.animationDuration ?? 250;
   }
 

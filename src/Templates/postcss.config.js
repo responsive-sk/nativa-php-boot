@@ -2,9 +2,10 @@ export default {
   plugins: {
     '@fullhuman/postcss-purgecss': {
       content: [
-        './src/**/*.php',
-        './src/**/*.js',
-        './src/**/*.ts',
+        './**/*.php',
+        './**/*.js',
+        './**/*.ts',
+        './src/**/*.css',
       ],
       // Safelist - keep these classes even if not found in content
       safelist: {

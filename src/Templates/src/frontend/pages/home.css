@@ -727,6 +727,19 @@
         font-size: 32px;
     }
 
+    /* Center featured items on mobile */
+    .featured-grid {
+        grid-template-columns: 1fr;
+        padding: 0 var(--space-4);
+    }
+    
+    .featured-item {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: 400px;
+    }
+
     .services__hero h2 {
         font-size: 32px;
     }

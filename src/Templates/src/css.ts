@@ -13,6 +13,7 @@ import "./styles/components/header.css";
 import "./styles/components/footer.css";
 import "./styles/components/button.css";
 import "./styles/components/alert.css";
+import "./styles/components/card.css";
 import "./styles/components/htmx.css";
 import "./styles/components/cookie-consent.css";
 import "./styles/components/user-preferences.css";

@@ -300,7 +300,7 @@
     color: var(--brand-gold);
 }
 
-/* Responsive - Tablet & Mobile */
+/* Responsive - Tablet & Mobile (from 1024px down) */
 @media (max-width: 1024px) {
     /* Hide desktop navigation */
     .nav-primary__list {
@@ -308,7 +308,8 @@
     }
 
     /* Show mobile toggle button */
-    .nav-primary__mobile-toggle {
+    .nav-primary__mobile-toggle,
+    .mobile-menu-btn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -515,7 +516,7 @@ header {
 }
 
 /* Mobile Menu */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   header {
     position: relative;
     /* height: 60px; */

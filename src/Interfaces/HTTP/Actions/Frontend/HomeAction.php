@@ -27,13 +27,13 @@ final class HomeAction extends Action
         $articles = $this->articleManager->listLatest(10);
 
         $content = $this->renderer->render(
-            'pages/home',
+            'pages/frontend/home',
             [
                 'articles'  => $articles,
                 'pageTitle' => 'Nativa CMS - Modern PHP Blog Platform',
                 'page'      => 'home',
             ],
-            'layouts/frontend'
+            'frontend'
         );
 
         return $this->html($content);

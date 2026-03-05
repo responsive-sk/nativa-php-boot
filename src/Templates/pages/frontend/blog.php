@@ -125,7 +125,7 @@ $totalPages ??= 1;
     </section>
 
     <!-- CTA Section -->
-    <section class="section section--cta">
+<!--     <section class="section section--cta">
         <div class="container">
             <div class="cta-content" data-animate="scaleIn">
                 <h2 class="cta-content__title">Stay Updated</h2>
@@ -142,7 +142,7 @@ $totalPages ??= 1;
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </main>
 
 <!-- Blog JavaScript -->
@@ -184,7 +184,7 @@ async function loadArticles() {
 
     // Render articles
     container.innerHTML = `
-      <div class="articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-8);">
+      <div class="articles-grid">
         ${data.articles.map(article => `
           <article class="article-card" data-article-id="${article.id}" data-animate="scaleIn">
             <div class="article-card__image-wrapper">
