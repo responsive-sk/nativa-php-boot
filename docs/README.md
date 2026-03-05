@@ -1,6 +1,6 @@
 # PHP CMS - Complete Documentation
 
-## 📖 Table of Contents
+## Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Architecture](#architecture)
@@ -28,16 +28,16 @@
 
 ### Key Features
 
-- ✅ **Articles/Blog** - Full blog system with categories and tags
-- ✅ **Static Pages** - CMS pages with content blocks
-- ✅ **Form Builder** - Dynamic form creation
-- ✅ **Media Library** - File upload and management
-- ✅ **Contact Forms** - Built-in contact functionality
-- ✅ **Native PHP Templates** - No Twig dependency
-- ✅ **CQRS Pattern** - Command/Query separation
-- ✅ **Domain Events** - Event-driven architecture
-- ✅ **Outbox Pattern** - Reliable event publishing
-- ✅ **Saga Pattern** - Distributed transactions
+- **Articles/Blog** - Full blog system with categories and tags
+- **Static Pages** - CMS pages with content blocks
+- **Form Builder** - Dynamic form creation
+- **Media Library** - File upload and management
+- **Contact Forms** - Built-in contact functionality
+- **Native PHP Templates** - No Twig dependency
+- **CQRS Pattern** - Command/Query separation
+- **Domain Events** - Event-driven architecture
+- **Outbox Pattern** - Reliable event publishing
+- **Saga Pattern** - Distributed transactions
 
 ---
 
@@ -136,7 +136,7 @@ GET  /{slug}              # Page display (catch-all)
 ```
 admin, articles, article, tags, tag, search
 contact, form, forms, page, pages
-api, storage, static, assets, public
+api, storage, assets, public
 login, logout, register, signup, signin
 dashboard, profile, settings, account
 ```
@@ -245,7 +245,7 @@ php src/bin/cms migrate
 php src/bin/cms seed
 
 # Start development server
-php -S localhost:8000 router.php
+php -S localhost:8000 -t public
 ```
 
 ### Default Admin Credentials
@@ -685,4 +685,4 @@ MIT License - See LICENSE file for details
 
 ---
 
-*Last updated: 2026-02-27*
+Last updated: 2026-02-27

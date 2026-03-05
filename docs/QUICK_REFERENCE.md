@@ -1,10 +1,10 @@
 # PHP CMS - Quick Reference Guide
 
-## 📁 Štruktúra Projektu
+## Project Structure
 
 ```
 php-cms/
-├── domain/                 # Domain Layer (biznis logika)
+├── domain/                 # Domain Layer (business logic)
 │   ├── Model/             # Entities
 │   ├── ValueObjects/      # Value Objects
 │   ├── Repository/        # Repository interfaces
@@ -20,7 +20,7 @@ php-cms/
 │
 ├── infrastructure/       # Infrastructure Layer
 │   ├── Persistence/     # Database, UoW, Repositories
-│   ├── Paths/          # slim4-paths integration
+│   ├── Paths/          # Path management
 │   ├── Queue/          # SQLite Queue
 │   ├── Container/      # DI Container
 │   └── Storage/        # File storage
@@ -39,15 +39,15 @@ php-cms/
 
 ---
 
-## 🔧 Rýchle Príkazy
+## Quick Commands
 
 ```bash
-# Inštalácia
+# Installation
 composer install
 
-# Databáza
-php bin/cms migrate     # Vytvoriť tabuľky
-php bin/cms seed        # Seed testovacích dát
+# Database
+php bin/cms migrate     # Create tables
+php bin/cms seed        # Seed test data
 
 # Server
 php bin/cms serve       # Dev server (port 8000)
@@ -63,15 +63,15 @@ composer test-coverage
 
 ---
 
-## 📦 Kľúčové Triedy
+## Key Classes
 
-### Paths (slim4-paths)
+### Paths (AppPaths)
 ```php
 use Infrastructure\Paths\AppPaths;
 
 $paths = AppPaths::instance();
-$paths->data('cms.db');           // /project/data/cms.db
-$paths->templates('frontend');     // /project/interfaces/Templates/frontend
+$paths->data('cms.db');           // /project/storage/data/cms.db
+$paths->templates('frontend');     // /project/src/interfaces/Templates/frontend
 $paths->cache('templates');        // /project/storage/cache/templates
 $paths->logs('app.log');           // /project/storage/logs/app.log
 ```
@@ -106,16 +106,16 @@ $article = $queryBus->dispatch($query);
 
 ### Domain Events
 ```php
-// V entite
+// In entity
 $article->publish(); // → ArticlePublished event
 
-// V Application Service
-$articleManager->publish($id); // → dispatchuje events
+// In Application Service
+$articleManager->publish($id); // → dispatch events
 ```
 
 ### Outbox Pattern
 ```php
-// Automaticky v ArticleManager
+// Automatically in ArticleManager
 $articleManager->create(...); // → Event → Outbox → Queue
 ```
 
@@ -125,13 +125,13 @@ $saga = new PublishArticleSaga($articleManager, $queue);
 try {
     $article = $saga->execute($articleId);
 } catch (SagaExecutionFailedException $e) {
-    // Automatický rollback
+    // Automatic rollback
 }
 ```
 
 ---
 
-## 🗂️ Environment Variables
+## Environment Variables
 
 ```env
 APP_ENV=development
@@ -155,17 +155,17 @@ TEMPLATE_CACHE_VERSION=
 
 ---
 
-## 📝 Template Usage
+## Template Usage
 
 ```php
-// V Action
+// In Action
 $content = $this->renderer->render(
     'pages/home',
     ['articles' => $articles, 'title' => 'Welcome'],
     'layouts/base'
 );
 
-// V template
+// In template
 <?= $this->e($title) ?>
 <?= $this->date($article->publishedAt()) ?>
 <?= $this->nl2br($article->content()) ?>
@@ -173,7 +173,7 @@ $content = $this->renderer->render(
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Unit tests
@@ -188,7 +188,7 @@ composer test-coverage
 
 ---
 
-## 🐛 Debugging
+## Debugging
 
 ```php
 // Enable debug
@@ -208,18 +208,18 @@ SELECT * FROM jobs;
 
 ---
 
-## 📚 Pattern Quick Reference
+## Pattern Quick Reference
 
 | Pattern | Purpose | Location |
 |---------|---------|----------|
-| Domain Events | Decoupled communication | `domain/Events/` |
-| Repository | Data access abstraction | `domain/Repository/` |
-| CQRS | Read/Write separation | `application/CQRS/` |
-| Outbox | Reliable events | `infrastructure/Queue/` |
-| Saga | Distributed transactions | `application/Saga/` |
-| Actions | Request handling | `interfaces/HTTP/Actions/` |
-| DI Container | Dependency injection | `infrastructure/Container/` |
+| Domain Events | Decoupled communication | domain/Events/ |
+| Repository | Data access abstraction | domain/Repository/ |
+| CQRS | Read/Write separation | application/CQRS/ |
+| Outbox | Reliable events | infrastructure/Queue/ |
+| Saga | Distributed transactions | application/Saga/ |
+| Actions | Request handling | interfaces/HTTP/Actions/ |
+| DI Container | Dependency injection | infrastructure/Container/ |
 
 ---
 
-*Quick Reference - 2026-02-27*
+Quick Reference - 2026-02-27

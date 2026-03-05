@@ -1,6 +1,6 @@
 # Quick Reference Guide
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install
@@ -12,14 +12,14 @@ bin/cms migrate
 bin/cms seed
 
 # Run
-php -S localhost:8000 router.php
+php -S localhost:8000 -t public
 ```
 
 **Login:** admin@phpcms.local / admin123
 
 ---
 
-## 📍 URLs
+## URLs
 
 | Page | URL |
 |------|-----|
@@ -32,7 +32,7 @@ php -S localhost:8000 router.php
 
 ---
 
-## 🗂️ File Structure
+## File Structure
 
 ```
 php-cms/
@@ -49,7 +49,7 @@ php-cms/
 
 ---
 
-## 🎯 Common Tasks
+## Common Tasks
 
 ### Create a Page
 
@@ -85,7 +85,7 @@ php-cms/
 
 ---
 
-## 🔧 Commands
+## Commands
 
 ```bash
 # Database
@@ -93,7 +93,7 @@ bin/cms migrate     # Create tables
 bin/cms seed        # Seed data
 
 # Server
-php -S localhost:8000 router.php
+php -S localhost:8000 -t public
 
 # Testing
 composer test
@@ -106,7 +106,7 @@ composer cs-fix
 
 ---
 
-## 📊 Database Tables
+## Database Tables
 
 | Table | Purpose |
 |-------|---------|
@@ -124,7 +124,7 @@ composer cs-fix
 
 ---
 
-## 🎨 Template Variables
+## Template Variables
 
 ### Page Template
 
@@ -165,7 +165,7 @@ composer cs-fix
 
 ---
 
-## 🐛 Debugging
+## Debugging
 
 ### Enable Debug Mode
 
@@ -194,7 +194,7 @@ rm -rf storage/cache/*
 
 ---
 
-## 📝 Reserved Slugs
+## Reserved Slugs
 
 Cannot use for pages:
 ```
@@ -205,7 +205,7 @@ login, register, dashboard, profile
 
 ---
 
-## 🔐 Security
+## Security
 
 ### File Uploads
 
@@ -225,7 +225,7 @@ login, register, dashboard, profile
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - [Full Documentation](README.md)
 - [AppPaths Usage](APPPATHS_USAGE.md)
@@ -235,4 +235,4 @@ login, register, dashboard, profile
 
 ---
 
-*Quick Reference - 2026-02-27*
+Quick Reference - 2026-02-27

@@ -1,16 +1,16 @@
-# PHP CMS - Architektonický Journey
+# PHP CMS - Architecture Journey
 
-## 📅 Dátum: 2026-02-28
+## Date: 2026-02-28
 
-Tento dokument zachytáva kompletný proces refactorovania a vylepšovania architektúry PHP CMS projektu.
+This document captures the complete refactoring and architecture improvement process of the PHP CMS project.
 
 ---
 
-## 🎯 Počiatočný Stav
+## Initial State
 
-**Projekt:** Moderný PHP 8.4+ CMS a blog systém s DDD architektúrou
+**Project:** Modern PHP 8.4+ CMS and blog system with DDD architecture
 
-**Pôvodný Tech Stack:**
+**Original Tech Stack:**
 - PHP 8.4+
 - Twig templates
 - SQLite (PDO)
@@ -18,7 +18,7 @@ Tento dokument zachytáva kompletný proces refactorovania a vylepšovania archi
 - Custom Router
 - PHPUnit + Codeception
 
-**Pôvodná Architektúra:**
+**Original Architecture:**
 ```
 php-cms/
 ├── domain/                 # Domain Layer
@@ -30,18 +30,18 @@ php-cms/
 
 ---
 
-## 📋 Postup Refactoringu
+## Refactoring Process
 
-### Fáza 1: Native PHP Templates (Migrácia z Twig)
+### Phase 1: Native PHP Templates (Migration from Twig)
 
-**Problém:** Twig dependency nebola potrebná, chceli sme native PHP templates.
+**Problem:** Twig dependency was unnecessary, we wanted native PHP templates.
 
-**Riešenie:**
-1. Vytvorený `TemplateRenderer` s layout supportom
-2. Konvertované všetky `.twig` súbory na `.php`
-3. Odstránené `twig/twig` z `composer.json`
+**Solution:**
+1. Created `TemplateRenderer` with layout support
+2. Converted all `.twig` files to `.php`
+3. Removed `twig/twig` from `composer.json`
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 interfaces/HTTP/View/TemplateRenderer.php
 interfaces/Templates/frontend/layouts/base.php
@@ -50,21 +50,21 @@ interfaces/Templates/frontend/pages/articles/index.php
 interfaces/Templates/frontend/pages/articles/show.php
 ```
 
-**Kľúčové vlastnosti TemplateRenderer:**
+**TemplateRenderer key features:**
 - Layout inheritance
 - Partial templates
-- Helper metódy: `e()`, `date()`, `nl2br()`, `url()`
-- Template caching s versioningom
+- Helper methods: `e()`, `date()`, `nl2br()`, `url()`
+- Template caching with versioning
 
 ---
 
-### Fáza 2: Domain Events Pattern
+### Phase 2: Domain Events Pattern
 
-**Problém:** Entity nemohli komunikovať s ostatnými časťami systému bez couplingu.
+**Problem:** Entities couldn't communicate with other parts of the system without coupling.
 
-**Riešenie:** Implementácia Domain Events
+**Solution:** Domain Events implementation
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 domain/Events/
 ├── DomainEventInterface.php
@@ -83,14 +83,14 @@ application/Services/EventDispatcher.php
 
 **Pattern:**
 ```php
-// V entite
+// In entity
 public function publish(): void
 {
     $this->status = ArticleStatus::published();
     $this->recordEvent(new ArticlePublished($this->id, $this->title, $this->publishedAt));
 }
 
-// V Application Service
+// In Application Service
 private function dispatchEvents(Article $article): void
 {
     foreach ($article->releaseEvents() as $event) {
@@ -101,13 +101,13 @@ private function dispatchEvents(Article $article): void
 
 ---
 
-### Fáza 3: Repository Pattern Completion
+### Phase 3: Repository Pattern Completion
 
-**Problém:** Chýbalo `UserRepositoryInterface` pre User entitu.
+**Problem:** Missing `UserRepositoryInterface` for User entity.
 
-**Riešenie:** Kompletný Repository Pattern
+**Solution:** Complete Repository Pattern
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 domain/Model/User.php
 domain/Repository/UserRepositoryInterface.php
@@ -116,20 +116,20 @@ application/Services/UserManager.php
 ```
 
 **UserManager features:**
-- `create()` - s password hashing
+- `create()` - with password hashing
 - `authenticate()` - email + password verify
-- `changePassword()` - s hashovaním
-- CRUD operácie
+- `changePassword()` - with hashing
+- CRUD operations
 
 ---
 
-### Fáza 4: Input Validation Layer
+### Phase 4: Input Validation Layer
 
-**Problém:** Žiadna validácia vstupov v Application Services.
+**Problem:** No input validation in Application Services.
 
-**Riešenie:** Validator + DTO pattern
+**Solution:** Validator + DTO pattern
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 application/Exceptions/ValidationException.php
 application/Validation/Validator.php
@@ -146,26 +146,26 @@ application/DTOs/
 - `email`, `uuid`, `url`
 - `alpha`, `numeric`
 
-**Príklad:**
+**Example:**
 ```php
 $command = new CreateArticleCommand(
-    title: "Článok",
-    content: "Obsah...",
+    title: "Article",
+    content: "Content...",
     authorId: "uuid..."
-); // Automaticky validované v konštruktore
+); // Automatically validated in constructor
 
 $article = $articleManager->createFromCommand($command);
 ```
 
 ---
 
-### Fáza 5: CQRS Pattern
+### Phase 5: CQRS Pattern
 
-**Problém:** Mixovanie read/write operácií.
+**Problem:** Mixing read/write operations.
 
-**Riešenie:** Command Bus + Query Bus
+**Solution:** Command Bus + Query Bus
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 application/CQRS/
 ├── CommandInterface.php
@@ -199,13 +199,13 @@ $article = $queryBus->dispatch($query);
 
 ---
 
-### Fáza 6: Actions Pattern (Refactor Controllers)
+### Phase 6: Actions Pattern (Refactor Controllers)
 
-**Problém:** MVC Controllers sú anti-pattern v DDD.
+**Problem:** MVC Controllers are an anti-pattern in DDD.
 
-**Riešenie:** Actions pattern - jedna akcia = jedna trieda
+**Solution:** Actions pattern - one action = one class
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 interfaces/HTTP/Actions/
 ├── ActionInterface.php
@@ -219,7 +219,7 @@ interfaces/HTTP/Actions/
         └── ByTagAction.php
 ```
 
-**Príklad:**
+**Example:**
 ```php
 class ShowArticleAction extends Action
 {
@@ -227,7 +227,7 @@ class ShowArticleAction extends Action
     {
         $slug = $this->param($request, 'slug');
         $article = $this->articleManager->findBySlug($slug);
-        
+
         return $this->html($this->renderer->render(...));
     }
 }
@@ -235,13 +235,13 @@ class ShowArticleAction extends Action
 
 ---
 
-### Fáza 7: Lightweight DI Container
+### Phase 7: Lightweight DI Container
 
-**Problém:** Manual dependency injection v controllers.
+**Problem:** Manual dependency injection in controllers.
 
-**Riešenie:** Auto-wiring DI Container
+**Solution:** Auto-wiring DI Container
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 infrastructure/Container/
 ├── Container.php
@@ -256,27 +256,27 @@ infrastructure/Container/
 ```
 
 **Features:**
-- Auto-wiring cez Reflection
+- Auto-wiring via Reflection
 - Singleton support
 - Service Providers pattern
 - Method injection
 
 ---
 
-### Fáza 8: Multi-Database Dispatcher
+### Phase 8: Multi-Database Dispatcher
 
-**Problém:** Potreba pracovať s viacerými SQLite databázami (cms.db, jobs.db).
+**Problem:** Need to work with multiple SQLite databases (cms.db, jobs.db).
 
-**Riešenie:** DatabaseConnectionManager
+**Solution:** DatabaseConnectionManager
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 infrastructure/Persistence/
 ├── DatabaseConnectionManager.php
 └── MultiDatabaseUnitOfWork.php
 ```
 
-**Konfigurácia:**
+**Configuration:**
 ```env
 DB_CMS=data/cms.db
 DB_JOBS=data/jobs.db
@@ -291,13 +291,13 @@ $jobsConn = $dbManager->getConnection('jobs');
 
 ---
 
-### Fáza 9: SQLite Queue System
+### Phase 9: SQLite Queue System
 
-**Problém:** Potreba async job queue pre background processing.
+**Problem:** Need async job queue for background processing.
 
-**Riešenie:** SQLite-based Queue
+**Solution:** SQLite-based Queue
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 infrastructure/Queue/
 ├── Entities/
@@ -317,7 +317,7 @@ infrastructure/Queue/
 php bin/queue-worker.php default --tries=5 --timeout=120
 ```
 
-**Tabuľky:**
+**Tables:**
 ```sql
 CREATE TABLE jobs (
     id VARCHAR(36) PRIMARY KEY,
@@ -334,29 +334,29 @@ CREATE TABLE failed_jobs (...);
 
 ---
 
-### Fáza 10: Outbox Pattern
+### Phase 10: Outbox Pattern
 
-**Problém:** Reliable event publishing - čo ak event publish zlyhá po save entity?
+**Problem:** Reliable event publishing - what if event publish fails after saving entity?
 
-**Riešenie:** Outbox Pattern - events sa ukladajú v rámci tej istej transakcie
+**Solution:** Outbox Pattern - events are saved within the same transaction
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 infrastructure/Queue/Handlers/OutboxProcessor.php
 ```
 
 **Pattern:**
 ```php
-// V rámci transakcie
+// Within transaction
 $entityManager->persist($article);
 $outboxProcessor->add('ArticleCreated', $eventData);
-// Obe sa commitnú spolu
+// Both are committed together
 
-// Background job spracuje outbox
-$outboxProcessor->process(); // Pushne events do queue
+// Background job processes outbox
+$outboxProcessor->process(); // Pushes events to queue
 ```
 
-**Tabuľka:**
+**Table:**
 ```sql
 CREATE TABLE outbox (
     id VARCHAR(36) PRIMARY KEY,
@@ -370,13 +370,13 @@ CREATE TABLE outbox (
 
 ---
 
-### Fáza 11: Saga Pattern
+### Phase 11: Saga Pattern
 
-**Problém:** Distributed transactions naprieč bounded contexts.
+**Problem:** Distributed transactions across bounded contexts.
 
-**Riešenie:** Saga Orchestrator s rollback supportom
+**Solution:** Saga Orchestrator with rollback support
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 application/Saga/
 ├── SagaStepInterface.php
@@ -401,28 +401,28 @@ try {
     // 2. Invalidate cache
     // 3. Queue notification
 } catch (SagaExecutionFailedException $e) {
-    // Automatický rollback všetkých krokov
+    // Automatic rollback of all steps
 }
 ```
 
 ---
 
-### Fáza 12: slim4-paths Integration
+### Phase 12: slim4-paths Integration
 
-**Problém:** Boj s cestami (`dirname(__DIR__, N)`) v celom projekte.
+**Problem:** Struggling with paths (`dirname(__DIR__, N)`) throughout the project.
 
-**Riešenie:** Integrovať slim4-paths priamo do jadra appky (nie ako externý balík)
+**Solution:** Integrate slim4-paths directly into the app core (not as external package)
 
-**Kroky:**
-1. Odstránené `responsive-sk/slim4-paths` z composer.json
-2. Presunuté `slim4-paths-main/src/*` do `infrastructure/Paths/`
-3. Aktualizované namespace na `Infrastructure\Paths`
-4. Vytvorený `AppPaths` singleton
+**Steps:**
+1. Removed `responsive-sk/slim4-paths` from composer.json
+2. Moved `slim4-paths-main/src/*` to `infrastructure/Paths/`
+3. Updated namespaces to `Infrastructure\Paths`
+4. Created `AppPaths` singleton
 
-**Vytvorené súbory:**
+**Created files:**
 ```
 infrastructure/Paths/
-├── Paths.php (upravený z slim4-paths)
+├── Paths.php (modified from slim4-paths)
 ├── AppPaths.php (singleton wrapper)
 ├── PresetInterface.php
 ├── PresetManager.php
@@ -434,22 +434,22 @@ infrastructure/Paths/
 **Usage:**
 ```php
 $paths = AppPaths::instance();
-$paths->data('cms.db');        // /project/data/cms.db
-$paths->templates('frontend');  // /project/interfaces/Templates/frontend
+$paths->data('cms.db');        // /project/storage/data/cms.db
+$paths->templates('frontend');  // /project/src/interfaces/Templates/frontend
 $paths->cache('templates');     // /project/storage/cache/templates
 $paths->logs('app.log');        // /project/storage/logs/app.log
 ```
 
-**Výhody:**
-- ✅ Žiadne `dirname(__DIR__, N)`
-- ✅ Centralizované cesty
-- ✅ Bezpečné path joining
-- ✅ Framework agnostic
-- ✅ Test-friendly
+**Benefits:**
+- No more `dirname(__DIR__, N)`
+- Centralized paths
+- Safe path joining
+- Framework agnostic
+- Test-friendly
 
 ---
 
-## 🏗️ Výsledná Architektúra
+## Resulting Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -491,13 +491,13 @@ $paths->logs('app.log');        // /project/storage/logs/app.log
 
 ---
 
-## 📊 Štatistiky
+## Statistics
 
-**Počet vytvorených súborov:** 80+
+**Number of created files:** 80+
 
-**Počet upravených súborov:** 30+
+**Number of modified files:** 30+
 
-**Implementované patterny:**
+**Implemented patterns:**
 1. Domain Events
 2. Repository Pattern
 3. CQRS
@@ -508,115 +508,115 @@ $paths->logs('app.log');        // /project/storage/logs/app.log
 8. Unit of Work
 9. Data Mapper
 
-**Odstránené dependency:**
+**Removed dependencies:**
 - `twig/twig`
 - `responsive-sk/slim4-paths`
 
 ---
 
-## 🎓 Kľúčové Learnings
+## Key Learnings
 
-### 1. Domain Events sú nevyhnutné
-- Umožňujú decoupled komunikáciu
-- Podpora pre event sourcing v budúcnosti
+### 1. Domain Events are essential
+- Enable decoupled communication
+- Support for event sourcing in the future
 
-### 2. CQRS sa oplatí
+### 2. CQRS is worth it
 - Clear separation of concerns
-- Read/Write optimalizácie nezávisle
+- Read/Write optimizations independently
 
-### 3. Outbox Pattern garantuje reliabilitu
-- Events sa nestratia
-- Async processing bez race conditions
+### 3. Outbox Pattern guarantees reliability
+- Events don't get lost
+- Async processing without race conditions
 
-### 4. Saga Pattern rieši distributed transactions
-- Rollback pri zlyhaní
-- Orchestrácia komplexných workflow
+### 4. Saga Pattern solves distributed transactions
+- Rollback on failure
+- Orchestration of complex workflows
 
 ### 5. Actions > Controllers
 - Single responsibility
-- Testovateľnosť
-- Žiadne MVC bloat
+- Testability
+- No MVC bloat
 
-### 6. Vlastný DI Container stačí
-- Nepotrebuješ zložitý framework
-- Auto-wiring cez Reflection
+### 6. Custom DI Container is sufficient
+- No need for complex framework
+- Auto-wiring via Reflection
 
-### 7. SQLite Queue je dostatočná
-- Pre väčšinu projektov
-- Žiadny Redis/RabbitMQ overhead
+### 7. SQLite Queue is sufficient
+- For most projects
+- No Redis/RabbitMQ overhead
 
-### 8. slim4-paths rieši bolesti s cestami
-- Žiadne `dirname(__DIR__, N)`
-- Bezpečné path joining
+### 8. slim4-paths solves path pains
+- No more `dirname(__DIR__, N)`
+- Safe path joining
 
 ---
 
-## 🚀 Ďalšie Kroky (Budúcnosť)
+## Next Steps (Future)
 
-1. **Dokončiť Admin CRUDs**
+1. **Complete Admin CRUDs**
    - Page management
    - Form builder
    - Media library
 
 2. **Testing**
-   - Unit testy pre Domain layer
-   - Integration testy pre Application services
-   - E2E testy pre HTTP endpoints
+   - Unit tests for Domain layer
+   - Integration tests for Application services
+   - E2E tests for HTTP endpoints
 
 3. **DevOps**
-   - Docker kontajner
+   - Docker container
    - GitHub Actions CI/CD
    - Deployment scripts
 
 4. **Performance**
-   - Query optimalizácie
-   - Cache stratégie
-   - OPCache konfigurácia
+   - Query optimizations
+   - Cache strategies
+   - OPCache configuration
 
 ---
 
-## 📝 Záver
+## Conclusion
 
-Tento refactor ukázal, že moderná PHP aplikácia nepotrebuje ťažké frameworky. S DDD, CQRS, a správnymi patternmi možno vytvoriť robustnú, testovateľnú a udržiavateľnú aplikáciu.
+This refactoring showed that a modern PHP application doesn't need heavy frameworks. With DDD, CQRS, and the right patterns, you can create a robust, testable, and maintainable application.
 
-**Najväčšie výhry:**
-- ✅ Žiadny Twig - native PHP templates
-- ✅ Žiadny externý DI container - vlastný lightweight
-- ✅ Žiadny Redis/RabbitMQ - SQLite queue stačí
-- ✅ Žiadne bolesti s cestami - slim4-paths v jadre
-- ✅ Clear architecture - DDD + CQRS + Sagas
+**Biggest wins:**
+- No Twig - native PHP templates
+- No external DI container - custom lightweight
+- No Redis/RabbitMQ - SQLite queue is enough
+- No path pains - slim4-paths in the core
+- Clear architecture - DDD + CQRS + Sagas
 
 ---
 
-## 📅 2026-02-28 - Final Classes & Complete Actions Migration
+## 2026-02-28 - Final Classes & Complete Actions Migration
 
 ### Final Classes Implementation
 
-**Rozhodnutie:** Všetky non-extensible triedy teraz používajú `final` keyword.
+**Decision:** All non-extensible classes now use the `final` keyword.
 
-**Dôvody:**
-1. **DDD compliance** - Domain modely nemajú byť dediteľné
-2. **Bezpečnosť** - Prevencia overrideovania business logic
-3. **Performance** - PHP optimalizuje final triedy
-4. **Predvídateľnosť** - Kompozícia nad dedičnosťou
+**Reasons:**
+1. **DDD compliance** - Domain models should not be inheritable
+2. **Security** - Prevention of business logic override
+3. **Performance** - PHP optimizes final classes
+4. **Predictability** - Composition over inheritance
 
-**Čo bolo zmenené:**
-- ✅ Domain Models (12 tried) - final
-- ✅ Value Objects (6 tried) - final
-- ✅ Domain Events (14 tried) - final
-- ✅ Actions (27+ tried) - final
-- ✅ Application Services - final
-- ✅ Repositories - final
-- ✅ Storage Providers - final
+**What was changed:**
+- Domain Models (12 classes) - final
+- Value Objects (6 classes) - final
+- Domain Events (14 classes) - final
+- Actions (27+ classes) - final
+- Application Services - final
+- Repositories - final
+- Storage Providers - final
 
-**Vytvorená dokumentácia:**
-- [FINAL_CLASSES.md](FINAL_CLASSES.md) - Komplexný sprievodca
+**Created documentation:**
+- [FINAL_CLASSES.md](FINAL_CLASSES.md) - Comprehensive guide
 
 ### Complete Actions Migration
 
-**Status:** ✅ 100% Complete - Všetky controllery migrované na Actions
+**Status:** 100% Complete - All controllers migrated to Actions
 
-**Nové Action triedy:**
+**New Action classes:**
 ```
 src/interfaces/HTTP/Actions/Admin/Article/
 ├── CreateArticleAction.php
@@ -634,47 +634,47 @@ src/interfaces/HTTP/Actions/Admin/Media/
 └── DeleteMediaAction.php
 ```
 
-**Odstránené controllery (11 súborov):**
-- ❌ Admin: ArticleController, SettingsController, MediaController, PageController, DashboardController, FormController
-- ❌ Frontend: HomeController, ArticleController, PageController, ContactController, FormController
+**Deleted controllers (11 files):**
+- Admin: ArticleController, SettingsController, MediaController, PageController, DashboardController, FormController
+- Frontend: HomeController, ArticleController, PageController, ContactController, FormController
 
-**Vytvorená dokumentácia:**
+**Created documentation:**
 - [CONTROLLER_TO_ACTIONS_MIGRATION.md](CONTROLLER_TO_ACTIONS_MIGRATION.md)
 
 ### AppPaths Cleanup
 
-**Zmena:** Databázy presunuté z `/data/` do `/storage/data/`
+**Change:** Databases moved from `/data/` to `/storage/data/`
 
-**Dôvod:** Všetky runtime dáta majú byť pod `/storage/`
+**Reason:** All runtime data should be under `/storage/`
 
-**Aktualizované:**
-- ✅ `AppPaths::data()` teraz vracia `storage/data/`
-- ✅ `.env` - `DB_CMS=cms.db` (nie `data/cms.db`)
-- ✅ `.gitignore` - `/storage/data/*.db`
+**Updated:**
+- `AppPaths::data()` now returns `storage/data/`
+- `.env` - `DB_CMS=cms.db` (not `data/cms.db`)
+- `.gitignore` - `/storage/data/*.db`
 
-**Dokumentácia:**
-- [APPPATHS_USAGE.md](APPPATHS_USAGE.md) - Aktualizovaný s novou štruktúrou
+**Documentation:**
+- [APPPATHS_USAGE.md](APPPATHS_USAGE.md) - Updated with new structure
 
 ### Acceptance Tests Setup
 
-**Stav:** ✅ Codeception Acceptance tests pripravené
+**Status:** Codeception Acceptance tests ready
 
-**Vytvorené:**
-- `tests/Acceptance.suite.yml` - Suite konfigurácia
-- `tests/Acceptance/LoginCest.php` - Login testy
-- `tests/Acceptance/AdminDashboardCest.php` - Dashboard testy
-- `tests/Acceptance/RolesCest.php` - Roles testy
-- `tests/Acceptance/PermissionsCest.php` - Permissions testy
+**Created:**
+- `tests/Acceptance.suite.yml` - Suite configuration
+- `tests/Acceptance/LoginCest.php` - Login tests
+- `tests/Acceptance/AdminDashboardCest.php` - Dashboard tests
+- `tests/Acceptance/RolesCest.php` - Roles tests
+- `tests/Acceptance/PermissionsCest.php` - Permissions tests
 
-**Nainštalované:**
+**Installed:**
 - `codeception/module-phpbrowser` ^4.0
 
-**Sprievodca:**
-- Testy pripravené pre C3 code coverage
+**Guide:**
+- Tests ready for C3 code coverage
 
 ---
 
-*Dokument vytvorený: 2026-02-27*
-*Autor: AI Assistant + User Collaboration*
+Document created: 2026-02-27
+Author: AI Assistant + User Collaboration
 
-*Posledná aktualizácia: 2026-02-28*
+Last updated: 2026-02-28

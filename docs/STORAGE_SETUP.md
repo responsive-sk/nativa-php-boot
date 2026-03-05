@@ -32,7 +32,7 @@ Or use X-Sendfile:
 ```nginx
 location /storage/ {
     alias /path/to/php-cms/storage/uploads/;
-    
+
     # Optional: Protect files
     # auth_basic "Private";
     # auth_basic_user_file /etc/nginx/.htpasswd;

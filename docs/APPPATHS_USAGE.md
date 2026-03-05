@@ -1,12 +1,12 @@
 # AppPaths Usage Guide
 
-## ✅ All Paths Now Use AppPaths
+## All Paths Now Use AppPaths
 
 All hardcoded paths (`__DIR__`, `dirname()`, `../..`) have been replaced with **AppPaths** for consistent path resolution.
 
 ---
 
-## 📁 Project Directory Structure
+## Project Directory Structure
 
 ```
 project/
@@ -14,7 +14,7 @@ project/
 │   ├── domain/                 # Domain layer
 │   ├── application/            # Application layer
 │   ├── infrastructure/         # Infrastructure layer
-│   └── interfaces/             # Interfaces layer (HTTP, CLI)
+│   └── interfaces/             # Interfaces layer
 ├── storage/                    # ALL runtime data
 │   ├── data/                   # SQLite databases
 │   │   ├── cms.db             # Main application database
@@ -26,18 +26,18 @@ project/
 └── ...
 ```
 
-### ⚠️ IMPORTANT: Database Location
+### IMPORTANT: Database Location
 
 **All SQLite databases MUST be stored in `storage/data/`:**
 
-- ✅ CORRECT: `$paths->data('cms.db')` → `/project/storage/data/cms.db`
-- ❌ WRONG: `/project/data/cms.db` (no root `data/` directory)
+- CORRECT: `$paths->data('cms.db')` → `/project/storage/data/cms.db`
+- WRONG: `/project/data/cms.db` (no root `data/` directory)
 
 The `data()` method returns `storage/data/`, NOT root `/data/`.
 
 ---
 
-## 🎯 AppPaths Methods
+## AppPaths Methods
 
 ```php
 $paths = AppPaths::instance();
@@ -73,7 +73,7 @@ $paths->cache('templates');         // /path/to/project/storage/cache/templates
 
 ---
 
-## 📝 Environment Configuration
+## Environment Configuration
 
 **.env example:**
 ```env
@@ -86,21 +86,21 @@ DB_JOBS=jobs.db        # → storage/data/jobs.db
 DB_CMS=/var/lib/php-cms/cms.db
 ```
 
-⚠️ **DO NOT use `data/cms.db`** - this would create `storage/data/data/cms.db`!
+**DO NOT use `data/cms.db`** - this would create `storage/data/data/cms.db`!
 
 ---
 
-## 🚀 Benefits
+## Benefits
 
 1. **Consistency** - All paths resolved the same way
 2. **Testability** - Easy to mock in tests
 3. **Flexibility** - Change base path in one place
-4. **No more `../../../`** - Clean, readable code
+4. **No more ../../../** - Clean, readable code
 5. **Single storage location** - All runtime data under `/storage/`
 
 ---
 
-## ⚠️ Rules
+## Rules
 
 1. **Never use** `__DIR__`, `dirname()`, `getcwd()` in application code
 2. **Always use** `AppPaths::instance()` for path resolution
@@ -110,7 +110,7 @@ DB_CMS=/var/lib/php-cms/cms.db
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # All paths should resolve correctly

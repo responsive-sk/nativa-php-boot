@@ -11,14 +11,14 @@ As of **2026-02-28**, all non-extensible classes in the project now use the `fin
 In Domain-Driven Design, domain models (Article, User, Role...) are entities with clearly defined behavior—they should not be inheritable. Inheritance could violate domain invariants.
 
 ```php
-// ✅ Good - Entity cannot be extended
+// Good - Entity cannot be extended
 final class User {
     public function isAdmin(): bool {
         return $this->role->equals(RoleVO::admin());
     }
 }
 
-// ❌ Prevented - Cannot override domain logic
+// Prevented - Cannot override domain logic
 class EvilUser extends User {  // Compilation error!
     public function isAdmin(): bool { return true; }
 }
@@ -28,7 +28,7 @@ class EvilUser extends User {  // Compilation error!
 
 The project already uses correct patterns:
 - Repository interfaces
-- Service Providers  
+- Service Providers
 - Value Objects
 
 These are signs that inheritance is not planned, so `final` makes sense.
@@ -56,14 +56,14 @@ PHP can optimize `final` classes—no vtable for virtual dispatch, faster method
 
 | Category | Final? | Reason |
 |----------|--------|--------|
-| **Domain Models** | ✅ Yes | Entity integrity |
-| **Value Objects** | ✅ Yes | Immutability |
-| **Commands/DTOs** | ✅ Yes | Data structures |
-| **Domain Events** | ✅ Yes | Event integrity |
-| **Actions** | ✅ Yes | Request handlers |
-| **Services** | ✅ Yes | Business logic |
-| **Repositories** | ✅ Yes | Data access |
-| **Abstract Classes** | ❌ No | Designed for inheritance |
+| **Domain Models** | Yes | Entity integrity |
+| **Value Objects** | Yes | Immutability |
+| **Commands/DTOs** | Yes | Data structures |
+| **Domain Events** | Yes | Event integrity |
+| **Actions** | Yes | Request handlers |
+| **Services** | Yes | Business logic |
+| **Repositories** | Yes | Data access |
+| **Abstract Classes** | No | Designed for inheritance |
 | **Interfaces** | N/A | Not applicable |
 
 ## Implementation Details
@@ -71,48 +71,48 @@ PHP can optimize `final` classes—no vtable for virtual dispatch, faster method
 ### Domain Models (12 classes)
 ```
 src/domain/Model/
-├── Article.php          ✅ final
-├── User.php             ✅ final
-├── Role.php             ✅ final
-├── Permission.php       ✅ final
-├── Page.php             ✅ final
-├── PageBlock.php        ✅ final
-├── PageMedia.php        ✅ final
-├── PageForm.php         ✅ final
-├── Media.php            ✅ final
-├── Form.php             ✅ final
-├── FormSubmission.php   ✅ final
-└── Contact.php          ✅ final
+├── Article.php          final
+├── User.php             final
+├── Role.php             final
+├── Permission.php       final
+├── Page.php             final
+├── PageBlock.php        final
+├── PageMedia.php        final
+├── PageForm.php         final
+├── Media.php            final
+├── Form.php             final
+├── FormSubmission.php   final
+└── Contact.php          final
 ```
 
 ### Value Objects (6 classes)
 ```
 src/domain/ValueObjects/
-├── Slug.php             ✅ final
-├── Email.php            ✅ final
-├── Password.php         ✅ final
-├── Role.php             ✅ final
-├── PermissionName.php   ✅ final
-└── ArticleStatus.php    ✅ final
+├── Slug.php             final
+├── Email.php            final
+├── Password.php         final
+├── Role.php             final
+├── PermissionName.php   final
+└── ArticleStatus.php    final
 ```
 
 ### Domain Events (14 classes)
 ```
 src/domain/Events/
-├── ArticleCreated.php       ✅ final
-├── ArticleUpdated.php       ✅ final
-├── ArticleDeleted.php       ✅ final
-├── ArticlePublished.php     ✅ final
-├── UserLoggedIn.php         ✅ final
-├── UserLoggedOut.php        ✅ final
-├── UserRegistered.php       ✅ final
-├── ContactSubmitted.php     ✅ final
-├── FormSubmitted.php        ✅ final
-├── PageCreated.php          ✅ final
-├── PageUpdated.php          ✅ final
-├── PasswordChanged.php      ✅ final
-├── PasswordResetRequested.php ✅ final
-└── [base classes]           ✅ final
+├── ArticleCreated.php       final
+├── ArticleUpdated.php       final
+├── ArticleDeleted.php       final
+├── ArticlePublished.php     final
+├── UserLoggedIn.php         final
+├── UserLoggedOut.php        final
+├── UserRegistered.php       final
+├── ContactSubmitted.php     final
+├── FormSubmitted.php        final
+├── PageCreated.php          final
+├── PageUpdated.php          final
+├── PasswordChanged.php      final
+├── PasswordResetRequested.php final
+└── [base classes]           final
 ```
 
 ### Actions (27+ classes)
@@ -133,7 +133,7 @@ The migration was completed in a single pass:
 # Domain Models
 sed -i 's/^class \(.*\)$/final class \1/' src/domain/Model/*.php
 
-# Value Objects  
+# Value Objects
 sed -i 's/^class \(.*\)$/final class \1/' src/domain/ValueObjects/*.php
 
 # Domain Events
@@ -161,7 +161,7 @@ vendor/bin/phpunit --testsuite Domain
 
 ### Abstract Base Classes
 ```php
-// ✅ Correct - designed for inheritance
+// Correct - designed for inheritance
 abstract class BaseRepository {
     abstract public function findById(string $id): ?object;
 }
@@ -170,7 +170,7 @@ abstract class BaseRepository {
 ### Extension Points
 If you explicitly design a class for extension, keep it non-final:
 ```php
-// ✅ Correct - plugin architecture
+// Correct - plugin architecture
 class PluginManager {
     public function loadPlugin(Plugin $plugin): void { ... }
 }
@@ -191,4 +191,4 @@ class PluginManager {
 
 ---
 
-*Last updated: 2026-02-28*
+Last updated: 2026-02-28

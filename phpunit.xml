@@ -29,10 +29,10 @@
 
     <source>
         <include>
-            <directory>domain</directory>
-            <directory>application</directory>
-            <directory>infrastructure</directory>
-            <directory>interfaces</directory>
+            <directory>src/Domain</directory>
+            <directory>src/Application</directory>
+            <directory>src/Infrastructure</directory>
+            <directory>src/Interfaces</directory>
         </include>
         <exclude>
             <directory>vendor</directory>

@@ -5,14 +5,9 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
-use Rector\TypeDeclaration\Rector\Property\AddPropertyTypeDeclarationRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedConstructorParamRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
-use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector;
-use Rector\CodeQuality\Rector\Empty_\EmptyOnNullableObjectToInstanceOfRector;
-use Rector\Php84\Rector\Property\TypedPropertyFromStrictSetUpRector;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -29,24 +24,10 @@ return RectorConfig::configure()
         SetList::NAMING,
         SetList::EARLY_RETURN,
     ])
-    ->withRules([
-        // Strict types
-        \Rector\TypeDeclaration\Rector\Class_\PropertyTypeFromStrictSetterGetterRector::class,
-        \Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictStrictCallRector::class,
-        
-        // Code Quality
-        EmptyOnNullableObjectToInstanceOfRector::class,
-        LocallyCalledStaticMethodToNonStaticRector::class,
-        
-        // Dead Code
-        RemoveUnusedConstructorParamRector::class,
-        RemoveUnusedPrivateMethodRector::class,
-        RemoveUnusedPrivatePropertyRector::class,
-    ])
     ->withSkip([
         // Skip for legacy code
-        __DIR__ . '/src/infrastructure/Paths/AppPaths.php',
-        __DIR__ . '/src/infrastructure/Persistence/DatabaseConnection.php',
+        __DIR__ . '/src/Infrastructure/Paths/AppPaths.php',
+        __DIR__ . '/src/Infrastructure/Persistence/DatabaseConnection.php',
         
         // Skip specific rules
         \Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class,

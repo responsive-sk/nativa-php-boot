@@ -14,7 +14,7 @@ bin/cms migrate
 bin/cms seed
 
 # Server
-php -S localhost:8000 router.php
+php -S localhost:8000 -t public
 ```
 
 **Admin:** http://localhost:8000/admin  
@@ -48,16 +48,6 @@ php -S localhost:8000 router.php
 - ✅ **Outbox Pattern**
 - ✅ **Saga Pattern**
 - ✅ **Native PHP Templates**
-
----
-
-## 📚 Dokumentácia
-
-- **[Full Documentation](docs/README.md)** - Kompletaná dokumentácia
-- **[Quick Start](docs/QUICK_START.md)** - Rýchly sprievodca
-- **[AppPaths Usage](docs/APPPATHS_USAGE.md)** - Path management
-- **[Actions Pattern](docs/ACTIONS_PATTERN.md)** - Actions vs Controllers
-- **[Pages CRUD](docs/PAGES_CRUD_COMPLETE.md)** - Pages návod
 
 ---
 
@@ -112,7 +102,8 @@ bin/cms migrate     # Vytvoriť tabuľky
 bin/cms seed        # Seed testovacích dát
 
 # Server
-php -S localhost:8000 router.php
+php -S localhost:8000 -t public
+```
 
 # Testing
 composer test              # Spustiť testy

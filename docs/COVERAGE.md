@@ -43,7 +43,7 @@ composer test-c3
 open tests/_output/coverage/index.html
 ```
 
-### Acceptance Tests Coverage (NEW!)
+### Acceptance Tests Coverage
 
 Acceptance tests provide real browser testing with server-side coverage:
 
@@ -98,11 +98,11 @@ coverage:
 
 | Layer | Goal | Current | Tests |
 |-------|------|---------|-------|
-| Domain | 90% | ✅ ~85% | Unit tests |
-| Application | 80% | ✅ ~75% | Unit tests |
-| Infrastructure | 70% | 🔄 ~60% | Integration tests |
-| Interfaces | 50% | 🔄 ~40% | Acceptance tests |
-| Acceptance | 100% | ✅ 100% | Login, Dashboard, Roles, Permissions |
+| Domain | 90% | ~85% | Unit tests |
+| Application | 80% | ~75% | Unit tests |
+| Infrastructure | 70% | ~60% | Integration tests |
+| Interfaces | 50% | ~40% | Acceptance tests |
+| Acceptance | 100% | 100% | Login, Dashboard, Roles, Permissions |
 
 ## Troubleshooting
 
