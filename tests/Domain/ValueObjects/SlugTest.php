@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -8,51 +8,86 @@ use Domain\ValueObjects\Slug;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @internal
- *
- * @coversNothing
+ * @covers \Domain\ValueObjects\Slug
  */
 final class SlugTest extends TestCase
 {
-    public function testValidSlug(): void
+    public function testCreateSlugFromString(): void
     {
-        $slug = new Slug('my-valid-slug');
-        self::assertSame('my-valid-slug', $slug->value());
+        $slug = Slug::fromString('Hello World');
+
+        $this->assertEquals('hello-world', (string) $slug);
     }
 
-    public function testInvalidSlug(): void
+    public function testCreateSlugWithSpecialCharacters(): void
+    {
+        $slug = Slug::fromString('Hello & World! @#$%');
+
+        $this->assertEquals('hello-world', (string) $slug);
+    }
+
+    public function testCreateSlugWithAccentedCharacters(): void
+    {
+        $slug = Slug::fromString('Ceska Kava');
+
+        $this->assertEquals('ceska-kava', (string) $slug);
+    }
+
+    public function testCreateSlugWithNumbers(): void
+    {
+        $slug = Slug::fromString('Article 123');
+
+        $this->assertEquals('article-123', (string) $slug);
+    }
+
+    public function testCreateSlugWithMultipleSpaces(): void
+    {
+        $slug = Slug::fromString('Hello    World');
+
+        $this->assertEquals('hello-world', (string) $slug);
+    }
+
+    public function testCreateSlugWithUppercase(): void
+    {
+        $slug = Slug::fromString('HELLO WORLD');
+
+        $this->assertEquals('hello-world', (string) $slug);
+    }
+
+    public function testCreateSlugWithDashes(): void
+    {
+        $slug = Slug::fromString('Hello-World-Test');
+
+        $this->assertEquals('hello-world-test', (string) $slug);
+    }
+
+    public function testCreateSlugWithUnderscores(): void
+    {
+        $slug = Slug::fromString('Hello_World_Test');
+
+        $this->assertEquals('helloworldtest', (string) $slug);
+    }
+
+    public function testValueMethod(): void
+    {
+        $slug = Slug::fromString('Test Slug');
+
+        $this->assertEquals('test-slug', $slug->value());
+    }
+
+    public function testEmptyStringCreatesEmptySlug(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Slug('Invalid Slug With Spaces');
+        $this->expectExceptionMessage('Cannot create slug from empty content');
+
+        Slug::fromString('');
     }
 
-    public function testFromStringWithSpaces(): void
+    public function testSlugWithOnlySpecialCharacters(): void
     {
-        $slug = Slug::fromString('My Article Title');
-        self::assertSame('my-article-title', $slug->value());
-    }
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot create slug from empty content');
 
-    public function testFromStringWithSpecialChars(): void
-    {
-        $slug = Slug::fromString('Article with special chars!');
-        self::assertSame('article-with-special-chars', $slug->value());
-    }
-
-    public function testFromStringWithMultipleSpaces(): void
-    {
-        $slug = Slug::fromString('Multiple   Spaces   Here');
-        self::assertSame('multiple-spaces-here', $slug->value());
-    }
-
-    public function testFromStringWithLeadingTrailingSpaces(): void
-    {
-        $slug = Slug::fromString('  Trimmed Slug  ');
-        self::assertSame('trimmed-slug', $slug->value());
-    }
-
-    public function testToString(): void
-    {
-        $slug = new Slug('test-slug');
-        self::assertSame('test-slug', (string) $slug);
+        Slug::fromString('!@#$%^&*()');
     }
 }
