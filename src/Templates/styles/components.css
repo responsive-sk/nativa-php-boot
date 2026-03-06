@@ -721,15 +721,8 @@
     display: flex;
   }
   
-  /* Mobile menu stays hidden until toggle is clicked */
-  .mobile-menu {
-    display: block;
-    position: static;
-  }
-  
-  .mobile-menu[hidden] {
-    display: none !important;
-  }
+  /* Mobile menu is hidden by default, shown via JS toggle */
+  /* Don't set display: block here - let hidden attribute control visibility */
 }
 
 /* ==========================================================================
