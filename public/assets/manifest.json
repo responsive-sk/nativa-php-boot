@@ -47,12 +47,12 @@
     ]
   },
   "design-system.js": {
-    "file": "design-system.DIRvoeuB.js",
+    "file": "design-system.CEisaQJF.js",
     "name": "design-system",
     "src": "design-system.js",
     "isEntry": true,
     "css": [
-      "design-system.CHcLvTcQ.css"
+      "design-system.CWgX3-fT.css"
     ]
   },
   "frontend/pages/about.ts": {
@@ -167,7 +167,7 @@
     "isEntry": true
   },
   "navigation-enhance.js": {
-    "file": "navigation-enhance.CxjHCwR2.js",
+    "file": "navigation-enhance.Pd3fYD9F.js",
     "name": "navigation-enhance",
     "src": "navigation-enhance.js",
     "isEntry": true,

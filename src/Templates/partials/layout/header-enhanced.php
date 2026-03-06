@@ -98,6 +98,9 @@ function isActivePage(string $currentPage, string $targetPage): string
                 </svg>
             </button>
         </div>
+        
+        <!-- Close button (X) -->
+        <button class="mobile-menu__close" aria-label="Close menu"></button>
     </div>
     <div class="mobile-menu__nav">
         <?php foreach ($menu as $item): ?>

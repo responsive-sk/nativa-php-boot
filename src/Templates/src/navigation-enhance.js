@@ -35,28 +35,49 @@ export function enhanceNavigation() {
     if (mobileMenu) {
         // Enhance mobile menu toggle behavior
         const toggle = document.querySelector('.nav-primary__mobile-toggle, .mobile-menu-btn');
+        const closeBtn = mobileMenu.querySelector('.mobile-menu__close');
         const nav = document.querySelector('.nav-primary');
+        
+        function toggleMenu() {
+            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+            const shouldBeExpanded = !isExpanded;
+            
+            toggle.setAttribute('aria-expanded', shouldBeExpanded);
+            mobileMenu.hidden = !shouldBeExpanded;
+            
+            // Add class to nav to make it fixed when menu is open
+            if (nav) {
+                nav.classList.toggle('mobile-menu-open', shouldBeExpanded);
+            }
+            
+            console.log('Mobile menu:', shouldBeExpanded ? 'opened' : 'closed');
+        }
         
         if (toggle) {
             toggle.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                const shouldBeExpanded = !isExpanded;
-                
-                toggle.setAttribute('aria-expanded', shouldBeExpanded);
-                mobileMenu.hidden = !shouldBeExpanded;
-                
-                // Add class to nav to make it fixed when menu is open
-                if (nav) {
-                    nav.classList.toggle('mobile-menu-open', shouldBeExpanded);
-                }
-                
-                console.log('Mobile menu:', shouldBeExpanded ? 'opened' : 'closed');
+                toggleMenu();
             });
         } else {
             console.warn('Mobile menu toggle button not found');
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Close the menu
+                toggle.setAttribute('aria-expanded', 'false');
+                mobileMenu.hidden = true;
+                
+                if (nav) {
+                    nav.classList.remove('mobile-menu-open');
+                }
+                
+                console.log('Mobile menu: closed via X button');
+            });
         }
         
         console.log('✅ Mobile menu enhanced');
