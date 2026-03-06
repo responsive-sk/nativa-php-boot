@@ -5,7 +5,7 @@
 /* Sans-serif variable font */
 @font-face {
   font-family: 'Sans';
-  src: url('/assets/fonts/sans-serif/font-sans-web.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/font-sans-web.woff2') format('woff2');
   font-weight: 100 900;
   font-stretch: 50% 200%;
   font-display: swap;
@@ -14,7 +14,7 @@
 /* Serif variable font */
 @font-face {
   font-family: 'Serif';
-  src: url('/assets/fonts/serif/font-serif-web.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/font-serif-web.woff2') format('woff2');
   font-weight: 100 900;
   font-stretch: 50% 200%;
   font-display: swap;
@@ -26,7 +26,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/sans-serif/open-sans-regular.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/open-sans-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -34,7 +34,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/assets/fonts/sans-serif/open-sans-bold.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/open-sans-bold.woff2') format('woff2');
 }
 
 /* Serif display fonts */
@@ -43,7 +43,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/serif/playfair-display-regular.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/playfair-display-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -51,7 +51,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/assets/fonts/serif/playfair-display-bold.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/playfair-display-bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -59,5 +59,5 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/serif/abril-fatface.woff2') format('woff2');
+  src: url('/assets/frontend/fonts/abril-fatface.woff2') format('woff2');
 }
