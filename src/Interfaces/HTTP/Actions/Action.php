@@ -7,14 +7,17 @@ namespace Interfaces\HTTP\Actions;
 use Infrastructure\Http\JsonResponse;
 use Infrastructure\Http\Request;
 use Infrastructure\Http\Response;
+use Interfaces\HTTP\View\TemplateRenderer;
 
 /**
  * Abstract Base Action.
+ *
+ * Provides common helper methods for all action controllers.
  */
 abstract class Action implements ActionInterface
 {
     /**
-     * Get request data.
+     * Get request data (POST or GET).
      */
     protected function get(Request $request, string $key, mixed $default = null): mixed
     {
@@ -26,21 +29,53 @@ abstract class Action implements ActionInterface
      */
     protected function param(Request $request, string $key, mixed $default = null): mixed
     {
-        // Check if param was added directly to attributes (new way)
         if (null !== $request->attributes($key)) {
             return $request->attributes($key);
         }
 
-        // Fallback to _route_params (old way)
         $attributes = $request->attributes();
 
         return $attributes['_route_params'][$key] ?? $default;
     }
 
     /**
+     * Check if request method is GET.
+     */
+    protected function isGet(Request $request): bool
+    {
+        return 'GET' === $request->getMethod();
+    }
+
+    /**
+     * Check if request method is POST.
+     */
+    protected function isPost(Request $request): bool
+    {
+        return 'POST' === $request->getMethod();
+    }
+
+    /**
+     * Check if request method is PUT or PATCH.
+     */
+    protected function isPutOrPatch(Request $request): bool
+    {
+        $method = $request->getMethod();
+
+        return 'PUT' === $method || 'PATCH' === $method;
+    }
+
+    /**
+     * Check if request method is DELETE.
+     */
+    protected function isDelete(Request $request): bool
+    {
+        return 'DELETE' === $request->getMethod();
+    }
+
+    /**
      * Create JSON response.
      *
-     * @psalm-param array<string, mixed> $data
+     * @param array<string, mixed> $data
      */
     protected function json(array $data, int $status = 200): Response
     {
@@ -77,5 +112,22 @@ abstract class Action implements ActionInterface
     protected function notFound(string $message = 'Not Found'): Response
     {
         return Response::notFound($message);
+    }
+
+    /**
+     * Render page template with layout.
+     *
+     * @param array<string, mixed> $data
+     */
+    protected function renderPage(
+        Request $request,
+        TemplateRenderer $renderer,
+        string $template,
+        array $data = [],
+        ?string $layout = 'frontend'
+    ): Response {
+        $content = $renderer->render($template, $data, $layout);
+
+        return $this->html($content);
     }
 }
