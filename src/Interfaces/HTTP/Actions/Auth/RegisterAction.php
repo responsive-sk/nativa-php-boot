@@ -32,7 +32,8 @@ final class RegisterAction extends Action
                 'title' => 'Register',
                 'error' => null,
                 'old'   => [],
-            ]
+            ],
+            null  // Register is standalone page, no layout
         );
     }
 
@@ -56,7 +57,7 @@ final class RegisterAction extends Action
                     'email' => $request->getRequestParam('email', ''),
                 ],
             ],
-            null,
+            null,  // Standalone page
             400
         );
     }

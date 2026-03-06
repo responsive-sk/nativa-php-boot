@@ -41,7 +41,8 @@ final class LoginAction extends Action
             [
                 'title' => 'Login',
                 'error' => null,
-            ]
+            ],
+            null  // Login is standalone page, no layout
         );
     }
 
