@@ -18,8 +18,7 @@ $toastJs = AssetHelper::js('toast');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $this->e($pageTitle) ?></title>
-    <meta name="csrf-token" content="<?= \Application\Middleware\CsrfMiddleware::getToken() ?>">
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <style>
         :root {
             --bg-primary: #ffffff;
@@ -188,8 +187,8 @@ $toastJs = AssetHelper::js('toast');
                 <div class="php-fallback article-grid">
                     <?php foreach ($articles as $article): ?>
                         <article style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <h3><?= $this->e($article['title']) ?></h3>
-                            <p><?= $this->e($article['excerpt']) ?></p>
+                            <h3><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8') ?></h3>
+                            <p><?= htmlspecialchars($article['excerpt'], ENT_QUOTES, 'UTF-8') ?></p>
                         </article>
                     <?php endforeach; ?>
                 </div>
