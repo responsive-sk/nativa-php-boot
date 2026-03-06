@@ -1,12 +1,13 @@
 <script>
-    export let articles = [];
-    export let searchQuery = '';
+    let { articles = [], searchQuery = '' } = $props();
 
-    // Reactive filter (Svelte 5)
-    $: filteredArticles = articles.filter(article =>
-        !searchQuery ||
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    // Reactive filter (Svelte 5 $derived)
+    let filteredArticles = $derived(
+        articles.filter(article =>
+            !searchQuery ||
+            article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+        )
     );
 
     function handleSearch(event) {
