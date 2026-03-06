@@ -5,8 +5,8 @@
 
 | ID | Status | Task | Created | Completed |
 |----|--------|------|---------|-----------|
-| 1 | 🔄 | Frontend Modernization — Integrate new Vite+TypeScript templates with PHP backend | 2026-03-06 | |
-| 2 | 🔄 | Map PHP pages to new frontend pages (home, blog, contact, docs, about, services, portfolio) | 2026-03-06 | |
+| 1 | ✅ | Frontend Modernization — Integrate new Vite+TypeScript templates with PHP backend | 2026-03-06 | 2026-03-06 |
+| 2 | ✅ | Map PHP pages to new frontend pages (home, blog, contact, docs, about, services, portfolio) | 2026-03-06 | 2026-03-06 |
 | 3 | ⏳ | Integrate Alpine.js and HTMX from new frontend with existing backend functionality | 2026-03-06 | |
 | 4 | ⏳ | Update controllers to use new template paths | 2026-03-06 | |
 | 5 | ⏳ | Ensure build assets (CSS, JS, fonts, images) are properly served from public/assets | 2026-03-06 | |
