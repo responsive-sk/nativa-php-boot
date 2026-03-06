@@ -3,6 +3,7 @@ import { resolve } from "path";
 import fs from "fs";
 import path from "path";
 import compression from "vite-plugin-compression2";
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 // Helper na rekurzívne kopírovanie
 function copyRecursiveSync(src: string, dest: string) {
@@ -69,6 +70,11 @@ export default defineConfig(({ mode }) => {
           'services': resolve(__dirname, 'src/frontend/pages/services.ts'),
           'pricing': resolve(__dirname, 'src/frontend/pages/pricing.ts'),
           'docs': resolve(__dirname, 'src/frontend/pages/docs.ts'),
+
+          // Svelte components
+          'article-list': resolve(__dirname, 'svelte/components/ArticleList.svelte'),
+          'contact-form': resolve(__dirname, 'svelte/components/ContactForm.svelte'),
+          'theme-toggle': resolve(__dirname, 'svelte/components/ThemeToggle.svelte'),
         },
         output: {
           entryFileNames: "[name].[hash].js",
@@ -109,6 +115,9 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
+      // Svelte plugin
+      svelte(),
+
       // Copy ONLY critical fonts and images after build
       {
         name: 'copy-assets',
@@ -202,6 +211,7 @@ export default defineConfig(({ mode }) => {
 
     optimizeDeps: {
       include: ["lit", "htmx.org"],
+      exclude: ["svelte"],
     },
   };
 });
