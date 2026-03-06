@@ -21,9 +21,9 @@ $csrfToken ??= '';
 $metaDescription ??= 'Modern PHP CMS and Blog Platform';
 
 // Use AssetHelper for production builds with hashed filenames
-$themeInitJs = AssetHelper::js('init.js');
-$cssBundle = AssetHelper::css('css.css');
-$appJs = AssetHelper::js('app.js');
+$themeInitJs = AssetHelper::js('core-init');
+$cssBundle = AssetHelper::css('core-css');
+$appJs = AssetHelper::js('core-app');
 
 // Page-specific CSS - dynamically loaded from manifest.json
 $pageSpecificCssUrl = AssetHelper::pageCss($page);

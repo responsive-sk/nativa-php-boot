@@ -205,14 +205,16 @@ final class AssetHelper
 
         // Map page names to Vite entry points (matches vite.config.ts input keys)
         $pageMap = [
-            'home'      => 'frontend/pages/home.ts',
-            'blog'      => 'frontend/pages/blog.ts',
-            'portfolio' => 'frontend/pages/portfolio.ts',
-            'contact'   => 'frontend/pages/contact.ts',
-            'docs'      => 'frontend/pages/docs.ts',
-            'services'  => 'frontend/pages/services.ts',
-            'pricing'   => 'frontend/pages/pricing.ts',
-            'not-found' => 'frontend/use-cases/not-found/not-found.css',
+            'home'      => '../vanilla/frontend/src/pages/home.ts',
+            'blog'      => '../vanilla/frontend/src/pages/blog.ts',
+            'portfolio' => '../vanilla/frontend/src/pages/portfolio.ts',
+            'contact'   => '../vanilla/frontend/src/pages/contact.ts',
+            'docs'      => '../vanilla/frontend/src/pages/docs.ts',
+            'services'  => '../vanilla/frontend/src/pages/services.ts',
+            'pricing'   => '../vanilla/frontend/src/pages/pricing.ts',
+            'about'     => '../vanilla/frontend/src/pages/about.ts',
+            'articles'  => '../vanilla/frontend/src/pages/articles.ts',
+            'not-found' => '../vanilla/frontend/src/pages/not-found.css',
         ];
 
         if (!isset($pageMap[$page])) {
