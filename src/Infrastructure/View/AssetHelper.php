@@ -45,13 +45,17 @@ final class AssetHelper
             'core-css'  => 'css.ts',
             'init.js'   => 'init.js',
             'app.js'    => 'app.ts',
+            // Svelte components
+            'article-list' => '../svelte/components/ArticleList.svelte',
+            'contact-form' => '../svelte/components/ContactForm.svelte',
+            'theme-toggle' => '../svelte/components/ThemeToggle.svelte',
         ];
 
         // Try mapped name first
         if (isset($nameMap[$asset])) {
-            $key = $nameMap[$asset];
-            if (isset($manifest[$key])) {
-                $file = $manifest[$key]['file'];
+            $manifestKey = $nameMap[$asset];
+            if (isset($manifest[$manifestKey])) {
+                $file = $manifest[$manifestKey]['file'];
 
                 return self::$assetBaseUrl . $file;
             }
