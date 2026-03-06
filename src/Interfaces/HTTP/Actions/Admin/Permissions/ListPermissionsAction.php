@@ -32,17 +32,17 @@ final class ListPermissionsAction extends Action
             $permissions = $this->permissionService->getAllPermissions();
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/permissions/index',
             [
                 'title'        => 'Permissions Management',
                 'permissions'  => $permissions,
                 'currentGroup' => $group,
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

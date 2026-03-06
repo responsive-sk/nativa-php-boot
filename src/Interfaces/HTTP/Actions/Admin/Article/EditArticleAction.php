@@ -29,17 +29,17 @@ final class EditArticleAction extends Action
             return new Response('Article not found', 404);
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/articles/edit',
             [
                 'title'   => 'Edit Article',
                 'article' => $article,
                 'error'   => null,
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     #[\Override]

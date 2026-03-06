@@ -23,13 +23,13 @@ final class CreateRoleAction extends Action
 
     public function show(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/roles/create',
             ['title' => 'Create Role', 'error' => null],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public function store(Request $request): Response
@@ -46,7 +46,9 @@ final class CreateRoleAction extends Action
 
             return $this->redirect('/admin/roles');
         } catch (\InvalidArgumentException $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/roles/create',
                 [
                     'title' => 'Create Role',
@@ -56,12 +58,13 @@ final class CreateRoleAction extends Action
                         'description' => $request->getRequestParam('description', ''),
                     ],
                 ],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         } catch (\RuntimeException $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/roles/create',
                 [
                     'title' => 'Create Role',
@@ -71,10 +74,9 @@ final class CreateRoleAction extends Action
                         'description' => $request->getRequestParam('description', ''),
                     ],
                 ],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         }
     }
 

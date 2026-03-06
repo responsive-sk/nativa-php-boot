@@ -23,13 +23,13 @@ final class CreatePermissionAction extends Action
 
     public function show(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/permissions/create',
             ['title' => 'Create Permission', 'error' => null],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public function store(Request $request): Response
@@ -54,7 +54,9 @@ final class CreatePermissionAction extends Action
 
             return $this->redirect('/admin/permissions');
         } catch (\InvalidArgumentException $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/permissions/create',
                 [
                     'title' => 'Create Permission',
@@ -65,12 +67,13 @@ final class CreatePermissionAction extends Action
                         'group'       => $request->getRequestParam('group', ''),
                     ],
                 ],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         } catch (\RuntimeException $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/permissions/create',
                 [
                     'title' => 'Create Permission',
@@ -81,10 +84,9 @@ final class CreatePermissionAction extends Action
                         'group'       => $request->getRequestParam('group', ''),
                     ],
                 ],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         }
     }
 

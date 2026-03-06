@@ -44,17 +44,18 @@ final class StoreArticleAction extends Action
 
             return $this->redirect('/admin/articles');
         } catch (\Throwable $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/articles/create',
                 [
                     'title' => 'Create Article',
                     'error' => $e->getMessage(),
                     'old'   => $data,
                 ],
-                'admin/layouts/base'
+                'admin',
+                500
             );
-
-            return $this->html($content, 500);
         }
     }
 

@@ -26,13 +26,13 @@ final class ListRolesAction extends Action
     {
         $roles = $this->roleService->getAllRoles();
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/roles/index',
             ['title' => 'Roles Management', 'roles' => $roles],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

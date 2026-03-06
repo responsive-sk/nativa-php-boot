@@ -21,13 +21,13 @@ final class CreateArticleAction extends Action
 
     public function show(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/articles/create',
             ['title' => 'Create Article', 'error' => null, 'old' => []],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     #[\Override]

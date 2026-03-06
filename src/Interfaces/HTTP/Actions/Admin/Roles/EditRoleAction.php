@@ -29,13 +29,13 @@ final class EditRoleAction extends Action
             return new Response('Role not found', 404);
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/roles/edit',
             ['title' => 'Edit Role', 'role' => $role, 'error' => null],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public function update(Request $request, string $id): Response
@@ -49,13 +49,14 @@ final class EditRoleAction extends Action
         } catch (\RuntimeException $e) {
             $role = $this->roleService->findRoleById($id);
 
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/roles/edit',
                 ['title' => 'Edit Role', 'role' => $role, 'error' => $e->getMessage()],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         }
     }
 

@@ -29,13 +29,13 @@ final class EditPermissionAction extends Action
             return new Response('Permission not found', 404);
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/permissions/edit',
             ['title' => 'Edit Permission', 'permission' => $permission, 'error' => null],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public function update(Request $request, string $id): Response
@@ -49,13 +49,14 @@ final class EditPermissionAction extends Action
         } catch (\RuntimeException $e) {
             $permission = $this->permissionService->findPermissionById($id);
 
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/permissions/edit',
                 ['title' => 'Edit Permission', 'permission' => $permission, 'error' => $e->getMessage()],
-                'admin/layouts/base'
+                'admin',
+                400
             );
-
-            return $this->html($content, 400);
         }
     }
 
