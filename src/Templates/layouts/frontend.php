@@ -43,14 +43,6 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <!-- Prevent theme flash - load theme script before CSS -->
   <script src="<?php echo $themeInitJs; ?>" defer crossorigin="anonymous"></script>
 
-  <!-- CRITICAL CSS (inlined for faster FCP) -->
-  <?php
-  $criticalCssFile = __DIR__ . '/storage/critical-css/critical.css';
-if (file_exists($criticalCssFile)) {
-    echo '<style id="critical-css">' . file_get_contents($criticalCssFile) . '</style>';
-}
-?>
-
   <!-- Shared base CSS (async loaded) -->
   <link rel="preload" href="<?php echo $cssBundle; ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="<?php echo $cssBundle; ?>"></noscript>
@@ -62,8 +54,8 @@ if (file_exists($criticalCssFile)) {
   <?php } ?>
 
   <!-- Preload critical fonts for hero (ONLY essential fonts) -->
-  <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/serif/font-serif-web.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin> -->
+  <!-- <link rel="preload" href="/assets/fonts/serif/font-serif-web.woff2" as="font" type="font/woff2" crossorigin> -->
 
 </head>
 <body>
@@ -88,17 +80,17 @@ if (file_exists($criticalCssFile)) {
 
   <!-- Page-specific JavaScript (if exists) -->
   <?php
-$pageSpecificJs = [
-    'home'      => AssetHelper::js('home'),
-    'blog'      => AssetHelper::js('blog'),
-    'portfolio' => AssetHelper::js('portfolio'),
-    'contact'   => AssetHelper::js('contact'),
-    'docs'      => AssetHelper::js('docs'),
-    'about'     => AssetHelper::js('about'),
-    'services'  => AssetHelper::js('services'),
-    'pricing'   => AssetHelper::js('pricing'),
-];
-?>
+    $pageSpecificJs = [
+        'home'      => AssetHelper::js('home'),
+        'blog'      => AssetHelper::js('blog'),
+        'portfolio' => AssetHelper::js('portfolio'),
+        'contact'   => AssetHelper::js('contact'),
+        'docs'      => AssetHelper::js('docs'),
+        'about'     => AssetHelper::js('about'),
+        'services'  => AssetHelper::js('services'),
+        'pricing'   => AssetHelper::js('pricing'),
+    ];
+  ?>
   <?php foreach ($pageSpecificJs as $pageName => $jsFile) { ?>
   <?php if (($page ?? '') === $pageName && $jsFile) { ?>
   <script type="module" src="<?php echo $jsFile; ?>" defer crossorigin="anonymous"></script>
