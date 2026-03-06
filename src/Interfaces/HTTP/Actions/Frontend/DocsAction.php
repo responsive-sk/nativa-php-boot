@@ -24,7 +24,7 @@ final class DocsAction extends Action
     public function handle(Request $request): Response
     {
         $content = $this->renderer->render(
-            'frontend/docs',
+            'pages/frontend/docs',
             [
                 'pageTitle' => 'Documentation - Nativa CMS',
                 'page'      => 'docs',
