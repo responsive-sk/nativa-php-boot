@@ -71,10 +71,10 @@ export default defineConfig(({ mode }) => {
           'pricing': resolve(__dirname, 'src/frontend/pages/pricing.ts'),
           'docs': resolve(__dirname, 'src/frontend/pages/docs.ts'),
 
-          // Svelte components
-          'article-list': resolve(__dirname, 'svelte/components/ArticleList.svelte'),
-          'contact-form': resolve(__dirname, 'svelte/components/ContactForm.svelte'),
-          'theme-toggle': resolve(__dirname, 'svelte/components/ThemeToggle.svelte'),
+          // Svelte components (direct entry points)
+          'article-list': resolve(__dirname, 'src/article-list.js'),
+          'contact-form': resolve(__dirname, 'src/contact-form.js'),
+          'theme-toggle': resolve(__dirname, 'src/theme-toggle.js'),
         },
         output: {
           entryFileNames: "[name].[hash].js",

@@ -129,30 +129,8 @@ $themeToggleJs = AssetHelper::js('theme-toggle');
         </section>
     </div>
     
-    <!-- Load Svelte components -->
-    <script type="module">
-        import ArticleList from '<?= $articleListJs ?>';
-        import ThemeToggle from '<?= $themeToggleJs ?>';
-        
-        // Initialize Theme Toggle
-        new ThemeToggle({
-            target: document.getElementById('theme-toggle-container')
-        });
-        
-        // Initialize Article List
-        const articleContainer = document.getElementById('article-list-container');
-        const articles = JSON.parse(articleContainer.dataset.articles);
-        
-        const articleList = new ArticleList({
-            target: articleContainer,
-            props: {
-                articles: articles,
-                searchQuery: ''
-            }
-        });
-        
-        console.log('✅ Svelte components loaded successfully!');
-        console.log('📄 Articles:', articles.length);
-    </script>
+    <!-- Load Svelte components (auto-mount) -->
+    <script type="module" src="<?= $articleListJs ?>"></script>
+    <script type="module" src="<?= $themeToggleJs ?>"></script>
 </body>
 </html>

@@ -1,31 +1,10 @@
 {
-  "../svelte/components/ArticleList.svelte": {
-    "file": "article-list.l0sNRNKZ.js",
-    "name": "article-list",
-    "src": "../svelte/components/ArticleList.svelte",
-    "isEntry": true
-  },
-  "../svelte/components/ContactForm.svelte": {
-    "file": "contact-form.l0sNRNKZ.js",
-    "name": "contact-form",
-    "src": "../svelte/components/ContactForm.svelte",
-    "isEntry": true
-  },
-  "../svelte/components/ThemeToggle.svelte": {
-    "file": "theme-toggle.CiZvk6OB.js",
-    "name": "theme-toggle",
-    "src": "../svelte/components/ThemeToggle.svelte",
-    "isEntry": true,
-    "imports": [
-      "_vendor-Bz4WC1_n.js"
-    ]
-  },
   "_index-BQ3NTUF8.js": {
     "file": "assets/index-BQ3NTUF8.js",
     "name": "index"
   },
-  "_vendor-Bz4WC1_n.js": {
-    "file": "assets/vendor-Bz4WC1_n.js",
+  "_vendor-CFDji9QC.js": {
+    "file": "assets/vendor-CFDji9QC.js",
     "name": "vendor"
   },
   "app.ts": {
@@ -33,6 +12,30 @@
     "name": "core-app",
     "src": "app.ts",
     "isEntry": true
+  },
+  "article-list.js": {
+    "file": "article-list.BKDvDTFJ.js",
+    "name": "article-list",
+    "src": "article-list.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-CFDji9QC.js"
+    ],
+    "css": [
+      "articles.tn0RQdqM.css"
+    ]
+  },
+  "contact-form.js": {
+    "file": "contact-form.DvDw4QkF.js",
+    "name": "contact-form",
+    "src": "contact-form.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-CFDji9QC.js"
+    ],
+    "css": [
+      "contact-form.CeGTzeuI.css"
+    ]
   },
   "css.ts": {
     "file": "core-css.MQpHx5zb.js",
@@ -153,5 +156,17 @@
     "name": "core-init",
     "src": "init.js",
     "isEntry": true
+  },
+  "theme-toggle.js": {
+    "file": "theme-toggle.p9Dd7en9.js",
+    "name": "theme-toggle",
+    "src": "theme-toggle.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-CFDji9QC.js"
+    ],
+    "css": [
+      "articles.tn0RQdqM.css"
+    ]
   }
 }
