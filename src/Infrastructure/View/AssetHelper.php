@@ -24,9 +24,9 @@ final class AssetHelper
     private static ?array $manifest = null;
 
     private static array $manifestPaths = [
-        'frontend' => '/assets/frontend/manifest.json',
-        'svelte' => '/assets/svelte/svelte-manifest.json',
-        'admin' => '/assets/admin/admin-manifest.json',
+        'frontend' => '/public/assets/frontend/manifest.json',
+        'svelte' => '/public/assets/svelte/svelte-manifest.json',
+        'admin' => '/public/assets/admin/admin-manifest.json',
     ];
 
     private static string $assetBaseUrl = '/assets/';
@@ -280,14 +280,11 @@ final class AssetHelper
             return self::$manifest;
         }
 
+        $projectRoot = \dirname(__DIR__, 3);
+
         // Try each manifest path (frontend, svelte, admin)
         foreach (self::$manifestPaths as $type => $path) {
-            $manifestPath = $_SERVER['DOCUMENT_ROOT'] . $path;
-
-            // Try alternative path if DOCUMENT_ROOT is not set or wrong
-            if (!file_exists($manifestPath)) {
-                $manifestPath = \dirname(__DIR__, 3) . '/public' . $path;
-            }
+            $manifestPath = $projectRoot . $path;
 
             if (file_exists($manifestPath)) {
                 $content = file_get_contents($manifestPath);
@@ -303,7 +300,7 @@ final class AssetHelper
         }
 
         // No manifest found
-        $paths = implode(', ', array_map(fn($p) => $_SERVER['DOCUMENT_ROOT'] . $p, self::$manifestPaths));
+        $paths = implode(', ', array_map(fn($p) => $projectRoot . $p, self::$manifestPaths));
         error_log("WARN: AssetHelper manifest.json not found at: {$paths}, using fallback mode");
         self::$manifest = [];
 
