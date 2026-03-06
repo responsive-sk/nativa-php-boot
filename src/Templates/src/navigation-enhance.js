@@ -34,13 +34,22 @@ export function enhanceNavigation() {
     
     if (mobileMenu) {
         // Enhance mobile menu toggle behavior
-        const toggle = mobileMenu.querySelector('.nav-primary__mobile-toggle');
+        const toggle = document.querySelector('.nav-primary__mobile-toggle, .mobile-menu-btn');
         if (toggle) {
-            toggle.addEventListener('click', () => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                toggle.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.hidden = isExpanded;
+                const shouldBeExpanded = !isExpanded;
+                
+                toggle.setAttribute('aria-expanded', shouldBeExpanded);
+                mobileMenu.hidden = !shouldBeExpanded;
+                
+                console.log('Mobile menu:', shouldBeExpanded ? 'opened' : 'closed');
             });
+        } else {
+            console.warn('Mobile menu toggle button not found');
         }
         
         console.log('✅ Mobile menu enhanced');
