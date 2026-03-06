@@ -52,7 +52,7 @@ final class SvelteTestAction extends Action
         return $this->renderPage(
             $request,
             $this->renderer,
-            'svelte-test',
+            'pages/svelte-test',
             ['articles' => $articles, 'pageTitle' => 'Svelte Hybrid Test'],
             null  // Standalone page
         );
