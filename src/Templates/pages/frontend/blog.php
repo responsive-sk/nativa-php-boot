@@ -16,7 +16,7 @@ $totalPages ??= 1;
 ?>
 
 <!-- Blog Hero -->
-<?php include $this->getTemplatesPath() . '/partials/hero-blog.php'; ?>
+<?php include $this->getTemplatesPath() . '/partials/hero/hero-blog.php'; ?>
 
 <!-- Main Content -->
 <main class="site-body">
