@@ -77,6 +77,10 @@ export default defineConfig(({ mode }) => {
           'theme-toggle': resolve(__dirname, 'src/theme-toggle.js'),
           'navigation': resolve(__dirname, 'src/navigation.js'),
           'toast': resolve(__dirname, 'src/toast.js'),
+          
+          // CSS entry points
+          'tokens': resolve(__dirname, 'styles/tokens.css'),
+          'components': resolve(__dirname, 'styles/components.css'),
         },
         output: {
           entryFileNames: "[name].[hash].js",
