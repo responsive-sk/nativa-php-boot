@@ -26,16 +26,16 @@ final class FormsAction extends Action
     {
         $forms = $this->formManager->findAll();
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/pages/forms/index',
             [
                 'title' => 'Forms',
                 'forms' => $forms,
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

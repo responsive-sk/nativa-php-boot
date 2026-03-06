@@ -22,12 +22,13 @@ final class DashboardAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/dashboard',
-            ['title' => 'Dashboard']
+            ['title' => 'Dashboard'],
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

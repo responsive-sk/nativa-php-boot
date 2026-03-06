@@ -45,17 +45,17 @@ final class MediaAction extends Action
     {
         $media = $this->mediaManager->findAll(50, 0);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/pages/media/index',
             [
                 'title'    => 'Media Library',
                 'media'    => $media,
                 'provider' => $this->mediaManager->getProviderName(),
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     private function upload(Request $request): Response

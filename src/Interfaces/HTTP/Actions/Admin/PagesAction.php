@@ -26,16 +26,16 @@ final class PagesAction extends Action
     {
         $pages = $this->pageManager->findAll(50, 0);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/pages/pages/index',
             [
                 'title' => 'Pages',
                 'pages' => $pages,
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

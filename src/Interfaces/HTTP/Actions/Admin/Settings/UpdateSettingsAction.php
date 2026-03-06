@@ -29,17 +29,18 @@ final class UpdateSettingsAction extends Action
             // For now, just redirect back with success
             return $this->redirect('/admin/settings');
         } catch (\Throwable $e) {
-            $content = $this->renderer->render(
+            return $this->renderPage(
+                $request,
+                $this->renderer,
                 'admin/settings/index',
                 [
                     'title'    => 'Settings',
                     'settings' => $data,
                     'error'    => $e->getMessage(),
                 ],
-                'admin/layouts/base'
+                'admin',
+                500
             );
-
-            return $this->html($content, 500);
         }
     }
 

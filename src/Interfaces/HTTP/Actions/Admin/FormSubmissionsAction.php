@@ -33,7 +33,9 @@ final class FormSubmissionsAction extends Action
         $total = $this->submissionRepository->countByFormId($formId);
         $totalPages = (int) ceil($total / $limit);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/pages/forms/submissions',
             [
                 'title'       => 'Form Submissions',
@@ -41,10 +43,8 @@ final class FormSubmissionsAction extends Action
                 'currentPage' => $page,
                 'totalPages'  => $totalPages,
             ],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self
