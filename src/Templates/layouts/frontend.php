@@ -46,10 +46,10 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <!-- CRITICAL CSS (inlined for faster FCP) -->
   <?php
   $criticalCssFile = __DIR__ . '/storage/critical-css/critical.css';
-  if (file_exists($criticalCssFile)) {
-      echo '<style id="critical-css">' . file_get_contents($criticalCssFile) . '</style>';
-  }
-  ?>
+if (file_exists($criticalCssFile)) {
+    echo '<style id="critical-css">' . file_get_contents($criticalCssFile) . '</style>';
+}
+?>
 
   <!-- Shared base CSS (async loaded) -->
   <link rel="preload" href="<?php echo $cssBundle; ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -202,22 +202,22 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
 
   <!-- Page-specific JavaScript (if exists) -->
   <?php
-  $pageSpecificJs = [
-      'home' => AssetHelper::js('home'),
-      'blog' => AssetHelper::js('blog'),
-      'portfolio' => AssetHelper::js('portfolio'),
-      'contact' => AssetHelper::js('contact'),
-      'docs' => AssetHelper::js('docs'),
-      'about' => AssetHelper::js('about'),
-      'services' => AssetHelper::js('services'),
-      'pricing' => AssetHelper::js('pricing'),
-  ];
-  ?>
-  <?php foreach ($pageSpecificJs as $pageName => $jsFile): ?>
-  <?php if (($page ?? '') === $pageName && $jsFile): ?>
+$pageSpecificJs = [
+    'home'      => AssetHelper::js('home'),
+    'blog'      => AssetHelper::js('blog'),
+    'portfolio' => AssetHelper::js('portfolio'),
+    'contact'   => AssetHelper::js('contact'),
+    'docs'      => AssetHelper::js('docs'),
+    'about'     => AssetHelper::js('about'),
+    'services'  => AssetHelper::js('services'),
+    'pricing'   => AssetHelper::js('pricing'),
+];
+?>
+  <?php foreach ($pageSpecificJs as $pageName => $jsFile) { ?>
+  <?php if (($page ?? '') === $pageName && $jsFile) { ?>
   <script type="module" src="<?php echo $jsFile; ?>" defer crossorigin="anonymous"></script>
-  <?php endif; ?>
-  <?php endforeach; ?>
+  <?php } ?>
+  <?php } ?>
 
 </body>
 </html>

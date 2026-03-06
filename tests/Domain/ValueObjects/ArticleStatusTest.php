@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\ArticleStatus
+ *
+ * @internal
  */
 final class ArticleStatusTest extends TestCase
 {
@@ -16,53 +18,53 @@ final class ArticleStatusTest extends TestCase
     {
         $status = ArticleStatus::draft();
 
-        $this->assertTrue($status->isDraft());
-        $this->assertFalse($status->isPublished());
-        $this->assertFalse($status->isArchived());
+        self::assertTrue($status->isDraft());
+        self::assertFalse($status->isPublished());
+        self::assertFalse($status->isArchived());
     }
 
     public function testCreatePublishedStatus(): void
     {
         $status = ArticleStatus::published();
 
-        $this->assertFalse($status->isDraft());
-        $this->assertTrue($status->isPublished());
-        $this->assertFalse($status->isArchived());
+        self::assertFalse($status->isDraft());
+        self::assertTrue($status->isPublished());
+        self::assertFalse($status->isArchived());
     }
 
     public function testCreateArchivedStatus(): void
     {
         $status = ArticleStatus::archived();
 
-        $this->assertFalse($status->isDraft());
-        $this->assertFalse($status->isPublished());
-        $this->assertTrue($status->isArchived());
+        self::assertFalse($status->isDraft());
+        self::assertFalse($status->isPublished());
+        self::assertTrue($status->isArchived());
     }
 
     public function testCanTransitionFromDraft(): void
     {
         $draft = ArticleStatus::draft();
 
-        $this->assertTrue($draft->canTransitionTo(ArticleStatus::published()));
-        $this->assertTrue($draft->canTransitionTo(ArticleStatus::archived()));
-        $this->assertFalse($draft->canTransitionTo(ArticleStatus::draft()));
+        self::assertTrue($draft->canTransitionTo(ArticleStatus::published()));
+        self::assertTrue($draft->canTransitionTo(ArticleStatus::archived()));
+        self::assertFalse($draft->canTransitionTo(ArticleStatus::draft()));
     }
 
     public function testCanTransitionFromPublished(): void
     {
         $published = ArticleStatus::published();
 
-        $this->assertTrue($published->canTransitionTo(ArticleStatus::archived()));
-        $this->assertFalse($published->canTransitionTo(ArticleStatus::draft()));
-        $this->assertFalse($published->canTransitionTo(ArticleStatus::published()));
+        self::assertTrue($published->canTransitionTo(ArticleStatus::archived()));
+        self::assertFalse($published->canTransitionTo(ArticleStatus::draft()));
+        self::assertFalse($published->canTransitionTo(ArticleStatus::published()));
     }
 
     public function testCanTransitionFromArchived(): void
     {
         $archived = ArticleStatus::archived();
 
-        $this->assertFalse($archived->canTransitionTo(ArticleStatus::draft()));
-        $this->assertFalse($archived->canTransitionTo(ArticleStatus::published()));
-        $this->assertFalse($archived->canTransitionTo(ArticleStatus::archived()));
+        self::assertFalse($archived->canTransitionTo(ArticleStatus::draft()));
+        self::assertFalse($archived->canTransitionTo(ArticleStatus::published()));
+        self::assertFalse($archived->canTransitionTo(ArticleStatus::archived()));
     }
 }

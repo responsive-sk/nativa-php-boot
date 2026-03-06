@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\PermissionName
+ *
+ * @internal
  */
 final class PermissionNameTest extends TestCase
 {
@@ -16,15 +18,15 @@ final class PermissionNameTest extends TestCase
     {
         $permission = PermissionName::fromString('articles.create');
 
-        $this->assertEquals('articles.create', $permission->name());
-        $this->assertEquals('articles.create', (string) $permission);
+        self::assertSame('articles.create', $permission->name());
+        self::assertSame('articles.create', (string) $permission);
     }
 
     public function testCreatePermissionNameWithMultipleLevels(): void
     {
         $permission = PermissionName::fromString('admin.articles.create');
 
-        $this->assertEquals('admin.articles.create', $permission->name());
+        self::assertSame('admin.articles.create', $permission->name());
     }
 
     public function testCreatePermissionNameWithInvalidFormat(): void
@@ -46,7 +48,7 @@ final class PermissionNameTest extends TestCase
         $permission1 = PermissionName::fromString('articles.create');
         $permission2 = PermissionName::fromString('articles.create');
 
-        $this->assertEquals($permission1->name(), $permission2->name());
+        self::assertSame($permission1->name(), $permission2->name());
     }
 
     public function testPermissionNameNotEquals(): void
@@ -54,6 +56,6 @@ final class PermissionNameTest extends TestCase
         $permission1 = PermissionName::fromString('articles.create');
         $permission2 = PermissionName::fromString('articles.delete');
 
-        $this->assertNotEquals($permission1->name(), $permission2->name());
+        self::assertNotSame($permission1->name(), $permission2->name());
     }
 }

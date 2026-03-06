@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\Password
+ *
+ * @internal
  */
 final class PasswordTest extends TestCase
 {
@@ -16,8 +18,8 @@ final class PasswordTest extends TestCase
     {
         $password = Password::fromPlain('ValidPassword123!');
 
-        $this->assertNotEmpty($password->hash());
-        $this->assertIsString($password->hash());
+        self::assertNotEmpty($password->hash());
+        self::assertIsString($password->hash());
     }
 
     public function testCreateFromHash(): void
@@ -25,21 +27,21 @@ final class PasswordTest extends TestCase
         $hash = password_hash('TestPassword123!', PASSWORD_DEFAULT);
         $password = Password::fromHash($hash);
 
-        $this->assertEquals($hash, $password->hash());
+        self::assertSame($hash, $password->hash());
     }
 
     public function testVerifyCorrectPassword(): void
     {
         $password = Password::fromPlain('CorrectPassword123!');
 
-        $this->assertTrue($password->verify('CorrectPassword123!'));
+        self::assertTrue($password->verify('CorrectPassword123!'));
     }
 
     public function testVerifyIncorrectPassword(): void
     {
         $password = Password::fromPlain('CorrectPassword123!');
 
-        $this->assertFalse($password->verify('WrongPassword456!'));
+        self::assertFalse($password->verify('WrongPassword456!'));
     }
 
     public function testNeedsRehash(): void
@@ -47,14 +49,14 @@ final class PasswordTest extends TestCase
         $password = Password::fromPlain('TestPassword123!');
 
         // Fresh hash should not need rehash
-        $this->assertFalse($password->needsRehash());
+        self::assertFalse($password->needsRehash());
     }
 
     public function testPasswordWithMinimumLength(): void
     {
         $password = Password::fromPlain('Abc12345!');
 
-        $this->assertNotEmpty($password->hash());
+        self::assertNotEmpty($password->hash());
     }
 
     public function testPasswordTooShort(): void
@@ -108,15 +110,15 @@ final class PasswordTest extends TestCase
     {
         $password = Password::fromPlain('MyStr0ngP@ss!');
 
-        $this->assertTrue($password->verify('MyStr0ngP@ss!'));
-        $this->assertFalse($password->verify('WrongPass123!'));
+        self::assertTrue($password->verify('MyStr0ngP@ss!'));
+        self::assertFalse($password->verify('WrongPass123!'));
     }
 
     public function testHashIsDifferentFromPlain(): void
     {
         $password = Password::fromPlain('TestPassword123!');
 
-        $this->assertNotEquals('TestPassword123!', $password->hash());
+        self::assertNotSame('TestPassword123!', $password->hash());
     }
 
     public function testSamePasswordProducesDifferentHashes(): void
@@ -125,10 +127,10 @@ final class PasswordTest extends TestCase
         $password2 = Password::fromPlain('SamePassword123!');
 
         // Hashes should be different due to salt
-        $this->assertNotEquals($password1->hash(), $password2->hash());
+        self::assertNotSame($password1->hash(), $password2->hash());
 
         // But both should verify correctly
-        $this->assertTrue($password1->verify('SamePassword123!'));
-        $this->assertTrue($password2->verify('SamePassword123!'));
+        self::assertTrue($password1->verify('SamePassword123!'));
+        self::assertTrue($password2->verify('SamePassword123!'));
     }
 }

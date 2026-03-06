@@ -50,7 +50,7 @@ final class CsrfMiddleware
             $_SESSION[self::TOKEN_KEY] = bin2hex(random_bytes(self::TOKEN_LENGTH));
         }
 
-        /** @var string */
+        /* @var string */
         return $_SESSION[self::TOKEN_KEY];
     }
 

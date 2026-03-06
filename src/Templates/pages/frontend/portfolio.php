@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
 /**
- * Portfolio Template - Abstract Cards + Fullscreen Gallery
+ * Portfolio Template - Abstract Cards + Fullscreen Gallery.
  *
  * @var string $pageTitle Page title
  * @var string $page Page identifier
@@ -54,7 +54,7 @@ $cloudinaryCloud = 'demo';
 <section class="portfolio-grid section">
     <div class="container">
         <div class="portfolio-grid__wrapper">
-            <?php foreach ($portfolioImages as $index => $image): ?>
+            <?php foreach ($portfolioImages as $index => $image) { ?>
             <article class="portfolio-card" data-category="<?php echo strtolower($image['category']); ?>" data-index="<?php echo $index; ?>">
                 <div class="portfolio-card__image-wrapper">
                     <img
@@ -81,7 +81,7 @@ $cloudinaryCloud = 'demo';
                     <p class="portfolio-card__category"><?php echo htmlspecialchars($image['category']); ?></p>
                 </div>
             </article>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
     </div>
 </section>

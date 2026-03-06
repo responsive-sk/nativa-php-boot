@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Application\DTOs;
 
@@ -9,31 +9,33 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Application\DTOs\LoginCommand
+ *
+ * @internal
  */
 final class LoginCommandTest extends TestCase
 {
     public function testCreateLoginCommandWithValidData(): void
     {
         $command = LoginCommand::fromArray([
-            'email' => 'test@example.com',
-            'password' => 'Password123!',
+            'email'       => 'test@example.com',
+            'password'    => 'Password123!',
             'remember_me' => false,
         ]);
 
-        $this->assertEquals('test@example.com', $command->email);
-        $this->assertEquals('Password123!', $command->password);
-        $this->assertFalse($command->rememberMe);
+        self::assertSame('test@example.com', $command->email);
+        self::assertSame('Password123!', $command->password);
+        self::assertFalse($command->rememberMe);
     }
 
     public function testCreateLoginCommandWithRememberMe(): void
     {
         $command = LoginCommand::fromArray([
-            'email' => 'test@example.com',
-            'password' => 'Password123!',
+            'email'       => 'test@example.com',
+            'password'    => 'Password123!',
             'remember_me' => true,
         ]);
 
-        $this->assertTrue($command->rememberMe);
+        self::assertTrue($command->rememberMe);
     }
 
     public function testCreateLoginCommandWithEmptyEmail(): void
@@ -42,8 +44,8 @@ final class LoginCommandTest extends TestCase
         $this->expectExceptionMessage('Invalid email address');
 
         LoginCommand::fromArray([
-            'email' => '',
-            'password' => 'Password123!',
+            'email'       => '',
+            'password'    => 'Password123!',
             'remember_me' => false,
         ]);
     }
@@ -54,8 +56,8 @@ final class LoginCommandTest extends TestCase
         $this->expectExceptionMessage('Invalid email address');
 
         LoginCommand::fromArray([
-            'email' => 'invalid-email',
-            'password' => 'Password123!',
+            'email'       => 'invalid-email',
+            'password'    => 'Password123!',
             'remember_me' => false,
         ]);
     }
@@ -65,8 +67,8 @@ final class LoginCommandTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         LoginCommand::fromArray([
-            'email' => 'test@example.com',
-            'password' => '',
+            'email'       => 'test@example.com',
+            'password'    => '',
             'remember_me' => false,
         ]);
     }
@@ -83,12 +85,12 @@ final class LoginCommandTest extends TestCase
     public function testCreateLoginCommandWithExtraFields(): void
     {
         $command = LoginCommand::fromArray([
-            'email' => 'test@example.com',
-            'password' => 'Password123!',
+            'email'       => 'test@example.com',
+            'password'    => 'Password123!',
             'remember_me' => false,
             'extra_field' => 'ignored',
         ]);
 
-        $this->assertEquals('test@example.com', $command->email);
+        self::assertSame('test@example.com', $command->email);
     }
 }

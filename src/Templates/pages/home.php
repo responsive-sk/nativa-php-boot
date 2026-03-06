@@ -3,7 +3,7 @@
 use Domain\Model\Article;
 use Interfaces\HTTP\View\TemplateRenderer;
 
-/**
+/*
  * Homepage Template - Main Content (without hero)
  * Inspired by BRAND Napa Valley design.
  *

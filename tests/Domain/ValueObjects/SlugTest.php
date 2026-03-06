@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\Slug
+ *
+ * @internal
  */
 final class SlugTest extends TestCase
 {
@@ -16,63 +18,63 @@ final class SlugTest extends TestCase
     {
         $slug = Slug::fromString('Hello World');
 
-        $this->assertEquals('hello-world', (string) $slug);
+        self::assertSame('hello-world', (string) $slug);
     }
 
     public function testCreateSlugWithSpecialCharacters(): void
     {
         $slug = Slug::fromString('Hello & World! @#$%');
 
-        $this->assertEquals('hello-world', (string) $slug);
+        self::assertSame('hello-world', (string) $slug);
     }
 
     public function testCreateSlugWithAccentedCharacters(): void
     {
         $slug = Slug::fromString('Ceska Kava');
 
-        $this->assertEquals('ceska-kava', (string) $slug);
+        self::assertSame('ceska-kava', (string) $slug);
     }
 
     public function testCreateSlugWithNumbers(): void
     {
         $slug = Slug::fromString('Article 123');
 
-        $this->assertEquals('article-123', (string) $slug);
+        self::assertSame('article-123', (string) $slug);
     }
 
     public function testCreateSlugWithMultipleSpaces(): void
     {
         $slug = Slug::fromString('Hello    World');
 
-        $this->assertEquals('hello-world', (string) $slug);
+        self::assertSame('hello-world', (string) $slug);
     }
 
     public function testCreateSlugWithUppercase(): void
     {
         $slug = Slug::fromString('HELLO WORLD');
 
-        $this->assertEquals('hello-world', (string) $slug);
+        self::assertSame('hello-world', (string) $slug);
     }
 
     public function testCreateSlugWithDashes(): void
     {
         $slug = Slug::fromString('Hello-World-Test');
 
-        $this->assertEquals('hello-world-test', (string) $slug);
+        self::assertSame('hello-world-test', (string) $slug);
     }
 
     public function testCreateSlugWithUnderscores(): void
     {
         $slug = Slug::fromString('Hello_World_Test');
 
-        $this->assertEquals('helloworldtest', (string) $slug);
+        self::assertSame('helloworldtest', (string) $slug);
     }
 
     public function testValueMethod(): void
     {
         $slug = Slug::fromString('Test Slug');
 
-        $this->assertEquals('test-slug', $slug->value());
+        self::assertSame('test-slug', $slug->value());
     }
 
     public function testEmptyStringCreatesEmptySlug(): void

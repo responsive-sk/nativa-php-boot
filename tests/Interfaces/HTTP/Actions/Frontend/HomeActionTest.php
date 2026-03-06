@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Interfaces\HTTP\Actions\Frontend;
 
@@ -14,12 +14,14 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Interfaces\HTTP\Actions\Frontend\HomeAction
+ *
+ * @internal
  */
 final class HomeActionTest extends TestCase
 {
-    private ArticleManager&MockObject $articleManager;
+    private ArticleManager & MockObject $articleManager;
 
-    private TemplateRenderer&MockObject $renderer;
+    private MockObject & TemplateRenderer $renderer;
 
     private HomeAction $action;
 
@@ -38,7 +40,7 @@ final class HomeActionTest extends TestCase
         ];
 
         $this->articleManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('listLatest')
             ->with(10)
             ->willReturn($articles);
@@ -46,7 +48,7 @@ final class HomeActionTest extends TestCase
         $expectedContent = '<html>Homepage Content</html>';
 
         $this->renderer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with(
                 'pages/frontend/home',
@@ -62,14 +64,14 @@ final class HomeActionTest extends TestCase
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expectedContent, $response->getBody()->getContents());
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame($expectedContent, $response->getBody()->getContents());
     }
 
     public function testHandleRendersWithEmptyArticles(): void
     {
         $this->articleManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('listLatest')
             ->with(10)
             ->willReturn([]);
@@ -77,13 +79,13 @@ final class HomeActionTest extends TestCase
         $expectedContent = '<html>Homepage with no articles</html>';
 
         $this->renderer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->willReturn($expectedContent);
 
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertSame(200, $response->getStatusCode());
     }
 }

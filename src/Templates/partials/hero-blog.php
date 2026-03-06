@@ -3,12 +3,11 @@
  * Blog Page Hero Section
  * Displayed at top of blog listing page.
  *
- * @var array  $categories Optional array of categories
- * @var array  $tags Optional array of popular tags
+ * @var array $categories Optional array of categories
+ * @var array $tags Optional array of popular tags
  */
-
-$categories = $categories ?? [];
-$tags = $tags ?? [];
+$categories ??= [];
+$tags ??= [];
 
 // Sample categories if none provided (from CMS)
 if (empty($categories)) {

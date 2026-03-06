@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Interfaces\HTTP\Actions\Auth;
 
@@ -15,14 +15,16 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Interfaces\HTTP\Actions\Auth\LoginAction
+ *
+ * @internal
  */
 final class LoginActionTest extends TestCase
 {
-    private AuthService&MockObject $authService;
+    private AuthService & MockObject $authService;
 
-    private SessionManager&MockObject $sessionManager;
+    private MockObject & SessionManager $sessionManager;
 
-    private TemplateRenderer&MockObject $renderer;
+    private MockObject & TemplateRenderer $renderer;
 
     private LoginAction $action;
 
@@ -41,14 +43,14 @@ final class LoginActionTest extends TestCase
     public function testShowDisplaysLoginForm(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
             ->willReturn(false);
 
         $expectedContent = '<html>Login Form</html>';
 
         $this->renderer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with('login', [
                 'title' => 'Login',
@@ -59,57 +61,57 @@ final class LoginActionTest extends TestCase
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expectedContent, $response->getBody()->getContents());
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame($expectedContent, $response->getBody()->getContents());
     }
 
     public function testShowRedirectsIfAlreadyLoggedIn(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
             ->willReturn(true);
 
         $this->renderer
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('render');
 
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/admin', $response->headers->get('Location'));
+        self::assertSame(302, $response->getStatusCode());
+        self::assertSame('/admin', $response->headers->get('Location'));
     }
 
     public function testPostSuccessfulLogin(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
             ->willReturn(false);
 
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('attempt')
             ->with(
-                $this->isInstanceOf(LoginCommand::class),
+                self::isInstanceOf(LoginCommand::class),
                 '127.0.0.1'
             )
             ->willReturn(true);
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('regenerate')
             ->with(true);
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('intended_url', '/admin')
             ->willReturn('/admin');
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('remove')
             ->with('intended_url');
 
@@ -123,25 +125,25 @@ final class LoginActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(302, $response->getStatusCode());
+        self::assertSame(302, $response->getStatusCode());
     }
 
     public function testPostWithInvalidCredentials(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
             ->willReturn(false);
 
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('attempt')
             ->willReturn(false);
 
         $expectedContent = '<html>Login Form with Error</html>';
 
         $this->renderer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with('login', [
                 'title' => 'Login',
@@ -160,33 +162,33 @@ final class LoginActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertSame(401, $response->getStatusCode());
     }
 
     public function testPostWithIntendedUrl(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
             ->willReturn(false);
 
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('attempt')
             ->willReturn(true);
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('regenerate');
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('intended_url', '/admin')
             ->willReturn('/dashboard');
 
         $this->sessionManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('remove')
             ->with('intended_url');
 
@@ -200,14 +202,14 @@ final class LoginActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/dashboard', $response->headers->get('Location'));
+        self::assertSame(302, $response->getStatusCode());
+        self::assertSame('/dashboard', $response->headers->get('Location'));
     }
 
     public function testHandleWithInvalidMethod(): void
     {
         $this->authService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('check');
 
         $request = new Request();
@@ -215,7 +217,7 @@ final class LoginActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(405, $response->getStatusCode());
-        $this->assertEquals('Method not allowed', $response->getBody()->getContents());
+        self::assertSame(405, $response->getStatusCode());
+        self::assertSame('Method not allowed', $response->getBody()->getContents());
     }
 }

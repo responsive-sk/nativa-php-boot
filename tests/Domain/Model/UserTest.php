@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\Model;
 
@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\Model\User
+ *
+ * @internal
  */
 final class UserTest extends TestCase
 {
@@ -24,10 +26,10 @@ final class UserTest extends TestCase
             role: RoleVO::user(),
         );
 
-        $this->assertEquals('John Doe', $user->name());
-        $this->assertEquals('john@example.com', (string) $user->email());
-        $this->assertFalse($user->isAdmin());
-        $this->assertTrue($user->isActive());
+        self::assertSame('John Doe', $user->name());
+        self::assertSame('john@example.com', (string) $user->email());
+        self::assertFalse($user->isAdmin());
+        self::assertTrue($user->isActive());
     }
 
     public function testCreateAdminUser(): void
@@ -39,8 +41,8 @@ final class UserTest extends TestCase
             role: RoleVO::admin(),
         );
 
-        $this->assertEquals('Admin User', $user->name());
-        $this->assertTrue($user->isAdmin());
+        self::assertSame('Admin User', $user->name());
+        self::assertTrue($user->isAdmin());
     }
 
     public function testDeactivateUser(): void
@@ -54,7 +56,7 @@ final class UserTest extends TestCase
 
         $user->deactivate();
 
-        $this->assertFalse($user->isActive());
+        self::assertFalse($user->isActive());
     }
 
     public function testActivateUser(): void
@@ -69,7 +71,7 @@ final class UserTest extends TestCase
 
         $user->activate();
 
-        $this->assertTrue($user->isActive());
+        self::assertTrue($user->isActive());
     }
 
     public function testChangePassword(): void
@@ -83,7 +85,7 @@ final class UserTest extends TestCase
 
         $user->changePassword(Password::fromPlain('NewPassword456!'));
 
-        $this->assertNotNull($user->password());
+        self::assertNotNull($user->password());
     }
 
     public function testUserIsNotAdminByDefault(): void
@@ -95,7 +97,7 @@ final class UserTest extends TestCase
             role: RoleVO::user(),
         );
 
-        $this->assertFalse($user->isAdmin());
+        self::assertFalse($user->isAdmin());
     }
 
     public function testUserHasId(): void
@@ -107,7 +109,7 @@ final class UserTest extends TestCase
             role: RoleVO::user(),
         );
 
-        $this->assertNotEmpty($user->id());
-        $this->assertIsString($user->id());
+        self::assertNotEmpty($user->id());
+        self::assertIsString($user->id());
     }
 }

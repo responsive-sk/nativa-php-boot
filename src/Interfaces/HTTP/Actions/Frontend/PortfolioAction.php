@@ -27,7 +27,7 @@ final class PortfolioAction extends Action
                 'pages/frontend/portfolio',
                 [
                     'pageTitle' => 'Portfolio',
-                    'page' => 'portfolio',
+                    'page'      => 'portfolio',
                 ],
                 'frontend'
             );

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Infrastructure\Paths;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Infrastructure\Paths\AppPaths
+ *
+ * @internal
  */
 final class AppPathsTest extends TestCase
 {
@@ -23,22 +25,22 @@ final class AppPathsTest extends TestCase
     {
         $basePath = $this->paths->getBasePath();
 
-        $this->assertNotEmpty($basePath);
-        $this->assertDirectoryExists($basePath);
+        self::assertNotEmpty($basePath);
+        self::assertDirectoryExists($basePath);
     }
 
     public function testGetBasePathEndsWithProjectName(): void
     {
         $basePath = $this->paths->getBasePath();
 
-        $this->assertStringContainsString('nativa-php-boot', $basePath);
+        self::assertStringContainsString('nativa-php-boot', $basePath);
     }
 
     public function testGetBasePathIsAbsolute(): void
     {
         $basePath = $this->paths->getBasePath();
 
-        $this->assertMatchesRegularExpression('/^\//', $basePath);
+        self::assertMatchesRegularExpression('/^\//', $basePath);
     }
 
     public function testGetInstanceReturnsSameInstance(): void
@@ -46,7 +48,7 @@ final class AppPathsTest extends TestCase
         $instance1 = AppPaths::instance();
         $instance2 = AppPaths::instance();
 
-        $this->assertSame($instance1, $instance2);
+        self::assertSame($instance1, $instance2);
     }
 
     public function testAppPathsIsSingleton(): void
@@ -54,6 +56,6 @@ final class AppPathsTest extends TestCase
         $instance1 = AppPaths::instance();
         $instance2 = AppPaths::instance();
 
-        $this->assertEquals($instance1->getBasePath(), $instance2->getBasePath());
+        self::assertSame($instance1->getBasePath(), $instance2->getBasePath());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Interfaces\HTTP\Actions\Auth;
 
@@ -12,10 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Interfaces\HTTP\Actions\Auth\LogoutAction
+ *
+ * @internal
  */
 final class LogoutActionTest extends TestCase
 {
-    private AuthService&MockObject $authService;
+    private AuthService & MockObject $authService;
 
     private LogoutAction $action;
 
@@ -28,7 +30,7 @@ final class LogoutActionTest extends TestCase
     public function testLogoutCallsAuthService(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('logout');
 
         $request = new Request();
@@ -38,27 +40,27 @@ final class LogoutActionTest extends TestCase
     public function testLogoutReturnsRedirectResponse(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('logout');
 
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/login', $response->headers->get('Location'));
+        self::assertSame(302, $response->getStatusCode());
+        self::assertSame('/login', $response->headers->get('Location'));
     }
 
     public function testLogoutClearsSessionCookie(): void
     {
         $this->authService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('logout');
 
         $request = new Request();
         $response = $this->action->handle($request);
 
         $cookies = $response->headers->get('Set-Cookie');
-        $this->assertStringContainsString('PHPSESSID', $cookies);
-        $this->assertStringContainsString('expires', $cookies);
+        self::assertStringContainsString('PHPSESSID', $cookies);
+        self::assertStringContainsString('expires', $cookies);
     }
 }

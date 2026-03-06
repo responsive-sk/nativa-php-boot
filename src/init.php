@@ -3,15 +3,27 @@
 declare(strict_types = 1);
 use Infrastructure\Env;
 
-/**
+/*
  * Application Initialization.
  *
  * Zero-dependency bootstrap for production
  * No vendor/ required!
+ *
+ * Development mode:
+ * - Loads Composer autoloader if available (dev dependencies)
  */
 
 // ============================================================================
-// 1. SIMPLE PSR-4 AUTOLOADER
+// 1. COMPOSER AUTOLOADER (development only)
+// ============================================================================
+
+// Load Composer autoloader if available (for dev dependencies like Symfony Console)
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
+
+// ============================================================================
+// 2. SIMPLE PSR-4 AUTOLOADER
 // ============================================================================
 
 spl_autoload_register(function (string $class): void {

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Interfaces\HTTP\Actions\Frontend;
 
@@ -14,14 +14,16 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Interfaces\HTTP\Actions\Frontend\ContactAction
+ *
+ * @internal
  */
 final class ContactActionTest extends TestCase
 {
-    private ContactManager&MockObject $contactManager;
+    private ContactManager & MockObject $contactManager;
 
-    private TemplateRenderer&MockObject $renderer;
+    private MockObject & TemplateRenderer $renderer;
 
-    private RateLimitMiddleware&MockObject $rateLimitMiddleware;
+    private MockObject & RateLimitMiddleware $rateLimitMiddleware;
 
     private ContactAction $action;
 
@@ -42,7 +44,7 @@ final class ContactActionTest extends TestCase
         $expectedContent = '<html>Contact Form</html>';
 
         $this->renderer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with(
                 'frontend/contact',
@@ -59,14 +61,14 @@ final class ContactActionTest extends TestCase
         $request = new Request();
         $response = $this->action->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expectedContent, $response->getBody()->getContents());
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame($expectedContent, $response->getBody()->getContents());
     }
 
     public function testSubmitSuccessfulSubmission(): void
     {
         $this->contactManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('submit')
             ->with(
                 'John Doe',
@@ -76,14 +78,14 @@ final class ContactActionTest extends TestCase
             );
 
         $this->rateLimitMiddleware
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('limitFormSubmission')
             ->willReturn(null);
 
         $expectedContent = '<div class="contact__success">Thank you for your message!</div>';
 
         $this->renderer
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('render');
 
         $request = new Request();
@@ -98,20 +100,20 @@ final class ContactActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertSame(200, $response->getStatusCode());
     }
 
     public function testSubmitWithValidationErrors(): void
     {
         $this->rateLimitMiddleware
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('limitFormSubmission')
             ->willReturn(null);
 
         $expectedContent = '<div class="contact__errors">Error</div>';
 
         $this->renderer
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('render');
 
         $request = new Request();
@@ -126,6 +128,6 @@ final class ContactActionTest extends TestCase
 
         $response = $this->action->handle($request);
 
-        $this->assertEquals(400, $response->getStatusCode());
+        self::assertSame(400, $response->getStatusCode());
     }
 }

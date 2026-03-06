@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Infrastructure\View;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Infrastructure\View\AssetHelper
+ *
+ * @internal
  */
 final class AssetHelperTest extends TestCase
 {
@@ -24,7 +26,7 @@ final class AssetHelperTest extends TestCase
 
     public function testJsMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'js'),
             'js method exists'
         );
@@ -32,7 +34,7 @@ final class AssetHelperTest extends TestCase
 
     public function testCssMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'css'),
             'css method exists'
         );
@@ -40,7 +42,7 @@ final class AssetHelperTest extends TestCase
 
     public function testAssetMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'asset'),
             'asset method exists'
         );
@@ -48,7 +50,7 @@ final class AssetHelperTest extends TestCase
 
     public function testPageCssMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'pageCss'),
             'pageCss method exists'
         );
@@ -56,7 +58,7 @@ final class AssetHelperTest extends TestCase
 
     public function testClearCacheMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'clearCache'),
             'clearCache method exists'
         );
@@ -64,7 +66,7 @@ final class AssetHelperTest extends TestCase
 
     public function testHasManifestMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'hasManifest'),
             'hasManifest method exists'
         );
@@ -72,7 +74,7 @@ final class AssetHelperTest extends TestCase
 
     public function testGetManifestMethodExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             method_exists(AssetHelper::class, 'getManifest'),
             'getManifest method exists'
         );
@@ -84,9 +86,9 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::js('app.js');
 
-        $this->assertIsString($result);
-        $this->assertNotEmpty($result);
-        $this->assertStringContainsString('.js', $result);
+        self::assertIsString($result);
+        self::assertNotEmpty($result);
+        self::assertStringContainsString('.js', $result);
     }
 
     public function testCssReturnsStringWithFallback(): void
@@ -95,9 +97,9 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::css('css.css');
 
-        $this->assertIsString($result);
-        $this->assertNotEmpty($result);
-        $this->assertStringContainsString('.css', $result);
+        self::assertIsString($result);
+        self::assertNotEmpty($result);
+        self::assertStringContainsString('.css', $result);
     }
 
     public function testAssetReturnsStringWithFallback(): void
@@ -106,8 +108,8 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::asset('image.png');
 
-        $this->assertIsString($result);
-        $this->assertNotEmpty($result);
+        self::assertIsString($result);
+        self::assertNotEmpty($result);
     }
 
     public function testPageCssReturnsNullForUnknownPage(): void
@@ -116,7 +118,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::pageCss('unknown-page');
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testPageCssReturnsStringForKnownPage(): void
@@ -126,7 +128,7 @@ final class AssetHelperTest extends TestCase
         $result = AssetHelper::pageCss('home');
 
         if (null !== $result) {
-            $this->assertIsString($result);
+            self::assertIsString($result);
         }
     }
 
@@ -136,7 +138,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::js('core-init');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testJsHandlesCoreAppMapping(): void
@@ -145,7 +147,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::js('core-app');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testJsHandlesCoreCssMapping(): void
@@ -154,7 +156,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::js('core-css');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testClearCacheResetsManifest(): void
@@ -163,7 +165,7 @@ final class AssetHelperTest extends TestCase
 
         $manifest = AssetHelper::getManifest();
 
-        $this->assertIsArray($manifest);
+        self::assertIsArray($manifest);
     }
 
     public function testHasManifestReturnsBoolean(): void
@@ -172,7 +174,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::hasManifest();
 
-        $this->assertIsBool($result);
+        self::assertIsBool($result);
     }
 
     public function testGetManifestReturnsArray(): void
@@ -181,7 +183,7 @@ final class AssetHelperTest extends TestCase
 
         $manifest = AssetHelper::getManifest();
 
-        $this->assertIsArray($manifest);
+        self::assertIsArray($manifest);
     }
 
     public function testJsAddsJsExtension(): void
@@ -190,7 +192,7 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::js('app');
 
-        $this->assertStringContainsString('.js', $result);
+        self::assertStringContainsString('.js', $result);
     }
 
     public function testCssAddsCssExtension(): void
@@ -199,14 +201,14 @@ final class AssetHelperTest extends TestCase
 
         $result = AssetHelper::css('style');
 
-        $this->assertStringContainsString('.css', $result);
+        self::assertStringContainsString('.css', $result);
     }
 
     public function testAssetHelperIsFinalClass(): void
     {
         $reflection = new \ReflectionClass(AssetHelper::class);
 
-        $this->assertTrue($reflection->isFinal());
+        self::assertTrue($reflection->isFinal());
     }
 
     public function testAssetHelperHasNoPublicMethods(): void
@@ -215,7 +217,7 @@ final class AssetHelperTest extends TestCase
 
         $methods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
 
-        $this->assertGreaterThan(0, \count($methods));
+        self::assertGreaterThan(0, \count($methods));
     }
 
     public function testMultipleJsCallsReturnConsistentResults(): void
@@ -225,7 +227,7 @@ final class AssetHelperTest extends TestCase
         $result1 = AssetHelper::js('test.js');
         $result2 = AssetHelper::js('test.js');
 
-        $this->assertEquals($result1, $result2);
+        self::assertSame($result1, $result2);
     }
 
     public function testMultipleCssCallsReturnConsistentResults(): void
@@ -235,7 +237,7 @@ final class AssetHelperTest extends TestCase
         $result1 = AssetHelper::css('test.css');
         $result2 = AssetHelper::css('test.css');
 
-        $this->assertEquals($result1, $result2);
+        self::assertSame($result1, $result2);
     }
 
     public function testPageCssForBlogPage(): void
@@ -245,8 +247,8 @@ final class AssetHelperTest extends TestCase
         $result = AssetHelper::pageCss('blog');
 
         if (null !== $result) {
-            $this->assertIsString($result);
-            $this->assertStringContainsString('.css', $result);
+            self::assertIsString($result);
+            self::assertStringContainsString('.css', $result);
         }
     }
 
@@ -257,8 +259,8 @@ final class AssetHelperTest extends TestCase
         $result = AssetHelper::pageCss('portfolio');
 
         if (null !== $result) {
-            $this->assertIsString($result);
-            $this->assertStringContainsString('.css', $result);
+            self::assertIsString($result);
+            self::assertStringContainsString('.css', $result);
         }
     }
 
@@ -269,8 +271,8 @@ final class AssetHelperTest extends TestCase
         $result = AssetHelper::pageCss('contact');
 
         if (null !== $result) {
-            $this->assertIsString($result);
-            $this->assertStringContainsString('.css', $result);
+            self::assertIsString($result);
+            self::assertStringContainsString('.css', $result);
         }
     }
 }

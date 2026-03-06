@@ -1,17 +1,16 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\Model;
 
 use Domain\Model\Article;
-use Domain\ValueObjects\ArticleStatus;
-use Domain\ValueObjects\Email;
-use Domain\ValueObjects\Slug;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\Model\Article
+ *
+ * @internal
  */
 final class ArticleTest extends TestCase
 {
@@ -23,11 +22,11 @@ final class ArticleTest extends TestCase
             authorId: 'author-123',
         );
 
-        $this->assertEquals('Test Article', $article->title());
-        $this->assertEquals('test-article', (string) $article->slug());
-        $this->assertEquals('Test content', $article->content());
-        $this->assertEquals('author-123', $article->authorId());
-        $this->assertTrue($article->status()->isDraft());
+        self::assertSame('Test Article', $article->title());
+        self::assertSame('test-article', (string) $article->slug());
+        self::assertSame('Test content', $article->content());
+        self::assertSame('author-123', $article->authorId());
+        self::assertTrue($article->status()->isDraft());
     }
 
     public function testPublishArticle(): void
@@ -40,8 +39,8 @@ final class ArticleTest extends TestCase
 
         $article->publish();
 
-        $this->assertTrue($article->status()->isPublished());
-        $this->assertNotNull($article->publishedAt());
+        self::assertTrue($article->status()->isPublished());
+        self::assertNotNull($article->publishedAt());
     }
 
     public function testUnpublishArticle(): void
@@ -55,7 +54,7 @@ final class ArticleTest extends TestCase
 
         $article->unpublish();
 
-        $this->assertTrue($article->status()->isDraft());
+        self::assertTrue($article->status()->isDraft());
     }
 
     public function testArchiveArticle(): void
@@ -69,6 +68,6 @@ final class ArticleTest extends TestCase
 
         $article->archive();
 
-        $this->assertTrue($article->status()->isArchived());
+        self::assertTrue($article->status()->isArchived());
     }
 }

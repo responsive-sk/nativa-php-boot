@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Application\Validation;
 
@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Application\Validation\Validator
+ *
+ * @internal
  */
 final class ValidatorTest extends TestCase
 {
@@ -48,9 +50,9 @@ final class ValidatorTest extends TestCase
             ], [
                 'name' => ['min:3'],
             ]);
-            $this->fail('Expected ValidationException');
+            self::fail('Expected ValidationException');
         } catch (ValidationException $e) {
-            $this->assertStringContainsString('at least 3 characters', $e->getFirstError('name'));
+            self::assertStringContainsString('at least 3 characters', $e->getFirstError('name'));
         }
     }
 
@@ -62,9 +64,9 @@ final class ValidatorTest extends TestCase
             ], [
                 'name' => ['max:10'],
             ]);
-            $this->fail('Expected ValidationException');
+            self::fail('Expected ValidationException');
         } catch (ValidationException $e) {
-            $this->assertStringContainsString('not exceed 10 characters', $e->getFirstError('name'));
+            self::assertStringContainsString('not exceed 10 characters', $e->getFirstError('name'));
         }
     }
 
@@ -189,11 +191,11 @@ final class ValidatorTest extends TestCase
                 'email' => ['email'],
             ]);
 
-            $this->fail('Expected ValidationException');
+            self::fail('Expected ValidationException');
         } catch (ValidationException $e) {
             $errors = $e->getErrors();
-            $this->assertArrayHasKey('name', $errors);
-            $this->assertArrayHasKey('email', $errors);
+            self::assertArrayHasKey('name', $errors);
+            self::assertArrayHasKey('email', $errors);
         }
     }
 
@@ -230,11 +232,11 @@ final class ValidatorTest extends TestCase
                 'username' => ['required', 'min:3', 'alpha'],
             ]);
 
-            $this->fail('Expected ValidationException');
+            self::fail('Expected ValidationException');
         } catch (ValidationException $e) {
             $errors = $e->getErrors();
             // Should fail on 'required' first
-            $this->assertContains('Username is required', $errors['username']);
+            self::assertContains('Username is required', $errors['username']);
         }
     }
 

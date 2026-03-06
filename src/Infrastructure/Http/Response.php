@@ -9,7 +9,7 @@ namespace Infrastructure\Http;
  *
  * Replaces Symfony\Component\HttpFoundation\Response
  */
-class Response
+final class Response
 {
     private string $content = '';
 

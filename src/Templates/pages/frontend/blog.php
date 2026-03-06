@@ -9,7 +9,6 @@
  * @var string $pageTitle Page title
  * @var string $page Page identifier
  */
-
 $articleList = $articles ?? [];
 $currentPage ??= 1;
 $totalPages ??= 1;

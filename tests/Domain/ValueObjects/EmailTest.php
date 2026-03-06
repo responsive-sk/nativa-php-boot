@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\Email
+ *
+ * @internal
  */
 final class EmailTest extends TestCase
 {
@@ -16,22 +18,22 @@ final class EmailTest extends TestCase
     {
         $email = Email::fromString('test@example.com');
 
-        $this->assertEquals('test@example.com', (string) $email);
-        $this->assertEquals('test@example.com', $email->value());
+        self::assertSame('test@example.com', (string) $email);
+        self::assertSame('test@example.com', $email->value());
     }
 
     public function testEmailWithPlusAddressing(): void
     {
         $email = Email::fromString('test+tag@example.com');
 
-        $this->assertEquals('test+tag@example.com', (string) $email);
+        self::assertSame('test+tag@example.com', (string) $email);
     }
 
     public function testEmailWithSubdomain(): void
     {
         $email = Email::fromString('user@mail.example.com');
 
-        $this->assertEquals('user@mail.example.com', (string) $email);
+        self::assertSame('user@mail.example.com', (string) $email);
     }
 
     public function testInvalidEmailWithoutAt(): void
@@ -78,14 +80,14 @@ final class EmailTest extends TestCase
     {
         $email = Email::fromString('TEST@EXAMPLE.COM');
 
-        $this->assertEquals('TEST@EXAMPLE.COM', (string) $email);
+        self::assertSame('TEST@EXAMPLE.COM', (string) $email);
     }
 
     public function testEmailWithValidTld(): void
     {
         $email = Email::fromString('user@example.io');
 
-        $this->assertEquals('user@example.io', (string) $email);
+        self::assertSame('user@example.io', (string) $email);
     }
 
     public function testEmailWithNumericDomain(): void

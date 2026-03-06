@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\ValueObjects;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\ValueObjects\Role
+ *
+ * @internal
  */
 final class RoleTest extends TestCase
 {
@@ -16,89 +18,89 @@ final class RoleTest extends TestCase
     {
         $role = Role::admin();
 
-        $this->assertEquals('admin', $role->name());
-        $this->assertTrue($role->isAdmin());
-        $this->assertFalse($role->isEditor());
-        $this->assertFalse($role->isViewer());
-        $this->assertFalse($role->isUser());
+        self::assertSame('admin', $role->name());
+        self::assertTrue($role->isAdmin());
+        self::assertFalse($role->isEditor());
+        self::assertFalse($role->isViewer());
+        self::assertFalse($role->isUser());
     }
 
     public function testCreateEditorRole(): void
     {
         $role = Role::editor();
 
-        $this->assertEquals('editor', $role->name());
-        $this->assertFalse($role->isAdmin());
-        $this->assertTrue($role->isEditor());
-        $this->assertFalse($role->isViewer());
-        $this->assertFalse($role->isUser());
+        self::assertSame('editor', $role->name());
+        self::assertFalse($role->isAdmin());
+        self::assertTrue($role->isEditor());
+        self::assertFalse($role->isViewer());
+        self::assertFalse($role->isUser());
     }
 
     public function testCreateViewerRole(): void
     {
         $role = Role::viewer();
 
-        $this->assertEquals('viewer', $role->name());
-        $this->assertFalse($role->isAdmin());
-        $this->assertFalse($role->isEditor());
-        $this->assertTrue($role->isViewer());
-        $this->assertFalse($role->isUser());
+        self::assertSame('viewer', $role->name());
+        self::assertFalse($role->isAdmin());
+        self::assertFalse($role->isEditor());
+        self::assertTrue($role->isViewer());
+        self::assertFalse($role->isUser());
     }
 
     public function testCreateUserRole(): void
     {
         $role = Role::user();
 
-        $this->assertEquals('user', $role->name());
-        $this->assertFalse($role->isAdmin());
-        $this->assertFalse($role->isEditor());
-        $this->assertFalse($role->isViewer());
-        $this->assertTrue($role->isUser());
+        self::assertSame('user', $role->name());
+        self::assertFalse($role->isAdmin());
+        self::assertFalse($role->isEditor());
+        self::assertFalse($role->isViewer());
+        self::assertTrue($role->isUser());
     }
 
     public function testRoleFromAdminString(): void
     {
         $role = Role::fromString('admin');
 
-        $this->assertTrue($role->isAdmin());
-        $this->assertEquals(100, $role->getLevel());
+        self::assertTrue($role->isAdmin());
+        self::assertSame(100, $role->getLevel());
     }
 
     public function testRoleFromEditorString(): void
     {
         $role = Role::fromString('editor');
 
-        $this->assertTrue($role->isEditor());
-        $this->assertEquals(50, $role->getLevel());
+        self::assertTrue($role->isEditor());
+        self::assertSame(50, $role->getLevel());
     }
 
     public function testRoleFromViewerString(): void
     {
         $role = Role::fromString('viewer');
 
-        $this->assertTrue($role->isViewer());
-        $this->assertEquals(20, $role->getLevel());
+        self::assertTrue($role->isViewer());
+        self::assertSame(20, $role->getLevel());
     }
 
     public function testRoleFromStringWithUppercase(): void
     {
         $role = Role::fromString('ADMIN');
 
-        $this->assertTrue($role->isAdmin());
+        self::assertTrue($role->isAdmin());
     }
 
     public function testRoleFromStringWithMixedCase(): void
     {
         $role = Role::fromString('EdItOr');
 
-        $this->assertTrue($role->isEditor());
+        self::assertTrue($role->isEditor());
     }
 
     public function testRoleFromStringWithWhitespace(): void
     {
         $role = Role::fromString('  user  ');
 
-        $this->assertTrue($role->isUser());
+        self::assertTrue($role->isUser());
     }
 
     public function testInvalidRoleFromString(): void
@@ -112,30 +114,30 @@ final class RoleTest extends TestCase
     {
         $admin = Role::admin();
 
-        $this->assertEquals(100, $admin->getLevel());
-        $this->assertTrue($admin->hasHigherOrEqualLevelThan(Role::editor()));
-        $this->assertTrue($admin->hasHigherOrEqualLevelThan(Role::viewer()));
-        $this->assertTrue($admin->hasHigherOrEqualLevelThan(Role::user()));
+        self::assertSame(100, $admin->getLevel());
+        self::assertTrue($admin->hasHigherOrEqualLevelThan(Role::editor()));
+        self::assertTrue($admin->hasHigherOrEqualLevelThan(Role::viewer()));
+        self::assertTrue($admin->hasHigherOrEqualLevelThan(Role::user()));
     }
 
     public function testEditorHasHigherLevelThanViewerAndUser(): void
     {
         $editor = Role::editor();
 
-        $this->assertEquals(50, $editor->getLevel());
-        $this->assertFalse($editor->hasHigherOrEqualLevelThan(Role::admin()));
-        $this->assertTrue($editor->hasHigherOrEqualLevelThan(Role::viewer()));
-        $this->assertTrue($editor->hasHigherOrEqualLevelThan(Role::user()));
+        self::assertSame(50, $editor->getLevel());
+        self::assertFalse($editor->hasHigherOrEqualLevelThan(Role::admin()));
+        self::assertTrue($editor->hasHigherOrEqualLevelThan(Role::viewer()));
+        self::assertTrue($editor->hasHigherOrEqualLevelThan(Role::user()));
     }
 
     public function testViewerHasHigherLevelThanUser(): void
     {
         $viewer = Role::viewer();
 
-        $this->assertEquals(20, $viewer->getLevel());
-        $this->assertFalse($viewer->hasHigherOrEqualLevelThan(Role::admin()));
-        $this->assertFalse($viewer->hasHigherOrEqualLevelThan(Role::editor()));
-        $this->assertTrue($viewer->hasHigherOrEqualLevelThan(Role::user()));
+        self::assertSame(20, $viewer->getLevel());
+        self::assertFalse($viewer->hasHigherOrEqualLevelThan(Role::admin()));
+        self::assertFalse($viewer->hasHigherOrEqualLevelThan(Role::editor()));
+        self::assertTrue($viewer->hasHigherOrEqualLevelThan(Role::user()));
     }
 
     public function testRoleHasEqualLevelToItself(): void
@@ -143,25 +145,25 @@ final class RoleTest extends TestCase
         $admin = Role::admin();
         $editor = Role::editor();
 
-        $this->assertTrue($admin->hasHigherOrEqualLevelThan($admin));
-        $this->assertTrue($editor->hasHigherOrEqualLevelThan($editor));
+        self::assertTrue($admin->hasHigherOrEqualLevelThan($admin));
+        self::assertTrue($editor->hasHigherOrEqualLevelThan($editor));
     }
 
     public function testUserRoleHasLowestLevel(): void
     {
         $user = Role::user();
 
-        $this->assertEquals(10, $user->getLevel());
-        $this->assertFalse($user->hasHigherOrEqualLevelThan(Role::admin()));
-        $this->assertFalse($user->hasHigherOrEqualLevelThan(Role::editor()));
-        $this->assertFalse($user->hasHigherOrEqualLevelThan(Role::viewer()));
+        self::assertSame(10, $user->getLevel());
+        self::assertFalse($user->hasHigherOrEqualLevelThan(Role::admin()));
+        self::assertFalse($user->hasHigherOrEqualLevelThan(Role::editor()));
+        self::assertFalse($user->hasHigherOrEqualLevelThan(Role::viewer()));
     }
 
     public function testRoleValue(): void
     {
-        $this->assertEquals('admin', Role::ADMIN->value);
-        $this->assertEquals('editor', Role::EDITOR->value);
-        $this->assertEquals('viewer', Role::VIEWER->value);
-        $this->assertEquals('user', Role::USER->value);
+        self::assertSame('admin', Role::ADMIN->value);
+        self::assertSame('editor', Role::EDITOR->value);
+        self::assertSame('viewer', Role::VIEWER->value);
+        self::assertSame('user', Role::USER->value);
     }
 }

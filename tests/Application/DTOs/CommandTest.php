@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Application\DTOs;
 
@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Application\DTOs\CreateArticleCommand
  * @covers \Application\DTOs\SubmitContactCommand
+ *
+ * @internal
  */
 final class CommandTest extends TestCase
 {
@@ -23,13 +25,13 @@ final class CommandTest extends TestCase
             authorId: '550e8400-e29b-41d4-a716-446655440000'
         );
 
-        $this->assertEquals('Test Article', $command->title);
-        $this->assertStringContainsString('content', $command->content);
-        $this->assertEquals('550e8400-e29b-41d4-a716-446655440000', $command->authorId);
-        $this->assertNull($command->categoryId);
-        $this->assertNull($command->excerpt);
-        $this->assertNull($command->image);
-        $this->assertNull($command->tags);
+        self::assertSame('Test Article', $command->title);
+        self::assertStringContainsString('content', $command->content);
+        self::assertSame('550e8400-e29b-41d4-a716-446655440000', $command->authorId);
+        self::assertNull($command->categoryId);
+        self::assertNull($command->excerpt);
+        self::assertNull($command->image);
+        self::assertNull($command->tags);
     }
 
     public function testCreateArticleCommandWithOptionalFields(): void
@@ -44,10 +46,10 @@ final class CommandTest extends TestCase
             tags: ['php', 'cms', 'testing']
         );
 
-        $this->assertEquals('category-123', $command->categoryId);
-        $this->assertEquals('Short excerpt', $command->excerpt);
-        $this->assertEquals('https://example.com/image.jpg', $command->image);
-        $this->assertEquals(['php', 'cms', 'testing'], $command->tags);
+        self::assertSame('category-123', $command->categoryId);
+        self::assertSame('Short excerpt', $command->excerpt);
+        self::assertSame('https://example.com/image.jpg', $command->image);
+        self::assertSame(['php', 'cms', 'testing'], $command->tags);
     }
 
     public function testCreateArticleCommandToArray(): void
@@ -64,14 +66,14 @@ final class CommandTest extends TestCase
 
         $array = $command->toArray();
 
-        $this->assertIsArray($array);
-        $this->assertEquals('Test Article', $array['title']);
-        $this->assertEquals('Valid content with more than 10 characters', $array['content']);
-        $this->assertEquals('550e8400-e29b-41d4-a716-446655440000', $array['authorId']);
-        $this->assertEquals('cat-456', $array['categoryId']);
-        $this->assertEquals('Excerpt', $array['excerpt']);
-        $this->assertEquals('https://example.com/img.jpg', $array['image']);
-        $this->assertEquals(['tag1', 'tag2'], $array['tags']);
+        self::assertIsArray($array);
+        self::assertSame('Test Article', $array['title']);
+        self::assertSame('Valid content with more than 10 characters', $array['content']);
+        self::assertSame('550e8400-e29b-41d4-a716-446655440000', $array['authorId']);
+        self::assertSame('cat-456', $array['categoryId']);
+        self::assertSame('Excerpt', $array['excerpt']);
+        self::assertSame('https://example.com/img.jpg', $array['image']);
+        self::assertSame(['tag1', 'tag2'], $array['tags']);
     }
 
     public function testCreateArticleCommandWithTitleTooShort(): void
@@ -127,10 +129,10 @@ final class CommandTest extends TestCase
             message: 'This is a test message with more than 10 characters'
         );
 
-        $this->assertEquals('John Doe', $command->name);
-        $this->assertEquals('john@example.com', $command->email);
-        $this->assertStringContainsString('test message', $command->message);
-        $this->assertNull($command->subject);
+        self::assertSame('John Doe', $command->name);
+        self::assertSame('john@example.com', $command->email);
+        self::assertStringContainsString('test message', $command->message);
+        self::assertNull($command->subject);
     }
 
     public function testSubmitContactCommandWithSubject(): void
@@ -142,7 +144,7 @@ final class CommandTest extends TestCase
             subject: 'Inquiry about services'
         );
 
-        $this->assertEquals('Inquiry about services', $command->subject);
+        self::assertSame('Inquiry about services', $command->subject);
     }
 
     public function testSubmitContactCommandWithNameTooShort(): void

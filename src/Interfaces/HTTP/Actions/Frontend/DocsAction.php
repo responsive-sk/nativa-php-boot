@@ -28,10 +28,8 @@ final class DocsAction extends Action
             [
                 'pageTitle' => 'Documentation - Nativa CMS',
                 'page'      => 'docs',
-                'isGuest'   => true,
-                'csrfToken' => '',
             ],
-            'layouts/frontend'
+            'frontend'
         );
 
         return $this->html($content);

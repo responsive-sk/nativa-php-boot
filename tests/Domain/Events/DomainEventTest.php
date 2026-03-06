@@ -1,28 +1,30 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Domain\Events;
 
 use Domain\Events\ArticleCreated;
+use Domain\Events\ArticleDeleted;
 use Domain\Events\ArticlePublished;
 use Domain\Events\ArticleUpdated;
-use Domain\Events\ArticleDeleted;
+use Domain\Events\ContactSubmitted;
+use Domain\Events\FormSubmitted;
 use Domain\Events\PageCreated;
 use Domain\Events\PageUpdated;
-use Domain\Events\FormSubmitted;
-use Domain\Events\ContactSubmitted;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Domain\Events\ArticleCreated
+ * @covers \Domain\Events\ArticleDeleted
  * @covers \Domain\Events\ArticlePublished
  * @covers \Domain\Events\ArticleUpdated
- * @covers \Domain\Events\ArticleDeleted
+ * @covers \Domain\Events\ContactSubmitted
+ * @covers \Domain\Events\FormSubmitted
  * @covers \Domain\Events\PageCreated
  * @covers \Domain\Events\PageUpdated
- * @covers \Domain\Events\FormSubmitted
- * @covers \Domain\Events\ContactSubmitted
+ *
+ * @internal
  */
 final class DomainEventTest extends TestCase
 {
@@ -35,11 +37,11 @@ final class DomainEventTest extends TestCase
             categoryId: 'category-789'
         );
 
-        $this->assertEquals('article-123', $event->articleId());
-        $this->assertEquals('Test Article', $event->title());
-        $this->assertEquals('author-456', $event->authorId());
-        $this->assertEquals('category-789', $event->categoryId());
-        $this->assertNotNull($event->occurredAt());
+        self::assertSame('article-123', $event->articleId());
+        self::assertSame('Test Article', $event->title());
+        self::assertSame('author-456', $event->authorId());
+        self::assertSame('category-789', $event->categoryId());
+        self::assertNotNull($event->occurredAt());
     }
 
     public function testArticleCreatedEventWithoutCategory(): void
@@ -50,7 +52,7 @@ final class DomainEventTest extends TestCase
             authorId: 'author-456'
         );
 
-        $this->assertNull($event->categoryId());
+        self::assertNull($event->categoryId());
     }
 
     public function testArticleCreatedPayload(): void
@@ -64,12 +66,12 @@ final class DomainEventTest extends TestCase
 
         $payload = $event->payload();
 
-        $this->assertIsArray($payload);
-        $this->assertEquals('article-123', $payload['article_id']);
-        $this->assertEquals('Test Article', $payload['title']);
-        $this->assertEquals('author-456', $payload['author_id']);
-        $this->assertEquals('category-789', $payload['category_id']);
-        $this->assertArrayHasKey('occurred_at', $payload);
+        self::assertIsArray($payload);
+        self::assertSame('article-123', $payload['article_id']);
+        self::assertSame('Test Article', $payload['title']);
+        self::assertSame('author-456', $payload['author_id']);
+        self::assertSame('category-789', $payload['category_id']);
+        self::assertArrayHasKey('occurred_at', $payload);
     }
 
     public function testArticlePublishedEvent(): void
@@ -80,9 +82,9 @@ final class DomainEventTest extends TestCase
             publishedAt: '2026-03-05 12:00:00'
         );
 
-        $this->assertEquals('article-123', $event->articleId());
-        $this->assertEquals('Published Article', $event->title());
-        $this->assertEquals('2026-03-05 12:00:00', $event->publishedAt());
+        self::assertSame('article-123', $event->articleId());
+        self::assertSame('Published Article', $event->title());
+        self::assertSame('2026-03-05 12:00:00', $event->publishedAt());
     }
 
     public function testArticlePublishedPayload(): void
@@ -95,9 +97,9 @@ final class DomainEventTest extends TestCase
 
         $payload = $event->payload();
 
-        $this->assertEquals('article-123', $payload['article_id']);
-        $this->assertEquals('Published Article', $payload['title']);
-        $this->assertEquals('2026-03-05 12:00:00', $payload['published_at']);
+        self::assertSame('article-123', $payload['article_id']);
+        self::assertSame('Published Article', $payload['title']);
+        self::assertSame('2026-03-05 12:00:00', $payload['published_at']);
     }
 
     public function testArticleUpdatedEvent(): void
@@ -108,9 +110,9 @@ final class DomainEventTest extends TestCase
             changes: ['title' => 'New Title', 'content' => 'New content']
         );
 
-        $this->assertEquals('article-123', $event->articleId());
-        $this->assertEquals('Updated Article', $event->title());
-        $this->assertIsArray($event->changes());
+        self::assertSame('article-123', $event->articleId());
+        self::assertSame('Updated Article', $event->title());
+        self::assertIsArray($event->changes());
     }
 
     public function testArticleDeletedEvent(): void
@@ -120,8 +122,8 @@ final class DomainEventTest extends TestCase
             title: 'Deleted Article'
         );
 
-        $this->assertEquals('article-123', $event->articleId());
-        $this->assertEquals('Deleted Article', $event->title());
+        self::assertSame('article-123', $event->articleId());
+        self::assertSame('Deleted Article', $event->title());
     }
 
     public function testPageCreatedEvent(): void
@@ -131,8 +133,8 @@ final class DomainEventTest extends TestCase
             title: 'Test Page'
         );
 
-        $this->assertEquals('page-123', $event->pageId());
-        $this->assertEquals('Test Page', $event->title());
+        self::assertSame('page-123', $event->pageId());
+        self::assertSame('Test Page', $event->title());
     }
 
     public function testPageUpdatedEvent(): void
@@ -142,8 +144,8 @@ final class DomainEventTest extends TestCase
             title: 'Updated Page'
         );
 
-        $this->assertEquals('page-123', $event->pageId());
-        $this->assertEquals('Updated Page', $event->title());
+        self::assertSame('page-123', $event->pageId());
+        self::assertSame('Updated Page', $event->title());
     }
 
     public function testFormSubmittedEvent(): void
@@ -155,10 +157,10 @@ final class DomainEventTest extends TestCase
             data: ['name' => 'John', 'email' => 'john@example.com']
         );
 
-        $this->assertEquals('form-123', $event->formId());
-        $this->assertEquals('Contact Form', $event->formName());
-        $this->assertEquals('submission-456', $event->submissionId());
-        $this->assertEquals(['name' => 'John', 'email' => 'john@example.com'], $event->data());
+        self::assertSame('form-123', $event->formId());
+        self::assertSame('Contact Form', $event->formName());
+        self::assertSame('submission-456', $event->submissionId());
+        self::assertSame(['name' => 'John', 'email' => 'john@example.com'], $event->data());
     }
 
     public function testContactSubmittedEvent(): void
@@ -171,11 +173,11 @@ final class DomainEventTest extends TestCase
             message: 'Test message'
         );
 
-        $this->assertEquals('contact-123', $event->contactId());
-        $this->assertEquals('John Doe', $event->name());
-        $this->assertEquals('john@example.com', $event->email());
-        $this->assertEquals('Inquiry', $event->subject());
-        $this->assertEquals('Test message', $event->message());
+        self::assertSame('contact-123', $event->contactId());
+        self::assertSame('John Doe', $event->name());
+        self::assertSame('john@example.com', $event->email());
+        self::assertSame('Inquiry', $event->subject());
+        self::assertSame('Test message', $event->message());
     }
 
     public function testContactSubmittedPayload(): void
@@ -190,10 +192,10 @@ final class DomainEventTest extends TestCase
 
         $payload = $event->payload();
 
-        $this->assertEquals('contact-123', $payload['contact_id']);
-        $this->assertEquals('John Doe', $payload['name']);
-        $this->assertEquals('john@example.com', $payload['email']);
-        $this->assertEquals('Test message', $payload['message']);
+        self::assertSame('contact-123', $payload['contact_id']);
+        self::assertSame('John Doe', $payload['name']);
+        self::assertSame('john@example.com', $payload['email']);
+        self::assertSame('Test message', $payload['message']);
     }
 
     public function testEventHasOccurredAt(): void
@@ -201,8 +203,8 @@ final class DomainEventTest extends TestCase
         $event1 = new ArticleCreated('id1', 'Title1', 'author1');
         $event2 = new ArticleCreated('id2', 'Title2', 'author2');
 
-        $this->assertNotNull($event1->occurredAt());
-        $this->assertNotNull($event2->occurredAt());
-        $this->assertIsString($event1->occurredAt());
+        self::assertNotNull($event1->occurredAt());
+        self::assertNotNull($event2->occurredAt());
+        self::assertIsString($event1->occurredAt());
     }
 }
