@@ -45,7 +45,9 @@ final class DisplayPageAction extends Action
         // Choose template based on page template setting
         $template = 'pages/' . ('default' !== $page->template() ? $page->template() : 'default');
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             $template,
             [
                 'title'  => $page->metaTitle() ?: $page->title(),
@@ -53,11 +55,8 @@ final class DisplayPageAction extends Action
                 'blocks' => $pageData['blocks'] ?? [],
                 'media'  => $pageData['media'] ?? [],
                 'forms'  => $pageData['forms'] ?? [],
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

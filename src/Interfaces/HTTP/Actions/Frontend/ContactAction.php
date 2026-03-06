@@ -39,18 +39,17 @@ final class ContactAction extends Action
 
     public function show(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'frontend/contact',
             [
                 'title'           => 'Contact Us',
                 'pageTitle'       => 'Contact',
                 'page'            => 'contact',
                 'metaDescription' => 'Get in touch with us',
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public function submit(Request $request): Response

@@ -64,16 +64,15 @@ final class DisplayFormAction extends Action
             return $this->notFound('Form not found');
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'pages/form',
             [
                 'title' => $form->name(),
                 'form'  => $form,
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     private function submit(Request $request): Response
