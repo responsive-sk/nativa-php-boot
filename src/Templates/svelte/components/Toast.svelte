@@ -1,6 +1,7 @@
 <script>
     import { notifications } from '../stores/notifications.js';
     import { fade, slide } from 'svelte/transition';
+    import { onDestroy } from 'svelte';
     
     let items;
     

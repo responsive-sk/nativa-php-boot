@@ -39,8 +39,10 @@ function createNotificationStore() {
     };
 }
 
+let notificationId = 0;
+
 function addNotification(notification) {
-    const id = Date.now();
+    const id = ++notificationId;
     const newNotification = {
         id,
         ...notification
