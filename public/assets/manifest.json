@@ -1,31 +1,4 @@
 {
-  "../styles/components.css": {
-    "file": "components.BrLBky5b.css",
-    "src": "../styles/components.css",
-    "isEntry": true,
-    "name": "components",
-    "names": [
-      "components.css"
-    ]
-  },
-  "../styles/tokens.css": {
-    "file": "articles.tn0RQdqM.css",
-    "src": "frontend/pages/articles.ts",
-    "isEntry": true,
-    "name": "tokens",
-    "names": [
-      "articles.css",
-      "contact.css",
-      "about.css",
-      "services.css",
-      "pricing.css",
-      "docs.css",
-      "article-list.css",
-      "theme-toggle.css",
-      "toast.css",
-      "tokens.css"
-    ]
-  },
   "_index-BQ3NTUF8.js": {
     "file": "assets/index-BQ3NTUF8.js",
     "name": "index"
@@ -71,6 +44,15 @@
     "isEntry": true,
     "css": [
       "core-css.D_FeLLrv.css"
+    ]
+  },
+  "design-system.js": {
+    "file": "design-system.Cj0Ahf32.js",
+    "name": "design-system",
+    "src": "design-system.js",
+    "isEntry": true,
+    "css": [
+      "design-system.BrLBky5b.css"
     ]
   },
   "frontend/pages/about.ts": {

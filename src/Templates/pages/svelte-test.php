@@ -12,8 +12,7 @@ $articleListJs = AssetHelper::js('article-list');
 $themeToggleJs = AssetHelper::js('theme-toggle');
 $navigationJs = AssetHelper::js('navigation');
 $toastJs = AssetHelper::js('toast');
-$tokensCss = AssetHelper::css('tokens');
-$componentsCss = AssetHelper::css('components');
+$designSystemCss = AssetHelper::css('design-system');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +20,7 @@ $componentsCss = AssetHelper::css('components');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
-    <link rel="stylesheet" href="<?= $tokensCss ?>">
-    <link rel="stylesheet" href="<?= $componentsCss ?>">
+    <link rel="stylesheet" href="<?= $designSystemCss ?>">
     <style>
         /* Demo page specific styles */
         .container {

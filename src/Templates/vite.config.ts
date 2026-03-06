@@ -78,9 +78,8 @@ export default defineConfig(({ mode }) => {
           'navigation': resolve(__dirname, 'src/navigation.js'),
           'toast': resolve(__dirname, 'src/toast.js'),
           
-          // CSS entry points
-          'tokens': resolve(__dirname, 'styles/tokens.css'),
-          'components': resolve(__dirname, 'styles/components.css'),
+          // Design system CSS entry point
+          'design-system': resolve(__dirname, 'src/design-system.js'),
         },
         output: {
           entryFileNames: "[name].[hash].js",
