@@ -23,7 +23,11 @@ final class AssetHelper
 {
     private static ?array $manifest = null;
 
-    private static string $manifestPath = '/assets/manifest.json';
+    private static array $manifestPaths = [
+        'frontend' => '/assets/frontend/manifest.json',
+        'svelte' => '/assets/svelte/svelte-manifest.json',
+        'admin' => '/assets/admin/admin-manifest.json',
+    ];
 
     private static string $assetBaseUrl = '/assets/';
 
@@ -274,37 +278,32 @@ final class AssetHelper
             return self::$manifest;
         }
 
-        $manifestPath = $_SERVER['DOCUMENT_ROOT'] . self::$manifestPath;
+        // Try each manifest path (frontend, svelte, admin)
+        foreach (self::$manifestPaths as $type => $path) {
+            $manifestPath = $_SERVER['DOCUMENT_ROOT'] . $path;
 
-        // Try alternative path if DOCUMENT_ROOT is not set or wrong
-        if (!file_exists($manifestPath)) {
-            $manifestPath = \dirname(__DIR__, 3) . '/public' . self::$manifestPath;
+            // Try alternative path if DOCUMENT_ROOT is not set or wrong
+            if (!file_exists($manifestPath)) {
+                $manifestPath = \dirname(__DIR__, 3) . '/public' . $path;
+            }
+
+            if (file_exists($manifestPath)) {
+                $content = file_get_contents($manifestPath);
+                if (false !== $content) {
+                    $manifest = json_decode($content, true);
+                    if (\is_array($manifest) && !empty($manifest)) {
+                        self::$manifest = $manifest;
+
+                        return self::$manifest;
+                    }
+                }
+            }
         }
 
-        if (!file_exists($manifestPath)) {
-            error_log("WARN: AssetHelper manifest.json not found at {$manifestPath}, using fallback mode");
-            self::$manifest = [];
-
-            return self::$manifest;
-        }
-
-        $content = file_get_contents($manifestPath);
-        if (false === $content) {
-            error_log("WARN: AssetHelper could not read manifest.json from {$manifestPath}");
-            self::$manifest = [];
-
-            return self::$manifest;
-        }
-
-        $manifest = json_decode($content, true);
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            error_log('WARN: AssetHelper invalid JSON in manifest.json: ' . json_last_error_msg());
-            self::$manifest = [];
-
-            return self::$manifest;
-        }
-
-        self::$manifest = $manifest;
+        // No manifest found
+        $paths = implode(', ', array_map(fn($p) => $_SERVER['DOCUMENT_ROOT'] . $p, self::$manifestPaths));
+        error_log("WARN: AssetHelper manifest.json not found at: {$paths}, using fallback mode");
+        self::$manifest = [];
 
         return self::$manifest;
     }
