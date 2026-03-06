@@ -33,7 +33,7 @@ final class ByTagAction extends Action
                 'articles' => $articles,
                 'title'    => 'Articles tagged: ' . htmlspecialchars($slug),
             ],
-            'layouts/base'
+            'frontend'
         );
 
         return $this->html($content);

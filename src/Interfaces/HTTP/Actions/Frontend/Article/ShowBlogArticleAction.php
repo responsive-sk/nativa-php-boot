@@ -49,7 +49,7 @@ final class ShowBlogArticleAction extends Action
                 'page'            => 'blog',
                 'metaDescription' => $article->excerpt() ?: substr(strip_tags($article->content()), 0, 160),
             ],
-            'frontend/layouts/frontend'
+            'frontend'
         );
 
         return $this->html($content);

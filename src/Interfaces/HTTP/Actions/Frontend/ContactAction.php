@@ -47,7 +47,7 @@ final class ContactAction extends Action
                 'page'            => 'contact',
                 'metaDescription' => 'Get in touch with us',
             ],
-            'frontend/layouts/frontend'
+            'frontend'
         );
 
         return $this->html($content);

@@ -39,7 +39,7 @@ final class SearchArticlesAction extends Action
                 'title'       => 'Search results for: ' . htmlspecialchars($query),
                 'searchQuery' => $query,
             ],
-            'layouts/base'
+            'frontend'
         );
 
         return $this->html($content);

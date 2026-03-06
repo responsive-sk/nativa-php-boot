@@ -34,7 +34,7 @@ final class ShowArticleAction extends Action
         $content = $this->renderer->render(
             'pages/articles/show',
             ['article' => $article, 'title' => $article->title()],
-            'layouts/base'
+            'frontend'
         );
 
         return $this->html($content);

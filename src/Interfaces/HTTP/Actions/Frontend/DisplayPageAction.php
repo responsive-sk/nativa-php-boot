@@ -54,7 +54,7 @@ final class DisplayPageAction extends Action
                 'media'  => $pageData['media'] ?? [],
                 'forms'  => $pageData['forms'] ?? [],
             ],
-            'layouts/base'
+            'frontend'
         );
 
         return $this->html($content);

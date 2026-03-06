@@ -29,7 +29,7 @@ final class ListArticlesAction extends Action
         $content = $this->renderer->render(
             'frontend/articles/index',
             ['articles' => $articles, 'title' => 'Articles'],
-            'frontend/layouts/frontend'
+            'frontend'
         );
 
         return $this->html($content);

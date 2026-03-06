@@ -44,7 +44,7 @@ final class BlogAction extends Action
                     'page'            => 'blog',
                     'metaDescription' => 'Latest articles and insights from Nativa CMS',
                 ],
-                'layouts/frontend'
+                'frontend'
             );
 
             return $this->html($content);

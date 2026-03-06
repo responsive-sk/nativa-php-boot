@@ -70,7 +70,7 @@ final class DisplayFormAction extends Action
                 'title' => $form->name(),
                 'form'  => $form,
             ],
-            'layouts/base'
+            'frontend'
         );
 
         return $this->html($content);
