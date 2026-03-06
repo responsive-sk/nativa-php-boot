@@ -26,8 +26,9 @@ final class HomeAction extends Action
     {
         $articles = $this->articleManager->listLatest(10);
 
+        // Homepage uses full page template with header/footer included directly
         $content = $this->renderer->render(
-            'pages/frontend/home',
+            'pages/home',
             [
                 'articles'  => $articles,
                 'pageTitle' => 'Nativa CMS - Modern PHP Blog Platform',
