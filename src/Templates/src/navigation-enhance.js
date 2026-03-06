@@ -35,6 +35,8 @@ export function enhanceNavigation() {
     if (mobileMenu) {
         // Enhance mobile menu toggle behavior
         const toggle = document.querySelector('.nav-primary__mobile-toggle, .mobile-menu-btn');
+        const nav = document.querySelector('.nav-primary');
+        
         if (toggle) {
             toggle.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -45,6 +47,11 @@ export function enhanceNavigation() {
                 
                 toggle.setAttribute('aria-expanded', shouldBeExpanded);
                 mobileMenu.hidden = !shouldBeExpanded;
+                
+                // Add class to nav to make it fixed when menu is open
+                if (nav) {
+                    nav.classList.toggle('mobile-menu-open', shouldBeExpanded);
+                }
                 
                 console.log('Mobile menu:', shouldBeExpanded ? 'opened' : 'closed');
             });

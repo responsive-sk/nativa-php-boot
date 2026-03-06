@@ -400,6 +400,12 @@
   backdrop-filter: blur(10px);
 }
 
+/* Ensure nav is always visible when mobile menu is open */
+.nav-primary.mobile-menu-open {
+  position: fixed;
+  width: 100%;
+}
+
 /**
  * Nav container
  * @element nav__container, nav-primary__inner
