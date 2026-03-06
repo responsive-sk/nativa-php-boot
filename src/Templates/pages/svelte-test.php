@@ -48,8 +48,12 @@ $designSystemCss = AssetHelper::css('design-system');
     </style>
 </head>
 <body>
-    <!-- Svelte Navigation -->
-    <div id="nav-container" data-current-page="home"></div>
+    <!-- Svelte Enhanced Navigation (PHP + Svelte hybrid) -->
+    <?php 
+    $page = 'home';
+    $isGuest = true;
+    include __DIR__ . '/../partials/layout/header-enhanced.php'; 
+    ?>
     
     <div class="container">
         <header>
@@ -62,10 +66,8 @@ $designSystemCss = AssetHelper::css('design-system');
             <div class="test-info">
                 <h2>Test 1: Theme Toggle</h2>
                 <p><strong>Feature:</strong> Dark/Light mode with localStorage persistence</p>
-                <p><strong>How to test:</strong> Click the toggle in navigation</p>
+                <p><strong>How to test:</strong> Click the toggle in navigation (top right)</p>
             </div>
-            
-            <div id="theme-toggle-container"></div>
         </section>
         
         <!-- Test 2: Toast Notifications -->
@@ -134,11 +136,9 @@ $designSystemCss = AssetHelper::css('design-system');
         </section>
     </div>
     
-    <!-- Load Svelte components (auto-mount) -->
-    <script type="module" src="<?= $navigationJs ?>"></script>
-    <script type="module" src="<?= $themeToggleJs ?>"></script>
-    <script type="module" src="<?= $toastJs ?>"></script>
+    <!-- Load Svelte components -->
     <script type="module" src="<?= $articleListJs ?>"></script>
+    <script type="module" src="<?= $toastJs ?>"></script>
     
     <!-- Toast demo functions -->
     <script>
