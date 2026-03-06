@@ -43,13 +43,13 @@ final class CreatePageAction extends Action
 
     private function createForm(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'admin/pages/pages/create',
             ['title' => 'Create Page'],
-            'admin/layouts/base'
+            'admin'
         );
-
-        return $this->html($content);
     }
 
     private function store(Request $request): Response
