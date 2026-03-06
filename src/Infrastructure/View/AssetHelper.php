@@ -47,6 +47,16 @@ final class AssetHelper
             'core-init' => '../vanilla/frontend/src/init.js',
             'core-app'  => '../vanilla/frontend/src/app.ts',
             'core-css'  => '../vanilla/frontend/src/css.ts',
+            // Page-specific JS
+            'home'      => '../vanilla/frontend/src/pages/home.ts',
+            'blog'      => '../vanilla/frontend/src/pages/blog.ts',
+            'portfolio' => '../vanilla/frontend/src/pages/portfolio.ts',
+            'contact'   => '../vanilla/frontend/src/pages/contact.ts',
+            'docs'      => '../vanilla/frontend/src/pages/docs.ts',
+            'about'     => '../vanilla/frontend/src/pages/about.ts',
+            'services'  => '../vanilla/frontend/src/pages/services.ts',
+            'pricing'   => '../vanilla/frontend/src/pages/pricing.ts',
+            'articles'  => '../vanilla/frontend/src/pages/articles.ts',
             // Svelte components
             'navigation-enhance' => '../svelte/frontend/src/navigation-enhance.js',
         ];
@@ -105,55 +115,58 @@ final class AssetHelper
     {
         $manifest = self::loadManifest();
 
-        // Normalize asset name
-        $assetKey = $asset;
-
-        // Special mapping for core-* entries
-        $coreMap = [
-            'core-css'  => 'css.ts',
-            'core-app'  => 'app.ts',
-            'core-init' => 'init.js',
+        // First check nameMap
+        $nameMap = [
+            'core-init' => '../vanilla/frontend/src/init.js',
+            'core-app'  => '../vanilla/frontend/src/app.ts',
+            'core-css'  => '../vanilla/frontend/src/css.ts',
+            // Page-specific CSS
+            'home'      => '../vanilla/frontend/src/pages/home.ts',
+            'blog'      => '../vanilla/frontend/src/pages/blog.ts',
+            'portfolio' => '../vanilla/frontend/src/pages/portfolio.ts',
+            'contact'   => '../vanilla/frontend/src/pages/contact.ts',
+            'docs'      => '../vanilla/frontend/src/pages/docs.ts',
+            'about'     => '../vanilla/frontend/src/pages/about.ts',
+            'services'  => '../vanilla/frontend/src/pages/services.ts',
+            'pricing'   => '../vanilla/frontend/src/pages/pricing.ts',
+            'articles'  => '../vanilla/frontend/src/pages/articles.ts',
         ];
 
-        // Try different possible keys including use-cases paths
-        $possibleKeys = [
-            $asset,
-            $assetKey,
-            $assetKey . '.ts',
-            $assetKey . '.css',
-            $assetKey . '.js',
-            basename($asset, '.css') . '.ts',
-            basename($asset, '.css') . '.css',
-            'frontend/use-cases/' . basename($asset, '.css') . '/' . basename($asset, '.css') . '.ts',
-            'frontend/pages/' . basename($asset, '.css') . '.ts',
-        ];
-
-        // Add core mapping if applicable
-        if (isset($coreMap[$assetKey])) {
-            array_unshift($possibleKeys, $coreMap[$assetKey]);
-        }
-
-        foreach ($possibleKeys as $key) {
+        // Try mapped name first
+        if (isset($nameMap[$asset])) {
+            $key = $nameMap[$asset];
             if (isset($manifest[$key])) {
                 $entry = $manifest[$key];
-
-                // Check if this entry has CSS files
-                if (isset($entry['css']) && \is_array($entry['css']) && \count($entry['css']) > 0) {
-                    $cssFile = $entry['css'][0];
-
-                    return self::$assetBaseUrl . $cssFile;
+                
+                // Check if entry has CSS files
+                if (isset($entry['css']) && \is_array($entry['css']) && !empty($entry['css'])) {
+                    return self::$assetBaseUrl . $entry['css'][0];
                 }
+                
+                // Fallback to JS file if no CSS
+                return self::$assetBaseUrl . $entry['file'];
+            }
+        }
 
-                // If the entry itself is a CSS file
-                if (isset($entry['file']) && str_ends_with($entry['file'], '.css')) {
-                    return self::$assetBaseUrl . $entry['file'];
+        // Try different possible keys
+        $possibleKeys = [
+            $asset,
+            $asset . '.ts',
+            $asset . '.css',
+            basename($asset, '.css') . '.ts',
+        ];
+
+        foreach ($possibleKeys as $key) {
+            if (isset($manifest[$key]) && isset($manifest[$key]['css'])) {
+                $entry = $manifest[$key];
+                if (\is_array($entry['css']) && !empty($entry['css'])) {
+                    return self::$assetBaseUrl . $entry['css'][0];
                 }
             }
         }
 
         // Fallback to original asset name
         $url = self::$assetBaseUrl . $asset;
-        // Add .css extension if not present
         if (!str_ends_with($url, '.css')) {
             $url .= '.css';
         }
