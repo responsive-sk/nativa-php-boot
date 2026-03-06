@@ -53,9 +53,9 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
   <noscript><link rel="stylesheet" href="<?php echo $pageSpecificCssUrl; ?>"></noscript>
   <?php } ?>
 
-  <!-- Preload critical fonts for hero (ONLY essential fonts) -->
-  <!-- <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin> -->
-  <!-- <link rel="preload" href="/assets/fonts/serif/font-serif-web.woff2" as="font" type="font/woff2" crossorigin> -->
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="/assets/fonts/sans-serif/font-sans-web.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/serif/font-serif-web.woff2" as="font" type="font/woff2" crossorigin>
 
 </head>
 <body>
