@@ -20,17 +20,20 @@ final class RegisterAction extends Action
     ) {}
 
     /**
-     * Show login form (GET).
+     * Show register form (GET).
      */
     public function show(Request $request): Response
     {
-        $content = $this->renderer->render('pages/register', [
-            'title' => 'Register',
-            'error' => null,
-            'old'   => [],
-        ]);
-
-        return $this->html($content);
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/register',
+            [
+                'title' => 'Register',
+                'error' => null,
+                'old'   => [],
+            ]
+        );
     }
 
     /**
@@ -41,16 +44,21 @@ final class RegisterAction extends Action
         // TODO: Implement registration logic
         $error = 'Registration not implemented yet';
 
-        $content = $this->renderer->render('pages/register', [
-            'title' => 'Register',
-            'error' => $error,
-            'old'   => [
-                'name'  => $request->getRequestParam('name', ''),
-                'email' => $request->getRequestParam('email', ''),
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/register',
+            [
+                'title' => 'Register',
+                'error' => $error,
+                'old'   => [
+                    'name'  => $request->getRequestParam('name', ''),
+                    'email' => $request->getRequestParam('email', ''),
+                ],
             ],
-        ]);
-
-        return $this->html($content, 400);
+            null,
+            400
+        );
     }
 
     /**

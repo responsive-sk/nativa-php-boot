@@ -124,10 +124,11 @@ abstract class Action implements ActionInterface
         TemplateRenderer $renderer,
         string $template,
         array $data = [],
-        ?string $layout = 'frontend'
+        ?string $layout = 'frontend',
+        int $status = 200
     ): Response {
         $content = $renderer->render($template, $data, $layout);
 
-        return $this->html($content);
+        return $this->html($content, $status);
     }
 }

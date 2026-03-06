@@ -34,12 +34,15 @@ final class LoginAction extends Action
             return $this->redirect('/admin');
         }
 
-        $content = $this->renderer->render('pages/login', [
-            'title' => 'Login',
-            'error' => null,
-        ]);
-
-        return $this->html($content);
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/login',
+            [
+                'title' => 'Login',
+                'error' => null,
+            ]
+        );
     }
 
     /**
@@ -84,15 +87,20 @@ final class LoginAction extends Action
             $error = $e->getMessage();
         }
 
-        $content = $this->renderer->render('pages/login', [
-            'title' => 'Login',
-            'error' => '' !== $error ? $error : 'Login failed',
-            'old'   => [
-                'email' => $request->getRequestParam('email', ''),
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/login',
+            [
+                'title' => 'Login',
+                'error' => '' !== $error ? $error : 'Login failed',
+                'old'   => [
+                    'email' => $request->getRequestParam('email', ''),
+                ],
             ],
-        ]);
-
-        return $this->html($content, 401);
+            null,
+            401
+        );
     }
 
     /**
