@@ -134,10 +134,10 @@ src/
 cd views/templates && pnpm install
 
 # Development server
-pnpm run dev
+ppnpm run dev
 
 # Build for production
-pnpm run build
+ppnpm run build
 
 # Run tests
 pnpm test
@@ -150,16 +150,16 @@ pnpm test:visual
 
 | Command | Description |
 |---------|-------------|
-| `pnpm run dev` | Start development server |
-| `pnpm run build` | Production build |
-| `pnpm run build:dev` | Development build |
+| `ppnpm run dev` | Start development server |
+| `ppnpm run build` | Production build |
+| `ppnpm run build:dev` | Development build |
 | `pnpm test` | Run unit tests |
 | `pnpm test:visual` | Run visual regression tests |
-| `pnpm run type-check` | TypeScript type checking |
-| `pnpm run lint` | ESLint check |
-| `pnpm run format` | Prettier check |
-| `pnpm run format:fix` | Prettier fix |
-| `pnpm run analyze` | Bundle analysis |
+| `ppnpm run type-check` | TypeScript type checking |
+| `ppnpm run lint` | ESLint check |
+| `ppnpm run format` | Prettier check |
+| `ppnpm run format:fix` | Prettier fix |
+| `ppnpm run analyze` | Bundle analysis |
 
 ---
 

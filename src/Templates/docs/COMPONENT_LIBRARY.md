@@ -448,10 +448,10 @@ All interactive elements have visible focus indicators:
 
 ```bash
 # Build test
-pnpm run build
+ppnpm run build
 
 # Type checking
-pnpm run type-check
+ppnpm run type-check
 
 # Visual regression
 pnpm test:visual

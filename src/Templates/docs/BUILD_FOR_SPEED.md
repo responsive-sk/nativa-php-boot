@@ -208,16 +208,16 @@ import { initCodeBlocks } from './codeBlocks';
 
 ```bash
 # Development (with sourcemaps)
-pnpm run dev
+ppnpm run dev
 
 # Production (optimized)
-pnpm run build
+ppnpm run build
 
 # Analyze bundle sizes
-pnpm run analyze
+ppnpm run analyze
 
 # Check performance
-pnpm run lighthouse
+ppnpm run lighthouse
 ```
 
 ---

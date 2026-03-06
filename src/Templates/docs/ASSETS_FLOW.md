@@ -444,10 +444,10 @@ $js = AssetHelper::js('admin');
 ### 4. Build Commands
 ```bash
 # Development (with HMR)
-npm run dev
+pnpm run dev
 
 # Production (minified, hashed)
-npm run build:prod
+pnpm run build:prod
 ```
 
 ### 5. Cache Busting
@@ -477,7 +477,7 @@ npm run build:prod
 **Problem:** Content changed but hash stays same
 
 **Solution:**
-1. Clean build: `rm -rf public/assets && npm run build:prod`
+1. Clean build: `rm -rf public/assets && pnpm run build:prod`
 2. Check file timestamps
 3. Verify Vite config has `[hash]` in output
 
@@ -510,7 +510,7 @@ input: {
 
 ### 3. Build
 ```bash
-npm run build:prod
+pnpm run build:prod
 ```
 
 ### 4. Use in Template
