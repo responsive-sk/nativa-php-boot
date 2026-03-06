@@ -47,8 +47,10 @@ export function enhanceNavigation() {
     }
 }
 
-// Auto-enhance on load (optional - can also call manually)
-if (typeof document !== 'undefined') {
+// Auto-enhance on load (expose globally for inline script)
+if (typeof window !== 'undefined') {
+    window.enhanceNavigation = enhanceNavigation;
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', enhanceNavigation);
     } else {

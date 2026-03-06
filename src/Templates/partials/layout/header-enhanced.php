@@ -120,13 +120,7 @@ function isActivePage(string $currentPage, string $targetPage): string
 </nav>
 
 <!-- Svelte Enhancement (only loads if JS is available) -->
-<script type="module">
-    // Only enhance if Svelte components are available
-    // Silently fails if JS doesn't load - PHP navigation still works!
-    import('/assets/navigation-enhance.js').then(({ enhanceNavigation }) => {
-        enhanceNavigation();
-    }).catch(err => {
-        // Silently fail - PHP navigation still works perfectly!
-        console.log('ℹ️ Navigation enhancement not loaded, using PHP fallback');
-    });
-</script>
+<?php
+$navigationEnhanceJs = \Infrastructure\View\AssetHelper::js('navigation-enhance');
+?>
+<script type="module" src="<?= $navigationEnhanceJs ?>"></script>

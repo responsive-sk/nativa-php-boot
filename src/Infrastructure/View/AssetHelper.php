@@ -68,7 +68,6 @@ final class AssetHelper
 
         // Normalize asset name (remove .js extension for manifest lookup)
         $assetKey = preg_replace('/\.js$/', '', $asset) ?? $asset;
-        $assetKey = preg_replace('/\.ts$/', '.ts', $assetKey) ?? $assetKey;
 
         // Try different possible keys
         $possibleKeys = [
