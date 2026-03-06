@@ -75,6 +75,8 @@ export default defineConfig(({ mode }) => {
           'article-list': resolve(__dirname, 'src/article-list.js'),
           'contact-form': resolve(__dirname, 'src/contact-form.js'),
           'theme-toggle': resolve(__dirname, 'src/theme-toggle.js'),
+          'navigation': resolve(__dirname, 'src/navigation.js'),
+          'toast': resolve(__dirname, 'src/toast.js'),
         },
         output: {
           entryFileNames: "[name].[hash].js",

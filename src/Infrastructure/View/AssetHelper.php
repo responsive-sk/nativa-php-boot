@@ -49,6 +49,8 @@ final class AssetHelper
             'article-list' => '../svelte/components/ArticleList.svelte',
             'contact-form' => '../svelte/components/ContactForm.svelte',
             'theme-toggle' => '../svelte/components/ThemeToggle.svelte',
+            'navigation' => '../svelte/components/Navigation.svelte',
+            'toast' => '../svelte/components/Toast.svelte',
         ];
 
         // Try mapped name first
