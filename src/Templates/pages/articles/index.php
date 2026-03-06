@@ -13,4 +13,4 @@ $searchQuery ??= '';
 
 ?>
 
-<?= $this->yieldContent() ?>
+<?php echo $this->yieldContent(); ?>

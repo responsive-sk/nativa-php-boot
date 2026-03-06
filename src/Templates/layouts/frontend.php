@@ -90,7 +90,7 @@ $pageSpecificCssUrl = AssetHelper::pageCss($page);
         'services'  => AssetHelper::js('services'),
         'pricing'   => AssetHelper::js('pricing'),
     ];
-  ?>
+?>
   <?php foreach ($pageSpecificJs as $pageName => $jsFile) { ?>
   <?php if (($page ?? '') === $pageName && $jsFile) { ?>
   <script type="module" src="<?php echo $jsFile; ?>" defer crossorigin="anonymous"></script>

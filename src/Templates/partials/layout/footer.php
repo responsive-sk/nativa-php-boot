@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 /**
- * Footer Partial
+ * Footer Partial.
  *
  * @var int $year Current year
  */
@@ -38,7 +38,7 @@ $year ??= date('Y');
       </div>
     </div>
     <div class="footer__bottom">
-      <p>&copy; <?= $year ?> Nativa CMS. All rights reserved.</p>
+      <p>&copy; <?php echo $year; ?> Nativa CMS. All rights reserved.</p>
     </div>
   </div>
 </footer>

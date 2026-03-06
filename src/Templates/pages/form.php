@@ -11,4 +11,4 @@ $title ??= 'Form';
 
 ?>
 
-<?= $this->yieldContent() ?>
+<?php echo $this->yieldContent(); ?>

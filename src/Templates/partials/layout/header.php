@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 /**
- * Header Partial - Primary Navigation
+ * Header Partial - Primary Navigation.
  *
  * @var string $page Current page identifier (home, blog, portfolio, contact, docs)
  * @var bool   $isGuest User authentication state
@@ -11,7 +11,7 @@ $page ??= 'home';
 $isGuest ??= true;
 
 /**
- * Helper function to check if page is active
+ * Helper function to check if page is active.
  */
 function isActivePage(string $currentPage, string $targetPage): string
 {
@@ -28,31 +28,31 @@ function isActivePage(string $currentPage, string $targetPage): string
       <span>CMS</span>
     </a>
     <ul class="nav-primary__list">
-      <li class="nav-primary__item<?= isActivePage($page, 'home') ?>">
+      <li class="nav-primary__item<?php echo isActivePage($page, 'home'); ?>">
         <a href="/" class="nav-primary__link">
           <span class="nav-primary__number">01</span>
           <span class="nav-primary__text">Home</span>
         </a>
       </li>
-      <li class="nav-primary__item<?= isActivePage($page, 'blog') ?>">
+      <li class="nav-primary__item<?php echo isActivePage($page, 'blog'); ?>">
         <a href="/blog" class="nav-primary__link">
           <span class="nav-primary__number">02</span>
           <span class="nav-primary__text">Blog</span>
         </a>
       </li>
-      <li class="nav-primary__item<?= isActivePage($page, 'portfolio') ?>">
+      <li class="nav-primary__item<?php echo isActivePage($page, 'portfolio'); ?>">
         <a href="/portfolio" class="nav-primary__link">
           <span class="nav-primary__number">03</span>
           <span class="nav-primary__text">Portfolio</span>
         </a>
       </li>
-      <li class="nav-primary__item<?= isActivePage($page, 'contact') ?>">
+      <li class="nav-primary__item<?php echo isActivePage($page, 'contact'); ?>">
         <a href="/contact" class="nav-primary__link">
           <span class="nav-primary__number">04</span>
           <span class="nav-primary__text">Contact</span>
         </a>
       </li>
-      <li class="nav-primary__item<?= isActivePage($page, 'docs') ?>">
+      <li class="nav-primary__item<?php echo isActivePage($page, 'docs'); ?>">
         <a href="/docs" class="nav-primary__link">
           <span class="nav-primary__number">05</span>
           <span class="nav-primary__text">Docs</span>
@@ -102,9 +102,9 @@ function isActivePage(string $currentPage, string $targetPage): string
     <div class="mobile-menu__item"><a href="/portfolio" class="mobile-menu__link" data-page="portfolio">Portfolio</a></div>
     <div class="mobile-menu__item"><a href="/contact" class="mobile-menu__link" data-page="contact">Contact</a></div>
     <div class="mobile-menu__item"><a href="/docs" class="mobile-menu__link" data-page="docs">Docs</a></div>
-    <?php if (!$isGuest): ?>
+    <?php if (!$isGuest) { ?>
     <div class="mobile-menu__item"><a href="/admin" class="mobile-menu__link">Admin</a></div>
     <div class="mobile-menu__item"><a href="/logout" class="mobile-menu__link">Logout</a></div>
-    <?php endif; ?>
+    <?php } ?>
   </div>
 </nav>
