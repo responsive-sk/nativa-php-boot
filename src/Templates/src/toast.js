@@ -1,4 +1,5 @@
-// Toast Entry Point - Global notifications
+// Toast Entry Point - Direct Svelte 5 mount
+import { mount } from 'svelte';
 import Toast from '../svelte/components/Toast.svelte';
 import { notifications } from '../svelte/stores/notifications.js';
 
@@ -18,12 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
     }
     
-    new Toast({
+    mount(Toast, {
         target: container
     });
     
     console.log('✅ Toast notifications ready');
 });
-
-// Export for manual mounting if needed
-export default Toast;

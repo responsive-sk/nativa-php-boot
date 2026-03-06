@@ -1,4 +1,5 @@
-// Navigation Entry Point
+// Navigation Entry Point - Direct Svelte 5 mount
+import { mount } from 'svelte';
 import Navigation from '../svelte/components/Navigation.svelte';
 
 // Auto-mount when DOM is ready
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (container) {
         const currentPage = container.dataset.currentPage || 'home';
         
-        new Navigation({
+        mount(Navigation, {
             target: container,
             props: {
                 currentPage: currentPage
@@ -18,6 +19,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('✅ Navigation mounted');
     }
 });
-
-// Export for manual mounting if needed
-export default Navigation;
