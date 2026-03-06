@@ -79,11 +79,11 @@ function isActivePage(string $currentPage, string $targetPage): string
 </nav>
 
 <!-- Mobile Menu (PHP rendered, Svelte enhances behavior) -->
-<nav 
-    class="mobile-menu" 
-    aria-label="Mobile navigation" 
+<nav
+    class="mobile-menu"
+    aria-label="Mobile navigation"
     data-svelte-hydrate="mobile-menu"
-    <?= $isGuest ? '' : 'hidden' ?>
+    hidden
 >
     <div class="mobile-menu__header">
         <div class="mobile-menu__theme">
