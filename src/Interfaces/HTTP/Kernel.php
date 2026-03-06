@@ -311,6 +311,13 @@ final class Kernel
         $this->router->post('/register', [RegisterAction::class, 'handle']);
         $this->router->get('/logout', [LogoutAction::class, 'handle']);
 
+        // Svelte Hybrid Test Page
+        $this->router->get('/svelte-test', function() {
+            return new Response(file_get_contents(__DIR__ . '/../../../public/svelte-test.php'), 200, [
+                'Content-Type' => 'text/html'
+            ]);
+        });
+
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
         $this->router->get('/admin', DashboardAction::class);
 

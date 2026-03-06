@@ -1,7 +1,32 @@
 {
+  "../svelte/components/ArticleList.svelte": {
+    "file": "article-list.l0sNRNKZ.js",
+    "name": "article-list",
+    "src": "../svelte/components/ArticleList.svelte",
+    "isEntry": true
+  },
+  "../svelte/components/ContactForm.svelte": {
+    "file": "contact-form.l0sNRNKZ.js",
+    "name": "contact-form",
+    "src": "../svelte/components/ContactForm.svelte",
+    "isEntry": true
+  },
+  "../svelte/components/ThemeToggle.svelte": {
+    "file": "theme-toggle.CiZvk6OB.js",
+    "name": "theme-toggle",
+    "src": "../svelte/components/ThemeToggle.svelte",
+    "isEntry": true,
+    "imports": [
+      "_vendor-Bz4WC1_n.js"
+    ]
+  },
   "_index-BQ3NTUF8.js": {
     "file": "assets/index-BQ3NTUF8.js",
     "name": "index"
+  },
+  "_vendor-Bz4WC1_n.js": {
+    "file": "assets/vendor-Bz4WC1_n.js",
+    "name": "vendor"
   },
   "app.ts": {
     "file": "core-app.C3QKgbHt.js",
