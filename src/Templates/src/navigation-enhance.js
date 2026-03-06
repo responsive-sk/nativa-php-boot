@@ -45,6 +45,21 @@ export function enhanceNavigation() {
         
         console.log('✅ Mobile menu enhanced');
     }
+    
+    // Enhance theme toggle
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    themeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            // Toggle dark mode
+            document.documentElement.classList.toggle('dark');
+            
+            // Save preference
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            console.log('Theme toggled:', isDark ? 'dark' : 'light');
+        });
+    });
 }
 
 // Auto-enhance on load (expose globally for inline script)

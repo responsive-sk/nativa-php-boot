@@ -721,9 +721,14 @@
     display: flex;
   }
   
+  /* Mobile menu stays hidden until toggle is clicked */
   .mobile-menu {
     display: block;
     position: static;
+  }
+  
+  .mobile-menu[hidden] {
+    display: none !important;
   }
 }
 
