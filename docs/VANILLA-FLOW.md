@@ -81,15 +81,15 @@
 ### Token Structure
 
 ```
-styles/tokens.css (Master)
-    ↓ (copied to)
-styles/shared/design-tokens.css (For vanilla CSS)
+styles/tokens.css (Master - all in src/)
     ↓ (imported by)
 src/frontend/pages/home.css
 src/frontend/pages/blog.css
 src/frontend/pages/portfolio.css
 ...
 ```
+
+**No more copying!** All files import directly from `../styles/tokens.css`
 
 ### Token Usage Example
 
@@ -119,32 +119,30 @@ src/frontend/pages/portfolio.css
 
 ```
 src/Templates/
-├── styles/
-│   ├── tokens.css              ← Master design tokens
-│   ├── components.css          ← BEM components (Svelte)
-│   └── shared/
-│       └── design-tokens.css   ← Copy for vanilla CSS imports
-│
-├── src/
-│   ├── init.js                 ← Core init (theme, etc.)
-│   ├── app.ts                  ← Main app logic
-│   ├── css.ts                  ← CSS imports
-│   │
-│   └── frontend/
-│       ├── pages/
-│       │   ├── home.ts         ← Page logic
-│       │   ├── home.css        ← Page styles
-│       │   ├── blog.ts
-│       │   ├── blog.css
-│       │   └── ...
-│       │
-│       └── use-cases/
-│           ├── docs/
-│           │   ├── docs.ts
-│           │   └── docs.css
-│           └── ...
-│
-└── vite.config.ts              ← Build configuration
+└── src/                    ← Všetky zdroje TU
+    ├── styles/
+    │   ├── tokens.css              ← Master design tokens
+    │   ├── components.css          ← BEM components (Svelte)
+    │   ├── utilities.css           ← Utility classes
+    │   └── *.css                   ← Other shared styles
+    │
+    ├── init.js                 ← Core init (theme, etc.)
+    ├── app.ts                  ← Main app logic
+    ├── css.ts                  ← CSS imports
+    │
+    └── frontend/
+        ├── pages/
+        │   ├── home.ts         ← Page logic
+        │   ├── home.css        ← Page styles (imports ../styles/tokens.css)
+        │   ├── blog.ts
+        │   ├── blog.css
+        │   └── ...
+        │
+        └── use-cases/
+            ├── docs/
+            │   ├── docs.ts
+            │   └── docs.css
+            └── ...
 ```
 
 ---

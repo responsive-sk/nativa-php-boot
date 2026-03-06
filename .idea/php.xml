@@ -140,7 +140,9 @@
       <path value="$PROJECT_DIR$/vendor/amphp/parser" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.4" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.4">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
   <component name="PhpStan">
     <PhpStan_settings>
       <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="f95ea17d-0836-4a3d-b0c7-05889254cba3" timeout="60000" />
