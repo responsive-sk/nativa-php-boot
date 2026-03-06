@@ -1,8 +1,33 @@
 // Notification Store - Global notification state
 import { writable } from 'svelte/store';
 
+let notificationId = 0;
+
 function createNotificationStore() {
     const { subscribe, update } = writable([]);
+    
+    function addNotification(notification) {
+        const id = ++notificationId;
+        const newNotification = {
+            id,
+            ...notification
+        };
+        
+        update(notifications => [...notifications, newNotification]);
+        
+        // Auto-dismiss after duration
+        if (notification.duration) {
+            setTimeout(() => {
+                dismiss(id);
+            }, notification.duration);
+        }
+    }
+    
+    function dismiss(id) {
+        update(notifications =>
+            notifications.filter(n => n.id !== id)
+        );
+    }
     
     return {
         subscribe,
@@ -32,36 +57,9 @@ function createNotificationStore() {
         },
         
         dismiss: (id) => {
-            update(notifications => 
-                notifications.filter(n => n.id !== id)
-            );
+            dismiss(id);
         }
     };
-}
-
-let notificationId = 0;
-
-function addNotification(notification) {
-    const id = ++notificationId;
-    const newNotification = {
-        id,
-        ...notification
-    };
-    
-    update(notifications => [...notifications, newNotification]);
-    
-    // Auto-dismiss after duration
-    if (notification.duration) {
-        setTimeout(() => {
-            dismiss(id);
-        }, notification.duration);
-    }
-}
-
-function dismiss(id) {
-    update(notifications => 
-        notifications.filter(n => n.id !== id)
-    );
 }
 
 export const notifications = createNotificationStore();
