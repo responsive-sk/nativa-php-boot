@@ -1,0 +1,81 @@
+<?php
+declare(strict_types = 1);
+
+/**
+ * Cascade Layout - Using Cascade Framework
+ *
+ * @var string      $content
+ * @var string      $pageTitle
+ * @var string|null $metaDescription
+ */
+
+$pageTitle ??= 'Nativa CMS';
+$metaDescription ??= 'Modern PHP CMS and Blog Platform';
+
+use Infrastructure\View\AssetHelper;
+
+// Load Cascade-based assets
+$cascadeCss = AssetHelper::css('cascade');
+?>
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<?= $this->e($metaDescription) ?>">
+  
+  <title><?= $this->e($pageTitle) ?></title>
+  
+  <!-- Cascade Framework CSS -->
+  <link rel="stylesheet" href="<?= $cascadeCss ?>">
+</head>
+<body>
+  <div class="site-center">
+    
+    <!-- Header -->
+    <div class="site-header">
+      <div class="col width-fill">
+        <div class="col width-fit">
+          <div class="cell">
+            <a href="/" class="logo">
+              <span>Nativa</span>
+              <span class="logo-dot">•</span>
+              <span>CMS</span>
+            </a>
+          </div>
+        </div>
+        <div class="col width-fill">
+          <div class="cell">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/portfolio">Portfolio</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/docs">Docs</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="site-body">
+      <div class="col width-fill">
+        <div class="cell">
+          <?= $content ?>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="site-footer">
+      <div class="col width-fill">
+        <div class="cell">
+          <p>&copy; <?= date('Y') ?> Nativa CMS. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

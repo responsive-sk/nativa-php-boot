@@ -52,6 +52,7 @@ use Interfaces\HTTP\Actions\Frontend\Article\SearchArticlesAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowArticleAction;
 use Interfaces\HTTP\Actions\Frontend\Article\ShowBlogArticleAction;
 use Interfaces\HTTP\Actions\Frontend\BlogAction;
+use Interfaces\HTTP\Actions\Frontend\CascadeDemoAction;
 use Interfaces\HTTP\Actions\Frontend\ContactAction;
 use Interfaces\HTTP\Actions\Frontend\DisplayFormAction;
 use Interfaces\HTTP\Actions\Frontend\DisplayPageAction;
@@ -314,6 +315,9 @@ final class Kernel
 
         // Svelte Hybrid Test Page
         $this->router->get('/svelte-test', SvelteTestAction::class);
+
+        // Cascade Framework Demo
+        $this->router->get('/cascade-demo', CascadeDemoAction::class);
 
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
         $this->router->get('/admin', DashboardAction::class);
