@@ -3,7 +3,7 @@
 // Does NOT replace - just enhances!
 
 import { mount } from 'svelte';
-import NavigationEnhance from '../svelte/components/NavigationEnhance.svelte';
+import NavigationEnhance from './components/NavigationEnhance.svelte';
 
 /**
  * Enhance existing PHP navigation with Svelte interactivity

@@ -3,8 +3,8 @@
  */
 
 // Shared styles (variables, reset, utilities, fonts)
-import "./styles/shared/reset.css";
-import "./styles/shared/fonts.css";
+import "./styles/components/reset.css";
+import "./styles/components/fonts.css";
 import "./styles/utilities.css";
 
 // Component styles - truly shared across ALL pages
