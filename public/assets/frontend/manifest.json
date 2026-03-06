@@ -12,18 +12,26 @@
     ]
   },
   "../vanilla/frontend/src/app.ts": {
-    "file": "core-app.C3QKgbHt.js",
+    "file": "core-app.BoLAzix2.js",
     "name": "core-app",
     "src": "../vanilla/frontend/src/app.ts",
     "isEntry": true
   },
   "../vanilla/frontend/src/css.ts": {
-    "file": "core-css.DQrFCCGz.js",
+    "file": "core-css.D9Kys2Pc.js",
     "name": "core-css",
     "src": "../vanilla/frontend/src/css.ts",
     "isEntry": true,
     "css": [
-      "core-css.BFFAmCFv.css"
+      "core-css.Cra4V3Nc.css"
+    ],
+    "assets": [
+      "fonts/font-sans-web.woff2",
+      "fonts/open-sans-regular.woff2",
+      "fonts/open-sans-bold.woff2",
+      "fonts/playfair-display-regular.woff2",
+      "fonts/playfair-display-bold.woff2",
+      "fonts/abril-fatface.woff2"
     ]
   },
   "../vanilla/frontend/src/init.js": {
@@ -51,7 +59,7 @@
     ]
   },
   "../vanilla/frontend/src/pages/blog.ts": {
-    "file": "blog.B7XBvGJJ.js",
+    "file": "blog.DMzf5tx_.js",
     "name": "blog",
     "src": "../vanilla/frontend/src/pages/blog.ts",
     "isEntry": true,
@@ -59,7 +67,15 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "blog.fq--3Llp.css"
+      "blog.CKWSS4Z6.css"
+    ],
+    "assets": [
+      "fonts/font-sans-web.woff2",
+      "fonts/open-sans-regular.woff2",
+      "fonts/open-sans-bold.woff2",
+      "fonts/playfair-display-regular.woff2",
+      "fonts/playfair-display-bold.woff2",
+      "fonts/abril-fatface.woff2"
     ]
   },
   "../vanilla/frontend/src/pages/contact.ts": {
@@ -81,7 +97,7 @@
     ]
   },
   "../vanilla/frontend/src/pages/home.ts": {
-    "file": "home.Dl57vo0d.js",
+    "file": "home.5yjw9d1M.js",
     "name": "home",
     "src": "../vanilla/frontend/src/pages/home.ts",
     "isEntry": true,
@@ -89,16 +105,32 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "home.D-OWfG-0.css"
+      "home.DK3nQJFi.css"
+    ],
+    "assets": [
+      "fonts/font-sans-web.woff2",
+      "fonts/open-sans-regular.woff2",
+      "fonts/open-sans-bold.woff2",
+      "fonts/playfair-display-regular.woff2",
+      "fonts/playfair-display-bold.woff2",
+      "fonts/abril-fatface.woff2"
     ]
   },
   "../vanilla/frontend/src/pages/portfolio.ts": {
-    "file": "portfolio.DQp3KL61.js",
+    "file": "portfolio.DMS5c6jV.js",
     "name": "portfolio",
     "src": "../vanilla/frontend/src/pages/portfolio.ts",
     "isEntry": true,
     "css": [
-      "portfolio.BtPnAZ5d.css"
+      "portfolio.CzGOAZjT.css"
+    ],
+    "assets": [
+      "fonts/font-sans-web.woff2",
+      "fonts/open-sans-regular.woff2",
+      "fonts/open-sans-bold.woff2",
+      "fonts/playfair-display-regular.woff2",
+      "fonts/playfair-display-bold.woff2",
+      "fonts/abril-fatface.woff2"
     ]
   },
   "../vanilla/frontend/src/pages/pricing.ts": {
@@ -119,15 +151,6 @@
       "articles.tn0RQdqM.css"
     ]
   },
-  "../vanilla/frontend/src/styles/design-system.js": {
-    "file": "design-system.BckX6qHm.js",
-    "name": "design-system",
-    "src": "../vanilla/frontend/src/styles/design-system.js",
-    "isEntry": true,
-    "css": [
-      "design-system.D6lP2xPu.css"
-    ]
-  },
   "_index-BQ3NTUF8.js": {
     "file": "assets/index-BQ3NTUF8.js",
     "name": "index"
@@ -135,5 +158,33 @@
   "_vendor-BiL3T5I3.js": {
     "file": "assets/vendor-BiL3T5I3.js",
     "name": "vendor"
+  },
+  "assets/fonts/sans-serif/font-sans-web.woff2": {
+    "file": "fonts/font-sans-web.woff2",
+    "src": "assets/fonts/sans-serif/font-sans-web.woff2"
+  },
+  "assets/fonts/sans-serif/open-sans-bold.woff2": {
+    "file": "fonts/open-sans-bold.woff2",
+    "src": "assets/fonts/sans-serif/open-sans-bold.woff2"
+  },
+  "assets/fonts/sans-serif/open-sans-regular.woff2": {
+    "file": "fonts/open-sans-regular.woff2",
+    "src": "assets/fonts/sans-serif/open-sans-regular.woff2"
+  },
+  "assets/fonts/serif/abril-fatface.woff2": {
+    "file": "fonts/abril-fatface.woff2",
+    "src": "assets/fonts/serif/abril-fatface.woff2"
+  },
+  "assets/fonts/serif/font-serif-web.woff2": {
+    "file": "fonts/font-sans-web.woff2",
+    "src": "assets/fonts/sans-serif/font-sans-web.woff2"
+  },
+  "assets/fonts/serif/playfair-display-bold.woff2": {
+    "file": "fonts/playfair-display-bold.woff2",
+    "src": "assets/fonts/serif/playfair-display-bold.woff2"
+  },
+  "assets/fonts/serif/playfair-display-regular.woff2": {
+    "file": "fonts/playfair-display-regular.woff2",
+    "src": "assets/fonts/serif/playfair-display-regular.woff2"
   }
 }

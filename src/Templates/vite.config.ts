@@ -73,9 +73,6 @@ export default defineConfig(({ mode }) => {
           // ===== SVELTE FRONTEND =====
           // Svelte components
           'navigation-enhance': resolve(__dirname, 'svelte/frontend/src/navigation-enhance.js'),
-
-          // Design system CSS
-          'design-system': resolve(__dirname, 'vanilla/frontend/src/styles/design-system.js'),
         },
         output: {
           entryFileNames: "[name].[hash].js",

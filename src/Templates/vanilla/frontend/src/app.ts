@@ -48,9 +48,9 @@ function debugAssets(): void {
   const path = window.location.pathname;
   const page = path === "/" ? "home" : path.replace(/^\//, "").split("/")[0];
 
-  console.log("%c📄 CURRENT PAGE:", "color: #ef4444; font-weight: bold", page, `(${path})`);
-  console.log("%c🎨 CSS LOADED:", "color: #10b981; font-weight: bold", styles);
-  console.log("%c📜 JS LOADED:", "color: #3b82f6; font-weight: bold", scripts);
+  console.log("%CURRENT PAGE:", "color: #ef4444; font-weight: bold", page, `(${path})`);
+  console.log("%CSS LOADED:", "color: #10b981; font-weight: bold", styles);
+  console.log("%JS LOADED:", "color: #3b82f6; font-weight: bold", scripts);
 }
 
 /**
@@ -82,5 +82,5 @@ function initCore(): void {
 document.addEventListener("DOMContentLoaded", () => {
   initCore();
   debugAssets();
-  console.log("%c✅ CORE READY", "color: #10b981; font-size: 16px; font-weight: bold");
+  console.log("CORE READY", "color: #10b981; font-size: 16px; font-weight: bold");
 });
