@@ -28,31 +28,23 @@ final class BlogAction extends Action
         $limit = 10;
         $offset = ($page - 1) * $limit;
 
-        try {
-            // Get published articles with pagination
-            $articles = $this->articleManager->listPublished($limit, $offset);
-            $total = $this->articleManager->countPublished();
-            $totalPages = (int) ceil($total / $limit);
+        $articles = $this->articleManager->listPublished($limit, $offset);
+        $total = $this->articleManager->countPublished();
+        $totalPages = (int) ceil($total / $limit);
 
-            $content = $this->renderer->render(
-                'pages/frontend/blog',
-                [
-                    'articles'        => $articles,
-                    'currentPage'     => $page,
-                    'totalPages'      => $totalPages,
-                    'pageTitle'       => 'Blog - Nativa CMS',
-                    'page'            => 'blog',
-                    'metaDescription' => 'Latest articles and insights from Nativa CMS',
-                ],
-                'frontend'
-            );
-
-            return $this->html($content);
-        } catch (\Throwable $e) {
-            error_log('ERROR: BlogAction error: ' . $e->getMessage());
-
-            return $this->error('Internal Server Error', 500);
-        }
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/frontend/blog',
+            [
+                'articles'        => $articles,
+                'currentPage'     => $page,
+                'totalPages'      => $totalPages,
+                'pageTitle'       => 'Blog - Nativa CMS',
+                'page'            => 'blog',
+                'metaDescription' => 'Latest articles and insights from Nativa CMS',
+            ]
+        );
     }
 
     public static function create(): self
