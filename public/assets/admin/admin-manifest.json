@@ -1,0 +1,11 @@
+{
+  "src/use-cases/admin.ts": {
+    "file": "admin-core.NroAZ9UZ.js",
+    "name": "admin-core",
+    "src": "src/use-cases/admin.ts",
+    "isEntry": true,
+    "css": [
+      "admin-core.Je-piBlq.css"
+    ]
+  }
+}

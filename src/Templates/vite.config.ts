@@ -36,7 +36,7 @@ export default defineConfig(({ mode }) => {
     build: {
       cssCodeSplit: true,
       manifest: "manifest.json",
-      outDir: resolve(__dirname, "../../public/assets"),
+      outDir: resolve(__dirname, "../../public/assets/frontend"),
       emptyOutDir: true,
       copyPublicDir: true,
 

@@ -6,8 +6,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build:svelte": "vite build --config vite-svelte.config.ts",
         "build:admin": "vite build --config vite-admin.config.ts",
-        "build:all": "npm run build && npm run build:admin",
+        "build:all": "npm run build && npm run build:svelte && npm run build:admin",
         "build:dev": "vite build --mode development",
         "build:prod": "vite build --mode production",
         "build:mark": "vite build --mode mark",
