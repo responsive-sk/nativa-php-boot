@@ -68,11 +68,11 @@ if (file_exists($criticalCssFile)) {
 </head>
 <body>
   <!-- Header Partial -->
-  <?php include $this->getTemplatesPath() . '/partials/header.php'; ?>
+  <?php include $this->getTemplatesPath() . '/partials/layout/header.php'; ?>
 
   <!-- Hero Section (only for homepage) -->
   <?php if (($page ?? '') === 'home') { ?>
-    <?php include $this->getTemplatesPath() . '/partials/hero-home.php'; ?>
+    <?php include $this->getTemplatesPath() . '/partials/hero/hero-home.php'; ?>
   <?php } ?>
 
   <!-- Main Content -->
@@ -81,7 +81,7 @@ if (file_exists($criticalCssFile)) {
   </main>
 
   <!-- Footer Partial -->
-  <?php include $this->getTemplatesPath() . '/partials/footer.php'; ?>
+  <?php include $this->getTemplatesPath() . '/partials/layout/footer.php'; ?>
 
   <!-- Shared JavaScript -->
   <script type="module" src="<?php echo $appJs; ?>"></script>
