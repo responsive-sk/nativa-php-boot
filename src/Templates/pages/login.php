@@ -12,7 +12,10 @@ use Application\Middleware\CsrfMiddleware;
 use Infrastructure\View\AssetHelper;
 use Interfaces\HTTP\View\TemplateRenderer;
 
-$authCss = AssetHelper::css('auth.css');
+$coreCss = AssetHelper::css('core-css');
+$authCss = AssetHelper::css('auth');
+$coreJs = AssetHelper::js('core-init');
+$appJs = AssetHelper::js('core-app');
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -20,6 +23,7 @@ $authCss = AssetHelper::css('auth.css');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - App</title>
+    <link rel="stylesheet" href="<?php echo $coreCss; ?>">
     <link rel="stylesheet" href="<?php echo $authCss; ?>">
 </head>
 <body>
@@ -162,6 +166,9 @@ $authCss = AssetHelper::css('auth.css');
             <code class="auth-demo__code">admin@phpcms.local / admin123</code>
         </div>
     </div>
-</div>
+
+    <script src="<?php echo $coreJs; ?>" defer crossorigin="anonymous"></script>
+    <script src="<?php echo $appJs; ?>" defer crossorigin="anonymous"></script>
+    <script src="<?php echo AssetHelper::js('auth'); ?>" defer crossorigin="anonymous"></script>
 </body>
 </html>
