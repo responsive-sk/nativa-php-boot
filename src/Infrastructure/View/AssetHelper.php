@@ -51,6 +51,9 @@ final class AssetHelper
             'theme-toggle' => '../svelte/components/ThemeToggle.svelte',
             'navigation' => '../svelte/components/Navigation.svelte',
             'toast' => '../svelte/components/Toast.svelte',
+            // CSS styles
+            'tokens' => '../styles/tokens.css',
+            'components' => '../styles/components.css',
         ];
 
         // Try mapped name first

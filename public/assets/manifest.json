@@ -1,6 +1,6 @@
 {
   "../styles/components.css": {
-    "file": "components.D6RY6drn.css",
+    "file": "components.BrLBky5b.css",
     "src": "../styles/components.css",
     "isEntry": true,
     "name": "components",
@@ -65,12 +65,12 @@
     ]
   },
   "css.ts": {
-    "file": "core-css.MQpHx5zb.js",
+    "file": "core-css.B-sNHt8D.js",
     "name": "core-css",
     "src": "css.ts",
     "isEntry": true,
     "css": [
-      "core-css.6nm5SfKO.css"
+      "core-css.D_FeLLrv.css"
     ]
   },
   "frontend/pages/about.ts": {
@@ -92,7 +92,7 @@
     ]
   },
   "frontend/pages/blog.ts": {
-    "file": "blog.DaCw8ka-.js",
+    "file": "blog.DLsS0pfD.js",
     "name": "blog",
     "src": "frontend/pages/blog.ts",
     "isEntry": true,
@@ -100,7 +100,7 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "blog.CnAJ6DP9.css"
+      "blog.B_5IZ2cU.css"
     ]
   },
   "frontend/pages/contact.ts": {
@@ -122,7 +122,7 @@
     ]
   },
   "frontend/pages/home.ts": {
-    "file": "home.BUclQdsG.js",
+    "file": "home.Bu7-UGUv.js",
     "name": "home",
     "src": "frontend/pages/home.ts",
     "isEntry": true,
@@ -130,16 +130,16 @@
       "_index-BQ3NTUF8.js"
     ],
     "css": [
-      "home.D5w4CwNy.css"
+      "home.DLPGSVJF.css"
     ]
   },
   "frontend/pages/portfolio.ts": {
-    "file": "portfolio.9gKJpjCk.js",
+    "file": "portfolio.CyYZZMFj.js",
     "name": "portfolio",
     "src": "frontend/pages/portfolio.ts",
     "isEntry": true,
     "css": [
-      "portfolio.BTfd8un9.css"
+      "portfolio.CkObIFte.css"
     ]
   },
   "frontend/pages/pricing.ts": {
