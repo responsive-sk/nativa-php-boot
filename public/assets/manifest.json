@@ -47,12 +47,12 @@
     ]
   },
   "design-system.js": {
-    "file": "design-system.gb5LVF_6.js",
+    "file": "design-system.CjbVODpV.js",
     "name": "design-system",
     "src": "design-system.js",
     "isEntry": true,
     "css": [
-      "design-system.C8QlIios.css"
+      "design-system.CthZKQTf.css"
     ]
   },
   "frontend/pages/about.ts": {
