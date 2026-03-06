@@ -77,6 +77,7 @@ export default defineConfig(({ mode }) => {
           'theme-toggle': resolve(__dirname, 'src/theme-toggle.js'),
           'navigation': resolve(__dirname, 'src/navigation.js'),
           'toast': resolve(__dirname, 'src/toast.js'),
+          'navigation-enhance': resolve(__dirname, 'src/navigation-enhance.js'),
           
           // Design system CSS entry point
           'design-system': resolve(__dirname, 'src/design-system.js'),

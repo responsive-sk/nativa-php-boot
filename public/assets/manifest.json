@@ -3,8 +3,8 @@
     "file": "assets/index-BQ3NTUF8.js",
     "name": "index"
   },
-  "_vendor-H5ssR1D-.js": {
-    "file": "assets/vendor-H5ssR1D-.js",
+  "_vendor-BuO2ZwJY.js": {
+    "file": "assets/vendor-BuO2ZwJY.js",
     "name": "vendor"
   },
   "app.ts": {
@@ -14,24 +14,24 @@
     "isEntry": true
   },
   "article-list.js": {
-    "file": "article-list.D6QpQVwG.js",
+    "file": "article-list.mmPrPpgv.js",
     "name": "article-list",
     "src": "article-list.js",
     "isEntry": true,
     "imports": [
-      "_vendor-H5ssR1D-.js"
+      "_vendor-BuO2ZwJY.js"
     ],
     "css": [
       "articles.tn0RQdqM.css"
     ]
   },
   "contact-form.js": {
-    "file": "contact-form.CFLwjGhB.js",
+    "file": "contact-form.BZFB31Yo.js",
     "name": "contact-form",
     "src": "contact-form.js",
     "isEntry": true,
     "imports": [
-      "_vendor-H5ssR1D-.js"
+      "_vendor-BuO2ZwJY.js"
     ],
     "css": [
       "contact-form.D-VwjwrL.css"
@@ -166,37 +166,49 @@
     "src": "init.js",
     "isEntry": true
   },
+  "navigation-enhance.js": {
+    "file": "navigation-enhance.CDUnj291.js",
+    "name": "navigation-enhance",
+    "src": "navigation-enhance.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-BuO2ZwJY.js"
+    ],
+    "css": [
+      "articles.tn0RQdqM.css"
+    ]
+  },
   "navigation.js": {
-    "file": "navigation.CsdYSKS3.js",
+    "file": "navigation.CaCvEue0.js",
     "name": "navigation",
     "src": "navigation.js",
     "isEntry": true,
     "imports": [
-      "_vendor-H5ssR1D-.js"
+      "_vendor-BuO2ZwJY.js"
     ],
     "css": [
       "navigation.Cl2dL5Ba.css"
     ]
   },
   "theme-toggle.js": {
-    "file": "theme-toggle.vsODHmIv.js",
+    "file": "theme-toggle.D1eRSDgW.js",
     "name": "theme-toggle",
     "src": "theme-toggle.js",
     "isEntry": true,
     "imports": [
-      "_vendor-H5ssR1D-.js"
+      "_vendor-BuO2ZwJY.js"
     ],
     "css": [
       "articles.tn0RQdqM.css"
     ]
   },
   "toast.js": {
-    "file": "toast.eXItN9jG.js",
+    "file": "toast.BjTnEmdU.js",
     "name": "toast",
     "src": "toast.js",
     "isEntry": true,
     "imports": [
-      "_vendor-H5ssR1D-.js"
+      "_vendor-BuO2ZwJY.js"
     ],
     "css": [
       "articles.tn0RQdqM.css"

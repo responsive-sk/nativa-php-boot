@@ -51,6 +51,7 @@ final class AssetHelper
             'theme-toggle' => '../svelte/components/ThemeToggle.svelte',
             'navigation' => '../svelte/components/Navigation.svelte',
             'toast' => '../svelte/components/Toast.svelte',
+            'navigation-enhance' => 'navigation-enhance.js',
             // Design system CSS
             'design-system' => 'design-system.js',
         ];
