@@ -87,16 +87,19 @@ pnpm install
 ### Development
 
 ```bash
-pnpm run dev --config vite-svelte.config.js
+pnpm run dev
 ```
 
 ### Production Build
 
 ```bash
-pnpm run build --config vite-svelte.config.js
+pnpm run build
 ```
 
+Svelte components are built together with TypeScript in the same build process.
 Output goes to `public/assets/` with hashed filenames.
+
+**Note:** Svelte uses the same Vite config as TypeScript - no separate config needed!
 
 ## Usage in PHP Templates
 
