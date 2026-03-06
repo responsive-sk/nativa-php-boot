@@ -12,6 +12,7 @@ $articleListJs = AssetHelper::js('article-list');
 $themeToggleJs = AssetHelper::js('theme-toggle');
 $navigationJs = AssetHelper::js('navigation');
 $toastJs = AssetHelper::js('toast');
+$contactFormCss = AssetHelper::css('contact-form');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,7 @@ $toastJs = AssetHelper::js('toast');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
+    <link rel="stylesheet" href="<?= $contactFormCss ?>">
     <style>
         :root {
             --bg-primary: #ffffff;
@@ -126,6 +128,117 @@ $toastJs = AssetHelper::js('toast');
         .demo-btn--info {
             background: #17a2b8;
             color: white;
+        }
+        
+        /* Theme Toggle Styles */
+        .theme-toggle-svelte {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 9999px;
+            transition: background 0.3s ease;
+        }
+        
+        .theme-toggle-svelte:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .theme-toggle-svelte .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+        
+        .theme-toggle-svelte .icon--sun {
+            color: #f59e0b;
+        }
+        
+        .theme-toggle-svelte .icon--moon {
+            color: #6b7280;
+        }
+        
+        /* Contact Form Styles */
+        .contact-form-svelte {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-form-svelte .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form-svelte label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary, #1a1a1a);
+        }
+        
+        .contact-form-svelte input,
+        .contact-form-svelte textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border, #e0e0e0);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--input-bg, #fff);
+            color: var(--text-primary, #1a1a1a);
+            transition: border-color 0.3s ease;
+        }
+        
+        .contact-form-svelte input:focus,
+        .contact-form-svelte textarea:focus {
+            outline: none;
+            border-color: var(--accent, #007bff);
+        }
+        
+        .contact-form-svelte .error-text {
+            display: block;
+            margin-top: 0.25rem;
+            color: var(--error, #dc3545);
+            font-size: 0.875rem;
+        }
+        
+        .contact-form-svelte .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent, #007bff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-form-svelte .submit-btn:hover:not(:disabled) {
+            background: var(--accent-hover, #0056b3);
+        }
+        
+        .contact-form-svelte .success-message {
+            text-align: center;
+            padding: 2rem;
+            background: var(--success-bg, #d4edda);
+            border-radius: 12px;
+            color: var(--success-text, #155724);
+        }
+        
+        .contact-form-svelte .error-message {
+            padding: 1rem;
+            background: var(--error-bg, #f8d7da);
+            border-radius: 8px;
+            color: var(--error-text, #721c24);
+            margin-bottom: 1rem;
         }
     </style>
 </head>
