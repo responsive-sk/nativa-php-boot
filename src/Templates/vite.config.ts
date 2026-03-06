@@ -53,34 +53,29 @@ export default defineConfig(({ mode }) => {
 
       rollupOptions: {
         input: {
+          // ===== VANILLA FRONTEND =====
           // Core - always loaded
-          'core-init': resolve(__dirname, 'src/init.js'),
-          'core-app': resolve(__dirname, 'src/app.ts'),
-          'core-css': resolve(__dirname, 'src/css.ts'),
+          'core-init': resolve(__dirname, 'vanilla/frontend/src/init.js'),
+          'core-app': resolve(__dirname, 'vanilla/frontend/src/app.ts'),
+          'core-css': resolve(__dirname, 'vanilla/frontend/src/css.ts'),
 
           // Feature modules - loaded per page
-          'admin': resolve(__dirname, 'src/frontend/use-cases/admin/admin.ts'),
-          'auth': resolve(__dirname, 'src/frontend/use-cases/auth/auth.ts'),
-          'home': resolve(__dirname, 'src/frontend/pages/home.ts'),
-          'blog': resolve(__dirname, 'src/frontend/pages/blog.ts'),
-          'articles': resolve(__dirname, 'src/frontend/pages/articles.ts'),
-          'contact': resolve(__dirname, 'src/frontend/pages/contact.ts'),
-          'about': resolve(__dirname, 'src/frontend/pages/about.ts'),
-          'portfolio': resolve(__dirname, 'src/frontend/pages/portfolio.ts'),
-          'services': resolve(__dirname, 'src/frontend/pages/services.ts'),
-          'pricing': resolve(__dirname, 'src/frontend/pages/pricing.ts'),
-          'docs': resolve(__dirname, 'src/frontend/pages/docs.ts'),
+          'home': resolve(__dirname, 'vanilla/frontend/src/pages/home.ts'),
+          'blog': resolve(__dirname, 'vanilla/frontend/src/pages/blog.ts'),
+          'articles': resolve(__dirname, 'vanilla/frontend/src/pages/articles.ts'),
+          'contact': resolve(__dirname, 'vanilla/frontend/src/pages/contact.ts'),
+          'about': resolve(__dirname, 'vanilla/frontend/src/pages/about.ts'),
+          'portfolio': resolve(__dirname, 'vanilla/frontend/src/pages/portfolio.ts'),
+          'services': resolve(__dirname, 'vanilla/frontend/src/pages/services.ts'),
+          'pricing': resolve(__dirname, 'vanilla/frontend/src/pages/pricing.ts'),
+          'docs': resolve(__dirname, 'vanilla/frontend/src/pages/docs.ts'),
 
-          // Svelte components (direct entry points)
-          'article-list': resolve(__dirname, 'src/article-list.js'),
-          'contact-form': resolve(__dirname, 'src/contact-form.js'),
-          'theme-toggle': resolve(__dirname, 'src/theme-toggle.js'),
-          'navigation': resolve(__dirname, 'src/navigation.js'),
-          'toast': resolve(__dirname, 'src/toast.js'),
-          'navigation-enhance': resolve(__dirname, 'src/navigation-enhance.js'),
-          
-          // Design system CSS entry point
-          'design-system': resolve(__dirname, 'src/design-system.js'),
+          // ===== SVELTE FRONTEND =====
+          // Svelte components
+          'navigation-enhance': resolve(__dirname, 'svelte/frontend/src/navigation-enhance.js'),
+
+          // Design system CSS
+          'design-system': resolve(__dirname, 'vanilla/frontend/src/styles/design-system.js'),
         },
         output: {
           entryFileNames: "[name].[hash].js",
