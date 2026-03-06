@@ -313,7 +313,9 @@ final class Kernel
 
         // Svelte Hybrid Test Page
         $this->router->get('/svelte-test', function() {
-            return new Response(file_get_contents(__DIR__ . '/../../../public/svelte-test.php'), 200, [
+            ob_start();
+            include __DIR__ . '/../../../public/svelte-test.php';
+            return new Response(ob_get_clean(), 200, [
                 'Content-Type' => 'text/html'
             ]);
         });
