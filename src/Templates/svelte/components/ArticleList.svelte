@@ -1,14 +1,14 @@
 <script>
     export let articles = [];
     export let searchQuery = '';
-    
-    // Reactive filter
-    $: filteredArticles = articles.filter(article => 
-        !searchQuery || 
+
+    // Reactive filter (Svelte 5)
+    $: filteredArticles = articles.filter(article =>
+        !searchQuery ||
         article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
+
     function handleSearch(event) {
         searchQuery = event.target.value;
     }

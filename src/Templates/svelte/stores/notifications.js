@@ -1,9 +1,9 @@
-// Notification Store - Global notification state
+// Notification Store - Svelte 5 with runes
 import { writable } from 'svelte/store';
 
 let notificationId = 0;
 
-function createNotificationStore() {
+export const notifications = (() => {
     const { subscribe, update } = writable([]);
     
     function addNotification(notification) {
@@ -60,6 +60,4 @@ function createNotificationStore() {
             dismiss(id);
         }
     };
-}
-
-export const notifications = createNotificationStore();
+})();

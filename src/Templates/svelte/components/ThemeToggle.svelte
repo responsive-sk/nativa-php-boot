@@ -1,7 +1,20 @@
 <script>
     import { onMount } from 'svelte';
     
-    let isDark = false;
+    let isDark = $state(false);
+    
+    $effect.pre(() => {
+        // Apply theme when isDark changes
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    });
     
     onMount(() => {
         // Check localStorage
@@ -12,24 +25,10 @@
             // Check system preference
             isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         }
-        
-        applyTheme();
     });
     
     function toggle() {
         isDark = !isDark;
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        applyTheme();
-    }
-    
-    function applyTheme() {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-        } else {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-        }
     }
 </script>
 

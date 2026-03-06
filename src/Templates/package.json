@@ -22,42 +22,42 @@
         "format:fix": "prettier . --write"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.3",
+        "@eslint/js": "^10.0.1",
         "@floating-ui/dom": "^1.7.6",
         "@fullhuman/postcss-purgecss": "^8.0.0",
         "@shoelace-style/shoelace": "^2.20.1",
-        "@sveltejs/vite-plugin-svelte": "^3.1.2",
+        "@sveltejs/vite-plugin-svelte": "^6.2.4",
         "@testing-library/dom": "^10.4.1",
         "@testing-library/jest-dom": "^6.9.1",
         "@types/bun": "latest",
-        "@types/node": "^25.3.3",
+        "@types/node": "^25.3.5",
         "@typescript-eslint/eslint-plugin": "^8.56.1",
         "@typescript-eslint/parser": "^8.56.1",
-        "agnosticui-core": "2.0.0-alpha.12",
+        "agnosticui-core": "2.0.0-alpha.21",
         "chart.js": "^4.5.1",
         "cssnano": "^7.1.2",
-        "eslint": "^9.39.3",
+        "eslint": "^10.0.2",
         "eslint-config-prettier": "^10.1.8",
         "focus-trap": "^8.0.0",
         "gsap": "^3.14.2",
-        "jsdom": "^27.4.0",
+        "jsdom": "^28.1.0",
         "lit": "^3.3.2",
         "mermaid": "^11.12.3",
         "postcss": "^8.5.8",
         "prettier": "^3.8.1",
         "rollup-plugin-copy": "^3.5.0",
         "rollup-plugin-minify-html-literals": "^1.2.6",
-        "rollup-plugin-visualizer": "^6.0.11",
-        "svelte": "^4.2.20",
+        "rollup-plugin-visualizer": "^7.0.1",
+        "svelte": "^5.53.7",
         "terser": "^5.46.0",
         "typed-htmx": "^0.3.1",
         "typescript": "^5.9.3",
         "vite": "^7.3.1",
         "vite-plugin-compression2": "^2.5.0",
-        "vitest": "^0.34.6"
+        "vitest": "^4.0.18"
     },
     "dependencies": {
         "alpinejs": "^3.15.8",
-        "htmx.org": "^1.9.12"
+        "htmx.org": "^2.0.8"
     }
 }

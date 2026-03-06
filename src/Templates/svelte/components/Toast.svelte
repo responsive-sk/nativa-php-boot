@@ -3,7 +3,7 @@
     import { fade, slide } from 'svelte/transition';
     import { onDestroy } from 'svelte';
     
-    let items;
+    let items = $state([]);
     
     // Subscribe to notifications store
     const unsubscribe = notifications.subscribe(value => {
