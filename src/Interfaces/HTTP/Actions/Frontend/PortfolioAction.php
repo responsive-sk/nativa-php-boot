@@ -22,22 +22,15 @@ final class PortfolioAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        try {
-            $content = $this->renderer->render(
-                'pages/frontend/portfolio',
-                [
-                    'pageTitle' => 'Portfolio',
-                    'page'      => 'portfolio',
-                ],
-                'frontend'
-            );
-
-            return $this->html($content);
-        } catch (\Throwable $e) {
-            error_log('ERROR: PortfolioAction error: ' . $e->getMessage());
-
-            return $this->error('Internal server error', 500);
-        }
+        return $this->renderPage(
+            $request,
+            $this->renderer,
+            'pages/frontend/portfolio',
+            [
+                'pageTitle' => 'Portfolio',
+                'page'      => 'portfolio',
+            ]
+        );
     }
 
     public static function create(): self

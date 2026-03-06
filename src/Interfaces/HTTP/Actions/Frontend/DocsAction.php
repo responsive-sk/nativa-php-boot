@@ -11,8 +11,7 @@ use Interfaces\HTTP\Actions\Action;
 use Interfaces\HTTP\View\TemplateRenderer;
 
 /**
- * Documentation page action
- * Pure PHP - no Symfony dependencies in production.
+ * Documentation page action.
  */
 final class DocsAction extends Action
 {
@@ -23,24 +22,23 @@ final class DocsAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'pages/frontend/docs',
             [
                 'pageTitle' => 'Documentation - Nativa CMS',
                 'page'      => 'docs',
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self
     {
         $container = ContainerFactory::create();
-        /** @var TemplateRenderer $renderer */
-        $renderer = $container->get(TemplateRenderer::class);
 
-        return new self($renderer);
+        return new self(
+            $container->get(TemplateRenderer::class),
+        );
     }
 }
