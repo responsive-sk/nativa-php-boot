@@ -12,8 +12,8 @@ $articleListJs = AssetHelper::js('article-list');
 $themeToggleJs = AssetHelper::js('theme-toggle');
 $navigationJs = AssetHelper::js('navigation');
 $toastJs = AssetHelper::js('toast');
-$contactFormCss = AssetHelper::css('contact-form');
-$navigationCss = AssetHelper::css('navigation');
+$tokensCss = AssetHelper::css('tokens');
+$componentsCss = AssetHelper::css('components');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,147 +21,31 @@ $navigationCss = AssetHelper::css('navigation');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
-    <link rel="stylesheet" href="<?= $contactFormCss ?>">
-    <link rel="stylesheet" href="<?= $navigationCss ?>">
+    <link rel="stylesheet" href="<?= $tokensCss ?>">
+    <link rel="stylesheet" href="<?= $componentsCss ?>">
     <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f5;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --accent: #007bff;
-            --card-bg: #ffffff;
-            --border: #e0e0e0;
-        }
-        
-        .dark {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --card-bg: #2d2d2d;
-            --border: #404040;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        
+        /* Demo page specific styles */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        header {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--bg-secondary);
-        }
-        
-        h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            padding: var(--spacing-8);
         }
         
         .test-section {
-            margin-bottom: 4rem;
+            margin-bottom: var(--spacing-16);
         }
         
         .test-info {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        
-        .test-info code {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .dark .test-info code {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .article-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            background: var(--color-bg-secondary);
+            padding: var(--spacing-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-6);
         }
         
         .demo-buttons {
             display: flex;
-            gap: 1rem;
+            gap: var(--spacing-4);
             flex-wrap: wrap;
-        }
-        
-        .demo-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .demo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .demo-btn--success {
-            background: #28a745;
-            color: white;
-        }
-        
-        .demo-btn--error {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .demo-btn--info {
-            background: #17a2b8;
-            color: white;
-        }
-        
-        /* Theme Toggle Styles (inline - no CSS extracted) */
-        .theme-toggle-svelte {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.5rem;
-            height: 2.5rem;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 9999px;
-            transition: background 0.3s ease;
-        }
-        
-        .theme-toggle-svelte:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        
-        .theme-toggle-svelte .icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            transition: transform 0.5s ease, opacity 0.3s ease;
-        }
-        
-        .theme-toggle-svelte .icon--sun {
-            color: #f59e0b;
-        }
-        
-        .theme-toggle-svelte .icon--moon {
-            color: #6b7280;
         }
     </style>
 </head>
@@ -195,13 +79,13 @@ $navigationCss = AssetHelper::css('navigation');
             </div>
             
             <div class="demo-buttons">
-                <button class="demo-btn demo-btn--success" onclick="showSuccess()">
+                <button class="button button--primary" onclick="showSuccess()">
                     ✓ Success Toast
                 </button>
-                <button class="demo-btn demo-btn--error" onclick="showError()">
+                <button class="button button--secondary" onclick="showError()">
                     ✕ Error Toast
                 </button>
-                <button class="demo-btn demo-btn--info" onclick="showInfo()">
+                <button class="button button--outline" onclick="showInfo()">
                     ℹ Info Toast
                 </button>
             </div>
@@ -220,11 +104,20 @@ $navigationCss = AssetHelper::css('navigation');
                 data-articles='<?= htmlspecialchars(json_encode($articles), ENT_QUOTES, 'UTF-8') ?>'
             >
                 <!-- PHP rendered fallback -->
-                <div class="php-fallback article-grid">
+                <div class="php-fallback" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
                     <?php foreach ($articles as $article): ?>
-                        <article style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <h3><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8') ?></h3>
-                            <p><?= htmlspecialchars($article['excerpt'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <article class="card card--hover card--accent">
+                            <div class="card__content">
+                                <header class="card__header">
+                                    <h3 class="card__title">
+                                        <a href="#"><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8') ?></a>
+                                    </h3>
+                                </header>
+                                <p class="card__excerpt"><?= htmlspecialchars($article['excerpt'], ENT_QUOTES, 'UTF-8') ?></p>
+                                <footer class="card__footer">
+                                    <a href="#" class="card__link">Read more</a>
+                                </footer>
+                            </div>
                         </article>
                     <?php endforeach; ?>
                 </div>
