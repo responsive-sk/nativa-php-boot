@@ -1,7 +1,11 @@
 /* App App - Main Entry Point
- * Imports: shared styles + components (loaded on every page)
+ * Imports: Cascade Framework + custom styles
  */
 
+// ===== CASCADE FRAMEWORK =====
+import './cascade';
+
+// ===== CUSTOM STYLES =====
 // Shared styles (variables, reset, utilities, fonts)
 import "./styles/components/reset.css";
 import "./styles/components/fonts.css";
