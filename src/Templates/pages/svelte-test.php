@@ -54,7 +54,7 @@ $designSystemCss = AssetHelper::css('design-system');
     <div class="container">
         <header>
             <h1>🚀 Svelte Hybrid Test</h1>
-            <p>Testing Svelte 4 components with PHP backend</p>
+            <p>Testing Svelte 5 components with PHP backend</p>
         </header>
         
         <!-- Test 1: Theme Toggle -->
