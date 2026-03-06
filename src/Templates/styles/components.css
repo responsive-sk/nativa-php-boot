@@ -387,10 +387,11 @@
    ========================================================================== */
 
 /**
- * Navigation
+ * Navigation (alias: .nav-primary for backward compatibility)
  * @block nav
  */
-.nav {
+.nav,
+.nav-primary {
   position: sticky;
   top: 0;
   z-index: var(--z-index-sticky);
@@ -401,9 +402,10 @@
 
 /**
  * Nav container
- * @element nav__container
+ * @element nav__container, nav-primary__inner
  */
-.nav__container {
+.nav__container,
+.nav-primary__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -414,9 +416,10 @@
 
 /**
  * Nav logo
- * @element nav__logo
+ * @element nav__logo, nav-primary__logo
  */
-.nav__logo {
+.nav__logo,
+.nav-primary__logo {
   display: flex;
   align-items: center;
   gap: var(--spacing-1);
@@ -426,15 +429,17 @@
   text-decoration: none;
 }
 
-.nav__logo-dot {
+.nav__logo-dot,
+.nav-primary__logo-dot {
   color: var(--color-primary-600);
 }
 
 /**
  * Nav list
- * @element nav__list
+ * @element nav__list, nav-primary__list
  */
-.nav__list {
+.nav__list,
+.nav-primary__list {
   display: flex;
   list-style: none;
   margin: 0;
@@ -444,17 +449,24 @@
 
 /**
  * Nav item
- * @element nav__item
+ * @element nav__item, nav-primary__item
  */
-.nav__item {
+.nav__item,
+.nav-primary__item {
   position: relative;
+}
+
+.nav__item--active,
+.nav-primary__item--active {
+  font-weight: var(--font-weight-semibold);
 }
 
 /**
  * Nav link
- * @element nav__link
+ * @element nav__link, nav-primary__link
  */
-.nav__link {
+.nav__link,
+.nav-primary__link {
   display: inline-block;
   padding: var(--spacing-2) 0;
   font-size: var(--font-size-base);
@@ -464,35 +476,160 @@
   transition: color var(--transition-duration-fast) var(--transition-timing-default);
 }
 
-.nav__link:hover {
+.nav__link:hover,
+.nav-primary__link:hover {
   color: var(--color-text-primary);
 }
 
-/**
- * Nav link active
- * @modifier nav__link--active
- */
-.nav__link--active {
+.nav__link--active,
+.nav-primary__link--active {
   color: var(--color-primary-600);
 }
 
-.nav__link--active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-primary-600);
-  animation: slideIn var(--transition-duration-fast) var(--transition-timing-out);
+/**
+ * Nav number (optional badge)
+ * @element nav__number, nav-primary__number
+ */
+.nav__number,
+.nav-primary__number {
+  display: inline-block;
+  margin-right: var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-tertiary);
 }
 
-@keyframes slideIn {
-  from {
-    transform: scaleX(0);
+/**
+ * Nav text
+ * @element nav__text, nav-primary__text
+ */
+.nav__text,
+.nav-primary__text {
+  display: inline-block;
+}
+
+/**
+ * Nav actions
+ * @element nav__actions, nav-primary__actions
+ */
+.nav__actions,
+.nav-primary__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+/**
+ * Nav mobile toggle
+ * @element nav__mobile-toggle, nav-primary__mobile-toggle
+ */
+.nav__mobile-toggle,
+.nav-primary__mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+}
+
+.mobile-toggle__icon {
+  display: block;
+  width: var(--size-6);
+  height: var(--size-1);
+  background: var(--color-text-primary);
+  position: relative;
+}
+
+.mobile-toggle__icon::before,
+.mobile-toggle__icon::after {
+  content: '';
+  position: absolute;
+  width: var(--size-6);
+  height: var(--size-1);
+  background: var(--color-text-primary);
+  transition: transform var(--transition-duration-fast) var(--transition-timing-default);
+}
+
+.mobile-toggle__icon::before {
+  top: calc(var(--size-2) * -1);
+}
+
+.mobile-toggle__icon::after {
+  top: var(--size-2);
+}
+
+/**
+ * Mobile menu
+ * @block mobile-menu
+ */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-primary);
+  border-bottom: var(--border-width-1) solid var(--color-border-light);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-menu[hidden] {
+  display: none;
+}
+
+.mobile-menu__header {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-bottom: var(--border-width-1) solid var(--color-border-light);
+}
+
+.mobile-menu__theme {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.mobile-menu__theme-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.mobile-menu__nav {
+  padding: var(--spacing-4) var(--spacing-6);
+}
+
+.mobile-menu__item {
+  margin-bottom: var(--spacing-4);
+}
+
+.mobile-menu__link {
+  display: block;
+  padding: var(--spacing-3) 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-duration-fast) var(--transition-timing-default);
+}
+
+.mobile-menu__link:hover {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+  .nav__list,
+  .nav-primary__list {
+    display: none;
   }
-  to {
-    transform: scaleX(1);
+  
+  .nav__mobile-toggle,
+  .nav-primary__mobile-toggle {
+    display: block;
+  }
+  
+  .mobile-menu {
+    display: block;
+    position: static;
   }
 }
 
