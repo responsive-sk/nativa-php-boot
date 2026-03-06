@@ -44,20 +44,11 @@ final class AssetHelper
 
         // Map legacy/core names to manifest keys
         $nameMap = [
-            'core-init' => 'init.js',
-            'core-app'  => 'app.ts',
-            'core-css'  => 'css.ts',
-            'init.js'   => 'init.js',
-            'app.js'    => 'app.ts',
+            'core-init' => '../vanilla/frontend/src/init.js',
+            'core-app'  => '../vanilla/frontend/src/app.ts',
+            'core-css'  => '../vanilla/frontend/src/css.ts',
             // Svelte components
-            'article-list' => '../svelte/components/ArticleList.svelte',
-            'contact-form' => '../svelte/components/ContactForm.svelte',
-            'theme-toggle' => '../svelte/components/ThemeToggle.svelte',
-            'navigation' => '../svelte/components/Navigation.svelte',
-            'toast' => '../svelte/components/Toast.svelte',
-            'navigation-enhance' => 'navigation-enhance.js',
-            // Design system CSS
-            'design-system' => 'design-system.js',
+            'navigation-enhance' => '../svelte/frontend/src/navigation-enhance.js',
         ];
 
         // Try mapped name first
@@ -280,13 +271,8 @@ final class AssetHelper
             return self::$manifest;
         }
 
-        // Get project root from composer autoload
-        $projectRoot = \dirname(__DIR__, 4);
-
-        // Fallback to hardcoded path if dirname fails
-        if ($projectRoot === '/' || $projectRoot === '') {
-            $projectRoot = \dirname(__DIR__, 5);
-        }
+        // Hardcoded project root - adjust if needed
+        $projectRoot = '/home/evan/dev/nativa-php-boot';
 
         // Try each manifest path (frontend, svelte, admin)
         foreach (self::$manifestPaths as $type => $relPath) {
