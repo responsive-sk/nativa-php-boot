@@ -34,25 +34,21 @@ final class ShowBlogArticleAction extends Action
             return $this->notFound('Article not found');
         }
 
-        // Increment view count
         $this->articleManager->incrementViewCount($article->id());
+        $related = $this->articleManager->findRelated($article, 3);
 
-        // Get related articles (same category or tags, excluding current)
-        $relatedArticles = $this->articleManager->findRelated($article, 3);
-
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'frontend/blog/show',
             [
                 'article'         => $article,
-                'relatedArticles' => $relatedArticles,
+                'relatedArticles' => $related,
                 'pageTitle'       => $article->title(),
                 'page'            => 'blog',
                 'metaDescription' => $article->excerpt() ?: substr(strip_tags($article->content()), 0, 160),
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

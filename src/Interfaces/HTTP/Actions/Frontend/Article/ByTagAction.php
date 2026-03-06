@@ -27,16 +27,15 @@ final class ByTagAction extends Action
         $slug = $this->param($request, 'slug');
         $articles = $this->articleManager->findByTag($slug);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'pages/articles/index',
             [
                 'articles' => $articles,
                 'title'    => 'Articles tagged: ' . htmlspecialchars($slug),
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

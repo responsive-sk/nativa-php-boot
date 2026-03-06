@@ -31,13 +31,12 @@ final class ShowArticleAction extends Action
             return $this->notFound('Article not found');
         }
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'pages/articles/show',
-            ['article' => $article, 'title' => $article->title()],
-            'frontend'
+            ['article' => $article, 'title' => $article->title()]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

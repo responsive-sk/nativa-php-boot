@@ -26,13 +26,12 @@ final class ListArticlesAction extends Action
     {
         $articles = $this->articleManager->listPublished(20);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'frontend/articles/index',
-            ['articles' => $articles, 'title' => 'Articles'],
-            'frontend'
+            ['articles' => $articles, 'title' => 'Articles']
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self

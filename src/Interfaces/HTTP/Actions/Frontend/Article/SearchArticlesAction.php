@@ -32,17 +32,16 @@ final class SearchArticlesAction extends Action
 
         $articles = $this->articleManager->search($query);
 
-        $content = $this->renderer->render(
+        return $this->renderPage(
+            $request,
+            $this->renderer,
             'pages/articles/index',
             [
                 'articles'    => $articles,
                 'title'       => 'Search results for: ' . htmlspecialchars($query),
                 'searchQuery' => $query,
-            ],
-            'frontend'
+            ]
         );
-
-        return $this->html($content);
     }
 
     public static function create(): self
