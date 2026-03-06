@@ -629,7 +629,7 @@
  * @block mobile-menu
  */
 .mobile-menu {
-  display: none;
+  display: none;  /* Hidden by default on desktop */
   position: absolute;
   top: 100%;
   left: 0;
@@ -651,8 +651,14 @@
   }
 }
 
+/* When not hidden, show the menu */
+.mobile-menu:not([hidden]) {
+  display: block;
+}
+
+/* Hidden attribute always hides */
 .mobile-menu[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .mobile-menu__header {
@@ -721,8 +727,10 @@
     display: flex;
   }
   
-  /* Mobile menu is hidden by default, shown via JS toggle */
-  /* Don't set display: block here - let hidden attribute control visibility */
+  /* On mobile, menu can be shown/hidden via toggle */
+  .mobile-menu {
+    position: static;
+  }
 }
 
 /* ==========================================================================
