@@ -34,7 +34,7 @@ export default defineConfig({
 });
 
 # Build with analysis
-ppnpm run build
+pnpm run build
 
 # Or use manual analysis
 pnpm dlx vite-bundle-analyzer public/assets/app.js
@@ -467,7 +467,7 @@ export default defineConfig({
 // package.json - Add budget checks
 {
     "scripts": {
-        "build:check": "ppnpm run build && bundlesize",
+        "build:check": "pnpm run build && bundlesize",
         "bundlesize": "bundlesize"
     },
     "bundlesize": [

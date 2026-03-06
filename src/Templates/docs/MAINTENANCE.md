@@ -47,14 +47,14 @@ rm -rf node_modules/.vite
 rm -rf public/assets/.vite
 
 # Rebuild
-ppnpm run build
+pnpm run build
 ```
 
 #### Bundle Analysis
 
 ```bash
 # Analyze bundle size
-ppnpm run build --analyze
+pnpm run build --analyze
 ```
 
 ### Dependency Management
@@ -133,7 +133,7 @@ du -sh public/assets/app.css
 
 ```bash
 # Time the build process
-time ppnpm run build
+time pnpm run build
 ```
 
 ### Lighthouse Performance
@@ -222,7 +222,7 @@ fi
       find src -name "*.ts" -exec bash -c 'if ! grep -r "$(basename "$1" .ts)" src/ --include="*.ts" --include="*.js" > /dev/null; then echo "Unused: $1"; fi' _ {} \;
 
 - name: Build check
-  run: ppnpm run build
+  run: pnpm run build
 ```
 
 ## Documentation Maintenance

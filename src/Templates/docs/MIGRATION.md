@@ -148,7 +148,7 @@ find ./src -name "*.css" -o -name "*.js" -o -name "*.ts" -o -name "*.php" | xarg
 ### Build Verification
 
 ```bash
-cd views/templates && ppnpm run build
+cd views/templates && pnpm run build
 
 # Should complete without errors
 ```

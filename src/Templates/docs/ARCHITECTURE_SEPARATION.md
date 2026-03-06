@@ -50,10 +50,10 @@ rollupOptions: {
 
 ```bash
 # Build new architecture only
-NEW_ARCH=true ppnpm run build
+NEW_ARCH=true pnpm run build
 
 # Build legacy
-ppnpm run build:legacy
+pnpm run build:legacy
 ```
 
 ### Option 2: Directory-based Separation
@@ -157,7 +157,7 @@ pnpm test:visual:update
 
 ```bash
 # Build new architecture
-NEW_ARCH=true ppnpm run build
+NEW_ARCH=true pnpm run build
 
 # Start server with new build
 php -S localhost:8008 -t public
@@ -193,14 +193,14 @@ pnpm test:e2e
 
 ```bash
 # Build new architecture
-ppnpm run build
+pnpm run build
 
 # Test new architecture only
 pnpm test
 pnpm test:visual
 
 # Analyze bundle (new code only)
-ppnpm run analyze
+pnpm run analyze
 
 # Check what's imported
 pnpm exec madge --circular src/
@@ -224,7 +224,7 @@ pnpm exec depcheck
 
 ```bash
 # Check bundle sizes
-ppnpm run build && ls -lh public/assets/*.css
+pnpm run build && ls -lh public/assets/*.css
 ```
 
 ### Performance Metrics
@@ -244,7 +244,7 @@ If new architecture has issues:
 git checkout legacy-branch
 
 # 2. Build legacy
-ppnpm run build:legacy
+pnpm run build:legacy
 
 # 3. Deploy
 ```

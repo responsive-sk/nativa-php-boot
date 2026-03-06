@@ -247,7 +247,7 @@ jobs:
         run: pnpm install
       
       - name: Validate theme tokens
-        run: ppnpm run validate:tokens
+        run: pnpm run validate:tokens
       
       - name: Run visual regression tests
         run: pnpm test:visual
@@ -289,7 +289,7 @@ jobs:
 
 ```bash
 # Validate CSS tokens
-ppnpm run validate:tokens
+pnpm run validate:tokens
 
 # Run theme unit tests
 pnpm test -- src/ui/theme.test.ts
