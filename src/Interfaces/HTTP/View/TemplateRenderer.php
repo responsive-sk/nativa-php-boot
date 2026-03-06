@@ -207,8 +207,12 @@ final class TemplateRenderer
             // Frontend templates (Templates/pages/frontend)
             $templatePath .= '/pages/frontend';
             $template = substr($template, 9); // Remove 'frontend/' prefix
+        } elseif (str_starts_with($template, 'pages/')) {
+            // Direct pages (Templates/pages/xxx)
+            $templatePath .= '/pages';
+            $template = substr($template, 6); // Remove 'pages/' prefix
         } else {
-            // Direct path (e.g., 'pages/home' → Templates/pages/home.php)
+            // Direct path (e.g., 'home' → Templates/home.php)
             $templatePath .= '/' . $template;
             $template = '';
         }
