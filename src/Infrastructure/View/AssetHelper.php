@@ -29,7 +29,7 @@ final class AssetHelper
         'admin' => 'public/assets/admin/admin-manifest.json',
     ];
 
-    private static string $assetBaseUrl = '/assets/';
+    private static string $assetBaseUrl = '/assets/frontend/';
 
     /**
      * Get the hashed filename for a JavaScript asset.
