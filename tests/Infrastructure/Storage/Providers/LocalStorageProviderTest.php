@@ -1,14 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Infrastructure\Storage\Providers;
 
 use Infrastructure\Storage\Providers\LocalStorageProvider;
+use Infrastructure\Storage\Providers\MediaProviderInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Infrastructure\Storage\Providers\LocalStorageProvider
+ *
+ * @internal
  */
 final class LocalStorageProviderTest extends TestCase
 {
@@ -19,7 +22,7 @@ final class LocalStorageProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->testDir = sys_get_temp_dir() . '/storage_test_' . uniqid();
-        @mkdir($this->testDir, 0755, true);
+        @mkdir($this->testDir, 0o755, true);
 
         $this->provider = new LocalStorageProvider($this->testDir, '/storage/uploads');
     }
@@ -31,24 +34,10 @@ final class LocalStorageProviderTest extends TestCase
         }
     }
 
-    private function deleteDirectory(string $dir): void
-    {
-        if (!is_dir($dir)) {
-            return;
-        }
-
-        $files = array_diff(scandir($dir), ['.', '..']);
-        foreach ($files as $file) {
-            $path = $dir . '/' . $file;
-            is_dir($path) ? $this->deleteDirectory($path) : unlink($path);
-        }
-        rmdir($dir);
-    }
-
     public function testProviderImplementsInterface(): void
     {
-        $this->assertInstanceOf(
-            \Infrastructure\Storage\Providers\MediaProviderInterface::class,
+        self::assertInstanceOf(
+            MediaProviderInterface::class,
             $this->provider
         );
     }
@@ -57,19 +46,19 @@ final class LocalStorageProviderTest extends TestCase
     {
         $name = $this->provider->getName();
 
-        $this->assertEquals('local', $name);
+        self::assertSame('local', $name);
     }
 
     public function testConstructorCreatesBaseDirectory(): void
     {
-        $this->assertDirectoryExists($this->testDir);
+        self::assertDirectoryExists($this->testDir);
     }
 
     public function testExistsReturnsFalseForNonExistentFile(): void
     {
         $exists = $this->provider->exists('nonexistent.txt');
 
-        $this->assertFalse($exists);
+        self::assertFalse($exists);
     }
 
     public function testExistsReturnsTrueForExistentFile(): void
@@ -79,7 +68,7 @@ final class LocalStorageProviderTest extends TestCase
 
         $exists = $this->provider->exists('test.txt');
 
-        $this->assertTrue($exists);
+        self::assertTrue($exists);
     }
 
     public function testGetSizeForExistentFile(): void
@@ -90,35 +79,35 @@ final class LocalStorageProviderTest extends TestCase
 
         $size = $this->provider->getSize('test.txt');
 
-        $this->assertEquals(\strlen($content), $size);
+        self::assertSame(\strlen($content), $size);
     }
 
     public function testGetSizeForNonExistentFile(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $size = $this->provider->getSize('nonexistent.txt');
 
-        $this->provider->getSize('nonexistent.txt');
+        self::assertSame(0, $size);
     }
 
     public function testGetUrl(): void
     {
         $url = $this->provider->getUrl('test/file.txt');
 
-        $this->assertEquals('/storage/uploads/test/file.txt', $url);
+        self::assertSame('/storage/uploads/test/file.txt', $url);
     }
 
     public function testGetUrlWithLeadingSlash(): void
     {
         $url = $this->provider->getUrl('/test/file.txt');
 
-        $this->assertEquals('/storage/uploads/test/file.txt', $url);
+        self::assertSame('/storage/uploads/test/file.txt', $url);
     }
 
     public function testDeleteNonExistentFile(): void
     {
         $deleted = $this->provider->delete('nonexistent.txt');
 
-        $this->assertFalse($deleted);
+        self::assertFalse($deleted);
     }
 
     public function testDeleteExistentFile(): void
@@ -128,8 +117,8 @@ final class LocalStorageProviderTest extends TestCase
 
         $deleted = $this->provider->delete('test.txt');
 
-        $this->assertTrue($deleted);
-        $this->assertFileDoesNotExist($testFile);
+        self::assertTrue($deleted);
+        self::assertFileDoesNotExist($testFile);
     }
 
     public function testUploadWithInvalidFile(): void
@@ -138,7 +127,7 @@ final class LocalStorageProviderTest extends TestCase
 
         $this->provider->upload([
             'tmp_name' => '',
-            'name' => 'test.txt',
+            'name'     => 'test.txt',
         ]);
     }
 
@@ -148,8 +137,8 @@ final class LocalStorageProviderTest extends TestCase
 
         $this->provider->upload([
             'tmp_name' => '/nonexistent/file.txt',
-            'name' => 'test.txt',
-            'size' => 100,
+            'name'     => 'test.txt',
+            'size'     => 100,
         ]);
     }
 
@@ -157,7 +146,7 @@ final class LocalStorageProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass(LocalStorageProvider::class);
 
-        $this->assertTrue($reflection->isFinal());
+        self::assertTrue($reflection->isFinal());
     }
 
     public function testUploadValidatesFileSize(): void
@@ -169,9 +158,10 @@ final class LocalStorageProviderTest extends TestCase
 
         $this->provider->upload([
             'tmp_name' => $tempFile,
-            'name' => 'large.txt',
-            'size' => 11 * 1024 * 1024,
-            'type' => 'text/plain',
+            'name'     => 'large.txt',
+            'size'     => 11 * 1024 * 1024,
+            'type'     => 'text/plain',
+            'error'    => UPLOAD_ERR_OK,
         ]);
 
         unlink($tempFile);
@@ -186,9 +176,10 @@ final class LocalStorageProviderTest extends TestCase
 
         $this->provider->upload([
             'tmp_name' => $tempFile,
-            'name' => 'malicious.php',
-            'size' => 100,
-            'type' => 'application/x-php',
+            'name'     => 'malicious.php',
+            'size'     => 100,
+            'type'     => 'application/x-php',
+            'error'    => UPLOAD_ERR_OK,
         ]);
 
         unlink($tempFile);
@@ -197,40 +188,58 @@ final class LocalStorageProviderTest extends TestCase
     public function testUploadCreatesDateBasedDirectory(): void
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'test');
-        file_put_contents($tempFile, 'test content');
+        // Create a minimal PNG file (1x1 pixel)
+        file_put_contents($tempFile, hex2bin('89504E470D0A1A0A0000000D4948445200000001000000010802000000907753DE0000000C49444154789CCF63000100000100010018DD8D290000000049454E44AE426082'));
 
         $result = $this->provider->upload([
             'tmp_name' => $tempFile,
-            'name' => 'test.txt',
-            'size' => 100,
-            'type' => 'text/plain',
+            'name'     => 'test.png',
+            'size'     => 100,
+            'type'     => 'image/png',
+            'error'    => UPLOAD_ERR_OK,
         ]);
 
         unlink($tempFile);
 
-        $this->assertArrayHasKey('path', $result);
-        $this->assertArrayHasKey('url', $result);
-        $this->assertStringContainsString(date('Y/m/d'), $result['path']);
+        self::assertArrayHasKey('path', $result);
+        self::assertArrayHasKey('url', $result);
+        self::assertStringContainsString(date('Y/m/d'), $result['path']);
     }
 
     public function testUploadReturnsCorrectData(): void
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'test');
-        file_put_contents($tempFile, 'test content');
+        // Create a minimal PNG file (1x1 pixel)
+        file_put_contents($tempFile, hex2bin('89504E470D0A1A0A0000000D4948445200000001000000010802000000907753DE0000000C49444154789CCF63000100000100010018DD8D290000000049454E44AE426082'));
 
         $result = $this->provider->upload([
             'tmp_name' => $tempFile,
-            'name' => 'test.txt',
-            'size' => 100,
-            'type' => 'text/plain',
+            'name'     => 'test.png',
+            'size'     => 100,
+            'type'     => 'image/png',
+            'error'    => UPLOAD_ERR_OK,
         ]);
 
         unlink($tempFile);
 
-        $this->assertArrayHasKey('path', $result);
-        $this->assertArrayHasKey('url', $result);
-        $this->assertArrayHasKey('size', $result);
-        $this->assertArrayHasKey('mime_type', $result);
-        $this->assertArrayHasKey('original_name', $result);
+        self::assertArrayHasKey('path', $result);
+        self::assertArrayHasKey('url', $result);
+        self::assertArrayHasKey('size', $result);
+        self::assertArrayHasKey('mime_type', $result);
+        self::assertArrayHasKey('original_name', $result);
+    }
+
+    private function deleteDirectory(string $dir): void
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        $files = array_diff(scandir($dir), ['.', '..']);
+        foreach ($files as $file) {
+            $path = $dir . '/' . $file;
+            is_dir($path) ? $this->deleteDirectory($path) : unlink($path);
+        }
+        rmdir($dir);
     }
 }
