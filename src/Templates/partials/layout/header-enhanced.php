@@ -20,6 +20,7 @@ $menu = [
     ['name' => 'Portfolio', 'href' => '/portfolio', 'page' => 'portfolio', 'number' => '03'],
     ['name' => 'Contact', 'href' => '/contact', 'page' => 'contact', 'number' => '04'],
     ['name' => 'Docs', 'href' => '/docs', 'page' => 'docs', 'number' => '05'],
+    ['name' => '🧪 Svelte Test', 'href' => '/svelte-test', 'page' => 'svelte-test', 'number' => '06'],
 ];
 
 /**
