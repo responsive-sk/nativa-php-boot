@@ -1,5 +1,11 @@
 // Toast Entry Point - Global notifications
 import Toast from '../svelte/components/Toast.svelte';
+import { notifications } from '../svelte/stores/notifications.js';
+
+// Make notifications globally available for demo
+if (typeof window !== 'undefined') {
+    window.notifications = notifications;
+}
 
 // Auto-mount when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
