@@ -58,6 +58,7 @@ use Interfaces\HTTP\Actions\Frontend\DisplayPageAction;
 use Interfaces\HTTP\Actions\Frontend\DocsAction;
 use Interfaces\HTTP\Actions\Frontend\HomeAction;
 use Interfaces\HTTP\Actions\Frontend\PortfolioAction;
+use Interfaces\HTTP\Actions\Frontend\SvelteTestAction;
 
 /**
  * HTTP Kernel - Main entry point for handling requests.
@@ -312,13 +313,7 @@ final class Kernel
         $this->router->get('/logout', [LogoutAction::class, 'handle']);
 
         // Svelte Hybrid Test Page
-        $this->router->get('/svelte-test', function() {
-            ob_start();
-            include __DIR__ . '/../../../public/svelte-test.php';
-            return new Response(ob_get_clean(), 200, [
-                'Content-Type' => 'text/html'
-            ]);
-        });
+        $this->router->get('/svelte-test', SvelteTestAction::class);
 
         // Admin Routes - MUST BE BEFORE /{slug} (catch-all)!
         $this->router->get('/admin', DashboardAction::class);
