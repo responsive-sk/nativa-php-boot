@@ -124,3 +124,11 @@ function isActivePage(string $currentPage, string $targetPage): string
 $navigationEnhanceJs = \Infrastructure\View\AssetHelper::js('navigation-enhance');
 ?>
 <script type="module" src="<?= $navigationEnhanceJs ?>"></script>
+
+<!-- Navigation Enhancement Test (remove in production) -->
+<div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
+    <button onclick="window.testNavigationEnhancement()" 
+            style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+        🧪 Test Nav Enhancement
+    </button>
+</div>

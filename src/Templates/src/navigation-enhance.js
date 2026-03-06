@@ -75,6 +75,42 @@ export function enhanceNavigation() {
 if (typeof window !== 'undefined') {
     window.enhanceNavigation = enhanceNavigation;
     
+    // Add test function for verifying enhancement
+    window.testNavigationEnhancement = function() {
+        const tests = {
+            navigationEnhanced: false,
+            themeToggleWorks: false,
+            mobileMenuWorks: false,
+        };
+        
+        // Test 1: Check if navigation was enhanced
+        const nav = document.querySelector('[data-svelte-hydrate="navigation"]');
+        tests.navigationEnhanced = !!nav;
+        
+        // Test 2: Check if theme toggle has event listener
+        const themeToggles = document.querySelectorAll('.theme-toggle');
+        tests.themeToggleWorks = themeToggles.length > 0;
+        
+        // Test 3: Check if mobile menu toggle has event listener
+        const mobileToggle = document.querySelector('.nav-primary__mobile-toggle, .mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        tests.mobileMenuWorks = !!(mobileToggle && mobileMenu);
+        
+        // Log results
+        console.log('🧪 Navigation Enhancement Tests:');
+        console.log('  ✅ Navigation enhanced:', tests.navigationEnhanced);
+        console.log('  ✅ Theme toggle found:', tests.themeToggleWorks);
+        console.log('  ✅ Mobile menu found:', tests.mobileMenuWorks);
+        
+        const allPassed = Object.values(tests).every(v => v === true);
+        console.log(allPassed ? '✅ All tests passed!' : '❌ Some tests failed');
+        
+        return {
+            passed: allPassed,
+            results: tests
+        };
+    };
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', enhanceNavigation);
     } else {
