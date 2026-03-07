@@ -14,8 +14,8 @@ $metaDescription ??= 'Modern PHP CMS and Blog Platform';
 
 use Infrastructure\View\AssetHelper;
 
-// Load Cascade-based assets
-$cascadeCss = AssetHelper::css('cascade');
+// Load core CSS which includes Cascade Framework
+$coreCss = AssetHelper::css('core-css');
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -26,8 +26,8 @@ $cascadeCss = AssetHelper::css('cascade');
 
   <title><?= e($pageTitle) ?></title>
   
-  <!-- Cascade Framework CSS -->
-  <link rel="stylesheet" href="<?= $cascadeCss ?>">
+  <!-- Cascade Framework CSS (included in core-css) -->
+  <link rel="stylesheet" href="<?= $coreCss ?>">
 </head>
 <body>
   <div class="site-center">
