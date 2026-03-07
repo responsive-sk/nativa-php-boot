@@ -22,14 +22,17 @@ final class CascadeDemoAction extends Action
     #[\Override]
     public function handle(Request $request): Response
     {
-        $content = $this->renderer->render(
-            'vanilla/frontend/pages/cascade-demo',
-            [
-                'pageTitle' => 'Cascade Demo - Nativa CMS',
-            ]
-            // No layout - page includes header/footer directly
-        );
-
+        // Direct PHP render - cascade-demo.php is self-contained HTML
+        $templatePath = $this->renderer->getTemplatesPath() . '/vanilla/frontend/pages/cascade-demo.php';
+        
+        if (!file_exists($templatePath)) {
+            return $this->notFound('Cascade demo page not found');
+        }
+        
+        ob_start();
+        include $templatePath;
+        $content = ob_get_clean();
+        
         return $this->html($content);
     }
 
