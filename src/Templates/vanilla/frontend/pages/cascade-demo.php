@@ -17,9 +17,10 @@ function e(string $value): string {
 include __DIR__ . '/../layouts/cascade-header.php';
 ?>
 
-<div class="pad">
-  <h1>Cascade Framework Demo</h1>
-  <p class="lead">This page demonstrates Cascade Framework integration with Nativa CMS</p>
+<div class="site-body">
+  <div class="pad">
+    <h1>Cascade Framework Demo</h1>
+    <p class="lead">This page demonstrates Cascade Framework integration with Nativa CMS</p>
   
   <hr>
   
@@ -135,6 +136,8 @@ include __DIR__ . '/../layouts/cascade-header.php';
   </div>
   
 </div>
+</div>
+<!-- /.site-body -->
 
 <?php
 // Include cascade layout footer
