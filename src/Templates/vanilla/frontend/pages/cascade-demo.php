@@ -8,6 +8,11 @@ declare(strict_types = 1);
  */
 $pageTitle ??= 'Cascade Demo - Nativa CMS';
 
+// Helper function for escaping
+function e(string $value): string {
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
 // Include cascade layout header
 include __DIR__ . '/../layouts/cascade-header.php';
 ?>

@@ -22,9 +22,9 @@ $cascadeCss = AssetHelper::css('cascade');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="<?= $this->e($metaDescription) ?>">
-  
-  <title><?= $this->e($pageTitle) ?></title>
+  <meta name="description" content="<?= e($metaDescription) ?>">
+
+  <title><?= e($pageTitle) ?></title>
   
   <!-- Cascade Framework CSS -->
   <link rel="stylesheet" href="<?= $cascadeCss ?>">
