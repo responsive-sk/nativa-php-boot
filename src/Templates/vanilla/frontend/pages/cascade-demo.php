@@ -2,11 +2,14 @@
 declare(strict_types = 1);
 
 /**
- * Cascade Demo Page
+ * Cascade Demo Page - Includes cascade layout
  *
  * @var string $pageTitle
  */
 $pageTitle ??= 'Cascade Demo - Nativa CMS';
+
+// Include cascade layout header
+include __DIR__ . '/../layouts/cascade-header.php';
 ?>
 
 <div class="pad">
@@ -127,3 +130,7 @@ $pageTitle ??= 'Cascade Demo - Nativa CMS';
   </div>
   
 </div>
+
+<?php
+// Include cascade layout footer
+include __DIR__ . '/../layouts/cascade-footer.php';

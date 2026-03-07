@@ -26,8 +26,8 @@ final class CascadeDemoAction extends Action
             'vanilla/frontend/pages/cascade-demo',
             [
                 'pageTitle' => 'Cascade Demo - Nativa CMS',
-            ],
-            'vanilla/frontend/layouts/cascade'
+            ]
+            // No layout - page includes header/footer directly
         );
 
         return $this->html($content);
