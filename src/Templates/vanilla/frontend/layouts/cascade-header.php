@@ -28,6 +28,9 @@ $coreCss = AssetHelper::css('core-css');
   
   <!-- Cascade Framework CSS (included in core-css) -->
   <link rel="stylesheet" href="<?= $coreCss ?>">
+  
+  <!-- Cascade Site CSS (demo styles) -->
+  <link rel="stylesheet" href="/assets/frontend/site.css">
 </head>
 <body>
   <div class="site-center">
